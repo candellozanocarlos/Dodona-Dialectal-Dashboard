@@ -84,7 +84,7 @@ export const ALF_BEOC = {
 };
 
 export const ALF_BEOC_PIE = [
-  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: ALF_BEOC.milesio, color: C.beocio },
+  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: ALF_BEOC.milesio, color: C.milesio },
   { id: "beocio", label: "Beocio (186A · 187A · 190B)", value: ALF_BEOC.beocio, color: C.terra },
 ];
 
@@ -196,13 +196,13 @@ export const RASGO_TEXTS_BEOC = {
 
 // Fenómenos vocálicos (§3.1): número de formas atestiguadas.
 export const VOWEL_PHENOM_BEOC = [
-  { type: "Monoptongación /ai̯/ > /εː/ ⟨Η⟩", short: "Monoptong.|/ai̯/ > ⟨Η⟩", n: 5, desc: "κὴ (×3) y Πολυμνάστη en I.Dodone DVC 313A; α[ρ]κε͂τη en I.Dodone DVC 4157A", color: C.green,
+  { type: "Monoptongación /ai̯/ > /εː/ ⟨Η⟩", n: 5, desc: "κὴ (×3) y Πολυμνάστη en I.Dodone DVC 313A; α[ρ]κε͂τη en I.Dodone DVC 4157A", color: C.green,
     dvcs: [{ src: "DVC", id: "313A" }, { src: "DVC", id: "4157A" }] },
-  { type: "/e/ > /i/ prevocálica", short: "/e/ > /i/|prevocálica", n: 4, desc: "θιός, γενιὰ, ἰόντων (313A); γενιᾶς (4157A)", color: C.blue,
+  { type: "/e/ > /i/ prevocálica", n: 4, desc: "θιός, γενιὰ, ἰόντων (313A); γενιᾶς (4157A)", color: C.blue,
     dvcs: [{ src: "DVC", id: "313A" }, { src: "DVC", id: "4157A" }] },
-  { type: "Cierre /εː/ heredada > /eː/ ⟨ΕΙ⟩", short: "Cierre|/εː/ > ⟨ΕΙ⟩", n: 4, desc: "εἴει, α[ρ]κε͂τη (4157A); ΕὐϜέτειρος̣ (1344A); χρε̄μάτων (313A)", color: C.beocioVowel,
+  { type: "Cierre /εː/ heredada > /eː/ ⟨ΕΙ⟩", n: 4, desc: "εἴει, α[ρ]κε͂τη (4157A); ΕὐϜέτειρος̣ (1344A); χρε̄μάτων (313A)", color: C.beocioVowel,
     dvcs: [{ src: "DVC", id: "4157A" }, { src: "DVC", id: "1344A" }, { src: "DVC", id: "313A" }] },
-  { type: "Monoptongación οι > υ", short: "Monoptong.|οι > υ", n: 4, desc: "γίνυτο, γένυτο y κυνὸν — todos los testimonios son problemáticos (véase rasgo dialectal nº 4)", color: C.terra,
+  { type: "Monoptongación οι > υ", n: 4, desc: "γίνυτο, γένυτο y κυνὸν — todos los testimonios son problemáticos (véase rasgo dialectal nº 4)", color: C.terra,
     dvcs: [{ src: "DVC", id: "1060A" }, { src: "DVC", id: "1649A" }, { src: "DVC", id: "1676A" }, { src: "Lhôte", id: "10" }] },
 ];
 

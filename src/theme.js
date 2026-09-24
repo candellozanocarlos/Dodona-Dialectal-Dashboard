@@ -20,6 +20,7 @@ export const C = {
   heading: "#2c2720",
   thHead: "#ede8dc",
   ink: "#2f4858",            // Dodona y flechas en los mapas
+  milesio: "#d4c4a0",        // alfabeto milesio: claro, para que resalten los epicóricos
   headerGrad1: "#f7f2ea",
   headerGrad2: "#f0ebe0",
   headerGrad3: "#ece6d8",
