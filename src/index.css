@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+/* ═══════════════════════════════════════════════
+   GRIEGO — «Dodona Cardo» (Cardo, OFL 1.1)
+   Derivada de Cardo y servida desde src/assets/fonts: incluye glifos
+   compuestos y una ligadura ccmp para las marcas que
+   Cardo no coloca sobre las letras griegas (macrón U+0304, raya U+0305,
+   perispómena U+0342 y punto subscrito tras vocal acentuada). No usa
+   la PUA: el texto sigue siendo Unicode normal y se puede copiar.
+
+   · «Dodona Greek Cardo»: solo actúa sobre el griego y las marcas
+     combinantes (unicode-range) dentro de textos en DM Sans o Playfair.
+   · «Dodona Cardo»: familia completa para bloques en griego
+     (var(--fg): textos de inscripciones, .greek, .greek-run).
+   ═══════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Dodona Greek Cardo';
+  src: url('./assets/fonts/DodonaCardo-Regular.woff2') format('woff2');
+  font-weight: 100 500; font-style: normal; font-display: swap;
+  size-adjust: 108%;
+  unicode-range: U+0300-036F, U+0370-03FF, U+1DC0-1DFF, U+1F00-1FFF, U+2C75-2C76, U+27E8-27E9;
+}
+@font-face {
+  font-family: 'Dodona Greek Cardo';
+  src: url('./assets/fonts/DodonaCardo-Bold.woff2') format('woff2');
+  font-weight: 600 900; font-style: normal; font-display: swap;
+  size-adjust: 108%;
+  unicode-range: U+0300-036F, U+0370-03FF, U+1DC0-1DFF, U+1F00-1FFF, U+2C75-2C76, U+27E8-27E9;
+}
+@font-face {
+  font-family: 'Dodona Greek Cardo';
+  src: url('./assets/fonts/DodonaCardo-Italic.woff2') format('woff2');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+  size-adjust: 108%;
+  unicode-range: U+0300-036F, U+0370-03FF, U+1DC0-1DFF, U+1F00-1FFF, U+2C75-2C76, U+27E8-27E9;
+}
+@font-face {
+  font-family: 'Dodona Cardo';
+  src: url('./assets/fonts/DodonaCardo-Regular.woff2') format('woff2');
+  font-weight: 100 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Dodona Cardo';
+  src: url('./assets/fonts/DodonaCardo-Bold.woff2') format('woff2');
+  font-weight: 600 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Dodona Cardo';
+  src: url('./assets/fonts/DodonaCardo-Italic.woff2') format('woff2');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — Dodona Dashboard
+   ═══════════════════════════════════════════════ */
+:root {
+  /* Palette */
+  --bg:        #f5f0e8;
+  --bg-card:   rgba(120, 90, 40, 0.04);
+  --border:    rgba(120, 90, 40, 0.15);
+  --border-soft: rgba(120, 90, 40, 0.08);
+
+  --gold:      #8b6914;
+  --amber:     #a06a10;
+  --terra:     #a54030;
+  --green:     #2e7d46;
+  --blue:      #2a6a8e;
+
+  --text:      #3a352e;
+  --text-h:    #2c2720;
+  --muted:     #7a7060;
+  --dim:       #9a9080;
+
+  /* Typography */
+  --fh: 'Dodona Greek Cardo', 'Playfair Display', Georgia, serif;
+  --fb: 'Dodona Greek Cardo', 'DM Sans', system-ui, sans-serif;
+  --fg: 'Dodona Cardo', 'Times New Roman', serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  font: 16px/1.65 var(--fb);
+  letter-spacing: 0.12px;
+  color: var(--text);
+  background: var(--bg);
+
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--bg);
+  /* Subtle parchment grain */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180,140,60,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(120,80,30,0.05) 0%, transparent 60%);
+}
+
+#root {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════════
+   HEADINGS
+   ═══════════════════════════════════════════════ */
+h1, h2, h3, h4 {
+  font-family: var(--fh);
+  color: var(--text-h);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+}
+
+h1 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.5px; }
+h2 { font-size: clamp(18px, 2.5vw, 24px); }
+h3 { font-size: 18px; font-weight: 500; }
+
+p { margin: 0; }
+
+/* ═══════════════════════════════════════════════
+   LINKS
+   ═══════════════════════════════════════════════ */
+a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(139, 105, 20, 0.3);
+  text-underline-offset: 3px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+a:hover {
+  color: var(--amber);
+  text-decoration-color: var(--amber);
+}
+
+/* ═══════════════════════════════════════════════
+   CODE
+   ═══════════════════════════════════════════════ */
+code, kbd {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: rgba(120, 90, 40, 0.08);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  color: var(--terra);
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR (webkit)
+   ═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 90, 40, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 90, 40, 0.45);
+}
+
+/* Texto griego: composición OpenType completa (ccmp, mark) */
+.greek, .greek-run, .greek-inscription, [lang="grc"] {
+  font-family: var(--fg);
+  font-kerning: normal;
+  font-feature-settings: "ccmp" 1, "mark" 1, "mkmk" 1, "kern" 1;
+}
+
+/* ═══════════════════════════════════════════════
+   SELECTION
+   ═══════════════════════════════════════════════ */
+::selection {
+  background: rgba(139, 105, 20, 0.18);
+  color: var(--text-h);
+}
+
+/* ═══════════════════════════════════════════════
+   FOCUS
+   ═══════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid rgba(139, 105, 20, 0.5);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════
+   COMPONENTES
+   ═══════════════════════════════════════════════ */
+button {
+  cursor: pointer;
+  font-family: var(--fb);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: inherit;
+  border: none;
+  background: none;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.greek { font-size: 1.05em; letter-spacing: 0.02em; }
+.greek-run { font-size: 1.04em; letter-spacing: 0.015em; }
+
+/* Filas pulsables de listas (rasgos, grupos) */
+.row-hover:hover { background: rgba(139, 105, 20, 0.06); }
+
+/* Citas de inscripciones con texto emergente (components/Inscriptions.jsx) */
+.insc-ref {
+  cursor: pointer;
+  border-radius: 3px;
+  text-decoration: underline dotted rgba(139, 105, 20, 0.6);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: background 0.15s;
+}
+.insc-ref:hover, .insc-ref:focus-visible { background: rgba(139, 105, 20, 0.12); outline: none; }
+button .insc-ref { text-decoration: none; }
+@keyframes inscFade { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
+/* Autopsias: lista lateral + ficha */
+.autopsy-grid { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
+@media (max-width: 900px) { .autopsy-grid { grid-template-columns: 1fr; } }
+
+/* Entrada suave de cada capítulo */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fadeIn 0.6s ease both; }
+
+@media print {
+  body { background: #fff; }
+}
