@@ -15,7 +15,7 @@ export const ALF_TES = {
 };
 
 export const ALF_TES_PIE = [
-  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: ALF_TES.milesio, color: C.gold },
+  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: ALF_TES.milesio, color: C.milesio },
   { id: "tesalio", label: "Tesalio", value: ALF_TES.tesalio, color: C.terra },
   { id: "dodona", label: "Dodona", value: ALF_TES.dodona, color: C.blue },
   { id: "elide", label: "Élide", value: ALF_TES.elide, color: C.green },

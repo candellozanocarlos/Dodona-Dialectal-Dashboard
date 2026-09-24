@@ -180,7 +180,7 @@ export const THEMES_SEV = Object.entries(INSCRIPCIONES_SEV.reduce((acc, i) => {
 
 // Alfabeto (§3; suma: TOTAL_SEV).
 export const ALF_SEV_PIE = [
-  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: 12, color: C.severior },
+  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: 12, color: C.milesio },
   { id: "italo", label: "Magna Grecia / Sicilia (I.Dodone DVC 1432, 2367, 2409A · I.Dodone Lhôte 5)", value: 4, color: C.blue },
 ];
 

@@ -7,7 +7,7 @@ import {
   MATRIX_BEOC, POLITICAL_LINKS_BEOC, RASGOS_BEOC, RASGO_TEXTS_BEOC, THEMES_BEOC, VOWEL_EXAMPLES_BEOC, VOWEL_PHENOM_BEOC,
 } from "../data/beocio.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
-import { Bars, DonutLegend, Radar, Temas, WithLegend } from "../components/charts.jsx";
+import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref, RefList } from "../components/Inscriptions.jsx";
 import BoeotiaMap from "../components/maps/BoeotiaMap.jsx";
 import {
@@ -246,10 +246,8 @@ export default function Beocio({ switcher }) {
 
         <Sec title="Fenómenos vocálicos beocios" sub="Formas atestiguadas en el corpus para cada fenómeno (§3.1)">
           <Stats>{VOWEL_PHENOM_BEOC.map((v) => <Stat key={v.type} label={v.type} value={v.n} sub={v.desc} accent={v.color} noCase />)}</Stats>
-          <WithLegend valueColor={C.beocio} renderSub={(d) => <RefList dvcs={d.dvcs} />}
-            data={VOWEL_PHENOM_BEOC.map((v) => ({ id: v.type, label: v.type, value: v.n, color: v.color, dvcs: v.dvcs }))}
-            chart={<Radar data={VOWEL_PHENOM_BEOC.map((v) => ({ name: v.short, value: v.n }))} height={330} color={C.beocio}
-              unit="formas" extra={Object.fromEntries(VOWEL_PHENOM_BEOC.map((v) => [v.short, v.desc]))} />} />
+          <DonutLegend data={VOWEL_PHENOM_BEOC.map((v) => ({ id: v.type, label: v.type, value: v.n, color: v.color, desc: v.desc, dvcs: v.dvcs }))}
+            height={260} unit="formas" valueColor={C.beocio} renderSub={(d) => <RefList dvcs={d.dvcs} />} />
         </Sec>
 
         <Sec title="Detalle de las inscripciones" sub="Formas fonológicamente relevantes del corpus beocio">
