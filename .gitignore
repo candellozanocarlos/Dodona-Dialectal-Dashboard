@@ -1,0 +1,24 @@
+# Dependencias y build
+node_modules
+dist
+dist-ssr
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Fotografías de autopsia (Eforía de Antigüedades de Ioánina): se conservan en
+# local y no se publican sin autorización. La app muestra un aviso si faltan.
+public/assets/autopsias/
+
+# Editores y herramientas locales
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+desktop.ini
+*.suo
+*.sw?
