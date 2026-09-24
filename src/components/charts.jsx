@@ -1,7 +1,9 @@
 // Gráficos comunes (Nivo). Todos comparten tema, tooltip y cifras dentro de
 // las barras, de modo que un capítulo nuevo solo tiene que pasar los datos.
+import { useState } from "react";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsivePie } from "@nivo/pie";
+import { ResponsiveRadar } from "@nivo/radar";
 import { C, fade } from "../theme.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 
@@ -173,27 +175,71 @@ export function Bars({
   );
 }
 
+// Porciones de menos de FINO grados: sin cifra dentro; se agrupan a la derecha
+// del anillo y se rotulan fuera, escalonadas para que no se solapen.
+const FINO = 10;
+
+const RotulosFuera = ({ dataWithArc, centerX, centerY, radius }) => {
+  const lados = { der: [], izq: [] };
+  dataWithArc.filter((d) => d.arc.angleDeg < FINO).forEach((d) => {
+    const a = (d.arc.startAngle + d.arc.endAngle) / 2;
+    const p = { d, x0: centerX + Math.sin(a) * radius, y0: centerY - Math.cos(a) * radius };
+    lados[Math.sin(a) >= 0 ? "der" : "izq"].push(p);
+  });
+  return (
+    <g>
+      {Object.entries(lados).flatMap(([lado, ps]) => {
+        ps.sort((p, q) => p.y0 - q.y0);
+        ps.forEach((p, i) => { p.y = i ? Math.max(p.y0, ps[i - 1].y + 15) : p.y0; });
+        const ajuste = ps.length ? (ps[0].y0 + ps.at(-1).y0 - ps[0].y - ps.at(-1).y) / 2 : 0;
+        const s = lado === "der" ? 1 : -1, x1 = centerX + s * (radius + 14);
+        return ps.map(({ d, x0, y0, y }) => (
+          <g key={d.id} style={{ pointerEvents: "none" }}>
+            <polyline points={`${x0},${y0} ${x1},${y + ajuste} ${x1 + s * 6},${y + ajuste}`} fill="none" stroke={d.color} strokeWidth={1} />
+            <text x={x1 + s * 9} y={y + ajuste} textAnchor={s > 0 ? "start" : "end"} dominantBaseline="central"
+              style={{ fontFamily: "var(--fb)", fontSize: 11, fill: C.muted }}>
+              <tspan style={{ fontFamily: "var(--fh)", fontWeight: 700, fill: d.color }}>{d.value}</tspan> {d.label}
+            </text>
+          </g>
+        ));
+      })}
+    </g>
+  );
+};
+
 // Anillo para repartos de un todo: data [{ id, label, value, color, desc? }].
 export const Donut = ({ data, height = 260, unit = "inscripciones" }) => {
-  const total = data.reduce((a, d) => a + (d.value || 0), 0);
+  const shown = data.filter((d) => d.value > 0);
+  const total = shown.reduce((a, d) => a + d.value, 0);
+  // Giro que centra el tramo de porciones finas en las 3 en punto.
+  let acc = 0, ini = null, fin = 0;
+  shown.forEach((d) => {
+    const g = d.value / total * 360;
+    if (g < FINO) { ini ??= acc; fin = acc + g; }
+    acc += g;
+  });
+  const giro = ini === null ? 0 : 90 - (ini + fin) / 2;
   return (
     <div style={{ height, width: "100%" }}>
       <ResponsivePie
-        data={data.filter((d) => d.value > 0)}
-        margin={{ top: 16, right: 16, bottom: 16, left: 16 }}
+        data={shown}
+        margin={{ top: 16, right: ini === null ? 16 : 110, bottom: 16, left: 16 }}
+        startAngle={giro}
+        endAngle={giro + 360}
         innerRadius={0.46}
-        padAngle={1.2}
+        padAngle={0.8}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
         activeInnerRadiusOffset={3}
         colors={({ data: d }) => d.color}
-        borderWidth={2}
+        borderWidth={1.5}
         borderColor="rgba(255,252,245,0.85)"
         enableArcLinkLabels={false}
         arcLabel={(d) => String(d.value)}
         arcLabelsRadiusOffset={0.58}
-        arcLabelsSkipAngle={10}
+        arcLabelsSkipAngle={FINO}
         arcLabelsTextColor={({ data: d }) => (esClaro(d.color) ? C.heading : "rgba(255,252,245,0.97)")}
+        layers={["arcs", "arcLabels", RotulosFuera]}
         theme={THEME}
         tooltip={({ datum }) => (
           <ChartTip label={datum.data.label || datum.id} value={datum.value} color={datum.data.color}
@@ -206,12 +252,69 @@ export const Donut = ({ data, height = 260, unit = "inscripciones" }) => {
   );
 };
 
-// Anillo con leyenda lateral; renderSub(d) añade una línea bajo cada entrada.
-export const DonutLegend = ({ data, height = 300, unit, valueColor = C.gold, renderSub = null }) => (
-  <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", padding: "12px 0" }}>
-    <div style={{ flex: "1 1 280px", minWidth: 240 }}>
-      <Donut data={data} height={height} unit={unit} />
+// Rótulos de los ejes del radar: parte los largos en « / » o «|».
+const RadarLabel = ({ id, anchor, x, y }) => {
+  const lineas = String(id).split(" / ").flatMap((l) => l.split("|"));
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      <text textAnchor={anchor} dominantBaseline="central" style={{ fontFamily: "var(--fb)", fontSize: 10.5, fill: C.muted }}>
+        {lineas.map((l, i) => <tspan key={i} x={0} dy={i === 0 ? -(lineas.length - 1) * 6.5 : 13}>{l}</tspan>)}
+      </text>
+    </g>
+  );
+};
+
+// Radar («área»): data [{ name, value }]; extra { name: texto } añade una línea al tooltip.
+export const Radar = ({ data, height = 330, color = C.gold, unit = "inscripciones", extra = {} }) => {
+  const [hover, setHover] = useState(false);
+  return (
+    <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ height, width: "100%", transition: "transform 0.25s ease", transform: hover ? "scale(1.035)" : "none" }}>
+      <ResponsiveRadar
+        data={data}
+        keys={["value"]}
+        indexBy="name"
+        margin={{ top: 54, right: 96, bottom: 54, left: 96 }}
+        gridShape="circular"
+        gridLevels={Math.min(5, Math.max(2, ...data.map((d) => d.value || 0)))}
+        gridLabel={RadarLabel}
+        gridLabelOffset={22}
+        colors={[color]}
+        fillOpacity={hover ? 0.34 : 0.15}
+        borderWidth={hover ? 2.6 : 2}
+        borderColor={color}
+        dotSize={hover ? 9 : 7}
+        dotColor={C.bg}
+        dotBorderWidth={2}
+        dotBorderColor={color}
+        blendMode="multiply"
+        theme={THEME}
+        motionConfig="gentle"
+        sliceTooltip={({ index, data: d }) => (
+          <ChartTip label={String(index).replaceAll("|", " ")} value={d?.[0]?.value ?? 0} color={color} unit={unit} extra={extra[index] || ""} />
+        )}
+        role="img"
+      />
     </div>
+  );
+};
+
+// Temática: barras con todas las categorías y radar sin las no clasificadas.
+export const Temas = ({ data, color, height = 340 }) => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
+    <div style={{ flex: "1 1 420px", minWidth: 280 }}>
+      <Bars horizontal data={data} color={C.amber} height={height} left={200} />
+    </div>
+    <div style={{ flex: "1 1 320px", minWidth: 280 }}>
+      <Radar data={data.filter((t) => !t.name.startsWith("Desconocido"))} height={height} color={color} />
+    </div>
+  </div>
+);
+
+// Gráfico a la izquierda y leyenda con cifras a la derecha; renderSub(d) añade una línea bajo cada entrada.
+export const WithLegend = ({ chart, data, valueColor = C.gold, renderSub = null }) => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", padding: "12px 0" }}>
+    <div style={{ flex: "1 1 300px", minWidth: 240 }}>{chart}</div>
     <div style={{ flex: "1 1 260px", minWidth: 230 }}>
       {data.map((d) => (
         <div key={d.id} style={{ marginBottom: 12 }}>
@@ -225,4 +328,8 @@ export const DonutLegend = ({ data, height = 300, unit, valueColor = C.gold, ren
       ))}
     </div>
   </div>
+);
+
+export const DonutLegend = ({ data, height = 300, unit, ...rest }) => (
+  <WithLegend data={data} chart={<Donut data={data} height={height} unit={unit} />} {...rest} />
 );

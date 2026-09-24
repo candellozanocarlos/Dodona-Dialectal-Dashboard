@@ -1,4 +1,4 @@
-// Capítulo: el dórico en las laminillas de Dodona. Se organiza en subsecciones
+// Capítulo: el dórico en las laminillas oraculares de Dodona. Se organiza en subsecciones
 // (SUBSECCIONES_DOR); por ahora solo existe la del doris severior.
 import { useState } from "react";
 import { C, PROSE, fade } from "../theme.js";
@@ -9,7 +9,7 @@ import {
   THEMES_SEV, TOPONYMS_EXCLUDED_SEV, TOPONYMS_SEV, TOPONYM_BARS_SEV, TOPONYM_MENTIONS_SEV, VOWEL_SYSTEMS_SEV, VOWEL_VARIETIES_SEV,
 } from "../data/dorico.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
-import { Bars, DonutLegend } from "../components/charts.jsx";
+import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
 import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
 import { Card, ChapterLayout, EventTable, GreekBlock, Select, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
@@ -108,7 +108,7 @@ export default function Dorico({ switcher }) {
 
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={C.severior} accent={[C.terra, C.severior, C.blue, C.green]}
-      title={<>El <em style={{ fontWeight: 700, color: C.severior }}>doris severior</em> en las laminillas de Dodona</>}
+      title={<>El <em style={{ fontWeight: 700, color: C.severior }}>doris severior</em> en las laminillas oraculares de Dodona</>}
       subtitle="Dórico de la Magna Grecia · Un único rasgo diagnóstico: ⟨Η⟩ y ⟨Ω⟩ en las vocales medias largas secundarias"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_SEV)} sub="ss. V–III a.C." accent={C.severior} />
@@ -349,7 +349,7 @@ export default function Dorico({ switcher }) {
         </Sec>
 
         <Sec title="Temática de las consultas" sub={`Temas de consulta (n = ${TOTAL_SEV})`}>
-          <Bars horizontal data={THEMES_SEV} color={C.amber} height={290} left={200} />
+          <Temas data={THEMES_SEV} color={C.severior} height={310} />
           <p style={{ ...PROSE, fontSize: 11.5, marginTop: 8 }}>
             Dos de las dieciséis inscripciones (el 12,5 %) no han podido clasificarse; en I.Dodone Lhôte 5, consulta pública sobre la
             prosperidad y los territorios de la ciudad, ello obedece a la naturaleza del texto y no a su conservación. Destacan las

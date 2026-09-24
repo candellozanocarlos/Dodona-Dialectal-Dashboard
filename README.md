@@ -1,4 +1,4 @@
-# Dialectos en las laminillas de Dodona
+# Dialectos en las laminillas oraculares de Dodona
 
 Dashboard interactivo que acompaña a los capítulos dialectales de la tesis doctoral
 sobre las laminillas oraculares de Dodona. Cada capítulo de la tesis tiene su vista:

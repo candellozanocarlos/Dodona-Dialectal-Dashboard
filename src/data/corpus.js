@@ -11,7 +11,7 @@ export const TOTAL_SEV = 16;
 // Macrogrupos dialectales del corpus (suman TOTAL_CORPUS), de mayor a menor.
 // Fuente única de los gráficos «… en contexto» de todos los capítulos.
 export const MACROGRUPOS = [
-  { name: "No jonio-ático (sin precisar)", value: 428, color: "#b5a58a" },
+  { name: "No jónico-ático (sin precisar)", value: 428, color: "#b5a58a" },
   { name: "Dórico", value: 151, color: C.terra },
   { name: "Jónico-ático-koiné", value: 135, color: C.blue },
   { name: "Mezcla dialectal", value: 98, color: C.amber },
