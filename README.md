@@ -1,5 +1,7 @@
 # Dialectos en las laminillas oraculares de Dodona
 
+*Interactive dashboard of the dialects attested in the Dodona oracular lamellae based on Carlos Candel Lozano PhD thesis.*
+
 Dashboard interactivo que acompaña a los capítulos dialectales de la tesis doctoral
 sobre las laminillas oraculares de Dodona. Cada capítulo de la tesis tiene su vista:
 
