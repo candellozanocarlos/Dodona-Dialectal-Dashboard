@@ -1,4 +1,4 @@
-// Capítulo: el dialecto tesalio en las laminillas de Dodona.
+// Capítulo: el dialecto tesalio en las laminillas oraculares de Dodona.
 import { useState } from "react";
 import { C, PROSE } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_TES, pct } from "../data/corpus.js";
@@ -8,7 +8,7 @@ import {
   VOWEL_EXAMPLES_TES, VOWEL_NOTATION_TES,
 } from "../data/tesalio.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
-import { Bars, Donut, DonutLegend } from "../components/charts.jsx";
+import { Bars, Donut, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref, RefList } from "../components/Inscriptions.jsx";
 import ThessalyMap from "../components/maps/ThessalyMap.jsx";
 import { Card, ChapterLayout, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
@@ -54,7 +54,7 @@ export default function Tesalio({ switcher }) {
 
   return (
     <ChapterLayout switcher={switcher} color={C.gold} accent={[C.terra, C.gold, C.amber, C.green]}
-      title={<>El dialecto <em style={{ fontWeight: 700, color: C.gold }}>tesalio</em> en las laminillas de Dodona</>}
+      title={<>El dialecto <em style={{ fontWeight: 700, color: C.gold }}>tesalio</em> en las laminillas oraculares de Dodona</>}
       subtitle="Análisis lingüístico del corpus oracular · Fonología, morfología, sintaxis y léxico"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_TES)} sub="ss. V–II a.C." accent={C.green} />
@@ -244,7 +244,7 @@ export default function Tesalio({ switcher }) {
         </Sec>
 
         <Sec title="Temática de las consultas" sub="Temas de consulta de las inscripciones tesalias">
-          <Bars horizontal data={THEMES_TES} color={C.amber} height={360} left={200} />
+          <Temas data={THEMES_TES} color={C.gold} height={360} />
           <p style={{ ...PROSE, fontSize: 11.5, marginTop: 8 }}>
             Predominan las preguntas de índole religiosa, seguidas de las familiares y matrimoniales y de las relativas a actividades
             laborales o comerciales; {THEMES_TES[0].value} inscripciones no han podido clasificarse por su temática.

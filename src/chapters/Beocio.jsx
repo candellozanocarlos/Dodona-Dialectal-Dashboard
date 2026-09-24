@@ -1,4 +1,4 @@
-// Capítulo: el dialecto beocio en las laminillas de Dodona.
+// Capítulo: el dialecto beocio en las laminillas oraculares de Dodona.
 import { useState } from "react";
 import { C, CAT_COLORS, PROSE, fade } from "../theme.js";
 import { MACROGRUPOS, TOTAL_BEOC, TOTAL_CORPUS, TOTAL_TES, pct } from "../data/corpus.js";
@@ -7,7 +7,7 @@ import {
   MATRIX_BEOC, POLITICAL_LINKS_BEOC, RASGOS_BEOC, RASGO_TEXTS_BEOC, THEMES_BEOC, VOWEL_EXAMPLES_BEOC, VOWEL_PHENOM_BEOC,
 } from "../data/beocio.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
-import { Bars, DonutLegend } from "../components/charts.jsx";
+import { Bars, DonutLegend, Radar, Temas, WithLegend } from "../components/charts.jsx";
 import { Ref, RefList } from "../components/Inscriptions.jsx";
 import BoeotiaMap from "../components/maps/BoeotiaMap.jsx";
 import {
@@ -38,7 +38,7 @@ export default function Beocio({ switcher }) {
 
   return (
     <ChapterLayout switcher={switcher} color={C.beocio} accent={[C.terra, C.beocio, C.blue, C.green]}
-      title={<>El dialecto <em style={{ fontWeight: 700, color: C.beocio }}>beocio</em> en las laminillas de Dodona</>}
+      title={<>El dialecto <em style={{ fontWeight: 700, color: C.beocio }}>beocio</em> en las laminillas oraculares de Dodona</>}
       subtitle="Análisis lingüístico del corpus oracular · Fonología, morfología, sintaxis y léxico"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_BEOC)} sub="ss. V–II a.C." accent={C.beocio} />
@@ -156,7 +156,7 @@ export default function Beocio({ switcher }) {
         </Sec>
 
         <Sec title="Temática de las consultas" sub="Temas de consulta de las inscripciones beocias">
-          <Bars horizontal data={THEMES_BEOC} color={C.amber} height={320} left={200} />
+          <Temas data={THEMES_BEOC} color={C.beocio} height={330} />
           <p style={{ ...PROSE, fontSize: 11.5, marginTop: 8 }}>
             No existe una categoría dominante: 6 de las 18 inscripciones (el 33 %) no han podido clasificarse, proporción comparable
             a la del corpus tesalio (27 %), y ninguna temática supera los dos testimonios. La ausencia de un tema predominante refleja,
@@ -246,14 +246,10 @@ export default function Beocio({ switcher }) {
 
         <Sec title="Fenómenos vocálicos beocios" sub="Formas atestiguadas en el corpus para cada fenómeno (§3.1)">
           <Stats>{VOWEL_PHENOM_BEOC.map((v) => <Stat key={v.type} label={v.type} value={v.n} sub={v.desc} accent={v.color} noCase />)}</Stats>
-          <Bars horizontal data={VOWEL_PHENOM_BEOC.map((v) => ({ name: v.type, value: v.n, color: v.color }))} height={220} left={230} unit="formas" />
-          <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 8 }}>
-            {VOWEL_PHENOM_BEOC.map((v) => (
-              <div key={v.type} style={{ fontSize: 11.5, color: C.muted }}>
-                <span style={{ color: v.color, fontWeight: 600 }}>{renderGreekText(v.type)}:</span> <RefList dvcs={v.dvcs} />
-              </div>
-            ))}
-          </div>
+          <WithLegend valueColor={C.beocio} renderSub={(d) => <RefList dvcs={d.dvcs} />}
+            data={VOWEL_PHENOM_BEOC.map((v) => ({ id: v.type, label: v.type, value: v.n, color: v.color, dvcs: v.dvcs }))}
+            chart={<Radar data={VOWEL_PHENOM_BEOC.map((v) => ({ name: v.short, value: v.n }))} height={330} color={C.beocio}
+              unit="formas" extra={Object.fromEntries(VOWEL_PHENOM_BEOC.map((v) => [v.short, v.desc]))} />} />
         </Sec>
 
         <Sec title="Detalle de las inscripciones" sub="Formas fonológicamente relevantes del corpus beocio">
