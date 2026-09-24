@@ -477,18 +477,31 @@ export default function Dorico({ switcher }) {
 
       {tab === "vowels" && <>
         <Sec title="Severior, media y mitior" sub="Tratamiento de las vocales medias largas en los tres tipos de vocalismo dórico">
-          <Table color={C.heading} head={["Origen de la vocal", ...VOWEL_VARIETIES_SEV.map((v) => v.name)]}
-            rows={VOWEL_SYSTEMS_SEV.map((r) => [
-              <span style={{ color: C.text }}>{r.proc}</span>,
-              ...["sev", "media", "mit"].map((k) => {
-                const open = r[k] === "open";
-                return (
-                  <span className="greek" style={{ display: "inline-block", minWidth: 92, padding: "3px 8px", borderRadius: 5, fontSize: 14, textAlign: "center",
-                    background: open ? fade(C.severior, 0.12) : fade(C.green, 0.1), color: open ? C.severiorDeep : C.green,
-                    border: `1px solid ${open ? fade(C.severior, 0.25) : fade(C.green, 0.25)}` }}>{open ? "⟨Η⟩ ⟨Ω⟩" : "⟨ΕΙ⟩ ⟨ΟΥ⟩"}</span>
-                );
-              }),
-            ])} />
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ borderCollapse: "collapse", width: "100%", fontSize: 12.5, minWidth: 560 }}>
+              <thead><tr style={{ borderBottom: `2px solid ${C.border}` }}>
+                <th style={{ padding: "9px 10px", textAlign: "left", fontFamily: "var(--fh)", color: C.heading, fontWeight: 600 }}>Origen de la vocal</th>
+                {VOWEL_VARIETIES_SEV.map((v) => (
+                  <th key={v.id} style={{ padding: "9px 10px", textAlign: "center", fontFamily: "var(--fh)", color: v.color, fontWeight: 700 }}>{v.name}</th>
+                ))}
+              </tr></thead>
+              <tbody>{VOWEL_SYSTEMS_SEV.map((r, i) => (
+                <tr key={r.proc} style={{ borderBottom: "1px solid rgba(120,90,40,0.08)", background: i === 0 ? "rgba(120,90,40,0.04)" : "transparent" }}>
+                  <td style={{ padding: "8px 10px", color: C.text }}>{r.proc}</td>
+                  {["sev", "media", "mit"].map((k) => {
+                    const open = r[k] === "open";
+                    return (
+                      <td key={k} style={{ padding: "8px 10px", textAlign: "center" }}>
+                        <span style={{ display: "inline-block", minWidth: 92, padding: "3px 8px", borderRadius: 5, fontFamily: "var(--fg)", fontSize: 14,
+                          background: open ? fade(C.severior, 0.12) : fade(C.green, 0.1), color: open ? C.severiorDeep : C.green,
+                          border: `1px solid ${open ? fade(C.severior, 0.25) : fade(C.green, 0.25)}` }}>{open ? "⟨Η⟩ ⟨Ω⟩" : "⟨ΕΙ⟩ ⟨ΟΥ⟩"}</span>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10, marginTop: 14 }}>
             {VOWEL_VARIETIES_SEV.map((v) => (
               <Card key={v.id} accent={v.color}>
