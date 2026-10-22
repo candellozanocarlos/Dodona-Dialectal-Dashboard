@@ -71,7 +71,7 @@ export default function ThessalyMap({ region = null, onRegion = () => {}, place 
           const sel = () => data && onRegion(region === t.id ? null : t.id);
           return (
             <path key={t.id} d={TH_AREAS[t.id]} fill={col} fillOpacity={on ? 0.3 : data ? 0.14 : 0.05}
-              stroke={on ? C.gold : col} strokeOpacity={on ? 0.95 : 0.45} strokeWidth={on ? 2 : 1} strokeDasharray={on ? "none" : "5 3"}
+              stroke={on ? C.tesalio : col} strokeOpacity={on ? 0.95 : 0.45} strokeWidth={on ? 2 : 1} strokeDasharray={on ? "none" : "5 3"}
               tabIndex={data ? 0 : -1} role={data ? "button" : undefined}
               aria-label={data ? `${data.name}: ${data.value} inscripciones` : `${t.name}: sin inscripciones adscritas`}
               onMouseEnter={() => setHover(`r:${t.id}`)} onMouseLeave={() => setHover(null)}
@@ -136,7 +136,7 @@ export default function ThessalyMap({ region = null, onRegion = () => {}, place 
               {pl.kind === "procedencia" &&
                 <polygon points={diamond(x, y, on ? 9 : 7.5)} fill="rgba(255,255,255,0.75)" stroke={col} strokeWidth={2} filter={on ? "url(#mapGlow)" : "none"} />}
               {pl.kind === "contexto" && <circle cx={x} cy={y} r={on ? 5.5 : 4.5} fill={C.text} stroke="#fff" strokeWidth={1.3} />}
-              {place === pl.id && <circle cx={x} cy={y} r={r + 8} fill="none" stroke={C.gold} strokeWidth={1.2} strokeDasharray="3 2" />}
+              {place === pl.id && <circle cx={x} cy={y} r={r + 8} fill="none" stroke={C.tesalio} strokeWidth={1.2} strokeDasharray="3 2" />}
               <text x={x + pl.dx} y={y + pl.dy} textAnchor={pl.anchor}
                 style={{ fontSize: pl.kind === "contexto" ? 11 : 12.5, fontFamily: "var(--fh)",
                   fontStyle: pl.kind === "region" ? "italic" : "normal", fontWeight: on || pl.kind !== "contexto" ? 700 : 500,
@@ -162,15 +162,15 @@ export default function ThessalyMap({ region = null, onRegion = () => {}, place 
           </div>
           <div style={{ color: C.muted, marginTop: 3 }}>
             {TH_KIND[hovered.kind].label}{hovered.mentions.length > 1 ? ` · ${hovered.mentions.length} menciones` : ""}
-            {hovered.kind === "mencion" && !hovered.certain ? " · referencia probable" : ""}
+            {hovered.kind === "mencion" && !hovered.certain ? " · referencia probable o discutida" : ""}
           </div>
           <div style={{ color: C.dim, fontSize: 10.5, marginTop: 3 }}>Pulsa para ver el detalle</div>
         </div>
       )}
 
       <MapLegend items={[
-        { el: <circle cx="8" cy="8" r="6" fill={C.gold} stroke="#fff" strokeWidth="1.2" />, l: "Topónimo en una laminilla (tamaño ∝ menciones)" },
-        { el: <><circle cx="8" cy="8" r="4" fill={C.gold} /><circle cx="8" cy="8" r="7" fill="none" stroke={C.gold} strokeDasharray="3 2" /></>, l: "Referencia probable o restituida" },
+        { el: <circle cx="8" cy="8" r="6" fill={C.tesalio} stroke="#fff" strokeWidth="1.2" />, l: "Topónimo en una laminilla (tamaño ∝ menciones)" },
+        { el: <><circle cx="8" cy="8" r="4" fill={C.tesalio} /><circle cx="8" cy="8" r="7" fill="none" stroke={C.tesalio} strokeDasharray="3 2" /></>, l: "Referencia probable, restituida o discutida" },
         { el: <polygon points={diamond(8, 8, 6)} fill="rgba(255,255,255,0.75)" stroke={C.amber} strokeWidth="1.6" />, l: "Procedencia declarada" },
         { el: <circle cx="8" cy="8" r="4.5" fill={C.text} />, l: "Sin mención en el corpus" },
         { el: <polygon points={star(8, 8, 7, 3)} fill={C.ink} />, l: "Santuario de Dodona" },

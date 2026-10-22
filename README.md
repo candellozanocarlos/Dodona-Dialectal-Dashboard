@@ -7,9 +7,9 @@ sobre las laminillas oraculares de Dodona. Cada capítulo de la tesis tiene su v
 
 | Capítulo | Contenido |
 |---|---|
-| **Tesalio** | Contexto histórico, mapa de Tesalia por tétradas, perfil dialectal (30 rasgos), vocalismo y rasgos compartidos con el beocio |
+| **Tesalio** | Contexto histórico, mapa de Tesalia por tétradas, perfil dialectal (31 rasgos), vocalismo y rasgos compartidos con el beocio |
 | **Beocio** | Contexto histórico, mapa de Beocia, perfil dialectal (18 rasgos), vocalismo y rasgos compartidos con el tesalio |
-| **Dórico · doris severior** | Magna Grecia y Dodona, mapa de topónimos y etnónimos occidentales, clasificación de las 16 inscripciones y vocalismo frente a la doris media |
+| **Dórico** | Tres subsecciones: dórico general (por ahora, los 16 rasgos fonéticos del capítulo y su valor diagnóstico), dórico noroccidental (en preparación) y doris severior (Magna Grecia y Dodona, mapa de topónimos y etnónimos occidentales, clasificación de las 16 inscripciones y vocalismo frente a la doris media) |
 | **Autopsias** | Notas de autopsia de laminillas examinadas en la Eforía de Antigüedades de Ioánina |
 
 Las citas de inscripciones (*I.Dodone DVC* 123A, *I.Dodone Lhôte* 8B) muestran su texto al pasar

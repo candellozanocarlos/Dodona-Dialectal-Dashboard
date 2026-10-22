@@ -214,6 +214,13 @@ button {
 .greek { font-size: 1.05em; letter-spacing: 0.02em; }
 .greek-run { font-size: 1.04em; letter-spacing: 0.015em; }
 
+/* Rótulo de cada edición cuando una inscripción tiene varias («[ed. I.Dodone DVC]») */
+.ed-label {
+  display: block; margin: 10px 0 2px; font-family: var(--fb); font-size: 10.5px; line-height: 1.4;
+  letter-spacing: 0.4px; color: #7a7060; border-top: 1px dashed rgba(139, 105, 20, 0.25); padding-top: 6px;
+}
+.ed-label:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+
 /* Filas pulsables de listas (rasgos, grupos) */
 .row-hover:hover { background: rgba(139, 105, 20, 0.06); }
 

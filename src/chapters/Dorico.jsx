@@ -1,7 +1,7 @@
 // Capítulo: el dórico en las laminillas oraculares de Dodona. Se organiza en subsecciones
-// (SUBSECCIONES_DOR); por ahora solo existe la del doris severior.
+// (SUBSECCIONES_DOR): dórico general (DoricoGeneral.jsx), dórico noroccidental (en preparación) y doris severior.
 import { useState } from "react";
-import { C, PROSE, fade } from "../theme.js";
+import { C, DIALECT_COLORS, DIALECT_INK, PROSE, colorSiglo, fade } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_SEV, pct } from "../data/corpus.js";
 import {
   ALF_SEV_PIE, CHRONO_DETAIL_SEV, DIAGNOSTIC_FORMS_SEV, EXCLUDED_SEV, FILIACION_SEV, GROUP_BARS_SEV, INSCRIPCIONES_SEV,
@@ -10,9 +10,10 @@ import {
 } from "../data/dorico.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
-import { Ref } from "../components/Inscriptions.jsx";
+import { DvcLabel, Ref } from "../components/Inscriptions.jsx";
 import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
-import { Card, ChapterLayout, EventTable, GreekBlock, Select, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
+import DoricoGeneral from "./DoricoGeneral.jsx";
+import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Select, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
 
 const TABS = [
   { id: "context", l: "Contexto histórico", i: "📜" },
@@ -65,7 +66,7 @@ const SevInscriptionPanel = ({ id, onClose }) => {
             color: C.severiorDeep, border: `1px solid ${fade(C.severior, 0.2)}` }}>{renderGreekText(sevForm(f))}</span>
         ))}
         <span style={{ fontSize: 10.5, color: C.dim, alignSelf: "center" }}>
-          {ins.tema} · alfabeto {ins.alf === "Reformado / Milesio" ? "milesio" : "de Magna Grecia / Sicilia"}
+          {ins.tema} · alfabeto {ins.alf === "Reformado / Desconocido" ? "reformado o no identificado" : "de Magna Grecia / Sicilia"}
         </span>
       </div>
       <p style={PROSE}>{renderSev(ins.note)}</p>
@@ -74,8 +75,22 @@ const SevInscriptionPanel = ({ id, onClose }) => {
   );
 };
 
+// ── Dórico noroccidental: pendiente de redacción ──
+const DoricoNO = ({ switcher, subnav }) => (
+  <ChapterLayout switcher={switcher} subnav={subnav} color={DIALECT_INK.doricoNO} accent={[C.terra, DIALECT_COLORS.doricoNO, C.gold, C.blue]}
+    title={<>El <span style={{ fontWeight: 700, color: DIALECT_INK.doricoNO }}>dórico noroccidental</span> en las laminillas oraculares de Dodona</>}
+    subtitle="Sección en preparación" stats={null}
+    tabs={[{ id: "prep", l: "En preparación", i: "…" }]} tab="prep" onTab={() => {}}>
+    <Card style={{ padding: "18px 22px" }}>
+      <p style={{ ...PROSE, fontSize: 13, color: C.text }}>
+        El capítulo del dórico noroccidental está en redacción; esta sección se completará cuando esté terminado.
+      </p>
+    </Card>
+  </ChapterLayout>
+);
+
 export default function Dorico({ switcher }) {
-  const [sub, setSub] = useState("severior");
+  const [sub, setSub] = useState("general");
   const [tab, setTab] = useState("context");
   const [selGroup, setSelGroup] = useState(null);
   const [clickedId, setClickedId] = useState(null);
@@ -105,6 +120,9 @@ export default function Dorico({ switcher }) {
       })}
     </div>
   );
+
+  if (sub === "general") return <DoricoGeneral switcher={switcher} subnav={subnav} />;
+  if (sub === "noroccidental") return <DoricoNO switcher={switcher} subnav={subnav} />;
 
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={C.severior} accent={[C.terra, C.severior, C.blue, C.green]}
@@ -339,7 +357,7 @@ export default function Dorico({ switcher }) {
 
         <Sec title="Distribución cronológica"
           sub={`El grueso del material se concentra en el s. IV a.C. (${nSigloIV} de ${TOTAL_SEV}); el único testimonio posterior es I.Dodone DVC 3842`}>
-          <Bars data={CHRONO_DETAIL_SEV} indexBy="period" keys={["n"]} color={C.severior} height={280} rotate={-35} />
+          <Bars data={CHRONO_DETAIL_SEV.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={280} rotate={-35} />
           <p style={{ ...PROSE, fontSize: 11.5, marginTop: 4 }}>
             Dos inscripciones del s. V (<Ref src="DVC" id="429B" /> y <Ref src="DVC" id="3354A" />), una de transición V-IV
             (<Ref src="DVC" id="268A" />), once del s. IV, una de transición IV-III (<Ref src="Lhôte" id="5" />) y una de la primera
@@ -358,7 +376,7 @@ export default function Dorico({ switcher }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="El 75 % de las inscripciones (12 de 16) emplean el alfabeto milesio o no presentan ningún alfabeto epicórico reconocible. Las cuatro excepciones están escritas en alfabetos de la Magna Grecia y Sicilia: I.Dodone DVC 1432 e I.Dodone Lhôte 5, las dos únicas en las que el vocalismo severior se combina con un dato onomástico o toponímico inequívoco, e I.Dodone DVC 2367 y 2409A, con el signo de aspiración Ͱ propio de esa zona.">
+          note="El 75 % de las inscripciones (12 de 16) emplean el alfabeto jónico reformado o un alfabeto que no puede identificarse. Las cuatro excepciones están escritas en alfabetos de la Magna Grecia y Sicilia: I.Dodone DVC 1432 e I.Dodone Lhôte 5, las dos únicas en las que el vocalismo severior se combina con un dato onomástico o toponímico inequívoco, e I.Dodone DVC 2367 y 2409A, con el signo de aspiración Ͱ propio de esa zona.">
           <DonutLegend data={ALF_SEV_PIE} height={220} valueColor={C.severior} />
         </Sec>
 
@@ -409,7 +427,7 @@ export default function Dorico({ switcher }) {
                       <button key={ins.id} onClick={() => setClickedId(on ? null : ins.id)} aria-pressed={on} style={{
                         background: fade(g.color, on ? 0.16 : 0.07), border: `1px ${g.id === "e" ? "dashed" : "solid"} ${on ? g.color : fade(g.color, 0.25)}`,
                         borderRadius: 6, padding: "6px 10px", fontSize: 11.5, color: on ? C.heading : C.muted, fontWeight: on ? 600 : 400, textAlign: "left" }}>
-                        {renderDesc(fmtDvc(ins.id))}
+                        <DvcLabel dvc={ins.id} />
                         <span className="greek" style={{ display: "block", fontSize: 13, color: C.severiorDeep, marginTop: 1 }}>{renderGreekText(sevForm(ins.forms[0]))}</span>
                       </button>
                     );

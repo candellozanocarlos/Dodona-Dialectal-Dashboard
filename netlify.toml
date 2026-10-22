@@ -1,0 +1,7 @@
+[build]
+  # La versión pública no incluye las fotografías de autopsia (sin permiso de publicación): solo los facsímiles.
+  command = "npm run build && find dist/assets/autopsias -type f ! -name 'facsimil-*' -delete"
+  publish = "dist"
+
+[build.environment]
+  VITE_SIN_FOTOS = "true"

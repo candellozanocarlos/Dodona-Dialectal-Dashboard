@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { C, CAT_COLORS, CATS, PROSE, fade } from "../theme.js";
 import { asRef, fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
-import { Ref } from "./Inscriptions.jsx";
+import { DvcLabel, Ref } from "./Inscriptions.jsx";
 
 export const Stat = ({ label, value, sub = "", accent = C.gold, noCase = false }) => (
   <div style={{ background: "linear-gradient(180deg, rgba(255,252,245,0.85) 0%, rgba(255,252,245,0.55) 100%)",
@@ -128,12 +128,13 @@ export const GreekBlock = ({ title, children, size = 15 }) => (
 
 // ── Rasgos dialectales ───────────────────────────────────────────
 // rasgos: [{ id, cat, name, short, desc, dvcs: ["123A", "LOD 8B", …] }]; texts: { dvc: texto }.
-export function RasgoExplorer({ rasgos, texts, color }) {
+// minAcum: rasgos que ha de reunir una inscripción para figurar en «Inscripciones con más rasgos acumulados».
+export function RasgoExplorer({ rasgos, texts, color, minAcum = 2 }) {
   const [sel, setSel] = useState(null);
   const [clicked, setClicked] = useState(null);
   const perDvc = {};
   rasgos.forEach((r) => r.dvcs.forEach((d) => { (perDvc[d] = perDvc[d] || []).push(r.short); }));
-  const top = Object.entries(perDvc).filter(([, rs]) => rs.length >= 2).sort((a, b) => b[1].length - a[1].length);
+  const top = Object.entries(perDvc).filter(([, rs]) => rs.length >= minAcum).sort((a, b) => b[1].length - a[1].length);
   const maxN = Math.max(...rasgos.map((r) => r.dvcs.length));
   const r = rasgos.find((x) => x.id === sel);
   const catColor = r ? CAT_COLORS[r.cat] : null;
@@ -175,7 +176,7 @@ export function RasgoExplorer({ rasgos, texts, color }) {
                 <button key={dvc} onClick={() => setClicked(on ? null : dvc)} aria-pressed={on} style={{
                   background: fade(catColor, on ? 0.15 : 0.08), border: `1px solid ${on ? catColor : fade(catColor, 0.2)}`,
                   borderRadius: 6, padding: "6px 10px", fontSize: 11.5, color: on ? C.heading : C.muted, fontWeight: on ? 600 : 400 }}>
-                  {renderDesc(fmtDvc(dvc))}
+                  <DvcLabel dvc={dvc} />
                   {n > 1 && <span title={`${n} rasgos en total`} style={{ marginLeft: 5, padding: "0 5px", borderRadius: 8,
                     background: color, color: "#fff", fontSize: 9, fontWeight: 700, lineHeight: "16px" }}>{n}</span>}
                 </button>

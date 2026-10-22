@@ -1,5 +1,6 @@
 // Autopsias de laminillas en la Eforía de Antigüedades de Ioánina.
-// Campos: id, dialect (clave del capítulo), date, ami (inventario), siglum,
+// Campos: id, dialect (grupo según la clasificación vigente de DVC_v5_FINAL.xlsx: tesalio, beocio,
+// severior, dorico, doricoNO, jonicoAtico, mezcla, noJonAt o sinClasificar), date, ami (inventario), siglum,
 // autopsy_year, text_dvc (lectura de I.Dodone DVC), carlos (observaciones de
 // autopsia; *cursiva*), photos (rutas dentro de public/), related (otras caras).
 
@@ -34,11 +35,21 @@ export const AUTOPSIAS_DATA = [
     photos: [],
   },
   {
+    id: "307A", dialect: "tesalio", date: "Segunda mitad del s. V a.C.",
+    ami: "ΑΜΙ 12284", siglum: "M211", autopsy_year: 2025, related: ["306A", "308A"],
+    text_dvc: "Φατύλο̅ι πὲρ γαϜρογί(ας)",
+    carlos: "Escrita debajo de *I.Dodone DVC* 306A. El alfabeto no coincide con el de 306A, aunque los trazos sí, por lo que quizá se utilizó el mismo método de incisión. Letras muy irregulares. Los editores identifican un alfabeto eleo o eubeo, pero la forma de las letras corresponde al alfabeto tesalio, muy próximo al eubeo: la digamma y la rho con cola son compatibles con ambos, mientras que la lambda asimétrica y ascendente es exclusiva del tesalio y constituye, en esa época, el único rasgo que lo distingue del tipo calcídico-beocio. La digamma tiene forma de ⟨[⟩, que según Alonso Déniz no es epirota (cf. *I.Dodone DVC* 191 y 197). Méndez Dosuna (2018b: 44): la forma γαϜρογίας, junto con la apócope de περί, apunta al tesalio; el antropónimo podría ser entonces un genitivo tesalio en -οι < -οιο, no atestiguado en otros lugares (cf. 218 para el tipo γαϜρογία). Φατύλο̅ι es un hápax.",
+    photos: [
+      "assets/autopsias/306A-307A/facsimil-306a-307a.jpg",
+    ],
+  },
+  {
     id: "934A", dialect: "tesalio", date: "Primera mitad del s. V a.C.",
     ami: "ΑΜΙ 12476", siglum: "M409", autopsy_year: 2025, related: [],
     text_dvc: "Περί νείκειος\nΘειοτιμίδας",
-    carlos: "La letra final del antropónimo es una ⟨A⟩, como ya proponía *I.Dodone Lhôte* 149. La zona, aunque erosionada, no admite la lectura alternativa ⟨E⟩ sugerida con dudas en el *I.Dodone DVC* ni la propuesta por Méndez Dosuna (2016: 126); los trazos son inequívocos y el facsímil del *I.Dodone DVC* no los refleja con precisión. La sigma final presenta forma de ç (lunar), de modo que el soporte combina distintas formas para una misma letra. El alfabeto resulta compatible con el epicórico tesalio.",
+    carlos: "La letra final del antropónimo es una ⟨Α⟩, como ya proponía *I.Dodone Lhôte* 149: aunque la zona está erosionada, los trazos son inequívocos y el facsímil de *I.Dodone DVC* no los reproduce con precisión. La lectura descarta la alternativa ⟨Ε⟩, que los editores recogen con dudas, y la de Méndez Dosuna (2016: 126), que la proponía a partir del facsímil y consideraba el alfabeto posiblemente euboico, con un nombre de fonética jónico-ática. Las formas de las letras son propias del alfabeto epicórico tesalio, con rasgos de cierta evolución: sigma curva (Ϛ) junto a la de tres trazos, épsilon que tiende a la forma clásica, my simétrica y rho con cola (Jeffery 1990: 96). La sigma curva, característica del alfabeto tesalio de época clásica (Doulgeri-Intzesiloglou 2000: 304-305), no está atestiguada en beocio (Jeffery 1990: 89), de modo que el alfabeto descarta también la adscripción beocia de *I.Dodone Lhôte* 149 y permite asignar la inscripción al tesalio (cf. cap. tesalio, §4.1.1). La primera imagen es un facsímil de elaboración propia a partir de la autopsia.",
     photos: [
+      "assets/autopsias/934A/facsimil-934a.jpg",
       "assets/autopsias/934A/tsg-5156.jpg",
       "assets/autopsias/934A/tsg-5157.jpg",
       "assets/autopsias/934A/tsg-5158.jpg",
@@ -57,6 +68,15 @@ export const AUTOPSIAS_DATA = [
     text_dvc: "εἰ γ̣αοργ̣έ̣ω [κ]-\nαὶ ἔστι μο̣ι τυ-\nχαῖον",
     carlos: "La laminilla presenta tres pliegues que dejarían visible la cara B; la inscripción se distribuye entre el pliegue del medio y el inferior (donde queda la última línea). Los trazos son muy superficiales, hasta el punto de no apreciarse en las fotografías. Las letras son de menor tamaño que las de *I.Dodone DVC* 1339A. Si ambas inscripciones forman parte de una misma consulta, como sugieren *I.Dodone Lhôte* y Méndez Dosuna (2016: 126), no fueron grabadas por la misma mano o, al menos, no de la misma forma.",
     photos: ["assets/autopsias/1340A/ami-12688a.jpg", "assets/autopsias/1340A/ami-12688b.jpg"],
+  },
+  {
+    id: "2103A", dialect: "tesalio", date: "Segunda mitad del s. V a.C.",
+    ami: "ΑΜΙ 12803", siglum: "M749", autopsy_year: 2025, related: [],
+    text_dvc: "[- - -]ν̣θος περ' ἐφόδου\n[- - -] μαχανᾶς [. .]Υ̣ΧΟ[.]",
+    carlos: "Letras muy profundas y trazos claros. El facsímil de *I.Dodone DVC* es preciso, salvo en el espacio detrás de ΠΕΡ, que no es tan grande como indica; los números del museo tapan parcialmente las dos primeras letras. Los editores proponen el alfabeto de Eubea, pero la forma de las letras corresponde al alfabeto tesalio: la sigma de tres trazos aparece junto a la delta lunada, combinación que Johnston (2021: 116) considera distintiva del tesalio, y la chi es de tipo rojo. Johnston (2021: 113) ya había advertido que el alfabeto eubeo propuesto contrasta con el dialecto dórico de μαχανᾶς. La identificación del alfabeto es decisiva para la adscripción dialectal: la conservación de ᾱ y la apócope de περί, ajenas al jónico-ático, quedan así asociadas al tesalio, en el que la apócope es rasgo distintivo.",
+    photos: [
+      "assets/autopsias/2103A/facsimil-2103a.jpg",
+    ],
   },
   {
     id: "2204A", dialect: "tesalio", subdialect: "Histiótide", date: "Finales del s. V a.C.",
@@ -84,15 +104,18 @@ export const AUTOPSIAS_DATA = [
     carlos: "Lectura ὕδατες confirmada; los editores del *I.Dodone DVC* corrigen en ὕδατος, pero la enmienda no es necesaria si se reconoce el cambio /o/ > /e/ en sílaba final propio de Histiótide. La línea 1 presenta sobre la iota un trazo que la cruza (posible chi en forma de cruz). En la línea 2, en la secuencia ΣΘΕΣΙ, hay una pequeña ⟨T⟩ que sobresale de la theta sin completarse: parece como si el lapicida hubiera vacilado entre escribir τ o θ y se hubiera arrepentido. La forma de la sigma varía a lo largo del soporte.",
     // 3007A y 3008A comparten cara: mismas fotos de la laminilla ΑΜΙ 13121
     photos: [
+      "assets/autopsias/AMI-13121/facsimil-13121-cara-a.jpg",
       "assets/autopsias/AMI-13121/ami-13121-1.jpg",
     ],
   },
   {
-    id: "3008A", dialect: "tesalio", date: "Primera mitad del s. IV a.C.",
+    id: "3008A", dialect: "tesalio", date: "ss. V-IV a.C. (Candel Lozano 2026: 101-102 propone la primera mitad del s. IV a.C.)",
     ami: "ΑΜΙ 13121", siglum: null, autopsy_year: 2024, related: ["3007A"],
     text_dvc: "ἐ͂ ἐλ λιμένι χαλκοπο̅λέμεν;",
-    carlos: "La inscripción es más reciente que *I.Dodone DVC* 3007A: algunos de sus trazos se superponen a ella. La autopsia reveló una segunda línea inédita en la que se lee τυχαία (cf. cap. tesalio, §§4.2.3 y 6.8). La forma de las letras de τυχαία coincide con la de la línea 1, en particular la forma de chi. No se aprecian trazos ni a la izquierda ni a la derecha, de modo que la segunda línea está completa. La edición completa de la inscripción figura en Candel Lozano (2026).",
+    carlos: "La inscripción es más reciente que *I.Dodone DVC* 3007A: algunos de sus trazos se superponen a ella. La autopsia reveló una segunda línea inédita en la que se lee τυχαῖα (cf. cap. tesalio, §§4.2.3 y 6.8). La forma de las letras de τυχαῖα coincide con la de la línea 1, en particular la forma de chi. No se aprecian trazos ni a la izquierda ni a la derecha, de modo que la segunda línea está completa. La edición completa de la inscripción figura en Candel Lozano (2026).",
     photos: [
+      "assets/autopsias/AMI-13121/facsimil-3008a.jpg",
+      "assets/autopsias/AMI-13121/facsimil-13121-cara-a.jpg",
       "assets/autopsias/AMI-13121/ami-13121-2.jpg",
       "assets/autopsias/AMI-13121/ami-13121-3.jpg",
       "assets/autopsias/AMI-13121/dsc-2416.jpg",
@@ -126,7 +149,7 @@ export const AUTOPSIAS_DATA = [
     photos: FOTOS_M185,
   },
   {
-    id: "190B", dialect: "beocio", date: "Segunda mitad del s. V a.C.",
+    id: "190B", dialect: "beocio", date: "Mediados del s. V a.C.",
     ami: "ΑΜΙ 12294", siglum: "M185", autopsy_year: 2025, related: ["186A", "187A"],
     text_dvc: "γᾶν Ϝοικε͂ι πότερα\nἐν Ὀπόεντι;",
     carlos: "La rho coincide con la de *I.Dodone DVC* 187A, las formas de alpha parecen iguales, y los trazos son muy parecidos en las tres caras. La segunda omicron de la línea 2 muestra un punto interior, característica habitual de la epigrafía pública del centro de Grecia y del Peloponeso, donde se trazaban las letras redondas con compás (cf. Martín González 2021: 250). El mismo rasgo aparece en *I.Dodone DVC* 296A. La digamma presenta forma de C con los extremos rectos (cf. Alonso Déniz 2022: 444), configuración ajena al alfabeto epirota.",
@@ -146,5 +169,62 @@ export const AUTOPSIAS_DATA = [
     text_dvc: "[θε]ός· Αὐτάριον Παρμενίσκω ἐ̣κ̣ Τάτα[ς - - -]\n[.]Ν Παρεσίναν Ζ̣ο̅ΐλαν [. .]ΡΕΟΙ Παρμε[- - -]\nΜ[. . . .]ΟΙ[. . .]ΝΟΝ[. . . 6 . . .] ἐρ̣γάζεσθαι [. .][- - -]",
     carlos: "Letras muy irregulares, trazadas de forma desigual, como si el redactor hubiera escrito en vilo. La irregularidad del ductus apunta a un redactor poco versado en la escritura y resulta compatible con la interpretación de Παρμενίσκω como lapsus de un escriba que vacila entre ⟨Ο⟩, ⟨ΟΥ⟩ y ⟨Ω⟩ en plena transición alfabética (Lhôte 2017a: 153).",
     photos: ["assets/autopsias/3354A/1125-dvc-3354a.jpg", "assets/autopsias/3354A/1125-dvc-3354a-1.jpg"],
+  },
+  // ═════════ NO JÓNICO-ÁTICO (5A, 135A y 1108A; hasta el 06/10/2026, en el grupo dórico) ═════════
+  {
+    id: "5A", dialect: "noJonAt", date: "Mediados del s. V a.C.",
+    ami: "ΑΜΙ 12209", siglum: "M20", autopsy_year: 2024, related: [],
+    text_dvc: "Κλεάνορι περὶ γενεᾶς\nπατρο̅ιό̅χο̅ ἐκ τᾶς νῦν\nἐόνθας γυναικός.",
+    carlos: "Hay un trazo antes de la primera ⟨Κ⟩ que podría ser una ⟨Ι⟩ o una ⟨Γ⟩, y otro al principio de la segunda línea, en forma de iota tumbada hacia la derecha. Delante de ΕΟΝΘΑΣ hay un hueco que parece anterior a la inscripción. La lectura ΕΟΝΘΑΣ es segura (la épsilon se ve nítidamente con todos sus trazos), de modo que la autopsia confirma la edición de *I.Dodone DVC* frente a la de *I.Dodone Lhôte*, que la desmentía. La última línea presenta formas de letras distintas, por lo que podría ser una inscripción independiente. Dialecto dórico, con alfabeto de Dodona poco caracterizado. πατρο̅ιό̅χο̅ aparece en las leyes de Gortina como πατρο̅ιό̅κος, término occidental. Méndez Dosuna (2008: 74): Κλεάνορι no es un anacoluto, sino el beneficiario de la consulta. Méndez Dosuna (2018b: 47): ἐόνθας es muy problemático (participio femenino de εἰμί inédito; Evangelidis leyó Γόνθας). Alonso Déniz (comunicación oral, 2025) lo relaciona con ἐασσαι de 1193 y con las formas ΠΑΝΘΑ (< πάνσα) de Olimpia, por lo que podría ser una forma eleia.",
+    photos: [
+      "assets/autopsias/5A/facsimil-5a.jpg",
+    ],
+  },
+  {
+    id: "135A", dialect: "noJonAt", date: "Segunda mitad del s. V a.C.",
+    ami: "ΑΜΙ 12240", siglum: "M153", autopsy_year: 2024, related: [],
+    text_dvc: "ἦ Μιλήϊός τις ἐναν̣-\nτίος hόρο̅ δύνατ-\nαι Ϝοικε͂σαι;",
+    carlos: "Letras muy regulares y esquemáticas, parecidas a las de las inscripciones públicas. En ϜΟΙΚΕ͂ΣΑΙ hay una beta corintia, no una épsilon; las de las líneas 1 y 3 son muy parecidas, aunque no idénticas. No es descartable el empleo de varias manos, aunque no lo parece. Alfabeto corintio arcaico: épsilon corintia en ἐνάντιος, sigma de cuatro ramas, digamma, ⟨Η⟩ como aspiración y e larga abierta, salvo en Ϝοικε͂σαι, que emplea la grafía arcaica ⟨Ε⟩. Μιλήϊός remite a Μιλήσιος, sin que esté claro si hay un lapsus o una aspiración de la sigma intervocálica hasta su desaparición; la palabra está escrita, además, en alfabeto milesio. La pérdida de la silbante es rasgo del laconio, eleo, chipriota y argivo, pero Méndez Dosuna (1985: 134-135) la considera un error del lapicida en casos paralelos de Dodona. El consultante vendría de una colonia corintia, y se supone una omisión de la sigma antes que una aspiración, desconocida en estas colonias. Nieto Izquierdo (2019: 108) la cita como ejemplo de pregunta total directa con ἦ.",
+    photos: [
+      "assets/autopsias/135A/facsimil-135a.jpg",
+    ],
+  },
+  {
+    id: "1108A", dialect: "noJonAt", date: "Mediados del s. V a.C.",
+    ami: "ΑΜΙ 12521", siglum: "M454", autopsy_year: 2025, related: ["1109A"],
+    text_dvc: "δρυὸς δ' ἀ-\nε̅θαλ(οῦ)ς ἐ͂ τύχ-\nοιμι ἐπικό-\nπτο̅ν hᾶι κα\nhιαρόν;",
+    carlos: "Escrita encima de *I.Dodone DVC* 1109A, en estilo pseudo-esticódon. Como propone Lhôte, la ⟨Β⟩ de la segunda línea pertenece claramente a la inscripción siguiente y no a esta, por su posición, tamaño y profundidad. Los editores interpretan la última palabra, escrita en vertical al margen, como la última línea; Méndez Dosuna (2016: 126) propone que sea un texto independiente de otra mano, pues la forma de las letras no coincide, y sugiere δρυος ΔΑ ‹Κ›εφαλάς ‘las copas del roble’ frente a ἀε̅θαλ(οῦ)ς. Alfabeto corintio del tipo epirota. Si la ⟨Ε⟩ corintia de la segunda línea pertenece a 1109A, el texto sería ΔΑΦΑΛΑΣ (hápax explicable como δα- + φαλός ‘blanco’, un tipo de roble), porque la ⟨Θ⟩ con barra que leen los editores es inviable. Cabe relacionarla con 2951 + 2952, que menciona también un roble y un verbo de cortar. Méndez Dosuna (2024: 4.1): hιαρόν con vocalismo dórico.",
+    photos: [
+      "assets/autopsias/1108A-1109A/facsimil-1108a-1109a.jpg",
+    ],
+  },
+  // ═════════ JÓNICO-ÁTICO-KOINÉ (2160, Διών⟨η⟩ν tras la autopsia; fila 148 de Resúmenes) ═════════
+  {
+    id: "2160", dialect: "jonicoAtico", date: "Segunda mitad del s. IV a.C.",
+    ami: "ΑΜΙ 12907", siglum: "M764 + M766", autopsy_year: 2025, related: [],
+    text_dvc: "[ὁ δεῖνα] ἐ̣ρωτᾶι τὸν Δί(α) τὸν Νάϊ(ο)ν̣ καὶ τὴν Διώνα[ν - - -]",
+    carlos: "La lectura τὴν Διώνα(ν) de los editores es incorrecta: en la fotografía se aprecia que la última letra no es una ⟨Α⟩, sino una ⟨Ν⟩ sin terminar. El consultante escribe ΤΟΝ ΔΙΕ ΤΟΝ ΝΑΙΑΝ por error. Giannakis y Crespo (2019: 50) la consideran una mezcla de dórico y koiné (Διώνα + τὴν).",
+    photos: [
+      "assets/autopsias/2160/facsimil-2160.jpg",
+    ],
+  },
+  // ═════════ SIN CLASIFICAR (306A, en la laminilla de 307A; 1109A, solo un antropónimo) ═════════
+  {
+    id: "306A", dialect: "sinClasificar", date: "Segunda mitad del s. V a.C.",
+    ami: "ΑΜΙ 12284", siglum: "M211", autopsy_year: 2025, related: ["307A", "308A"],
+    text_dvc: "ΗΑΡΓΑΙΑΝΝΑϜΟ ἐ͂ λόϊο(ν) βέ(λτιον)",
+    carlos: "Se ha perdido un pequeño fragmento en la parte inferior de la laminilla. Lecturas seguras; la alpha de ΝΑϜΟ no se lee. Los editores atribuyen la inscripción al alfabeto de la Élide o de Eubea y proponen alternativamente ἦ Ἀργαίαν νάϜο o ἦ ἀρ γαῖαν ναϜο[ς]. Johnston (2021: 113) señala que el alfabeto propuesto contrasta con el dialecto dórico de la inscripción, sin justificarlo. Comparte laminilla con *I.Dodone DVC* 307A, escrita debajo, y 308A.",
+    photos: [
+      "assets/autopsias/306A-307A/facsimil-306a-307a.jpg",
+    ],
+  },
+  {
+    id: "1109A", dialect: "sinClasificar", date: "S. IV a.C.",
+    ami: "ΑΜΙ 12521", siglum: "M454", autopsy_year: 2025, related: ["1108A"],
+    text_dvc: "Ἀρ̣ι̣στόνικος\n[- - - - -]",
+    carlos: "Escrita debajo de *I.Dodone DVC* 1108A. La ⟨Β⟩ de la segunda línea de 1108A pertenece en realidad a esta inscripción, y tres huecos después se lee ΤΑΝ. El texto quedaría así: Ἀρ̣ι̣στόνικος | - - - τὰν [- - -].",
+    photos: [
+      "assets/autopsias/1108A-1109A/facsimil-1108a-1109a.jpg",
+    ],
   },
 ];

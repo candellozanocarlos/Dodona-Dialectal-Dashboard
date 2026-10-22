@@ -1,16 +1,29 @@
 // Notas de autopsia de las laminillas examinadas en la Eforía de Antigüedades de Ioánina.
 import { useState } from "react";
-import { C, fade } from "../theme.js";
+import { C, DIALECT_COLORS, DIALECT_INK, fade } from "../theme.js";
 import { AUTOPSIAS_DATA } from "../data/autopsias.js";
 import { linkInscriptionRefs, normGreekMarks, renderGreekText, wrapGreekHtml } from "../lib/text.jsx";
 import { Stat, Tag } from "../components/ui.jsx";
 
+// Grupos por la clasificación dialectal vigente (DIALECTO_MACRO/SUB de DVC_v5_FINAL.xlsx), con el dórico
+// dividido en general y noroccidental como en los gráficos; `color` para filetes y fondos, `ink` para el texto.
+const grupo = (label, key, color = DIALECT_COLORS[key]) => ({ label, color, ink: DIALECT_INK[key] || color });
 const DIALECTS = {
-  tesalio: { label: "Tesalio", color: C.gold },
-  beocio: { label: "Beocio", color: C.beocio },
-  severior: { label: "Doris severior", color: C.severior },
+  tesalio: grupo("Tesalio", "tesalio"),
+  beocio: grupo("Beocio", "beocio"),
+  severior: grupo("Doris severior", "severior"),
+  dorico: grupo("Dórico general", "dorico"),
+  doricoNO: grupo("Dórico noroccidental", "doricoNO"),
+  noJonAt: grupo("No jónico-ático", "noJonAt"),
+  jonicoAtico: grupo("Jónico-ático-koiné", "jonicoAtico"),
+  mezcla: grupo("Mezcla dialectal", "mezcla"),
+  sinClasificar: grupo("Sin clasificar", "otros", C.dim),
 };
+// Solo los grupos con alguna autopsia aparecen en las cifras y en las pestañas.
+const PRESENTES = Object.entries(DIALECTS).filter(([k]) => AUTOPSIAS_DATA.some((a) => a.dialect === k));
 const photoUrl = (p) => import.meta.env.BASE_URL + p;
+// En la versión pública (Netlify) solo se muestran los facsímiles: no hay permiso para publicar las fotografías.
+const SIN_FOTOS = import.meta.env.VITE_SIN_FOTOS === "true";
 const years = [...new Set(AUTOPSIAS_DATA.map((a) => a.autopsy_year).filter(Boolean))].sort();
 const yearLabel = (a) => a.autopsy_year ?? "fecha por confirmar";
 
@@ -36,8 +49,9 @@ export default function Autopsias({ switcher }) {
   const filtered = tab === "todas" ? AUTOPSIAS_DATA : AUTOPSIAS_DATA.filter((a) => a.dialect === tab);
   const selected = filtered.find((a) => a.id === selectedId) || filtered[0];
   const col = DIALECTS[selected.dialect].color;
+  const ink = DIALECTS[selected.dialect].ink;
   const count = (d) => AUTOPSIAS_DATA.filter((a) => a.dialect === d).length;
-  const photos = (selected.photos || []).filter((p) => !broken[p]);
+  const photos = (selected.photos || []).filter((p) => !broken[p] && (!SIN_FOTOS || p.includes("facsimil")));
   const session = uploaded[selected.id] || [];
 
   const handleUpload = (e) => {
@@ -53,7 +67,7 @@ export default function Autopsias({ switcher }) {
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg }}>
-      <div style={{ height: 4, background: `linear-gradient(90deg, ${C.terra}, ${C.gold}, ${C.beocio}, ${C.severior})` }} />
+      <div style={{ height: 4, background: `linear-gradient(90deg, ${C.terra}, ${C.tesalio}, ${C.beocio}, ${C.severior})` }} />
       {switcher}
 
       <header style={{ background: `linear-gradient(180deg, ${C.headerGrad1} 0%, ${C.headerGrad2} 60%, ${C.headerGrad3} 100%)`,
@@ -70,7 +84,7 @@ export default function Autopsias({ switcher }) {
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", maxWidth: 760, margin: "22px auto 0" }}>
             <Stat label="Autopsias" value={String(AUTOPSIAS_DATA.length)} sub="laminillas examinadas" accent={C.terra} />
-            {Object.entries(DIALECTS).map(([k, d]) => <Stat key={k} label={d.label} value={String(count(k))} accent={d.color} />)}
+            {PRESENTES.map(([k, d]) => <Stat key={k} label={d.label} value={String(count(k))} accent={d.ink} />)}
             <Stat label="Campañas" value={String(years.length)} accent={C.blue}
               sub={years.map((y) => `${AUTOPSIAS_DATA.filter((a) => a.autopsy_year === y).length} en ${y}`).join(" · ")} />
           </div>
@@ -80,7 +94,7 @@ export default function Autopsias({ switcher }) {
       <nav style={{ display: "flex", gap: 4, justifyContent: "center", flexWrap: "wrap", padding: "18px 0 0",
         borderBottom: `1px solid ${C.border}`, background: "rgba(255,252,245,0.5)" }}>
         <Tag color={C.terra} active={tab === "todas"} onClick={() => setTab("todas")}>Todas ({AUTOPSIAS_DATA.length})</Tag>
-        {Object.entries(DIALECTS).map(([k, d]) => (
+        {PRESENTES.map(([k, d]) => (
           <Tag key={k} color={C.terra} active={tab === k} onClick={() => setTab(k)}>{d.label} ({count(k)})</Tag>
         ))}
       </nav>
@@ -92,7 +106,7 @@ export default function Autopsias({ switcher }) {
               padding: "4px 8px 10px", borderBottom: `1px solid ${C.border}`, marginBottom: 6 }}>Inscripciones · {filtered.length}</div>
             {filtered.map((a) => {
               const active = a.id === selected.id;
-              const c = DIALECTS[a.dialect].color;
+              const c = DIALECTS[a.dialect].color, ci = DIALECTS[a.dialect].ink;
               return (
                 <button key={a.id} onClick={() => setSelectedId(a.id)} aria-current={active ? "true" : undefined} style={{
                   display: "block", width: "100%", textAlign: "left", background: active ? fade(c, 0.08) : "transparent",
@@ -100,7 +114,7 @@ export default function Autopsias({ switcher }) {
                   borderRadius: "0 8px 8px 0", color: active ? C.heading : C.text }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 6 }}>
                     <span style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: active ? 700 : 500 }}><i>I.Dodone DVC</i> {a.id}</span>
-                    <span style={{ fontSize: 10.5, color: c, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{DIALECTS[a.dialect].label}</span>
+                    <span style={{ fontSize: 10.5, color: ci, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{DIALECTS[a.dialect].label}</span>
                   </div>
                   <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>{a.date} · autopsia {yearLabel(a)}</div>
                 </button>
@@ -113,7 +127,7 @@ export default function Autopsias({ switcher }) {
               <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap", marginBottom: 6 }}>
                 <h2 style={{ fontSize: 28, fontWeight: 700 }}><i>I.Dodone DVC</i> {selected.id}</h2>
                 <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", background: fade(col, 0.09),
-                  color: col, padding: "4px 10px", borderRadius: 4 }}>
+                  color: ink, padding: "4px 10px", borderRadius: 4 }}>
                   {DIALECTS[selected.dialect].label}{selected.subdialect ? ` · ${selected.subdialect}` : ""}
                 </span>
               </div>
@@ -177,9 +191,9 @@ export default function Autopsias({ switcher }) {
                       <a href={photoUrl(src)} target="_blank" rel="noreferrer">
                         <img src={photoUrl(src)} alt={`I.Dodone DVC ${selected.id}, fotografía ${i + 1}`} loading="lazy"
                           onError={() => setBroken((b) => ({ ...b, [src]: true }))}
-                          style={{ width: "100%", height: 160, objectFit: "cover", borderRadius: 8, border: `1px solid ${C.border}` }} />
+                          style={{ width: "100%", height: 160, objectFit: src.includes("facsimil") ? "contain" : "cover", background: "#fff", borderRadius: 8, border: `1px solid ${C.border}` }} />
                       </a>
-                      <figcaption style={{ fontSize: 10.5, color: C.dim, marginTop: 4, textAlign: "center" }}>Archivo · {i + 1}</figcaption>
+                      <figcaption style={{ fontSize: 10.5, color: C.dim, marginTop: 4, textAlign: "center" }}>{src.includes("facsimil") ? "Facsímil (elaboración propia)" : `Archivo · ${i + 1}`}</figcaption>
                     </figure>
                   ))}
                   {session.map((p, i) => (
