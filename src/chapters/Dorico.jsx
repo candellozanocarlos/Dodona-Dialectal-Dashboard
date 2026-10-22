@@ -126,7 +126,7 @@ export default function Dorico({ switcher }) {
 
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={C.severior} accent={[C.terra, C.severior, C.blue, C.green]}
-      title={<>El <em style={{ fontWeight: 700, color: C.severior }}>doris severior</em> en las laminillas oraculares de Dodona</>}
+      title={<>La <em style={{ fontWeight: 700, color: C.severior }}>Doris severior</em> en las laminillas oraculares de Dodona</>}
       subtitle="Dórico de la Magna Grecia · Un único rasgo diagnóstico: ⟨Η⟩ y ⟨Ω⟩ en las vocales medias largas secundarias"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_SEV)} sub="ss. V–III a.C." accent={C.severior} />
@@ -159,7 +159,7 @@ export default function Dorico({ switcher }) {
               <p style={PROSE}>
                 Los dialectos dóricos del corpus se reparten entre el dórico <i>sensu lato</i>, mayoritario, y el noroccidental, propio del
                 Epiro y de las regiones colindantes, ambos de vocalismo <i>mitior</i> (Filos 2018a: 241-242). Frente a ese fondo, un grupo
-                reducido de inscripciones presenta el vocalismo del <b style={{ color: C.severior }}>doris severior</b>: las vocales medias
+                reducido de inscripciones presenta el vocalismo de la <b style={{ color: C.severior }}><i>Doris severior</i></b>: las vocales medias
                 largas secundarias conservaron el grado de apertura de las heredadas y se notaron con ⟨Η⟩ y ⟨Ω⟩, no con ⟨ΕΙ⟩ y ⟨ΟΥ⟩
                 (Bartoněk 2015: 144-146).
               </p>
@@ -328,7 +328,7 @@ export default function Dorico({ switcher }) {
       </>}
 
       {tab === "profile" && <>
-        <Sec title="El doris severior en números" sub={`${TOTAL_SEV} inscripciones, el ${pct(TOTAL_SEV)} % del corpus dialectal, por detrás del beocio`}>
+        <Sec title={<>La <i>Doris severior</i> en números</>} sub={`${TOTAL_SEV} inscripciones, el ${pct(TOTAL_SEV)} % del corpus dialectal, por detrás del beocio`}>
           <Stats>
             <Stat label="Inscripciones" value={String(TOTAL_SEV)} sub="con vocalismo severior" accent={C.severior} />
             <Stat label="Del s. IV a.C." value={String(nSigloIV)} sub={`de ${TOTAL_SEV}`} accent={C.amber} />
@@ -351,7 +351,7 @@ export default function Dorico({ switcher }) {
           </Card>
         </Sec>
 
-        <Sec title="Doris severior en contexto" sub="Macrogrupos dialectales del corpus de Dodona">
+        <Sec title={<><i>Doris severior</i> en contexto</>} sub="Macrogrupos dialectales del corpus de Dodona">
           <Bars horizontal data={MACROGRUPOS} highlight="Doris severior" height={300} left={200} />
         </Sec>
 
@@ -470,8 +470,8 @@ export default function Dorico({ switcher }) {
         </Sec>
 
         <Sec title="Matriz inscripción × criterio" sub="Qué respalda cada adscripción, según los criterios de §4.1.1-4.1.3"
-          note="● criterio presente · ◐ vocalismo de lectura dudosa · ○ vocalismo que no permite descartar la doris media. Indicio de área: rasgo que orienta hacia una región sin identificar una ciudad (signo Ͱ, onomástica suditálica, distribución de *-ονσ- > ⟨Ω⟩). Procedencia declarada: T = topónimo (Hergetio), E = etnónimo (tarentinos).">
-          <Table color={C.severior} head={["Inscripción", "Grupo", "Vocalismo severior", "Excluye doris media", "Otros rasgos dóricos", "Alfabeto ítalo-dórico", "Indicio de área", "Procedencia"]}
+          note="● criterio presente · ◐ vocalismo de lectura dudosa · ○ vocalismo que no permite descartar la Doris media. Indicio de área: rasgo que orienta hacia una región sin identificar una ciudad (signo Ͱ, onomástica suditálica, distribución de *-ονσ- > ⟨Ω⟩). Procedencia declarada: T = topónimo (Hergetio), E = etnónimo (tarentinos).">
+          <Table color={C.severior} head={["Inscripción", "Grupo", "Vocalismo severior", "Excluye la Doris media", "Otros rasgos dóricos", "Alfabeto ítalo-dórico", "Indicio de área", "Procedencia"]}
             rows={INSCRIPCIONES_SEV.map((ins) => {
               const g = SEV_GROUPS.find((x) => x.id === ins.group);
               const dot = (on, col = g.color) => on
@@ -482,7 +482,7 @@ export default function Dorico({ switcher }) {
                 <span style={{ padding: "0 7px", borderRadius: 8, background: g.color, color: "#fff", fontSize: 10.5, fontWeight: 700 }}>{g.id}</span>,
                 ins.crit.voc === "s" ? dot(true) : <span title="Lectura dudosa" style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%",
                   background: `linear-gradient(90deg, ${g.color} 50%, transparent 50%)`, border: `1px solid ${g.color}` }} />,
-                ins.crit.media ? dot(true, C.blue) : <span title="No permite descartar la doris media" style={{ display: "inline-block", width: 11, height: 11,
+                ins.crit.media ? dot(true, C.blue) : <span title="No permite descartar la Doris media" style={{ display: "inline-block", width: 11, height: 11,
                   borderRadius: "50%", border: `1.5px solid ${C.amber}` }} />,
                 dot(ins.crit.dor, C.terra),
                 dot(ins.crit.alf, C.blue),
@@ -532,7 +532,7 @@ export default function Dorico({ switcher }) {
             <p style={PROSE}>
               La terminología procede de Ahrens, que la tomó de los <i>scholia vetera</i> a Teócrito, donde se distingue entre un dórico
               antiguo, áspero (τραχεῖα), y uno nuevo, más suave (μαλθακωτέρα). Bartoněk (1966: 62) introdujo después el concepto de{" "}
-              <i>doris media</i>: conserva el grado de apertura heredado en las vocales del primer alargamiento compensatorio y presenta
+              <i>Doris media</i>: conserva el grado de apertura heredado en las vocales del primer alargamiento compensatorio y presenta
               vocales cerradas en las contracciones isovocálicas y, cuando se producen, en el segundo y el tercer alargamientos. Se supuso
               en un principio que también el segundo alargamiento daba vocales abiertas en los dialectos «medios», pero Del Barrio Vega
               (1998: 258 n. 3), como antes Ruijgh (1984: 66 n. 20), demostró que su resultado es siempre cerrado, algo que el propio
@@ -542,13 +542,13 @@ export default function Dorico({ switcher }) {
           </Card>
         </Sec>
 
-        <Sec title="El corpus frente a la doris media" sub="Qué formas descartan la variedad intermedia y cuáles no (§4.1.3)">
+        <Sec title={<>El corpus frente a la <i>Doris media</i></>} sub="Qué formas descartan la variedad intermedia y cuáles no (§4.1.3)">
           <Stats>
-            <Stat label="Excluyen la doris media" value={String(TOTAL_SEV - SEV_NO_EXCLUYE_MEDIA.length)} sub="vocalismo diagnóstico" accent={C.blue} />
+            <Stat label="Excluyen la Doris media" value={String(TOTAL_SEV - SEV_NO_EXCLUYE_MEDIA.length)} sub="vocalismo diagnóstico" accent={C.blue} />
             <Stat label="No la descartan" value={String(SEV_NO_EXCLUYE_MEDIA.length)} sub={SEV_NO_EXCLUYE_MEDIA.map(fmtDvc).join(" y ")} accent={C.amber} />
             <Stat label="Tercer alargamiento" value="0" sub="formas en el corpus" accent={C.muted} />
           </Stats>
-          <Table color={C.severior} head={["Forma", "Inscripción", "Origen de la vocal", "Frente a la doris media"]}
+          <Table color={C.severior} head={["Forma", "Inscripción", "Origen de la vocal", "Frente a la Doris media"]}
             rows={DIAGNOSTIC_FORMS_SEV.map((f) => [
               <span className="greek" style={{ fontSize: 14.5, color: C.severiorDeep }}>{renderGreekText(sevForm(f.form))}</span>,
               <span style={{ fontSize: 12 }}>{renderDesc(f.ids.map(fmtDvc).join(", ").replace(/, I\.Dodone DVC /g, ", "))}</span>,
@@ -578,7 +578,7 @@ export default function Dorico({ switcher }) {
             <p style={{ ...PROSE, color: C.text }}>
               Catorce de las dieciséis laminillas presentan formas que excluyen la variedad intermedia. En I.Dodone Lhôte 5 el
               vocalismo, apoyado solo en el primer alargamiento, no bastaría por sí mismo, aunque el alfabeto y la identificación de
-              Tarento aseguran la procedencia. Solo <Ref src="DVC" id="3128" /> apunta de forma positiva a la doris media, al oponer dos
+              Tarento aseguran la procedencia. Solo <Ref src="DVC" id="3128" /> apunta de forma positiva a la <i>Doris media</i>, al oponer dos
               grafías a dos vocales de origen distinto. El conjunto corresponde, pues, al <b style={{ color: C.severior }}>severior pleno</b>,
               con la única excepción posible de 3128; si se recuerda que entre los colonos de Sicilia hubo rodios y cretenses de
               vocalismo intermedio, la presencia de consultantes de esa procedencia no es inverosímil, aunque el material apenas permita identificarla.

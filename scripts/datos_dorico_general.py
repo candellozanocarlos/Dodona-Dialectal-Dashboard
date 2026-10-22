@@ -2,7 +2,7 @@
 
 Fuentes:
   · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB «Doris mitior» y «Dórico Magna Grecia»).
-  · DORICO_GENERAL_1_Redaccion_v55.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · DORICO_GENERAL_1_Redaccion_v56.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_fonetica.py: matrices de valor diagnóstico y listas de notación y arcaísmos.
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dor"] de graficos_dialecto_pandas.py).
 
@@ -23,7 +23,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parents[1]
 UVA = RAIZ.parent
 EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "1. DÓRICO GENERAL" / "DORICO_GENERAL_1_Redaccion_v55.docx"
+DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "1. DÓRICO GENERAL" / "DORICO_GENERAL_1_Redaccion_v56.docx"
 GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
 SALIDA = RAIZ / "src" / "data" / "doricoGeneral.js"
 INSC = RAIZ / "src" / "data" / "inscriptions.json"
@@ -369,7 +369,7 @@ J = lambda x: json.dumps(x, ensure_ascii=False, indent=1)
 partes = [
     "// Generado por scripts/datos_dorico_general.py: no editar a mano.",
     "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB «Doris mitior» y «Dórico Magna Grecia», 174 inscripciones,",
-    "// Resúmenes fila 156), DORICO_GENERAL_1_Redaccion_v55 (§2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
+    "// Resúmenes fila 156), DORICO_GENERAL_1_Redaccion_v56 (§2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
     "",
     f"export const INTRO_FON_DOR = {J(INTRO['4'])};",
     f"export const INTRO_MORF_DOR = {J(INTRO['5'])};",

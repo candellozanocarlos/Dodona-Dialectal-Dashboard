@@ -1,4 +1,4 @@
-// Dórico general (cap. 4, DORICO_GENERAL_1_Redaccion_v55): contexto (§1-§2), mapa y topónimos (§2), perfil
+// Dórico general (cap. 4, DORICO_GENERAL_1_Redaccion_v56): contexto (§1-§2), mapa y topónimos (§2), perfil
 // dialectal (§3-§7) y escritura (§3, §4.1.3, §4.2.2-4.2.4). Datos en data/doricoGeneral.js (generado desde el Excel).
 import { useState } from "react";
 import { ALFABETO_COLORS, C, DIALECT_COLORS, ORO, PROSE, colorSiglo, fade } from "../theme.js";
@@ -29,7 +29,8 @@ const Btn = ({ active, onClick, children }) => (
     {children}
   </button>
 );
-const P = ({ children, style = {} }) => <p style={{ ...PROSE, ...style }}>{renderDesc(children)}</p>;
+// Los hijos se unen en una sola cadena para que renderDesc admita {"<i>…</i>"} dentro del texto.
+const P = ({ children, style = {} }) => <p style={{ ...PROSE, ...style }}>{renderDesc([].concat(children).join(""))}</p>;
 const Grid = ({ children, min = 260 }) => (
   <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 12 }}>{children}</div>
 );
@@ -78,10 +79,10 @@ export default function DoricoGeneral({ switcher, subnav }) {
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={DOR} accent={[C.terra, DOR, C.gold, C.blue]}
       title={<>El <span style={{ fontWeight: 700, color: DOR }}>dórico</span> en las laminillas oraculares de Dodona</>}
-      subtitle="Doris mitior y dórico de la Magna Grecia · Rasgos comunes al griego occidental"
+      subtitle={<><i>Doris mitior</i> y dórico de la Magna Grecia · Rasgos comunes al griego occidental</>}
       stats={<>
-        {/* Recuentos de §3 del capítulo (DORICO_GENERAL_1_Redaccion_v55; DVC_v5_FINAL.xlsx, fila 156 de Resúmenes). */}
-        <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub="172 de doris mitior · 2 de la Magna Grecia" accent={DOR} />
+        {/* Recuentos de §3 del capítulo (DORICO_GENERAL_1_Redaccion_v56; DVC_v5_FINAL.xlsx, fila 156 de Resúmenes). */}
+        <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub="172 de la Doris mitior · 2 de la Magna Grecia" accent={DOR} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR)} %`} sub={`${TOTAL_DOR} de ${TOTAL_CORPUS}`} accent={C.terra} />
         <Stat label="Rasgos estudiados" value={String(RASGOS_DOR.length)} sub="fonética, morfología, sintaxis y léxico" accent={C.green} />
         <Stat label="Cronología" value="ss. VI–III a.C." sub={`el ${pct(nSigloIV, TOTAL_DOR)} % del s. IV a.C.`} accent={C.blue} />
@@ -95,10 +96,10 @@ export default function DoricoGeneral({ switcher, subnav }) {
               <P>El dórico, o griego occidental, agrupa los dialectos hablados desde el Epiro hasta Rodas a través de la Grecia noroccidental, la mayor parte del Peloponeso y el Egeo meridional, y los de las colonias dorias de la Magna Grecia, Sicilia, la Propóntide, el mar Negro y Libia (Méndez Dosuna 2007a: 444-446). Es el grupo mayoritario del corpus (Méndez Dosuna 2018b: 34).</P>
             </CardT>
             <CardT title="Dos divisiones" accent={C.blue}>
-              <P>La distinción entre griego noroccidental y dórico propio tiene un valor sobre todo geográfico: salvo ἐνς y sus continuadores, no hay rasgo común al dórico propio del que carezcan los noroccidentales (Méndez Dosuna 2007a: 445). A ella se superpone el reparto por el vocalismo entre doris severior, media y mitior; el epirota, el corintio y el dialecto de sus colonias son de vocalismo mitior, que es la norma de las consultas dóricas.</P>
+              <P>La distinción entre griego noroccidental y dórico propio tiene un valor sobre todo geográfico: salvo ἐνς y sus continuadores, no hay rasgo común al dórico propio del que carezcan los noroccidentales (Méndez Dosuna 2007a: 445). A ella se superpone el reparto por el vocalismo entre la {"<i>Doris severior</i>"}, la {"<i>Doris media</i>"} y la {"<i>Doris mitior</i>"}; el epirota, el corintio y el dialecto de sus colonias son de vocalismo mitior, que es la norma de las consultas dóricas.</P>
             </CardT>
             <CardT title="Tres capítulos" accent={C.terra}>
-              <P>Este capítulo reúne los rasgos comunes a todo el grupo y las 174 consultas de vocalismo mitior sin adscripción regional precisa; el del dórico noroccidental se ocupa del Epiro y de los rasgos propios del noroeste, y el del doris severior, de las consultas con ese vocalismo. La adscripción regional solo es posible cuando concurre un dato ajeno a la lengua, como un etnónimo, un topónimo o un alfabeto epicórico.</P>
+              <P>Este capítulo reúne los rasgos comunes a todo el grupo y las 174 consultas de vocalismo mitior sin adscripción regional precisa; el del dórico noroccidental se ocupa del Epiro y de los rasgos propios del noroeste, y el de la {"<i>Doris severior</i>"}, de las consultas con ese vocalismo. La adscripción regional solo es posible cuando concurre un dato ajeno a la lengua, como un etnónimo, un topónimo o un alfabeto epicórico.</P>
             </CardT>
           </Grid>
         </Sec>
@@ -244,7 +245,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
             <Stat label="Alfabeto corintio" value={String(nCorintias)} sub={`${pct(nCorintias, TOTAL_DOR)} %`} accent={ALFABETO_COLORS.corintio} />
           </Stats>
           <Card>
-            <P>Entre las 174 figuran las dos del dórico de la Magna Grecia y Sicilia (I.Dodone DVC 312B y 2445) y cuatro consultas públicas de los dodoneos (I.Dodone DVC 295B, 2425A y 2952B, e I.Dodone Lhôte 14), que no documentan ningún rasgo propio del noroccidental. Sumadas las 71 noroccidentales y las 16 de doris severior, el dórico reúne 261 inscripciones, el 17,3 % del corpus dialectal, sin contar las de mezcla con la koiné u otros dialectos.</P>
+            <P>Entre las 174 figuran las dos del dórico de la Magna Grecia y Sicilia (I.Dodone DVC 312B y 2445) y cuatro consultas públicas de los dodoneos (I.Dodone DVC 295B, 2425A y 2952B, e I.Dodone Lhôte 14), que no documentan ningún rasgo propio del noroccidental. Sumadas las 71 noroccidentales y las 16 de la {"<i>Doris severior</i>"}, el dórico reúne 261 inscripciones, el 17,3 % del corpus dialectal, sin contar las de mezcla con la koiné u otros dialectos.</P>
           </Card>
         </Sec>
 
