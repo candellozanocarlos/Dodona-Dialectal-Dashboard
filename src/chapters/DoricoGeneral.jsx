@@ -82,7 +82,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
       subtitle={<><i>Doris mitior</i> y dórico de la Magna Grecia · Rasgos comunes al griego occidental</>}
       stats={<>
         {/* Recuentos de §3 del capítulo (DORICO_GENERAL_1_Redaccion_v56; DVC_v5_FINAL.xlsx, fila 156 de Resúmenes). */}
-        <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub="172 de la Doris mitior · 2 de la Magna Grecia" accent={DOR} />
+        <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub="173 de la Doris mitior · 2 de la Magna Grecia" accent={DOR} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR)} %`} sub={`${TOTAL_DOR} de ${TOTAL_CORPUS}`} accent={C.terra} />
         <Stat label="Rasgos estudiados" value={String(RASGOS_DOR.length)} sub="fonética, morfología, sintaxis y léxico" accent={C.green} />
         <Stat label="Cronología" value="ss. VI–III a.C." sub={`el ${pct(nSigloIV, TOTAL_DOR)} % del s. IV a.C.`} accent={C.blue} />
@@ -99,7 +99,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               <P>La distinción entre griego noroccidental y dórico propio tiene un valor sobre todo geográfico: salvo ἐνς y sus continuadores, no hay rasgo común al dórico propio del que carezcan los noroccidentales (Méndez Dosuna 2007a: 445). A ella se superpone el reparto por el vocalismo entre la {"<i>Doris severior</i>"}, la {"<i>Doris media</i>"} y la {"<i>Doris mitior</i>"}; el epirota, el corintio y el dialecto de sus colonias son de vocalismo mitior, que es la norma de las consultas dóricas.</P>
             </CardT>
             <CardT title="Tres capítulos" accent={C.terra}>
-              <P>Este capítulo reúne los rasgos comunes a todo el grupo y las 174 consultas de vocalismo mitior sin adscripción regional precisa; el del dórico noroccidental se ocupa del Epiro y de los rasgos propios del noroeste, y el de la {"<i>Doris severior</i>"}, de las consultas con ese vocalismo. La adscripción regional solo es posible cuando concurre un dato ajeno a la lengua, como un etnónimo, un topónimo o un alfabeto epicórico.</P>
+              <P>Este capítulo reúne los rasgos comunes a todo el grupo y las 175 consultas de vocalismo mitior sin adscripción regional precisa; el del dórico noroccidental se ocupa del Epiro y de los rasgos propios del noroeste, y el de la {"<i>Doris severior</i>"}, de las consultas con ese vocalismo. La adscripción regional solo es posible cuando concurre un dato ajeno a la lengua, como un etnónimo, un topónimo o un alfabeto epicórico.</P>
             </CardT>
           </Grid>
         </Sec>
@@ -131,7 +131,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
           <Stats>
             <Stat label="Dórico general" value={String(TOTAL_DOR)} sub="con un rasgo que excluye el eolio" accent={DOR} />
             <Stat label="No jónico-áticas" value="880" sub="solo rasgos compartidos" accent={C.muted} />
-            <Stat label="Dórico demostrado" value="261" sub={`con noroccidental y severior · ${pct(261)} %`} accent={C.terra} />
+            <Stat label="Dórico demostrado" value="262" sub={`con noroccidental y severior · ${pct(262)} %`} accent={C.terra} />
             <Stat label="Alfabeto corintio" value={String(nCorintias)} sub="de las 95 del corpus" accent={ALFABETO_COLORS.corintio} />
           </Stats>
           <Card>
@@ -245,7 +245,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
             <Stat label="Alfabeto corintio" value={String(nCorintias)} sub={`${pct(nCorintias, TOTAL_DOR)} %`} accent={ALFABETO_COLORS.corintio} />
           </Stats>
           <Card>
-            <P>Entre las 174 figuran las dos del dórico de la Magna Grecia y Sicilia (I.Dodone DVC 312B y 2445) y cuatro consultas públicas de los dodoneos (I.Dodone DVC 295B, 2425A y 2952B, e I.Dodone Lhôte 14), que no documentan ningún rasgo propio del noroccidental. Sumadas las 71 noroccidentales y las 16 de la {"<i>Doris severior</i>"}, el dórico reúne 261 inscripciones, el 17,3 % del corpus dialectal, sin contar las de mezcla con la koiné u otros dialectos.</P>
+            <P>Entre las 175 figuran las dos del dórico de la Magna Grecia y Sicilia (I.Dodone DVC 312B y 2445) y cuatro consultas públicas de los dodoneos (I.Dodone DVC 295B, 2425A y 2952B, e I.Dodone Lhôte 14), que no documentan ningún rasgo propio del noroccidental. Sumadas las 71 noroccidentales y las 16 de la {"<i>Doris severior</i>"}, el dórico reúne 262 inscripciones, el 17,3 % del corpus dialectal, sin contar las de mezcla con la koiné u otros dialectos.</P>
           </Card>
         </Sec>
 
@@ -265,7 +265,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="Recuento según la autopsia y la revisión de los alfabetos (ALFABETO_GRUPO_v2). El alfabeto corintio basta para atribuir al dórico una consulta con un rasgo no jónico-ático visible, pero no por sí solo: de las 95 inscripciones del corpus en ese alfabeto, 46 se cuentan en este capítulo, nueve en el noroccidental y 40 quedan sin clasificar.">
+          note="Recuento según la autopsia y la revisión de los alfabetos (ALFABETO_GRUPO_v2). El alfabeto corintio basta para atribuir al dórico una consulta con un rasgo no jónico-ático visible, pero no por sí solo: de las 95 inscripciones del corpus en ese alfabeto, 47 se cuentan en este capítulo, nueve en el noroccidental y 39 quedan sin clasificar.">
           <DonutLegend data={ALF_PIE} height={230} valueColor={DOR} />
         </Sec>
 
@@ -302,7 +302,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
           <Bars data={NOTACION_DOR} indexBy="period" keys={["con", "resto"]} height={300} rotate={-20}
             colors={{ con: DOR, resto: "#d9ccad" }} labels={{ con: "Notan con Ε u Ο alguna vocal media larga", resto: "Resto (notación jónica o sin ejemplos)" }} />
           <Card style={{ marginTop: 8 }}>
-            <P>Sesenta y seis de las 174 inscripciones notan con Ε u Ο alguna vocal media larga, primaria o secundaria, como ἐσσ̣ε͂ται de I.Dodone DVC 264A. La mayoría son del s. V a.C., pero no faltan textos del s. IV a.C. que combinan las letras del alfabeto jónico con la notación antigua de las vocales secundarias, como 3473A (ἐπερωτῆι y Διώναν, pero ἐσε͂ται) o I.Dodone Lhôte 94 (Ἀρχεφῶν y σωτηρία, pero κελομένο̄ το͂ y ἐσσε͂ται). En esas inscripciones de transición, la Ε y la Ο de las vocales secundarias, frente a la Η y la Ω de las heredadas, excluyen el vocalismo severior.</P>
+            <P>Sesenta y seis de las 175 inscripciones notan con Ε u Ο alguna vocal media larga, primaria o secundaria, como ἐσσ̣ε͂ται de I.Dodone DVC 264A. La mayoría son del s. V a.C., pero no faltan textos del s. IV a.C. que combinan las letras del alfabeto jónico con la notación antigua de las vocales secundarias, como 3473A (ἐπερωτῆι y Διώναν, pero ἐσε͂ται) o I.Dodone Lhôte 94 (Ἀρχεφῶν y σωτηρία, pero κελομένο̄ το͂ y ἐσσε͂ται). En esas inscripciones de transición, la Ε y la Ο de las vocales secundarias, frente a la Η y la Ω de las heredadas, excluyen el vocalismo severior.</P>
           </Card>
         </Sec>
 
