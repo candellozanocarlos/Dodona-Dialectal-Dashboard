@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveRadar } from "@nivo/radar";
-import { C, fade } from "../theme.js";
+import { C, TEMA_COLORS, fade } from "../theme.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 
 const THEME = {
@@ -64,7 +64,7 @@ const ticks = (max, n = 5) => {
  *   data       [{ [indexBy]: "…", [clave]: número, color? }]
  *   keys       series; con una sola, el color sale de data[i].color o de `color`
  *   colors     { clave: color } para varias series; `labels` { clave: rótulo } activa la leyenda
- *   highlight  valor de indexBy que se resalta (el resto se atenúa)
+ *   highlight  valor de indexBy que se resalta: su rótulo va en negrita y todas las barras conservan su color
  *   format     formato de la cifra (p. ej. porcentajes)
  *   bands      [{ from, to, label }] franjas sombreadas sobre categorías (solo verticales)
  */
@@ -78,9 +78,19 @@ export function Bars({
   const total = (d) => grouped ? Math.max(...keys.map((k) => d[k] || 0)) : keys.reduce((a, k) => a + (d[k] || 0), 0);
   const scale = ticks(maxValue === "auto" ? Math.max(1, ...data.map(total)) : maxValue);
   const top = scale[scale.length - 1];
-  const colorOf = (bar) => {
-    const base = colors ? colors[bar.id] : (bar.data.color || color);
-    return highlight && bar.indexValue !== highlight ? fade(base, 0.38) : base;
+  const colorOf = (bar) => colors ? colors[bar.id] : (bar.data.color || color);
+  // Rótulo de la categoría resaltada en negrita y con el color de su barra.
+  const highlightTick = (tick) => {
+    const on = tick.value === highlight;
+    const col = on ? (data.find((d) => d[indexBy] === highlight)?.color || C.heading) : C.muted;
+    return (
+      <g transform={`translate(${tick.x},${tick.y})`}>
+        <text x={tick.textX} y={tick.textY} textAnchor={tick.textAnchor} dominantBaseline="central"
+          style={{ fontFamily: "var(--fb)", fontSize: on ? 12 : 11, fontWeight: on ? 700 : 400, fill: col }}>
+          {tick.value}
+        </text>
+      </g>
+    );
   };
   const legend = labels && keys.length > 1;
 
@@ -148,7 +158,9 @@ export function Bars({
           layers={["grid", ...(bands.length ? [bandLayer] : []), "axes", "bars", valueLayer]}
           axisTop={null}
           axisRight={null}
-          axisLeft={horizontal ? { tickSize: 0, tickPadding: 10 } : { tickSize: 4, tickPadding: 6, tickValues: scale, format }}
+          axisLeft={horizontal
+            ? { tickSize: 0, tickPadding: 10, ...(highlight ? { renderTick: highlightTick } : {}) }
+            : { tickSize: 4, tickPadding: 6, tickValues: scale, format }}
           axisBottom={horizontal
             ? { tickSize: 4, tickPadding: 6, tickValues: scale, format }
             : { tickSize: 0, tickPadding: 8, tickRotation: rotate }}
@@ -303,7 +315,8 @@ export const Radar = ({ data, height = 330, color = C.gold, unit = "inscripcione
 export const Temas = ({ data, color, height = 340 }) => (
   <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
     <div style={{ flex: "1 1 420px", minWidth: 280 }}>
-      <Bars horizontal data={data} color={C.amber} height={height} left={200} />
+      {/* Cada tema en su color fijo, como en los gráficos de la tesis. */}
+      <Bars horizontal data={data.map((t) => ({ ...t, color: TEMA_COLORS[t.name] || C.amber }))} height={height} left={200} />
     </div>
     <div style={{ flex: "1 1 320px", minWidth: 280 }}>
       <Radar data={data.filter((t) => !t.name.startsWith("Desconocido"))} height={height} color={color} />

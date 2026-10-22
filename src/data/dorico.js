@@ -1,15 +1,18 @@
-import { C } from "../theme.js";
+import { ALFABETO_COLORS, C, DIALECT_COLORS, ORO } from "../theme.js";
 
-// Datos del capítulo sobre el dórico (subsección: doris severior).
+// Datos del capítulo sobre el dórico: subsecciones y doris severior (el dórico general, en doricoGeneral.js).
 
 // En los textos, {{…}} marca las formas del corpus citadas de manera aislada
 // (véase FORMAS_SIN_DIACRITICOS en chapters/Dorico.jsx).
 
 // Color claro del severior para las menciones dudosas.
-export const MG_LIGHT = "#ceb3ab";
+// Menciones restituidas o dudosas: el ocre (ORO) de los gráficos de la tesis.
+export const MG_LIGHT = ORO;
 
-// ── Subsecciones del dórico ──────────────────────────────────
+// ── Subsecciones del dórico, en el orden de la tesis (cap. 4 dórico general, 5 noroccidental, 6 severior) ──
 export const SUBSECCIONES_DOR = [
+  { id: "general", label: "Dórico general", color: DIALECT_COLORS.dorico },
+  { id: "noroccidental", label: "Dórico noroccidental", color: DIALECT_COLORS.doricoNO },
   { id: "severior", label: "Doris severior", color: C.severior },
 ];
 
@@ -74,7 +77,7 @@ export const INSCRIPCIONES_SEV = [
     note: "Ofrece la secuencia {{περὶ τῶ hιαρῶ ἀργυρίω τῶ}}, con tres genitivos temáticos consecutivos, y el infinitivo {{ἦμεν}}. El texto presenta además la conjunción {{αἰ}} y {{βέντιον}}. El rasgo por el que la laminilla se incluye en este grupo es la notación de la aspiración con el signo Ͱ en {{hιαρῶ}}, el mismo que emplean I.Dodone DVC 1432, I.Dodone Lhôte 5 y I.Dodone DVC 2367, y que remite al repertorio gráfico de la Magna Grecia y Sicilia. Conviene precisar, con todo, que el peso probatorio del vocalismo descansa aquí sobre el genitivo temático, puesto que {{ἦμεν}} procede del primer alargamiento compensatorio y no descarta por sí mismo la variedad intermedia (§4.1.3).",
     refs: "Tselikas (2018: 256); Méndez Dosuna (2018a: 272); Chaniotis (2013: 20)" },
   { id: "3461B", group: "b", date: "primera mitad del s. IV a.C.", period: "1ª mit. s. IV",
-    tema: "Religión", alf: "Reformado / Milesio",
+    tema: "Religión", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: false, alf: false, proc: null, area: "*-ονσ- > ⟨Ω⟩" },
     forms: ["θύωσα"],
     text: "[ἀγ]αθὰ τύχα· Φιλα[- - - ἐπερ]-\n[ωτ]ῆ τὸν Δία καὶ [τὰν Διώναν τίνι κα] \n[θε]ῶν θύωσα ἢ [εὐχομένα ἄμεινον] \n[π]ράσσοι τὰν αὐ[- - -]",
@@ -82,49 +85,49 @@ export const INSCRIPCIONES_SEV = [
     refs: "Méndez Dosuna (2018b: 43); Del Barrio Vega (2006: 11); Katsadima (2017: 132)" },
   // ── c) ──
   { id: "3554B", group: "c", date: "mediados del s. IV a.C.", period: "Med. s. IV",
-    tema: "Amor / Familia / Matrimonio", alf: "Reformado / Milesio",
+    tema: "Amor / Familia / Matrimonio", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: true, alf: false, proc: null },
     forms: ["ἐσσῆται"],
     text: "θεὸς τύχα· ἐπερω̣[τ]ῆ Μενέστας \nΔία Νάϊον καὶ [Διώ]ναν ἦ ἐσσῆται \nαὐτῶι ἐρσεντέρα γενεὰ ἐκ τᾶς \nγυναι[κὸ]ς [τᾶς] νῦν ΚΑΙ̣[- - -]",
     note: "Presenta el futuro dórico {{ἐσσῆται}} y, como elemento confirmatorio, el adjetivo {{ἐρσεντέρα}}, que Tselikas (2018: 258) y Méndez Dosuna (2018b: 43) cuentan entre los rasgos dóricos, aunque ἔρσην se documenta también en jónico, de modo que prueba un ámbito no ático antes que específicamente dórico (át. ἄρσην). Nieto Izquierdo (2019: 106-108) la aduce como ejemplo de interrogativa total indirecta introducida por {{ἦ}}, rasgo sintáctico dórico, ya que en ático esta partícula se reserva para las interrogativas directas.",
     refs: "Méndez Dosuna (2018b: 43); Tselikas (2018: 258)" },
   { id: "1395A", group: "c", date: "primera mitad del s. IV a.C.", period: "1ª mit. s. IV",
-    tema: "Esclavitud", alf: "Reformado / Milesio",
+    tema: "Esclavitud", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: true, alf: false, proc: null },
     forms: ["ἔσσωμαι"],
     text: "[Ζ]εῦ Νάϊε καὶ [Διώνα, ὁ δεῖνα] \nτίνα κα θεῶν ποτθέμεν[ο]ς̣ \nβέντιον εἴη καὶ ἦ ἐλεύθερ[ός] \nποκ' ἔσσωμαι;",
     note: "Consulta de un esclavo sobre a qué dios dirigirse y sobre su eventual manumisión. La forma {{ἔσσωμαι}}, que los editores consideraron problemática por esperarse el futuro dórico ἐσσέομαι, se explica sin dificultad como futuro dórico contracto, ἐσσῶμαι, con vocalismo severior. Méndez Dosuna (2018b: 43) no descarta, con todo, que la grafía se deba a un esclavo poco familiarizado con la notación de las vocales largas. El texto presenta además el adverbio {{ποκ'}}, la partícula modal {{κα}}, el compuesto {{ποτθέμεν[ο]ς̣}} y {{βέντιον}}.",
     refs: "Méndez Dosuna (2018b: 43)" },
   { id: "3842", group: "c", date: "primera mitad del s. III a.C.", period: "1ª mit. s. III",
-    tema: "Amor / Familia / Matrimonio", alf: "Reformado / Milesio",
+    tema: "Amor / Familia / Matrimonio", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: true, alf: false, proc: null },
     forms: ["ἐσσῆ[ται]"],
     text: "[- - - ἐπερ]ωτῆι Καρίων τὸν Δία καὶ τὰν \n[Διώναν - - -]ΝΟΝ τὸν παῖ(δα) Αἰσχίναν \n[- - -]ΡΑΣ βέντιον α[ὐ]τῶι ἐσσῆ-\n[ται - - -] καὶ ε[ἰς τὸν λ]οιπὸν χρόνον",
     note: "El testimonio más reciente del conjunto repite la combinación de {{ἐσσῆ[ται]}} con {{βέντιον}}. Dado el estado fragmentario del texto y el carácter restituido de la forma diagnóstica, es la laminilla del grupo cuya caracterización descansa sobre una base más exigua.",
     refs: "" },
   { id: "429B", group: "c", date: "finales del s. V a.C.", period: "Finales s. V",
-    tema: "Amor / Familia / Matrimonio", alf: "Reformado / Milesio",
+    tema: "Amor / Familia / Matrimonio", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: false, alf: false, proc: null },
     forms: ["τῶ Διονυσίω"],
     text: "[- - - λώϊο]ν καὶ ἄ̣μει[ν]ον [- - -]\n[- - - περὶ θυγ]ατρὸς τῶ Διονυσίω [- - -] \n[- - -] καὶ περὶ τᾶς γυναι[κὸς - - -]\n[- - - πο]τθεμένα γ[υ]ν̣αῖκα [- - -]",
     note: "Presenta el genitivo severior {{τῶ Διονυσίω}}, en una consulta sobre el matrimonio de una hija o sobre unas segundas nupcias. Es posible que aparezca el compuesto {{[πο]τθεμένα}}.",
     refs: "Laes (2020: 188 n. 35)" },
   { id: "975B", group: "c", date: "segunda mitad del s. IV a.C.", period: "2ª mit. s. IV",
-    tema: "Viaje / Migración", alf: "Reformado / Milesio",
+    tema: "Viaje / Migración", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: false, alf: false, proc: null },
     forms: ["πὲρ τῶ πλ[ῶ]"],
     text: "θ̣εό̣ς· Ἐξαίνετ[ος ἐπερω]-\nτῆι τὸν Δία καὶ τὰ[ν Διώναν] \nπὲρ τῶ πλ[ῶ αἰ ἴδοι] \nτ[ὰ]ν̣ πατρωΐα[ν γᾶν πο]-\nκα",
     note: "Ofrece la secuencia severior {{πὲρ τῶ πλ[ῶ]}} en la consulta de un tal {{Ἐξαίνετ[ος]}}. El antropónimo está bien documentado en Sicilia, si bien no es exclusivo de esta zona. La forma diagnóstica depende, con todo, de una restitución.",
     refs: "Giannakis (2024b: 105)" },
   { id: "1985A", group: "c", date: "mediados del s. IV a.C.", period: "Med. s. IV",
-    tema: "Dinero / Patrimonio", alf: "Reformado / Milesio",
+    tema: "Dinero / Patrimonio", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: false, alf: false, proc: null },
     forms: ["πανπασίω"],
     text: "θεὸς τύχα· περὶ \nπανπασίω",
     note: "Contiene el genitivo {{πανπασίω}}, derivado de παμπασία, término de origen dórico muy frecuente en el corpus. La forma masculina o neutra está atestiguada por lo demás solo en I.Dodone Lhôte 116, donde aparece como {{πανπασί}} en alfabeto epicórico y no resulta, por tanto, diagnóstica.",
     refs: "Méndez Dosuna (2024: §4.1)" },
   { id: "2525A", group: "c", date: "finales del s. IV a.C.", period: "Finales s. IV",
-    tema: "Vida / Salud", alf: "Reformado / Milesio",
+    tema: "Vida / Salud", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: true, dor: false, alf: false, proc: null },
     forms: ["περὶ τῶ σ̣ώματος"],
     text: "ἐρωτῆι δὲ κ̣αὶ περὶ τῶ σ̣ώματος \n[τί] κα ποιήσας hυγιαίνω",
@@ -132,7 +135,7 @@ export const INSCRIPCIONES_SEV = [
     refs: "Chaniotis (2016: §207)" },
   // ── d) ──
   { id: "3128", group: "d", date: "mediados del s. IV a.C.", period: "Med. s. IV",
-    tema: "Oficio / Comercio", alf: "Reformado / Milesio",
+    tema: "Oficio / Comercio", alf: "Reformado / Desconocido",
     crit: { voc: "s", media: false, dor: true, alf: false, proc: null },
     forms: ["ἦμεν", "ἐξενθε̅ν"], mediaCandidate: true,
     text: "[---]λ̣λωνίδαι \n[---]οι μέλλει βέντι \n[ον] καὶ ὄναιον ἦμεν \nγαοργέ̣οντι τὸν χῶρον \nτοῦτόν μοι τὸν κλα̅ρο\nν ἐξενθε̅ν",
@@ -140,21 +143,23 @@ export const INSCRIPCIONES_SEV = [
     refs: "Ruijgh (1984: 66-67); Tselikas (2018: 257)" },
   // ── e) ──
   { id: "212B", group: "e", date: "mediados del s. IV a.C.", period: "Med. s. IV",
-    tema: "Desconocido / Sin clasificar", alf: "Reformado / Milesio",
+    tema: "Desconocido / Sin clasificar", alf: "Reformado / Desconocido",
     crit: { voc: "d", media: true, dor: false, alf: false, proc: null },
     forms: ["[ἐ]σ̣ῆτ[αι]"],
     text: "[- - - - - - - - - - - -]\nκαὶ Ζεῦ Δωδων[αῖε] \nἈρτέμων κυν[ῆται - - - λώϊ]-\nον καὶ ἄμειν[ον - - -]\n[.] [ἐ]σ̣ῆτ[αι]",
     note: "La forma {{[ἐ]σ̣ῆτ[αι]}} podría interpretarse también como el jónico σῆτες (= dórico σᾶτες), lo que remitiría a un consultante de otro ámbito dialectal.",
     refs: "DGE s.v. σῆτες" },
   { id: "268A", group: "e", date: "finales del s. V o principios del s. IV a.C.", period: "Transición V–IV",
-    tema: "Religión", alf: "Reformado / Milesio", autopsia: 2024,
+    tema: "Religión", alf: "Reformado / Desconocido", autopsia: 2024,
     crit: { voc: "d", media: true, dor: false, alf: false, proc: null },
     forms: ["[τ]ῶ σαμείω"],
-    text: "[θεὸς τύχα• ἐρωτ]ε͂ι ἁ πόλις \n[τῶν Δωδωνα]ίων τὸν Δί-\n[α τὸν Νᾶο]ν καὶ τὰν Δι-\n[ώναν περὶ τ]ῶ σαμείω τῷ \n[- - -]γενομένω τί \n[κα εἴη λώϊ]ον καὶ ἂμει-\n[νον - - -] ἢ̣ μηδὲν \n[- - - γέν]οιτο",
+    text: "[ed. I.Dodone DVC]\n[θεὸς τύχα• ἐρωτ]ε͂ι ἁ πόλις \n[τῶν Δωδωνα]ίων τὸν Δί-\n[α τὸν Νᾶο]ν καὶ τὰν Δι-\n[ώναν περὶ τ]ῶ σαμείω τῷ \n[- - -]γενομένω τί \n[κα εἴη λώϊ]ον καὶ ἂμει-\n[νον - - -] ἢ̣ μηδὲν \n[- - - γέν]οιτο"
+      + "\n[Lhôte y Carbon apud CIOD (2022)]\n[θεός · ἐρωτ]εῖ ἁ πόλις \n[ἁ Ταραντί]νων (?) τὸν Δί-\n[α τὸν Ναῖο]ν καὶ τὰν Δι-\n[ώναν πὲρ τ]ῶ σαμείω τῷ \n[ἐν οὐρανῶι] (?) γενομένω τί \n[κα εἴη λῶι]ον καὶ ἄμει-\n[νον ἢ πράξα]ι (?) μηδὲν \n[λῶιον γέν]οιτο (?)"
+      + "\n[Petrovic apud DOL, ll. 1-2]\n… ἁ πόλις \n[(ἁ) τῶν - - -]Ι̣ΩΝ …",
     note: "Es el caso más instructivo del grupo y su interés excede lo vocálico. La secuencia {{[τ]ῶ σαμείω}}, de lectura confirmada en la autopsia llevada a cabo en la Eforía de Antigüedades de Ioánina en 2024, parece ofrecer dos genitivos de vocalismo severior. La forma σαμεῖον está atestiguada únicamente en Mesenia (IG V¹ 1390; IG V¹ 1430), lo que refuerza la interpretación severior y apunta, en principio, a un ámbito peloponesio, si bien el poblamiento mesenio de Regio y Mesina impide descartar un origen italiano. El problema reside en la restitución del sujeto de la consulta: los editores reconstruyen {{ἁ πόλις [τῶν Δωδωνα]ίων}}, lo que convertiría el texto en una consulta de la propia comunidad del santuario, mientras que Carbon y Lhôte apud CIOD, apoyándose en el carácter severior de {{τῶ σαμείω}}, restituyen {{[Ταραντί]νων}} y atribuyen la consulta a los tarentinos. Petrovic, que también la clasifica como doris severior, observa que la restitución de los editores excede el espacio disponible en la laguna y que el trazo vertical leído como iota podría pertenecer a una nu o a una eta, por lo que propone {{ἁ πόλις [(ἁ) τῶν - - -]Ι̣ΩΝ}} sin pronunciarse sobre el etnónimo. La cuestión permanece abierta, pero cabe recordar que conservamos una consulta de los tarentinos (I.Dodone Lhôte 5) con una formulación semejante.",
     refs: "Chapinal-Heras (2021: 46 n. 315); Petrovic apud DOL" },
   { id: "3354A", group: "e", date: "finales del s. V a.C.", period: "Finales s. V",
-    tema: "Esclavitud", alf: "Reformado / Milesio", autopsia: 2024,
+    tema: "Esclavitud", alf: "Reformado / Desconocido", autopsia: 2024,
     crit: { voc: "d", media: true, dor: false, alf: false, proc: null },
     forms: ["Παρμενίσκω"],
     text: "[θε]ός· Αὐτάριον Παρμενίσκω ἐ̣κ̣ Τάτα[ς - - -] \n[.]Ν Παρεσίναν Ζ̣ο̅ΐλαν [. .]ΡΕΟΙ Παρμε[- - -] \nΜ[. . . .]ΟΙ[. . .]ΝΟΝ[. . . 6 . . .] ἐρ̣γάζεσθαι [. .][- - -]",
@@ -180,8 +185,8 @@ export const THEMES_SEV = Object.entries(INSCRIPCIONES_SEV.reduce((acc, i) => {
 
 // Alfabeto (§3; suma: TOTAL_SEV).
 export const ALF_SEV_PIE = [
-  { id: "milesio", label: "Milesio o sin alfabeto epicórico", value: 12, color: C.milesio },
-  { id: "italo", label: "Magna Grecia / Sicilia (I.Dodone DVC 1432, 2367, 2409A · I.Dodone Lhôte 5)", value: 4, color: C.blue },
+  { id: "milesio", label: "Reformado o no identificado", value: 12, color: C.milesio },
+  { id: "italo", label: "Magna Grecia / Sicilia (I.Dodone DVC 1432, 2367, 2409A · I.Dodone Lhôte 5)", value: 4, color: ALFABETO_COLORS.magnaGrecia },
 ];
 
 // ── Contexto histórico (§2) ──────────────────────────────────
@@ -413,5 +418,8 @@ export const EXCLUDED_SEV = [
     desc: "Atribuida a Sicilia por el término {{γάναν}} (át. γυνή), propio de esa zona (Greg.Cor. §345)." },
   { ref: "2445", date: "mediados del s. IV a.C.", tag: "Rasgo occidental no exclusivo",
     text: "(θ)εὸς τύ[χ]α· ἦ αὐτῶι \nμοι ἐργαζομέν̣ωι \nλώϊον καὶ ἄμεινο̣-\n<ο>ν ἐπεὶ χὀ̣ ἐνιαυτὸς \nδιεξένθει;",
-    desc: "El paso λθ > νθ de {{διεξένθει}} figura entre los rasgos comunes del griego noroccidental y del dórico en general (Tselikas 2018: 257), aunque Giannakis (2024b: 109 n. 77) atribuye el texto a un dórico «quizá de Corfú o de las colonias sicilianas e itálicas». Sin vocalismo severior." },
+    desc: "El paso λθ > νθ de {{διεξένθει}} figura entre los rasgos comunes del griego noroccidental y del dórico en general (Tselikas 2018: 257), aunque Carbon (2017: 109 n. 77) atribuye el texto a un dórico «quizá de Corfú o de las colonias sicilianas e itálicas». Sin vocalismo severior." },
 ];
+
+// El dórico general (rasgos de §4-§7, cifras de §3, topónimos de §2 y escritura) está en doricoGeneral.js,
+// que genera scripts/datos_dorico_general.py desde el Excel y DORICO_GENERAL_1_Redaccion_v55.

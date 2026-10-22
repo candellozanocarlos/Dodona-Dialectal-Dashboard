@@ -20,9 +20,35 @@ export const wrapGreekHtml = (html) => normGreekMarks(html).replace(
   '<span class="greek-run" lang="grc">$1</span>',
 );
 
+// Línea que rotula una edición dentro de un texto con varias: «[ed. I.Dodone DVC]»,
+// «[Méndez Dosuna 2016: 137]». Empieza por letra latina y no lleva griego, para no
+// confundirla con lagunas o restituciones del propio texto («[- - -]», «[γυ]ναικί»).
+const EDITION_LABEL_RE = /^\[([A-Za-zÀ-ÿ][^\]Ͱ-Ͽἀ-῿]*)\]$/;
+
+const renderEditionLabel = (label, key) => (
+  <span className="ed-label" key={key}>
+    {label.split(/(I\.Dodone (?:DVC|Lhôte)|CIOD)/).map((s, i) => (i % 2 ? <i key={i}>{s}</i> : s))}
+  </span>
+);
+
 export const renderGreekText = (text) => {
   if (text == null) return null;
   if (typeof text !== "string") return text;
+  const lines = text.split("\n");
+  if (lines.some((l) => EDITION_LABEL_RE.test(l.trim()))) {
+    // Texto con varias ediciones: cada rótulo en su propia línea, seguido de su texto.
+    const parts = [];
+    lines.forEach((line, i) => {
+      const m = line.trim().match(EDITION_LABEL_RE);
+      if (m) { parts.push(renderEditionLabel(m[1], `ed-${i}`)); return; }
+      parts.push(<span key={`ln-${i}`}>{renderGreekRuns(line)}{i < lines.length - 1 && "\n"}</span>);
+    });
+    return parts;
+  }
+  return renderGreekRuns(text);
+};
+
+const renderGreekRuns = (text) => {
   text = normGreekMarks(text);
   const parts = [];
   let last = 0;

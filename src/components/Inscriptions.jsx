@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { C } from "../theme.js";
-import { getInscription, hasInscription, renderGreekText } from "../lib/text.jsx";
+import { asRef, getInscription, hasInscription, renderGreekText } from "../lib/text.jsx";
+
+// Etiqueta «I.Dodone DVC 123A» sin enlace, para botones que ya muestran el texto debajo.
+export const DvcLabel = ({ dvc }) => {
+  const { src, id } = asRef(dvc);
+  return <span><em>I.Dodone {src}</em> {id}</span>;
+};
 
 // Cita de una inscripción; si está en el índice, muestra su texto al pasar el cursor.
 export const Ref = ({ src, id, style = {} }) => {

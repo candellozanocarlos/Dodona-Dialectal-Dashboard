@@ -1,6 +1,6 @@
 // Capítulo: el dialecto beocio en las laminillas oraculares de Dodona.
 import { useState } from "react";
-import { C, CAT_COLORS, PROSE, fade } from "../theme.js";
+import { C, CAT_COLORS, PROSE, colorSiglo, fade } from "../theme.js";
 import { MACROGRUPOS, TOTAL_BEOC, TOTAL_CORPUS, TOTAL_TES, pct } from "../data/corpus.js";
 import {
   ALF_BEOC, ALF_BEOC_PIE, BO_KIND, BO_PLACES, CHRONO_DETAIL_BEOC, GRAFIA_TIMELINE_BEOC, LITERARY_SOURCES_BEOC,
@@ -151,15 +151,15 @@ export default function Beocio({ switcher }) {
         </Sec>
 
         <Sec title="Distribución cronológica"
-          sub="El grueso del material pertenece al s. V a.C. (10 inscripciones), frente a 5 del s. IV y 2 de la transición V-IV; el único testimonio posterior es I.Dodone Lhôte 10 (ss. III-II a.C.), de adscripción dudosa">
-          <Bars data={CHRONO_DETAIL_BEOC} indexBy="period" keys={["n"]} color={C.beocio} height={280} rotate={-35} />
+          sub="El grueso del material pertenece al s. V a.C. (10 inscripciones), frente a 4 del s. IV y 2 de la transición V-IV; el único testimonio posterior es I.Dodone Lhôte 10 (ss. III-II a.C.), de adscripción dudosa">
+          <Bars data={CHRONO_DETAIL_BEOC.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={280} rotate={-35} />
         </Sec>
 
         <Sec title="Temática de las consultas" sub="Temas de consulta de las inscripciones beocias">
           <Temas data={THEMES_BEOC} color={C.beocio} height={330} />
           <p style={{ ...PROSE, fontSize: 11.5, marginTop: 8 }}>
-            No existe una categoría dominante: 6 de las 18 inscripciones (el 33 %) no han podido clasificarse, proporción comparable
-            a la del corpus tesalio (27 %), y ninguna temática supera los dos testimonios. La ausencia de un tema predominante refleja,
+            No existe una categoría dominante: 3 de las 17 inscripciones (el 18 %) no han podido clasificarse, proporción comparable
+            a la del corpus tesalio (23 %), y ninguna temática supera los tres testimonios. La ausencia de un tema predominante refleja,
             más que una característica del grupo dialectal, las limitaciones de un corpus reducido.
           </p>
         </Sec>
