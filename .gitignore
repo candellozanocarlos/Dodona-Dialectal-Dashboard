@@ -22,3 +22,6 @@ Thumbs.db
 desktop.ini
 *.suo
 *.sw?
+
+# Netlify CLI (estado local del sitio)
+.netlify/
