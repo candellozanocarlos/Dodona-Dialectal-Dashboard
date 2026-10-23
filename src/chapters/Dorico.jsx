@@ -1,7 +1,7 @@
 // Capítulo: el dórico en las laminillas oraculares de Dodona. Se organiza en subsecciones
-// (SUBSECCIONES_DOR): dórico general (DoricoGeneral.jsx), dórico noroccidental (en preparación) y doris severior.
+// (SUBSECCIONES_DOR): dórico general (DoricoGeneral.jsx), dórico noroccidental (DoricoNO.jsx) y doris severior.
 import { useState } from "react";
-import { C, DIALECT_COLORS, DIALECT_INK, PROSE, colorSiglo, fade } from "../theme.js";
+import { C, PROSE, colorSiglo, fade } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_SEV, pct } from "../data/corpus.js";
 import {
   ALF_SEV_PIE, CHRONO_DETAIL_SEV, DIAGNOSTIC_FORMS_SEV, EXCLUDED_SEV, FILIACION_SEV, GROUP_BARS_SEV, INSCRIPCIONES_SEV,
@@ -13,6 +13,7 @@ import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { DvcLabel, Ref } from "../components/Inscriptions.jsx";
 import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
 import DoricoGeneral from "./DoricoGeneral.jsx";
+import DoricoNO from "./DoricoNO.jsx";
 import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Select, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
 
 const TABS = [
@@ -74,20 +75,6 @@ const SevInscriptionPanel = ({ id, onClose }) => {
     </div>
   );
 };
-
-// ── Dórico noroccidental: pendiente de redacción ──
-const DoricoNO = ({ switcher, subnav }) => (
-  <ChapterLayout switcher={switcher} subnav={subnav} color={DIALECT_INK.doricoNO} accent={[C.terra, DIALECT_COLORS.doricoNO, C.gold, C.blue]}
-    title={<>El <span style={{ fontWeight: 700, color: DIALECT_INK.doricoNO }}>dórico noroccidental</span> en las laminillas oraculares de Dodona</>}
-    subtitle="Sección en preparación" stats={null}
-    tabs={[{ id: "prep", l: "En preparación", i: "…" }]} tab="prep" onTab={() => {}}>
-    <Card style={{ padding: "18px 22px" }}>
-      <p style={{ ...PROSE, fontSize: 13, color: C.text }}>
-        El capítulo del dórico noroccidental está en redacción; esta sección se completará cuando esté terminado.
-      </p>
-    </Card>
-  </ChapterLayout>
-);
 
 export default function Dorico({ switcher }) {
   const [sub, setSub] = useState("general");

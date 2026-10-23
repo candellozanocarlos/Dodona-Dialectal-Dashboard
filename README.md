@@ -9,7 +9,7 @@ sobre las laminillas oraculares de Dodona. Cada capítulo de la tesis tiene su v
 |---|---|
 | **Tesalio** | Contexto histórico, mapa de Tesalia por tétradas, perfil dialectal (31 rasgos), vocalismo y rasgos compartidos con el beocio |
 | **Beocio** | Contexto histórico, mapa de Beocia, perfil dialectal (18 rasgos), vocalismo y rasgos compartidos con el tesalio |
-| **Dórico** | Tres subsecciones: dórico general (por ahora, los 16 rasgos fonéticos del capítulo y su valor diagnóstico), dórico noroccidental (en preparación) y doris severior (Magna Grecia y Dodona, mapa de topónimos y etnónimos occidentales, clasificación de las 16 inscripciones y vocalismo frente a la doris media) |
+| **Dórico** | Tres subsecciones: dórico general (contexto, mapa de topónimos y etnónimos dóricos, perfil dialectal con los rasgos de §4-§7 y su valor diagnóstico, escritura y notación), dórico noroccidental (contexto, mapa de las comunidades del Noroeste, perfil dialectal con los rasgos propios del noroeste, los apartados del capítulo y su valor diagnóstico, escritura y contracción de εο en ου) y Doris severior (Magna Grecia y Dodona, mapa de topónimos y etnónimos occidentales, clasificación de las 16 inscripciones y vocalismo frente a la Doris media) |
 | **Autopsias** | Notas de autopsia de laminillas examinadas en la Eforía de Antigüedades de Ioánina |
 
 Las citas de inscripciones (*I.Dodone DVC* 123A, *I.Dodone Lhôte* 8B) muestran su texto al pasar
@@ -39,15 +39,17 @@ src/
   data/
     corpus.js             totales del corpus y macrogrupos dialectales
     tesalio.js, beocio.js, dorico.js, autopsias.js
+    doricoGeneral.js, doricoNO.js   generados con scripts/datos_dorico_general.py y datos_dorico_noroccidental.py
     inscriptions.json     índice de inscripciones citadas (datación, texto, dialecto)
   chapters/               una vista por capítulo (+ la pestaña común tesalio/beocio)
   components/
     ui.jsx                cabecera y pestañas del capítulo, tarjetas, tablas, explorador de rasgos
     charts.jsx            gráficos de barras y anillos (Nivo)
     Inscriptions.jsx      citas enlazadas y tarjeta con el texto de la inscripción
-    maps/                 mapas de Tesalia, Beocia y Magna Grecia sobre una base común
+    maps/                 mapas de Tesalia, Beocia, Magna Grecia y el dórico (general y noroccidental) sobre una base común
   lib/text.jsx            griego politónico y enlace automático de citas
 scripts/coastline.py      genera la costa y las áreas de un mapa nuevo
+scripts/datos_dorico_*.py generan los datos del dórico desde el Excel y los capítulos
 ```
 
 ## Añadir un capítulo

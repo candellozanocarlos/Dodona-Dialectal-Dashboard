@@ -1,4 +1,5 @@
 // Mapa de los topónimos y etnónimos dóricos citados en el corpus (§2 del dórico general), con la estética de MagnaGraeciaMap.
+// Por defecto, los lugares y la ventana del dórico general; el dórico noroccidental pasa los suyos (places, view, land…).
 import { useState } from "react";
 import { C, DIALECT_COLORS, ORO } from "../../theme.js";
 import { TOPONYMS_DOR } from "../../data/doricoGeneral.js";
@@ -7,8 +8,8 @@ import { DOR_LAND_PATH } from "./coastlines.js";
 import { HALO, makeProj, star } from "./geo.js";
 import { Dodona, MapLegend, MapSvg, RegionLabels, SeaLabels, SourceNote } from "./MapBase.jsx";
 
-const DOR = DIALECT_COLORS.dorico;
-const P = makeProj({ lon0: 15.9, lon1: 23.8, lat0: 36.7, lat1: 43.7 });
+const DOR_GENERAL = DIALECT_COLORS.dorico;
+const VISTA_DOR = { lon0: 15.9, lon1: 23.8, lat0: 36.7, lat1: 43.7 };
 const radius = (n) => Math.sqrt(55 + 120 * n) * 0.5;   // área ∝ número de menciones
 
 const MARES = [
@@ -21,20 +22,27 @@ const REGIONES = [
   { t: "PELOPONESO", lon: 22.2, lat: 37.45 },
 ];
 
-export default function DoricMap({ selected = null, onSelect = () => {}, anillo = false }) {
+const NOTAS_DOR = ["El tamaño del símbolo es proporcional al número de menciones.",
+  "No se cuentan I.Dodone DVC 105B, 193B y 3116A (Κορ- restituido: Corcira o Corinto)."];
+
+export default function DoricMap({ selected = null, onSelect = () => {}, anillo = false, places = TOPONYMS_DOR, color = DOR_GENERAL,
+  view = VISTA_DOR, land = DOR_LAND_PATH, mares = MARES, regiones = REGIONES, notas = NOTAS_DOR,
+  label: aria = "Mapa de los topónimos y etnónimos dóricos mencionados en el corpus de Dodona" }) {
   const [hover, setHover] = useState(null);
+  const P = makeProj(view);
+  const DOR = color;
   const [dx, dy] = P.p(20.788, 39.546);
   const active = hover || selected;
-  const hovered = hover ? TOPONYMS_DOR.find((t) => t.id === hover) : null;
+  const hovered = hover ? places.find((t) => t.id === hover) : null;
   const label = (t) => anillo && t.dud ? `${t.name} (${t.seg}+${t.dud})` : `${t.name} (${t.total})`;
 
   return (
     <div style={{ position: "relative" }}>
-      <MapSvg proj={P} land={DOR_LAND_PATH} label="Mapa de los topónimos y etnónimos dóricos mencionados en el corpus de Dodona">
-        <SeaLabels proj={P} items={MARES} />
-        <RegionLabels proj={P} items={REGIONES} />
+      <MapSvg proj={P} land={land} label={aria}>
+        <SeaLabels proj={P} items={mares} />
+        <RegionLabels proj={P} items={regiones} />
 
-        {TOPONYMS_DOR.map((t) => {
+        {places.filter((t) => t.lon != null).map((t) => {
           const [x, y] = P.p(t.lon, t.lat);
           const isAct = active === t.id;
           const rTot = radius(t.total) + (isAct ? 1.5 : 0);
@@ -64,12 +72,11 @@ export default function DoricMap({ selected = null, onSelect = () => {}, anillo 
         })}
 
         <Dodona x={dx} y={dy} />
-        <text x={10} y={P.h - 24} style={{ fontSize: 9, fill: C.muted, fontFamily: "var(--fb)", fontStyle: "italic" }}>
-          El tamaño del símbolo es proporcional al número de menciones.
-        </text>
-        <text x={10} y={P.h - 10} style={{ fontSize: 9, fill: C.muted, fontFamily: "var(--fb)", fontStyle: "italic" }}>
-          No se cuentan I.Dodone DVC 105B, 193B y 3116A (Κορ- restituido: Corcira o Corinto).
-        </text>
+        {notas.map((n, i) => (
+          <text key={n} x={10} y={P.h - 10 - 14 * (notas.length - 1 - i)} style={{ fontSize: 9, fill: C.muted, fontFamily: "var(--fb)", fontStyle: "italic" }}>
+            {n}
+          </text>
+        ))}
         <SourceNote proj={P}>Costa: Natural Earth (dominio público)</SourceNote>
       </MapSvg>
 
