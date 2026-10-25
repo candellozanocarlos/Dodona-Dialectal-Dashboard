@@ -1,8 +1,8 @@
 """Genera src/data/doricoGeneral.js (vista del dórico general) y completa src/data/inscriptions.json.
 
 Fuentes:
-  · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB «Doris mitior» y «Dórico Magna Grecia»).
-  · DORICO_GENERAL_1_Redaccion_v58.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”).
+  · DORICO_GENERAL_1_Redaccion_v62.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_fonetica.py: matrices de valor diagnóstico y listas de notación y arcaísmos.
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dor"] de graficos_dialecto_pandas.py).
 
@@ -23,7 +23,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parents[1]
 UVA = RAIZ.parent
 EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "1. DÓRICO GENERAL" / "DORICO_GENERAL_1_Redaccion_v58.docx"
+DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "1. DÓRICO GENERAL" / "DORICO_GENERAL_1_Redaccion_v62.docx"
 GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
 SALIDA = RAIZ / "src" / "data" / "doricoGeneral.js"
 INSC = RAIZ / "src" / "data" / "inscriptions.json"
@@ -61,7 +61,7 @@ for k, r in EX.items():
         for m in re.finditer(r"Lhôte, no (\d+)\s*(?:\(Face ([A-Za-z]+)\))?", str(r[2] or "")):
             LH2DVC.setdefault("Lhôte " + m.group(1) + (m.group(2) or ""), k)
 CAP = {k: r for k, r in EX.items() if col(r, "DIALECTO_SUB") in ("Doris mitior", "Dórico Magna Grecia")}
-assert len(CAP) == 175, len(CAP)
+assert len(CAP) == 176, len(CAP)
 
 ROM = {"2": "II", "3": "III", "4": "IV", "5": "V", "6": "VI"}
 TABD = {"α΄ μισό": "primera mitad del", "β΄ μισό": "segunda mitad del", "μέσα": "mediados del", "αρχές": "principios del",
@@ -83,7 +83,7 @@ def fecha(d):
     return f"{TABD[m.group(2)]} s. {ROM[m.group(1)]} a.C." if m.group(2) else f"s. {ROM[m.group(1)]} a.C."
 
 
-def clave_js(k):          # «DVC 123A» → «123A»; «Lhôte 94» → «LOD 94» (claves de RASGO_TEXTS y de Ref)
+def clave_js(k):          # “DVC 123A” → “123A”; “Lhôte 94” → “LOD 94” (claves de RASGO_TEXTS y de Ref)
     src, i = k.split(" ", 1)
     return i if src == "DVC" else f"LOD {i}"
 
@@ -368,12 +368,12 @@ INSCRIPCIONES = [{"ref": clave_js(k), "date": fecha(col(r, "Date")), "tema": col
 J = lambda x: json.dumps(x, ensure_ascii=False, indent=1)
 partes = [
     "// Generado por scripts/datos_dorico_general.py: no editar a mano.",
-    "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB «Doris mitior» y «Dórico Magna Grecia», 175 inscripciones,",
-    "// Resúmenes fila 157), DORICO_GENERAL_1_Redaccion_v58 (§2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
+    "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”, 176 inscripciones,",
+    "// Resúmenes fila 165), DORICO_GENERAL_1_Redaccion_v62 (§2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
     "",
     f"export const INTRO_FON_DOR = {J(INTRO['4'])};",
     f"export const INTRO_MORF_DOR = {J(INTRO['5'])};",
-    "// Rasgos: cada apartado de §4-§7 con su texto y las inscripciones que cita (claves «123A» o «LOD 94»).",
+    "// Rasgos: cada apartado de §4-§7 con su texto y las inscripciones que cita (claves “123A” o “LOD 94”).",
     f"export const RASGOS_DOR = {J(RASGOS)};",
     f"export const RASGO_TEXTS_DOR = {J(TEXTS)};",
     "// Matriz de valor diagnóstico: 2 = lo excluye; 1 = en parte; 0 = rasgo compartido; -1 = no se trata.",
@@ -404,7 +404,7 @@ partes = [
 ]
 SALIDA.write_text("\n".join(partes), encoding="utf-8")
 
-# inscriptions.json: añade las citadas que falten («DVC 123A» / «Lhôte 94»: [datación, texto, dialecto]).
+# inscriptions.json: añade las citadas que falten (“DVC 123A” / “Lhôte 94”: [datación, texto, dialecto]).
 ins = json.loads(INSC.read_text(encoding="utf-8"))
 n0 = len(ins)
 for k in sorted(CITADAS | set(CAP)):

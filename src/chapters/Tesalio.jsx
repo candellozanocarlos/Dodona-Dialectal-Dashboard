@@ -1,7 +1,7 @@
 // Capítulo: el dialecto tesalio en las laminillas oraculares de Dodona.
 import { useState } from "react";
 import { C, NOTACION_COLORS, PROSE, SIGLO_COLORS, colorSiglo } from "../theme.js";
-import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_TES, pct } from "../data/corpus.js";
+import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_TES, miles, pct } from "../data/corpus.js";
 import {
   ALF_TES, ALF_TES_PIE, CHRONO_DETAIL_TES, LITERARY_SOURCES_TES, RASGOS_TES, RASGO_TEXTS_TES,
   REGIONS_TES, REGION_INSCRIPTIONS_TES, REGION_TRAITS_TES, THEMES_TES, TH_KIND, TH_PLACES, TOPONYMS_TES,
@@ -42,7 +42,7 @@ const THEORIES = [
   { author: "Bartoněk (1962; 1966)", title: "Cadena de desplazamientos",
     desc: "Descartada la explicación del cierre beocio (la monoptongación de /ai̯/) como modelo aplicable al tesalio, Bartoněk propuso que una elevación de /aː/ empujó las demás vocales largas hacia posiciones más altas, de modo que las medias largas heredadas acabaron siendo cerradas /eː/ y /oː/." },
   { author: "Scarborough (2014; 2023)", title: "Vocales medias",
-    desc: "⟨ΕΙ⟩ y ⟨ΟΥ⟩ representarían vocales medias /e̞ː/ y /o̞ː/, no cerradas: un sistema de cinco vocales largas en el que las medias conservan su naturaleza central. La elección de los dígrafos fue sistémica, no fonética: (1) transparencia morfofonológica (⟨Ε⟩ : ⟨ΕΙ⟩, ⟨Ο⟩ : ⟨ΟΥ⟩); (2) marcación explícita de la cantidad; (3) compatibilidad fonética si, como propone Allen (1959), el sistema breve tesalio era «top-skewed». Vacilaciones como las de IG IX2 426 (Φρασιμήδας junto a θείκα) indican que ninguna de las dos grafías equivalía exactamente al fonema tesalio." },
+    desc: "⟨ΕΙ⟩ y ⟨ΟΥ⟩ representarían vocales medias /e̞ː/ y /o̞ː/, no cerradas: un sistema de cinco vocales largas en el que las medias conservan su naturaleza central. La elección de los dígrafos fue sistémica, no fonética: (1) transparencia morfofonológica (⟨Ε⟩ : ⟨ΕΙ⟩, ⟨Ο⟩ : ⟨ΟΥ⟩); (2) marcación explícita de la cantidad; (3) compatibilidad fonética si, como propone Allen (1959), el sistema breve tesalio era “top-skewed”. Vacilaciones como las de IG IX2 426 (Φρασιμήδας junto a θείκα) indican que ninguna de las dos grafías equivalía exactamente al fonema tesalio." },
 ];
 
 export default function Tesalio({ switcher }) {
@@ -58,7 +58,7 @@ export default function Tesalio({ switcher }) {
       subtitle="Análisis lingüístico del corpus oracular · Fonología, morfología, sintaxis y léxico"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_TES)} sub="ss. V–II a.C." accent={C.tesalio} />
-        <Stat label="Corpus dialectal" value={`${pct(TOTAL_TES)} %`} sub={`${TOTAL_TES} de ${TOTAL_CORPUS}`} accent={C.terra} />
+        <Stat label="Corpus dialectal" value={`${pct(TOTAL_TES)} %`} sub={`${TOTAL_TES} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgos" value={String(RASGOS_TES.length)} sub="identificados" accent={C.blue} />
         <Stat label="Tétradas" value="3 / 4" sub="documentadas" accent={C.tesalio} />
       </>}
@@ -72,7 +72,7 @@ export default function Tesalio({ switcher }) {
               se conocen rutas desde Tesalia al santuario desde época arcaica, y las fuentes antiguas atestiguan una tradición
               que vinculaba Dodona con Tesalia a través de mitos, política dinástica y relaciones diplomáticas. La relación es
               rastreable también en la epigrafía: si se tiene en cuenta la posición del oráculo en área dórica,{" "}
-              <b style={{ color: C.tesalio }}>el tesalio es el dialecto «extranjero» más veces atestiguado</b> en el corpus
+              <b style={{ color: C.tesalio }}>el tesalio es el dialecto “extranjero” más veces atestiguado</b> en el corpus
               oracular y el tercero mejor representado, por detrás del dórico y del jónico-ático-koiné.
             </p>
           </Card>
@@ -223,7 +223,7 @@ export default function Tesalio({ switcher }) {
       </>}
 
       {tab === "profile" && <>
-        <Sec title="El tesalio, dialecto «extranjero» más representado">
+        <Sec title="El tesalio, dialecto “extranjero” más representado">
           <Stats>
             <Stat label="Inscripciones tesalias" value={String(TOTAL_TES)} accent={C.tesalio} sub={`el ${pct(TOTAL_TES)} % del corpus dialectal`} />
             <Stat label="En el corpus" value="3.er dialecto" sub="tras el dórico y el jónico-ático-koiné" accent={C.amber} />
@@ -245,7 +245,7 @@ export default function Tesalio({ switcher }) {
         </Sec>
 
         <Sec title="Distribución cronológica"
-          sub="El grueso del material se concentra entre finales del s. V y la primera mitad del s. IV a.C.; decrece de forma acusada en la segunda mitad del s. IV, y el único testimonio posterior es I.Dodone Lhôte 8B (ss. III-II a.C.)">
+          sub="El grueso del material se concentra entre finales del s. V y la primera mitad del s. IV a.C.; decrece de forma acusada en la segunda mitad del s. IV, y los únicos testimonios posteriores son los dos textos de I.Dodone Lhôte 8 (ss. III-II a.C.), entre ellos la consulta pública de Mondaya (8B)">
           <Bars data={CHRONO_DETAIL_TES.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={300} rotate={-35} />
         </Sec>
 
@@ -312,7 +312,7 @@ export default function Tesalio({ switcher }) {
         </Sec>
 
         <Sec title="Conclusiones"
-          note="La norma gráfica dominante en las consultas tesalias es la de los dígrafos ⟨ΕΙ⟩ y ⟨ΟΥ⟩ (16 de 21 inscripciones), en coherencia con la epigrafía tesalia desde la adopción del alfabeto jónico reformado. La alternancia con ⟨Η⟩ y ⟨Ω⟩ no depende de la cronología (los tres grupos se concentran en el s. IV a.C.) ni de la región. La proporción de laminillas con ⟨Η⟩ o ⟨Ω⟩ (13 de 21, el 62 %) es muy superior a la de la epigrafía tesalia (en torno al 34 % de las inscripciones que discute Blümel 1982: 33-35), lo que se explica por el carácter informal y privado de las consultas, al margen de la koiné dialectal escrita que imponían los lapicidas oficiales (Helly 2018: 361-362), y quizá por la interferencia del dórico del santuario. Las laminillas reflejan así la práctica gráfica espontánea de los hablantes y, con ella, la ambigüedad fonológica que postula Scarborough (2014): unas vocales medias /e̞ː/ y /o̞ː/ que ninguna de las dos grafías jónicas representaba con exactitud." />
+          note="La norma gráfica dominante en las consultas tesalias es la de los dígrafos ⟨ΕΙ⟩ y ⟨ΟΥ⟩ (16 de 23 inscripciones), en coherencia con la epigrafía tesalia desde la adopción del alfabeto jónico reformado. La alternancia con ⟨Η⟩ y ⟨Ω⟩ no depende de la cronología (los tres grupos se concentran en el s. IV a.C.) ni de la región. La proporción de laminillas con ⟨Η⟩ o ⟨Ω⟩ (15 de 23, el 65 %) es muy superior a la de la epigrafía tesalia (en torno al 34 % de las inscripciones que discute Blümel 1982: 33-35), lo que se explica por el carácter informal y privado de las consultas, al margen de la koiné dialectal escrita que imponían los lapicidas oficiales (Helly 2018: 361-362), y quizá por la interferencia del dórico del santuario. Las laminillas reflejan así la práctica gráfica espontánea de los hablantes y, con ella, la ambigüedad fonológica que postula Scarborough (2014): unas vocales medias /e̞ː/ y /o̞ː/ que ninguna de las dos grafías jónicas representaba con exactitud." />
       </>}
 
       {tab === "shared" && <CompartidosTesBeoc desde="tesalio" />}

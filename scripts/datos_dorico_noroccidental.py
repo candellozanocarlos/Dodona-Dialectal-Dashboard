@@ -1,8 +1,8 @@
 """Genera src/data/doricoNO.js (vista del dórico noroccidental) y completa src/data/inscriptions.json.
 
 Fuentes:
-  · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB «Dórico NO», 71).
-  · DORICO_NO_1_Redaccion_v41.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Dórico NO”, 76).
+  · DORICO_NO_1_Redaccion_v49.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_noroccidental_rasgos.py: tabla de rasgos (dno_9) y matrices (dno_10, dno_11).
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dno"] de graficos_dialecto_pandas.py).
 
@@ -23,7 +23,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parents[1]
 UVA = RAIZ.parent
 EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v41.docx"
+DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v49.docx"
 GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
 SALIDA = RAIZ / "src" / "data" / "doricoNO.js"
 INSC = RAIZ / "src" / "data" / "inscriptions.json"
@@ -62,7 +62,7 @@ for k, r in EX.items():
         for m in re.finditer(r"Lhôte, no (\d+)\s*(?:\(Face ([A-Za-z]+)\))?", str(r[2] or "")):
             LH2DVC.setdefault("Lhôte " + m.group(1) + (m.group(2) or ""), k)
 CAP = {k: r for k, r in EX.items() if col(r, "DIALECTO_SUB") == "Dórico NO"}
-assert len(CAP) == 71, len(CAP)
+assert len(CAP) == 76, len(CAP)
 
 ROM = {"2": "II", "3": "III", "4": "IV", "5": "V", "6": "VI"}
 TABD = {"α΄ μισό": "primera mitad del", "β΄ μισό": "segunda mitad del", "μέσα": "mediados del", "αρχές": "principios del",
@@ -84,7 +84,7 @@ def fecha(d):
     return f"{TABD[m.group(2)]} s. {ROM[m.group(1)]} a.C." if m.group(2) else f"s. {ROM[m.group(1)]} a.C."
 
 
-def clave_js(k):          # «DVC 123A» → «123A»; «Lhôte 94» → «LOD 94» (claves de RASGO_TEXTS y de Ref)
+def clave_js(k):          # “DVC 123A” → “123A”; “Lhôte 94” → “LOD 94” (claves de RASGO_TEXTS y de Ref)
     src, i = k.split(" ", 1)
     return i if src == "DVC" else f"LOD {i}"
 
@@ -96,7 +96,7 @@ def etiqueta(r):
     return macro if not sub or sub == macro else f"{macro} · {sub}"
 
 
-# ── Texto de la v41 ───────────────────────────────────────────────────────────
+# ── Texto de la v48 ───────────────────────────────────────────────────────────
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 M_, AC, GR, PS, DA, CI = "\u0304", "\u0301", "\u0300", "\u0313", "\u0314", "\u0342"
 _e = ["ε" + CI, "ε" + PS + CI, "ε" + DA + CI, "ε" + M_, "ε" + M_ + AC, "ε" + M_ + GR, "ε" + M_ + PS, "ε" + M_ + DA,
@@ -203,7 +203,7 @@ for r in CAP.values():
     c = parse_fecha(col(r, "Date"))
     crono[c] = crono.get(c, 0) + 1
 CHRONO = [{"period": c, "n": crono[c]} for c in ORDEN_CRONO if c in crono]
-assert sum(c["n"] for c in CHRONO) == 71
+assert sum(c["n"] for c in CHRONO) == 76
 temas = {}
 for r in CAP.values():
     t = col(r, "TEMA_MACRO") or "Desconocido"
@@ -219,7 +219,7 @@ for r in CAP.values():
     c = col(r, "DIALECTO_CERTEZA")
     c = "Solo nombre o alfabeto" if c and c.startswith("Solo") else c
     cert[c] = cert.get(c, 0) + 1
-assert cert == {"Seguro": 40, "Dudoso": 30, "Solo nombre o alfabeto": 1}, cert
+assert cert == {"Seguro": 34, "Dudoso": 41, "Solo nombre o alfabeto": 1}, cert
 
 # ── Tabla de rasgos y matrices (graficos_dorico_noroccidental_rasgos.py) ───────
 TABLA = [{"sec": "§" + s, "rasgo": n.replace("\n", " "), "forma": f, "resto": re_.replace("\n", " "),
@@ -362,13 +362,13 @@ INSCRIPCIONES = [{"ref": clave_js(k), "date": fecha(col(r, "Date")), "tema": col
 J = lambda x: json.dumps(x, ensure_ascii=False, indent=1)
 partes = [
     "// Generado por scripts/datos_dorico_noroccidental.py: no editar a mano.",
-    "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB «Dórico NO», 71 inscripciones, Resúmenes fila 159),",
-    "// DORICO_NO_1_Redaccion_v41 (§2-§7) y graficos_dorico_noroccidental_rasgos.py (tabla dno_9 y matrices dno_10-dno_11).",
+    "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Dórico NO”, 76 inscripciones, Resúmenes fila 165),",
+    "// DORICO_NO_1_Redaccion_v49 (§2-§7) y graficos_dorico_noroccidental_rasgos.py (tabla dno_9 y matrices dno_10-dno_11).",
     "",
     f"export const INTRO_FON_NO = {J(INTRO['4'])};",
     f"export const INTRO_MORF_NO = {J(INTRO['5'])};",
     f"export const CONCLUSION_NO = {J(CONCLUSION)};",
-    "// Rasgos: cada apartado de §4-§7 con su texto y las inscripciones que cita (claves «123A» o «LOD 94»).",
+    "// Rasgos: cada apartado de §4-§7 con su texto y las inscripciones que cita (claves “123A” o “LOD 94”).",
     f"export const RASGOS_NO = {J(RASGOS)};",
     f"export const RASGO_TEXTS_NO = {J(TEXTS)};",
     "// Tabla de rasgos (dno_9): consultas del capítulo con el rasgo, de adscripción segura (seg) y dudosa (dud).",
@@ -396,7 +396,7 @@ partes = [
 ]
 SALIDA.write_text("\n".join(partes), encoding="utf-8")
 
-# inscriptions.json: añade las citadas que falten («DVC 123A» / «Lhôte 94»: [datación, texto, dialecto]).
+# inscriptions.json: añade las citadas que falten (“DVC 123A” / “Lhôte 94”: [datación, texto, dialecto]).
 ins = json.loads(INSC.read_text(encoding="utf-8"))
 n0 = len(ins)
 for k in sorted(CITADAS | set(CAP)):

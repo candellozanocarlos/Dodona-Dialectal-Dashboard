@@ -128,7 +128,7 @@ export const GreekBlock = ({ title, children, size = 15 }) => (
 
 // ── Rasgos dialectales ───────────────────────────────────────────
 // rasgos: [{ id, cat, name, short, desc, dvcs: ["123A", "LOD 8B", …] }]; texts: { dvc: texto }.
-// minAcum: rasgos que ha de reunir una inscripción para figurar en «Inscripciones con más rasgos acumulados».
+// minAcum: rasgos que ha de reunir una inscripción para figurar en “Inscripciones con más rasgos acumulados”.
 export function RasgoExplorer({ rasgos, texts, color, minAcum = 2 }) {
   const [sel, setSel] = useState(null);
   const [clicked, setClicked] = useState(null);

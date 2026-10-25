@@ -1,8 +1,8 @@
-// Dórico noroccidental (cap. 5, DORICO_NO_1_Redaccion_v41): contexto (§1-§2), mapa y comunidades (§2), perfil
+// Dórico noroccidental (cap. 5, DORICO_NO_1_Redaccion_v48): contexto (§1-§2), mapa y comunidades (§2), perfil
 // dialectal (§3-§7) y escritura (§2-§4). Datos en data/doricoNO.js (generado desde el Excel y la v41).
 import { useState } from "react";
 import { ALFABETO_COLORS, C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo, fade } from "../theme.js";
-import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_DOR_NO, pct } from "../data/corpus.js";
+import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_DOR_NO, miles, pct } from "../data/corpus.js";
 import {
   ALF_NO, CERTEZA_NO, CHRONO_DETAIL_NO, CONCLUSION_NO, CONTRACCION_NO, DIAG_COLS_NO, DIAGNOSTICO_NO, ESCRITURA_NO,
   INTRO_FON_NO, INTRO_MORF_NO, RASGOS_NO, RASGO_TEXTS_NO, TABLA_RASGOS_NO, THEMES_NO, TOPONYMS_NO, TOPONYM_BARS_NO,
@@ -64,7 +64,7 @@ const nEtnonimos = TOPONYM_MENTIONS_NO.filter((m) => m.type === "etnónimo").len
 const nContraccion = CONTRACCION_NO.reduce((a, c) => a + c.seguras + c.dudosas, 0);
 const ALF_PIE = [
   { id: "reformado", label: "Reformado o no identificado", value: (ALF_NO["Reformado / Desconocido"] || []).length, color: C.milesio },
-  { id: "corintio", label: "Corintio (cf. la pestaña «Escritura y contracción»)", value: (ALF_NO.Corintio || []).length, color: ALFABETO_COLORS.corintio },
+  { id: "corintio", label: "Corintio (cf. la pestaña “Escritura y contracción”)", value: (ALF_NO.Corintio || []).length, color: ALFABETO_COLORS.corintio },
   { id: "dodona", label: "Local de Dodona", value: (ALF_NO.Dodona || []).length, color: ALFABETO_COLORS.dodona },
 ];
 const ESTADO = {
@@ -91,9 +91,9 @@ export default function DoricoNO({ switcher, subnav }) {
       title={<>El <span style={{ fontWeight: 700, color: INK }}>dórico noroccidental</span> en las laminillas oraculares de Dodona</>}
       subtitle="Epiro, Acarnania y la Grecia central · El dialecto del santuario, conservador y difícil de aislar"
       stats={<>
-        {/* Recuentos de §3 del capítulo (DORICO_NO_1_Redaccion_v41; DVC_v5_FINAL.xlsx, DIALECTO_SUB «Dórico NO»). */}
+        {/* Recuentos de §3 del capítulo (DORICO_NO_1_Redaccion_v48; DVC_v5_FINAL.xlsx, DIALECTO_SUB “Dórico NO”, fila 165 de Resúmenes). */}
         <Stat label="Inscripciones" value={String(TOTAL_DOR_NO)} sub={`${nSeguras} seguras · ${nDudosas} dudosas · ${nNombre} solo por el nombre`} accent={INK} />
-        <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR_NO)} %`} sub={`${TOTAL_DOR_NO} de ${TOTAL_CORPUS}`} accent={C.terra} />
+        <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR_NO)} %`} sub={`${TOTAL_DOR_NO} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgos propios" value={String(TABLA_RASGOS_NO.length)} sub="frente al resto del dórico" accent={C.green} />
         <Stat label="Cronología" value="ss. VI–II a.C." sub={`el ${pct(nSigloIV, TOTAL_DOR_NO)} % del s. IV a.C.`} accent={C.blue} />
       </>}
@@ -253,7 +253,7 @@ export default function DoricoNO({ switcher, subnav }) {
 
         <Sec title="Temática de las consultas" sub={`Temas de consulta (n = ${TOTAL_DOR_NO})`}>
           <Temas data={THEMES_NO} color={NO} height={340} />
-          <P style={{ fontSize: 11.5, marginTop: 8 }}>Destacan, a la par, los viajes o cambios de residencia y los asuntos económicos o patrimoniales. La categoría «Otros», formada sobre todo por asuntos políticos, refleja el peso de las consultas públicas de comunidades epirotas, que suman cinco de sus seis inscripciones (I.Dodone DVC 1368A, 2364A y 2519B, e I.Dodone Lhôte 9 y 13).</P>
+          <P style={{ fontSize: 11.5, marginTop: 8 }}>Destacan, a la par, los viajes o cambios de residencia y la religión, con doce consultas cada uno, seguidos de los asuntos económicos o patrimoniales (11). La categoría “Otros”, formada sobre todo por asuntos políticos, refleja el peso de las consultas públicas de comunidades del Noroeste, que suman cinco de sus seis inscripciones (I.Dodone DVC 1368A, 2364A y 2519B, e I.Dodone Lhôte 9 y 13).</P>
         </Sec>
 
         <Sec title="Alfabeto"
@@ -288,7 +288,7 @@ export default function DoricoNO({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Valor diagnóstico" sub="Grupos dialectales de los que cada rasgo distingue una consulta noroccidental"
-          note="● el grupo carece del rasgo, de modo que su presencia lo excluye · ◐ lo excluye solo en parte · ○ rasgo compartido · – el capítulo no lo trata. En «Otros» se nombran otras variedades que comparten el rasgo (Buck 1955: §42.1, §42.5, §106.2, §107.3, §135.4, §136.2; Lhôte 2006: 381).">
+          note="● el grupo carece del rasgo, de modo que su presencia lo excluye · ◐ lo excluye solo en parte · ○ rasgo compartido · – el capítulo no lo trata. En “Otros” se nombran otras variedades que comparten el rasgo (Buck 1955: §42.1, §42.5, §106.2, §107.3, §135.4, §136.2; Lhôte 2006: 381).">
           <Table color={NO} head={["§", "Rasgo", ...DIAG_COLS_NO]}
             rows={DIAGNOSTICO_NO.map((d) => [
               <span style={{ color: C.dim, fontSize: 11 }}>{d.sec}</span>,

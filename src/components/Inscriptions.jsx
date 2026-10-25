@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { C } from "../theme.js";
 import { asRef, getInscription, hasInscription, renderGreekText } from "../lib/text.jsx";
 
-// Etiqueta «I.Dodone DVC 123A» sin enlace, para botones que ya muestran el texto debajo.
+// Etiqueta “I.Dodone DVC 123A” sin enlace, para botones que ya muestran el texto debajo.
 export const DvcLabel = ({ dvc }) => {
   const { src, id } = asRef(dvc);
   return <span><em>I.Dodone {src}</em> {id}</span>;

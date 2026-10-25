@@ -57,7 +57,7 @@ export const SIGLO_COLORS = {
   VI: "#4a4e7a", "VI-V": "#7b8fa8",   // s. VI y transición VI-V (SIGLO_COLORES de graficos_dialecto_altair.py, 21/10/2026)
   V: "#2a6a8e", "V-IV": "#3c9d8f", IV: "#d08c2a", "IV-III": "#b5523b", III: "#8a3a6a", "III-II": "#6a5b89", "Sin datar": "#b5a58a",
 };
-// Siglo de un periodo de las cronologías del dashboard («1ª mit. s. V», «Transición V–IV», «ss. III–II»…).
+// Siglo de un periodo de las cronologías del dashboard (“1ª mit. s. V”, “Transición V–IV”, “ss. III–II”…).
 export const sigloDe = (periodo) => {
   const p = String(periodo).replace("–", "-");
   const par = p.match(/(VI|IV|V|III|II)\s*-\s*(VI|IV|V|III|II)/);
@@ -69,6 +69,7 @@ export const colorSiglo = (periodo) => SIGLO_COLORS[sigloDe(periodo)] || SIGLO_C
 export const ALFABETO_COLORS = {
   milesio: C.milesio, tesalio: C.tesalio, beocio: C.tesalio, dodona: "#2a6a8e", elide: "#a06a10", eubea: "#a54030",
   occidental: "#8a3a6a", magnaGrecia: "#a5482f", corintio: "#7b5ea7", otros: "#9a9080",
+  epirota: "#4a5a8a", // como en graficos_articulo_iconic_altair.py; distinto del local de Dodona
 };
 // Temas de consulta (TEMA_COLORES de los gráficos de la tesis).
 export const TEMA_COLORS = {

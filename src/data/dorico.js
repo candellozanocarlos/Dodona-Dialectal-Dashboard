@@ -194,7 +194,7 @@ export const LITERARY_SOURCES_SEV = [
   { author: "Cicerón (Div. I, 1, 3)", type: "Filosofía, s. I a.C.",
     desc: "Testimonio de carácter general: Cicerón se pregunta de forma retórica qué colonia envió Grecia a Eolia, Jonia, Asia, Sicilia o Italia sin consultar el oráculo pitio, el dodoneo o el de Amón." },
   { author: "Dionisio de Halicarnaso (Ant. Rom. I, 19, 2-3)", type: "Historiografía, s. I a.C.",
-    desc: "Un oráculo en verso atribuido a Dodona ordena a los pelasgos partir en busca de la tierra saturnia de los sículos y de la Cótila de los aborígenes, «donde flota una isla». Un tal Lucio Malio afirmaba haber visto el texto grabado en caracteres antiguos sobre uno de los trípodes del recinto de Zeus. Se trata de una construcción etiológica al servicio de la prehistoria griega de Roma, cuyo destino es la Sabina y el Lacio: documenta la vinculación de Dodona con Italia en general, no con la Magna Grecia en sentido estricto." },
+    desc: "Un oráculo en verso atribuido a Dodona ordena a los pelasgos partir en busca de la tierra saturnia de los sículos y de la Cótila de los aborígenes, “donde flota una isla”. Un tal Lucio Malio afirmaba haber visto el texto grabado en caracteres antiguos sobre uno de los trípodes del recinto de Zeus. Se trata de una construcción etiológica al servicio de la prehistoria griega de Roma, cuyo destino es la Sabina y el Lacio: documenta la vinculación de Dodona con Italia en general, no con la Magna Grecia en sentido estricto." },
   { author: "Dionisio de Halicarnaso (Ant. Rom. I, 50, 4; 51, 1)", type: "Historiografía, s. I a.C.",
     desc: "Eneas remonta con los suyos desde el golfo de Ambracia hasta Dodona para consultar el oráculo antes de pasar a Italia, en un trayecto de dos jornadas que se ajusta con notable precisión a los cerca de 80 km que separan ambos puntos (Chapinal-Heras 2021: 136 y 165-166)." },
   { author: "Estrabón (VI, 1, 5); Livio (VIII, 24, 1)", type: "Geografía e historiografía",
@@ -418,7 +418,7 @@ export const EXCLUDED_SEV = [
     desc: "Atribuida a Sicilia por el término {{γάναν}} (át. γυνή), propio de esa zona (Greg.Cor. §345)." },
   { ref: "2445", date: "mediados del s. IV a.C.", tag: "Rasgo occidental no exclusivo",
     text: "(θ)εὸς τύ[χ]α· ἦ αὐτῶι \nμοι ἐργαζομέν̣ωι \nλώϊον καὶ ἄμεινο̣-\n<ο>ν ἐπεὶ χὀ̣ ἐνιαυτὸς \nδιεξένθει;",
-    desc: "El paso λθ > νθ de {{διεξένθει}} figura entre los rasgos comunes del griego noroccidental y del dórico en general (Tselikas 2018: 257), aunque Carbon (2017: 109 n. 77) atribuye el texto a un dórico «quizá de Corfú o de las colonias sicilianas e itálicas». Sin vocalismo severior." },
+    desc: "El paso λθ > νθ de {{διεξένθει}} figura entre los rasgos comunes del griego noroccidental y del dórico en general (Tselikas 2018: 257), aunque Carbon (2017: 109 n. 77) atribuye el texto a un dórico “quizá de Corfú o de las colonias sicilianas e itálicas”. Sin vocalismo severior." },
 ];
 
 // El dórico general (rasgos de §4-§7, cifras de §3, topónimos de §2 y escritura) está en doricoGeneral.js,

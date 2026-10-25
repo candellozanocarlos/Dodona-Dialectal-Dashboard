@@ -2,7 +2,7 @@
 // (SUBSECCIONES_DOR): dórico general (DoricoGeneral.jsx), dórico noroccidental (DoricoNO.jsx) y doris severior.
 import { useState } from "react";
 import { C, PROSE, colorSiglo, fade } from "../theme.js";
-import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_SEV, pct } from "../data/corpus.js";
+import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_SEV, miles, pct } from "../data/corpus.js";
 import {
   ALF_SEV_PIE, CHRONO_DETAIL_SEV, DIAGNOSTIC_FORMS_SEV, EXCLUDED_SEV, FILIACION_SEV, GROUP_BARS_SEV, INSCRIPCIONES_SEV,
   LITERARY_SOURCES_SEV, MG_LIGHT, POLITICAL_LINKS_SEV, SEV_BY_ID, SEV_GROUPS, SEV_NO_EXCLUYE_MEDIA, SUBSECCIONES_DOR,
@@ -117,7 +117,7 @@ export default function Dorico({ switcher }) {
       subtitle="Dórico de la Magna Grecia · Un único rasgo diagnóstico: ⟨Η⟩ y ⟨Ω⟩ en las vocales medias largas secundarias"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_SEV)} sub="ss. V–III a.C." accent={C.severior} />
-        <Stat label="Corpus dialectal" value={`${pct(TOTAL_SEV)} %`} sub={`${TOTAL_SEV} de ${TOTAL_CORPUS}`} accent={C.terra} />
+        <Stat label="Corpus dialectal" value={`${pct(TOTAL_SEV)} %`} sub={`${TOTAL_SEV} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgo diagnóstico" value="1" sub="vocalismo severior" accent={C.blue} />
         <Stat label="Menciones occidentales" value={String(totalMenciones)} sub={`${TOPONYMS_SEV.length} nombres, ${segMenciones} seguras`} accent={C.severiorDeep} />
       </>}
@@ -521,7 +521,7 @@ export default function Dorico({ switcher }) {
               antiguo, áspero (τραχεῖα), y uno nuevo, más suave (μαλθακωτέρα). Bartoněk (1966: 62) introdujo después el concepto de{" "}
               <i>Doris media</i>: conserva el grado de apertura heredado en las vocales del primer alargamiento compensatorio y presenta
               vocales cerradas en las contracciones isovocálicas y, cuando se producen, en el segundo y el tercer alargamientos. Se supuso
-              en un principio que también el segundo alargamiento daba vocales abiertas en los dialectos «medios», pero Del Barrio Vega
+              en un principio que también el segundo alargamiento daba vocales abiertas en los dialectos “medios”, pero Del Barrio Vega
               (1998: 258 n. 3), como antes Ruijgh (1984: 66 n. 20), demostró que su resultado es siempre cerrado, algo que el propio
               Bartoněk (2015: 146) confirmó. La teoría tradicional entiende el severior como el estado heredado y el mitior como
               innovación; Sheets (1979) y Ruijgh (1984) sostienen lo contrario: el severior sería la innovación.
