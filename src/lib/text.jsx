@@ -20,9 +20,9 @@ export const wrapGreekHtml = (html) => normGreekMarks(html).replace(
   '<span class="greek-run" lang="grc">$1</span>',
 );
 
-// Línea que rotula una edición dentro de un texto con varias: «[ed. I.Dodone DVC]»,
-// «[Méndez Dosuna 2016: 137]». Empieza por letra latina y no lleva griego, para no
-// confundirla con lagunas o restituciones del propio texto («[- - -]», «[γυ]ναικί»).
+// Línea que rotula una edición dentro de un texto con varias: “[ed. I.Dodone DVC]”,
+// “[Méndez Dosuna 2016: 137]”. Empieza por letra latina y no lleva griego, para no
+// confundirla con lagunas o restituciones del propio texto (“[- - -]”, “[γυ]ναικί”).
 const EDITION_LABEL_RE = /^\[([A-Za-zÀ-ÿ][^\]Ͱ-Ͽἀ-῿]*)\]$/;
 
 const renderEditionLabel = (label, key) => (
@@ -69,7 +69,7 @@ export const fmtDvc = (dvc) => dvc.startsWith("LOD") ? `I.Dodone Lhôte ${dvc.re
 export const asRef = (dvc) => dvc.startsWith("LOD") ? { src: "Lhôte", id: dvc.replace("LOD ", "") } : { src: "DVC", id: dvc };
 
 // ── Índice de inscripciones citadas ─────────────────────────────
-// Clave «DVC 123A» / «Lhôte 8B» → [datación, texto, dialecto, equivalencia DVC].
+// Clave “DVC 123A” / “Lhôte 8B” → [datación, texto, dialecto, equivalencia DVC].
 // Para las inscripciones con lectura propia en los capítulos (RASGO_TEXTS_*)
 // se muestra esa lectura.
 export const hasInscription = (key) => Boolean(INSCRIPTION_CORPUS[key]);
@@ -89,7 +89,7 @@ const INSC_REF_RE = new RegExp(`I\\.Dodone (DVC|Lhôte) (${INSC_ID})(?![A-Za-z0-
 const inscSpan = (key, inner) =>
   `<span class="insc-ref" data-insc="${key}" tabindex="0" role="button" aria-label="Ver el texto de la inscripción ${key}">${inner}</span>`;
 
-// Convierte cada cita «I.Dodone DVC 123A» (y las listas «123A, 124B y 125») en un
+// Convierte cada cita “I.Dodone DVC 123A” (y las listas “123A, 124B y 125”) en un
 // enlace que muestra el texto al pasar el cursor y lo fija al pulsar.
 export const linkInscriptionRefs = (html) => html
   .replace(INSC_REF_RE, (m, src, first, rest) => {

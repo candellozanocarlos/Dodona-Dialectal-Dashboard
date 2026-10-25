@@ -1,8 +1,8 @@
-// Dórico general (cap. 4, DORICO_GENERAL_1_Redaccion_v56): contexto (§1-§2), mapa y topónimos (§2), perfil
+// Dórico general (cap. 4, DORICO_GENERAL_1_Redaccion_v61): contexto (§1-§2), mapa y topónimos (§2), perfil
 // dialectal (§3-§7) y escritura (§3, §4.1.3, §4.2.2-4.2.4). Datos en data/doricoGeneral.js (generado desde el Excel).
 import { useState } from "react";
 import { ALFABETO_COLORS, C, DIALECT_COLORS, ORO, PROSE, colorSiglo, fade } from "../theme.js";
-import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_DOR, pct } from "../data/corpus.js";
+import { MACROGRUPOS, TOTAL_CORPUS, TOTAL_DOR, TOTAL_DOR_NO, TOTAL_SEV, miles, pct } from "../data/corpus.js";
 import {
   ALF_DOR, ARCAISMOS_DOR, CERTEZA_DOR, CHRONO_DETAIL_DOR, CORINTIAS_DOR, DIAG_COLS_DOR, DIAGNOSTICO_DOR, INTRO_FON_DOR,
   INTRO_MORF_DOR, NOTACION_DOR, RASGOS_DOR, RASGO_TEXTS_DOR, SIGMA_DOR, THEMES_DOR, TOPONYMS_DOR, TOPONYMS_EXCLUDED_DOR,
@@ -51,16 +51,20 @@ const nSeguras = CERTEZA_DOR.Seguro || 0;
 const nDudosas = CERTEZA_DOR.Dudoso || 0;
 const nNombre = CERTEZA_DOR["Solo nombre o alfabeto"] || 0;
 const nSigloIV = CHRONO_DETAIL_DOR.filter((d) => /s\. IV/.test(d.period) && !/–/.test(d.period)).reduce((a, d) => a + d.n, 0);
+const nSigloV = CHRONO_DETAIL_DOR.filter((d) => /s\. V(?!I)/.test(d.period) && !/–/.test(d.period)).reduce((a, d) => a + d.n, 0);
 const nCorintias = ALF_DOR.Corintio.length;
+const nNoJonAt = MACROGRUPOS.find((m) => m.name.startsWith("No jónico")).value;
+const nDemostrado = TOTAL_DOR + TOTAL_DOR_NO + TOTAL_SEV;   // dórico demostrado (INTRODUCCIÓN, §3.3)
 const totalMenciones = TOPONYM_MENTIONS_DOR.length;
 const segMenciones = TOPONYM_MENTIONS_DOR.filter((m) => m.certain).length;
 const nEtnonimos = TOPONYM_MENTIONS_DOR.filter((m) => m.type === "etnónimo").length;
 const ALF_PIE = [
   { id: "reformado", label: "Reformado o no identificado", value: ALF_DOR["Reformado / Desconocido"].length, color: C.milesio },
-  { id: "corintio", label: "Corintio (cf. la pestaña «Escritura y notación»)", value: nCorintias, color: ALFABETO_COLORS.corintio },
+  { id: "corintio", label: "Corintio (cf. la pestaña “Escritura y notación”)", value: nCorintias, color: ALFABETO_COLORS.corintio },
   { id: "mg", label: `Magna Grecia / Sicilia (${ALF_DOR["Magna Grecia / Sicilia"].map(fmtDvc).join(", ").replace(/, I\.Dodone DVC /g, ", ")})`,
     value: ALF_DOR["Magna Grecia / Sicilia"].length, color: ALFABETO_COLORS.magnaGrecia },
-  { id: "epirota", label: `Epirota (${ALF_DOR.Epirota.map(fmtDvc).join(", ")})`, value: ALF_DOR.Epirota.length, color: ALFABETO_COLORS.dodona },
+  { id: "epirota", label: `Epirota (${ALF_DOR.Epirota.map(fmtDvc).join(", ")})`, value: ALF_DOR.Epirota.length, color: ALFABETO_COLORS.epirota },
+  { id: "dodona", label: `Local de Dodona (${ALF_DOR.Dodona.map(fmtDvc).join(", ")})`, value: ALF_DOR.Dodona.length, color: ALFABETO_COLORS.dodona },
 ];
 const ESTADO = {
   2: { g: "●", bg: DOR, fg: "#fff", l: "Lo excluye" }, 1: { g: "◐", bg: "#e3a79b", fg: C.heading, l: "Lo excluye en parte" },
@@ -81,9 +85,9 @@ export default function DoricoGeneral({ switcher, subnav }) {
       title={<>El <span style={{ fontWeight: 700, color: DOR }}>dórico</span> en las laminillas oraculares de Dodona</>}
       subtitle={<><i>Doris mitior</i> y dórico de la Magna Grecia · Rasgos comunes al griego occidental</>}
       stats={<>
-        {/* Recuentos de §3 del capítulo (DORICO_GENERAL_1_Redaccion_v56; DVC_v5_FINAL.xlsx, fila 156 de Resúmenes). */}
-        <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub="173 de la Doris mitior · 2 de la Magna Grecia" accent={DOR} />
-        <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR)} %`} sub={`${TOTAL_DOR} de ${TOTAL_CORPUS}`} accent={C.terra} />
+        {/* Recuentos de §3 del capítulo (DORICO_GENERAL_1_Redaccion_v61; DVC_v5_FINAL.xlsx, fila 165 de Resúmenes). */}
+        <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub="174 de la Doris mitior · 2 de la Magna Grecia" accent={DOR} />
+        <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR)} %`} sub={`${TOTAL_DOR} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgos estudiados" value={String(RASGOS_DOR.length)} sub="fonética, morfología, sintaxis y léxico" accent={C.green} />
         <Stat label="Cronología" value="ss. VI–III a.C." sub={`el ${pct(nSigloIV, TOTAL_DOR)} % del s. IV a.C.`} accent={C.blue} />
       </>}
@@ -99,7 +103,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               <P>La distinción entre griego noroccidental y dórico propio tiene un valor sobre todo geográfico: salvo ἐνς y sus continuadores, no hay rasgo común al dórico propio del que carezcan los noroccidentales (Méndez Dosuna 2007a: 445). A ella se superpone el reparto por el vocalismo entre la {"<i>Doris severior</i>"}, la {"<i>Doris media</i>"} y la {"<i>Doris mitior</i>"}; el epirota, el corintio y el dialecto de sus colonias son de vocalismo mitior, que es la norma de las consultas dóricas.</P>
             </CardT>
             <CardT title="Tres capítulos" accent={C.terra}>
-              <P>Este capítulo reúne los rasgos comunes a todo el grupo y las 175 consultas de vocalismo mitior sin adscripción regional precisa; el del dórico noroccidental se ocupa del Epiro y de los rasgos propios del noroeste, y el de la {"<i>Doris severior</i>"}, de las consultas con ese vocalismo. La adscripción regional solo es posible cuando concurre un dato ajeno a la lengua, como un etnónimo, un topónimo o un alfabeto epicórico.</P>
+              <P>Este capítulo reúne los rasgos comunes a todo el grupo y las {TOTAL_DOR} consultas de vocalismo mitior sin adscripción regional precisa; el del dórico noroccidental se ocupa del Epiro y de los rasgos propios del noroeste, y el de la {"<i>Doris severior</i>"}, de las consultas con ese vocalismo. La adscripción regional solo es posible cuando concurre un dato ajeno a la lengua, como un etnónimo, un topónimo o un alfabeto epicórico.</P>
             </CardT>
           </Grid>
         </Sec>
@@ -130,12 +134,12 @@ export default function DoricoGeneral({ switcher, subnav }) {
         <Sec title="Cómo se cuenta una consulta dórica" sub="El criterio del capítulo y su efecto en las cifras (§3)">
           <Stats>
             <Stat label="Dórico general" value={String(TOTAL_DOR)} sub="con un rasgo que excluye el eolio" accent={DOR} />
-            <Stat label="No jónico-áticas" value="880" sub="solo rasgos compartidos" accent={C.muted} />
-            <Stat label="Dórico demostrado" value="262" sub={`con noroccidental y severior · ${pct(262)} %`} accent={C.terra} />
+            <Stat label="No jónico-áticas" value={String(nNoJonAt)} sub="solo rasgos compartidos" accent={C.muted} />
+            <Stat label="Dórico demostrado" value={String(nDemostrado)} sub={`con noroccidental y severior · ${pct(nDemostrado)} %`} accent={C.terra} />
             <Stat label="Alfabeto corintio" value={String(nCorintias)} sub="de las 95 del corpus" accent={ALFABETO_COLORS.corintio} />
           </Stats>
           <Card>
-            <P>Una inscripción solo se cuenta como dórica cuando presenta al menos un rasgo que excluya los dialectos eólicos, porque algunos de los más frecuentes (la ᾱ, -τι, αἰ y κα) son comunes a ambos grupos. Se cuentan también las que emplean la familia de πάομαι y las escritas en alfabeto corintio con algún rasgo no jónico-ático visible. Las que solo documentan rasgos compartidos se reúnen aparte como no jónico-áticas: son 880, el 58,2 % del corpus dialectal, y es verosímil que la mayoría procedan de consultantes dóricos, aunque el material no permite demostrarlo.</P>
+            <P>Una inscripción solo se cuenta como dórica cuando presenta al menos un rasgo que excluya los dialectos eólicos, porque algunos de los más frecuentes (la ᾱ, -τι, αἰ y κα) son comunes a ambos grupos. Se cuentan también las que emplean la familia de πάομαι y las escritas en alfabeto corintio con algún rasgo no jónico-ático visible. Las que solo documentan rasgos compartidos se reúnen aparte como no jónico-áticas: son {nNoJonAt}, el {pct(nNoJonAt)} % del corpus dialectal, y es verosímil que la mayoría procedan de consultantes dóricos, aunque el material no permite demostrarlo.</P>
           </Card>
         </Sec>
       </>}
@@ -245,7 +249,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
             <Stat label="Alfabeto corintio" value={String(nCorintias)} sub={`${pct(nCorintias, TOTAL_DOR)} %`} accent={ALFABETO_COLORS.corintio} />
           </Stats>
           <Card>
-            <P>Entre las 175 figuran las dos del dórico de la Magna Grecia y Sicilia (I.Dodone DVC 312B y 2445) y cuatro consultas públicas de los dodoneos (I.Dodone DVC 295B, 2425A y 2952B, e I.Dodone Lhôte 14), que no documentan ningún rasgo propio del noroccidental. Sumadas las 71 noroccidentales y las 16 de la {"<i>Doris severior</i>"}, el dórico reúne 262 inscripciones, el 17,3 % del corpus dialectal, sin contar las de mezcla con la koiné u otros dialectos.</P>
+            <P>Entre las {TOTAL_DOR} figuran las dos del dórico de la Magna Grecia y Sicilia (I.Dodone DVC 312B y 2445) y cuatro consultas públicas de los dodoneos (I.Dodone DVC 295B, 2425A y 2952B, e I.Dodone Lhôte 14), que no documentan ningún rasgo propio del noroccidental. Sumadas las {TOTAL_DOR_NO} noroccidentales y las {TOTAL_SEV} de la {"<i>Doris severior</i>"}, el dórico reúne {nDemostrado} inscripciones, el {pct(nDemostrado)} % del corpus dialectal, sin contar las de mezcla con la koiné u otros dialectos.</P>
           </Card>
         </Sec>
 
@@ -254,14 +258,14 @@ export default function DoricoGeneral({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Distribución cronológica"
-          sub={`El s. IV a.C. reúne ${nSigloIV} inscripciones y el s. V a.C., 68; el peso del s. V se debe sobre todo a las consultas en alfabeto corintio`}>
+          sub={`El s. IV a.C. reúne ${nSigloIV} inscripciones y el s. V a.C., ${nSigloV}; el peso del s. V se debe sobre todo a las consultas en alfabeto corintio`}>
           <Bars data={CHRONO_DETAIL_DOR.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={300} rotate={-35} />
           <P style={{ fontSize: 11.5, marginTop: 4 }}>A diferencia del tesalio, cuyo material decrece de forma acusada en la segunda mitad del s. IV a.C., las inscripciones dóricas se mantienen en esa etapa (18, frente a 32 en su primera mitad y 9 a mediados) y continúan en el s. III a.C., una continuidad que concuerda con la de un dialecto hablado en el propio santuario y en su entorno.</P>
         </Sec>
 
         <Sec title="Temática de las consultas" sub={`Temas de consulta (n = ${TOTAL_DOR})`}>
           <Temas data={THEMES_DOR} color={DOR} height={380} />
-          <P style={{ fontSize: 11.5, marginTop: 8 }}>Predominan los asuntos económicos o patrimoniales, 31 de los cuales emplean términos de la familia de πάομαι o el sustantivo πανκλαρία, aunque la relación es en buena parte circular, porque ese léxico es a menudo el único rasgo que permite contarlas como dóricas. El peso de los viajes, que en el tesalio solo cuentan con dos testimonios, concuerda con la red de rutas costeras.</P>
+          <P style={{ fontSize: 11.5, marginTop: 8 }}>Predominan los asuntos económicos o patrimoniales, 32 de los cuales emplean términos de la familia de πάομαι o el sustantivo πανκλαρία, aunque la relación es en buena parte circular, porque ese léxico es a menudo el único rasgo que permite contarlas como dóricas. El peso de los viajes, que en el tesalio solo cuentan con dos testimonios, concuerda con la red de rutas costeras.</P>
         </Sec>
 
         <Sec title="Alfabeto"
@@ -281,7 +285,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Valor diagnóstico" sub="Grupos dialectales de los que cada rasgo distingue una consulta dórica"
-          note="● el grupo carece del rasgo, de modo que su presencia lo excluye · ◐ lo excluye solo en parte · ○ rasgo compartido · – el capítulo no lo trata. En «Otros» se nombran otras variedades, dóricas o no, que el rasgo excluye.">
+          note="● el grupo carece del rasgo, de modo que su presencia lo excluye · ◐ lo excluye solo en parte · ○ rasgo compartido · – el capítulo no lo trata. En “Otros” se nombran otras variedades, dóricas o no, que el rasgo excluye.">
           <Table color={DOR} head={["§", "Rasgo", ...DIAG_COLS_DOR]}
             rows={DIAGNOSTICO_DOR.map((d) => [
               <span style={{ color: C.dim, fontSize: 11 }}>{d.sec}</span>,
@@ -302,7 +306,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
           <Bars data={NOTACION_DOR} indexBy="period" keys={["con", "resto"]} height={300} rotate={-20}
             colors={{ con: DOR, resto: "#d9ccad" }} labels={{ con: "Notan con Ε u Ο alguna vocal media larga", resto: "Resto (notación jónica o sin ejemplos)" }} />
           <Card style={{ marginTop: 8 }}>
-            <P>Sesenta y seis de las 175 inscripciones notan con Ε u Ο alguna vocal media larga, primaria o secundaria, como ἐσσ̣ε͂ται de I.Dodone DVC 264A. La mayoría son del s. V a.C., pero no faltan textos del s. IV a.C. que combinan las letras del alfabeto jónico con la notación antigua de las vocales secundarias, como 3473A (ἐπερωτῆι y Διώναν, pero ἐσε͂ται) o I.Dodone Lhôte 94 (Ἀρχεφῶν y σωτηρία, pero κελομένο̄ το͂ y ἐσσε͂ται). En esas inscripciones de transición, la Ε y la Ο de las vocales secundarias, frente a la Η y la Ω de las heredadas, excluyen el vocalismo severior.</P>
+            <P>Sesenta y siete de las {TOTAL_DOR} inscripciones notan con Ε u Ο alguna vocal media larga, primaria o secundaria, como ἐσσ̣ε͂ται de I.Dodone DVC 264A. La mayoría son del s. V a.C., pero no faltan textos del s. IV a.C. que combinan las letras del alfabeto jónico con la notación antigua de las vocales secundarias, como 3473A (ἐπερωτῆι y Διώναν, pero ἐσε͂ται) o I.Dodone Lhôte 94 (Ἀρχεφῶν y σωτηρία, pero κελομένο̄ το͂ y ἐσσε͂ται). En esas inscripciones de transición, la Ε y la Ο de las vocales secundarias, frente a la Η y la Ω de las heredadas, excluyen el vocalismo severior.</P>
           </Card>
         </Sec>
 

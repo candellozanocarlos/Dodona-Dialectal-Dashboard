@@ -264,7 +264,7 @@ export const Donut = ({ data, height = 260, unit = "inscripciones" }) => {
   );
 };
 
-// Rótulos de los ejes del radar: parte los largos en « / » o «|».
+// Rótulos de los ejes del radar: parte los largos en “ / ” o “|”.
 const RadarLabel = ({ id, anchor, x, y }) => {
   const lineas = String(id).split(" / ").flatMap((l) => l.split("|"));
   return (
@@ -276,7 +276,7 @@ const RadarLabel = ({ id, anchor, x, y }) => {
   );
 };
 
-// Radar («área»): data [{ name, value }]; extra { name: texto } añade una línea al tooltip.
+// Radar (“área”): data [{ name, value }]; extra { name: texto } añade una línea al tooltip.
 export const Radar = ({ data, height = 330, color = C.gold, unit = "inscripciones", extra = {} }) => {
   const [hover, setHover] = useState(false);
   return (

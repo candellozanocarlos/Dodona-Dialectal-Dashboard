@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
 
 /* ═══════════════════════════════════════════════
-   GRIEGO — «Dodona Cardo» (Cardo, OFL 1.1)
+   GRIEGO — “Dodona Cardo” (Cardo, OFL 1.1)
    Derivada de Cardo y servida desde src/assets/fonts: incluye glifos
    compuestos y una ligadura ccmp para las marcas que
    Cardo no coloca sobre las letras griegas (macrón U+0304, raya U+0305,
    perispómena U+0342 y punto subscrito tras vocal acentuada). No usa
    la PUA: el texto sigue siendo Unicode normal y se puede copiar.
 
-   · «Dodona Greek Cardo»: solo actúa sobre el griego y las marcas
+   · “Dodona Greek Cardo”: solo actúa sobre el griego y las marcas
      combinantes (unicode-range) dentro de textos en DM Sans o Playfair.
-   · «Dodona Cardo»: familia completa para bloques en griego
+   · “Dodona Cardo”: familia completa para bloques en griego
      (var(--fg): textos de inscripciones, .greek, .greek-run).
    ═══════════════════════════════════════════════ */
 @font-face {
@@ -214,7 +214,7 @@ button {
 .greek { font-size: 1.05em; letter-spacing: 0.02em; }
 .greek-run { font-size: 1.04em; letter-spacing: 0.015em; }
 
-/* Rótulo de cada edición cuando una inscripción tiene varias («[ed. I.Dodone DVC]») */
+/* Rótulo de cada edición cuando una inscripción tiene varias (“[ed. I.Dodone DVC]”) */
 .ed-label {
   display: block; margin: 10px 0 2px; font-family: var(--fb); font-size: 10.5px; line-height: 1.4;
   letter-spacing: 0.4px; color: #7a7060; border-top: 1px dashed rgba(139, 105, 20, 0.25); padding-top: 6px;

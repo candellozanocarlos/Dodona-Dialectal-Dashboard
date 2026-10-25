@@ -20,17 +20,17 @@ export const CHRONO_DETAIL_BEOC = [
 
 // Cronología comparada tesalio/beocio sobre periodos comunes: agrupa los tramos de
 // ambas cronologías (princ. + 1ª mit.; 2ª mit. + finales) para hacerlos comparables.
-// Cada serie suma su total (tesalio: CHRONO_DETAIL_TES = 75; beocio: 17).
+// Cada serie suma su total (tesalio: CHRONO_DETAIL_TES = 79; beocio: 17).
 export const CHRONO_COMPARE_TES_BEOC = [
-  { period: "1ª mit. s. V",   tes: 8,  beoc: 1 },
+  { period: "1ª mit. s. V",   tes: 9,  beoc: 1 },
   { period: "Med. s. V",      tes: 5,  beoc: 2 },
   { period: "2ª mit. s. V",   tes: 14, beoc: 5 },
   { period: "s. V (gen.)",    tes: 3,  beoc: 2 },
   { period: "Trans. V–IV",    tes: 7,  beoc: 2 },
-  { period: "1ª mit. s. IV",  tes: 16, beoc: 1 },
+  { period: "1ª mit. s. IV",  tes: 17, beoc: 1 },
   { period: "Med. s. IV",     tes: 7,  beoc: 1 },
   { period: "2ª mit. s. IV",  tes: 7,  beoc: 0 },
-  { period: "s. IV (gen.)",   tes: 6,  beoc: 2 },
+  { period: "s. IV (gen.)",   tes: 8,  beoc: 2 },
   { period: "ss. III–II",     tes: 2,  beoc: 1 },
 ].map(d => ({
   ...d,
@@ -58,11 +58,11 @@ export const LITERARY_SOURCES_BEOC = [
   { author: "Eurípides, Erecteo (423/2 a.C.)", type: "Tragedia",
     desc: "Alusión al μίασμα δρυός, que la tradición identifica con el crimen cometido por los tebanos contra el oráculo de Dodona (proverbio Βοιωτοῖς μαντεύσαις <i>infra</i>). La referencia velada presupone que el relato era ya perfectamente conocido por el público ateniense en la época, lo que confirma que la conexión entre Beocia y Dodona tenía una larga historia (Piccinini 2017: 103-104)." },
   { author: "Appendix proverbiorum (s.v. μίασμα δρυός)", type: "Paremiografía",
-    desc: "Proverbio Βοιωτοῖς μαντεύσαις («oráculos para beocios»): referencia paremiográfica al episodio de la profetisa arrojada a un caldero hirviendo. Conserva la memoria del sacrilegio que, según la tradición, motivó la institución de la τριποδηφορία." },
+    desc: "Proverbio Βοιωτοῖς μαντεύσαις (“oráculos para beocios”): referencia paremiográfica al episodio de la profetisa arrojada a un caldero hirviendo. Conserva la memoria del sacrilegio que, según la tradición, motivó la institución de la τριποδηφορία." },
     { author: "Pausanias (IX, 8, 1)", type: "Periégesis, s. II d.C.",
     desc: "Relato sobre el santuario de Deméter y Core en la ciudad beocia de Potnias: cada año se introducían en el recinto sagrado (Megara) cerditos que, según la tradición, reaparecían al año siguiente en Dodona. El propio Pausanias se muestra escéptico, pero la alusión podría guardar relación con un pasado cultual compartido en épocas muy remotas, quizá vinculado a ritos de fertilidad (Chapinal-Heras 2021: 129-130)." },
   { author: "Tablilla micénica de Tebas (TH X 105.3)", type: "Micénico",
-    desc: "Posible conexión entre el término <i>pe-re-wi-jo</i> y las <i>peleiades</i>, las sacerdotisas del oráculo de Dodona: Bartoněk (2003: 588) lo relacionó con una divinidad animal vinculada a πέλεια «paloma» y Valdés Guía (2005: 94-95) lo interpretó como «intendente del santuario de Peleia». La relación es especulativa, pues las <i>peleiades</i> no aparecen en las fuentes antes de Heródoto, pero sería un indicio de vínculos anteriores a la primera documentación histórica." },
+    desc: "Posible conexión entre el término <i>pe-re-wi-jo</i> y las <i>peleiades</i>, las sacerdotisas del oráculo de Dodona: Bartoněk (2003: 588) lo relacionó con una divinidad animal vinculada a πέλεια “paloma” y Valdés Guía (2005: 94-95) lo interpretó como “intendente del santuario de Peleia”. La relación es especulativa, pues las <i>peleiades</i> no aparecen en las fuentes antes de Heródoto, pero sería un indicio de vínculos anteriores a la primera documentación histórica." },
   { author: "Éforo (FHG 70 F20 a-b)", type: "Historia, s. IV a.C.",
     desc: "Recomendación oracular de Dodona a los peregrinos de ofrecer sacrificios al río Aqueloo, cuyo culto está bien documentado en el altar del Anfiareo de Oropo, en la frontera entre Beocia y el Ática." },
 ];
@@ -123,7 +123,7 @@ export const RASGOS_BEOC = [
     dvcs: ["296A", "4157A", "313A"] },
   // §3.3  ¿ἰοιό[ς] (= át. υἱός) en DVC 313A?
   { id: 8, cat: "Fonología", name: "¿ἰοιό[ς] (= át. υἱός) en I.Dodone DVC 313A?", short: "ἰοιό[ς] (313A)",
-    desc: "La inscripción I.Dodone DVC 313A (primera mitad s. IV a.C.) presenta, en su tercera línea, la forma ἰοιό[ς] (= ático υἱός, «hijo»), cuyo vocalismo plantea un problema de difícil resolución. Los editores de I.Dodone DVC relacionan ἰοιό[ς] con la forma τῶ ιουιῶ (= ático τοῦ υἱοῦ) de IG VII 3377.6 (Queronea, s. II a.C.), con ⟨ΙΟΥ⟩ por ⟨ΟΥ⟩, fenómeno que en beocio se da a partir del s. III a.C. delante de consonantes apicales (τιούχαν = ático τύχαν en IG VII 3351, Queronea, s. II a.C.). Este sería el único caso donde la grafía ⟨ΙΟΥ⟩ se daría en otro contexto fonético. Sin embargo, Méndez Dosuna (1984) y Brixhe (1985) explicaron independientemente esta grafía como resultado de un fenómeno de elisión del artículo (τῶ ουιῶ > τ' ουιῶ > τ' ιουιῶ), donde la forma ιουιῶ se explica por el contacto con la apical del artículo. Esta explicación no se aplica a 313A, que carece de artículo, por lo que el paralelo de los editores no es acertado. Méndez Dosuna (2018a: 290) propone en su lugar que ⟨Ο⟩ en ἰοιό[ς] podría representar ⟨Υ⟩, confusión documentada en inscripciones beocias, sobre todo de la zona de Tespias: σκόφοι y δοώδεκα por σκύφοι y δυώδεκα (I.Thespies 38, ca. 386 a.C.), Ὀλονπίων y Μικόλα (Alonso Déniz 2016: 68). Si además la falta de aspiración es un error del consultante (<h>οιό[ς] = hυιός), cabe postular un origen tespio para la inscripción, la hipótesis que la tesis considera más satisfactoria. Otras posibilidades apuntadas por el autor son una conexión con el micénico i-jo (= (h)iós), relacionado por Ruipérez (1992) con el primer elemento de Ἰοκάστη, o una contaminación entre el usual υἱός y la forma ϝhiός atestiguada en CEG 362.6 (Cleonas, ca. 560 a.C.). Todas estas hipótesis tienen carácter conjetural y la cuestión debe quedar, por el momento, abierta.",
+    desc: "La inscripción I.Dodone DVC 313A (primera mitad s. IV a.C.) presenta, en su tercera línea, la forma ἰοιό[ς] (= ático υἱός, “hijo”), cuyo vocalismo plantea un problema de difícil resolución. Los editores de I.Dodone DVC relacionan ἰοιό[ς] con la forma τῶ ιουιῶ (= ático τοῦ υἱοῦ) de IG VII 3377.6 (Queronea, s. II a.C.), con ⟨ΙΟΥ⟩ por ⟨ΟΥ⟩, fenómeno que en beocio se da a partir del s. III a.C. delante de consonantes apicales (τιούχαν = ático τύχαν en IG VII 3351, Queronea, s. II a.C.). Este sería el único caso donde la grafía ⟨ΙΟΥ⟩ se daría en otro contexto fonético. Sin embargo, Méndez Dosuna (1984) y Brixhe (1985) explicaron independientemente esta grafía como resultado de un fenómeno de elisión del artículo (τῶ ουιῶ > τ' ουιῶ > τ' ιουιῶ), donde la forma ιουιῶ se explica por el contacto con la apical del artículo. Esta explicación no se aplica a 313A, que carece de artículo, por lo que el paralelo de los editores no es acertado. Méndez Dosuna (2018a: 290) propone en su lugar que ⟨Ο⟩ en ἰοιό[ς] podría representar ⟨Υ⟩, confusión documentada en inscripciones beocias, sobre todo de la zona de Tespias: σκόφοι y δοώδεκα por σκύφοι y δυώδεκα (I.Thespies 38, ca. 386 a.C.), Ὀλονπίων y Μικόλα (Alonso Déniz 2016: 68). Si además la falta de aspiración es un error del consultante (<h>οιό[ς] = hυιός), cabe postular un origen tespio para la inscripción, la hipótesis que la tesis considera más satisfactoria. Otras posibilidades apuntadas por el autor son una conexión con el micénico i-jo (= (h)iós), relacionado por Ruipérez (1992) con el primer elemento de Ἰοκάστη, o una contaminación entre el usual υἱός y la forma ϝhiός atestiguada en CEG 362.6 (Cleonas, ca. 560 a.C.). Todas estas hipótesis tienen carácter conjetural y la cuestión debe quedar, por el momento, abierta.",
     dvcs: ["313A"] },
   // ═══ MORFOLOGÍA (9–15) ═══
   // §4.1.1  Apócope de preposiciones
@@ -266,7 +266,7 @@ export const BO_PLACES = [
   { id: "orcomeno", kind: "mencion", certain: true, name: "Orcómeno", greek: "Ὀρχομενός",
     lon: 22.977, lat: 38.493, dx: 10, dy: -9, anchor: "start",
     mentions: [{ ref: "186A", form: "ἐν Ὀρχομενο͂ι", date: "segunda mitad del s. V a.C.", type: "topónimo" }],
-    note: "Única mención segura de una ciudad beocia en el corpus. Méndez Dosuna (2016: 121) propone que I.Dodone DVC 186A y 187A forman una sola consulta, «o bien en Orcómeno, o bien adondequiera que su pensamiento le lleve», y la autopsia confirma que ambas inscripciones son de la misma mano.",
+    note: "Única mención segura de una ciudad beocia en el corpus. Méndez Dosuna (2016: 121) propone que I.Dodone DVC 186A y 187A forman una sola consulta, “o bien en Orcómeno, o bien adondequiera que su pensamiento le lleve”, y la autopsia confirma que ambas inscripciones son de la misma mano.",
     fuera: "Fuera de las laminillas, el koinón de los epirotas concedió la proxenía a Teóxeno, habitante de Orcómeno." },
   { id: "oropo", kind: "mencion", certain: false, name: "Oropo", greek: "Ὠρωπός",
     lon: 23.770, lat: 38.322, dx: 10, dy: 4, anchor: "start",

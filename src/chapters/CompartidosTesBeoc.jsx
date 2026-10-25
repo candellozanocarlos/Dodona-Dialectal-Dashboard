@@ -9,10 +9,11 @@ import { Bars, ChartTip } from "../components/charts.jsx";
 import { Ref, RefList } from "../components/Inscriptions.jsx";
 import { Card, Sec } from "../components/ui.jsx";
 
-// Inscripciones con doble clasificación (γίνυμαι): adscripción principal.
+// Inscripciones con doble clasificación (γίνυμαι y, en 3114B, γενειθεῖ): adscripción principal.
 const AMBIGUAS = [
   { dvc: "38A", macro: "Tesalio" }, { dvc: "162B", macro: "Tesalio" }, { dvc: "1060A", macro: "Beocio" },
   { dvc: "1649A", macro: "Beocio" }, { dvc: "1676A", macro: "Beocio" }, { dvc: "3673B", macro: "Beocio" },
+  { dvc: "3114B", macro: "Tesalio" },
 ];
 const pctES = (v) => `${String(v).replace(".", ",")} %`;
 
@@ -55,7 +56,7 @@ export default function CompartidosTesBeoc({ desde = "beocio" }) {
     </Sec>
 
     <Sec title="Inventarios de rasgos comparados" sub="Número de rasgos identificados en el corpus por categoría lingüística"
-      note={`El desequilibrio entre ambos inventarios (${RASGOS_TES.length} rasgos tesalios frente a ${RASGOS_BEOC.length} beocios) refleja la diferencia de tamaño de los dos corpus (${TOTAL_TES} frente a ${TOTAL_BEOC} inscripciones) y la aportación desigual al conocimiento de cada dialecto: el material tesalio documenta léxico dialectal (τᾶμον, λιμήν, λειτορεῖον, τυχαῖος), mientras que la aportación beocia es, en palabras de Méndez Dosuna (2018a: 288), «relatively modest»: no aporta rasgos que no fueran ya conocidos por la epigrafía y la literatura.`}>
+      note={`El desequilibrio entre ambos inventarios (${RASGOS_TES.length} rasgos tesalios frente a ${RASGOS_BEOC.length} beocios) refleja la diferencia de tamaño de los dos corpus (${TOTAL_TES} frente a ${TOTAL_BEOC} inscripciones) y la aportación desigual al conocimiento de cada dialecto: el material tesalio documenta léxico dialectal (τᾶμον, λιμήν, λειτορεῖον, τυχαῖος), mientras que la aportación beocia es, en palabras de Méndez Dosuna (2018a: 288), “relatively modest”: no aporta rasgos que no fueran ya conocidos por la epigrafía y la literatura.`}>
       <Bars data={inventario} keys={series.map((s) => s.key)} grouped colors={colors} height={280} unit="rasgos"
         labels={Object.fromEntries(series.map((s) => [s.key, s.name]))} />
     </Sec>
@@ -74,7 +75,7 @@ export default function CompartidosTesBeoc({ desde = "beocio" }) {
     </Sec>
 
     <Sec title="Inscripciones tesalio/beocio ambiguas"
-      sub="Seis inscripciones con formas del paradigma de γίνυμαι que admiten tanto la adscripción tesalia como la beocia; 293B, 328 y 1509B se cuentan solo como tesalias">
+      sub="Siete inscripciones admiten tanto la adscripción tesalia como la beocia: seis por formas del paradigma de γίνυμαι y 3114B por el subjuntivo γενειθεῖ, con ΕΙ por η y por ηι; 293B, 328 y 1509B se cuentan solo como tesalias">
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: 12 }}>
         {AMBIGUAS.map((ins) => {
           const col = ins.macro === "Tesalio" ? DIALECT_COLORS.tesalio : DIALECT_COLORS.beocio;

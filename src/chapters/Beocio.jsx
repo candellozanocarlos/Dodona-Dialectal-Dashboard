@@ -1,7 +1,7 @@
 // Capítulo: el dialecto beocio en las laminillas oraculares de Dodona.
 import { useState } from "react";
 import { C, CAT_COLORS, PROSE, colorSiglo, fade } from "../theme.js";
-import { MACROGRUPOS, TOTAL_BEOC, TOTAL_CORPUS, TOTAL_TES, pct } from "../data/corpus.js";
+import { MACROGRUPOS, TOTAL_BEOC, TOTAL_CORPUS, TOTAL_TES, miles, pct } from "../data/corpus.js";
 import {
   ALF_BEOC, ALF_BEOC_PIE, BO_KIND, BO_PLACES, CHRONO_DETAIL_BEOC, GRAFIA_TIMELINE_BEOC, LITERARY_SOURCES_BEOC,
   MATRIX_BEOC, POLITICAL_LINKS_BEOC, RASGOS_BEOC, RASGO_TEXTS_BEOC, THEMES_BEOC, VOWEL_EXAMPLES_BEOC, VOWEL_PHENOM_BEOC,
@@ -42,7 +42,7 @@ export default function Beocio({ switcher }) {
       subtitle="Análisis lingüístico del corpus oracular · Fonología, morfología, sintaxis y léxico"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_BEOC)} sub="ss. V–II a.C." accent={C.beocio} />
-        <Stat label="Corpus dialectal" value={`${pct(TOTAL_BEOC)} %`} sub={`${TOTAL_BEOC} de ${TOTAL_CORPUS}`} accent={C.terra} />
+        <Stat label="Corpus dialectal" value={`${pct(TOTAL_BEOC)} %`} sub={`${TOTAL_BEOC} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgos" value={String(RASGOS_BEOC.length)} sub="identificados" accent={C.blue} />
         <Stat label="Topónimo beocio seguro" value="1" sub="Orcómeno (186A)" accent={C.beocioDeep} />
       </>}
@@ -64,7 +64,7 @@ export default function Beocio({ switcher }) {
 
         <Sec title="Testimonios literarios" sub="Fuentes antiguas sobre la conexión Beocia–Dodona">
           <SourceList sources={LITERARY_SOURCES_BEOC} color={C.beocio}
-            conclusion="El conjunto de referencias literarias cruzadas muestra una fuerte relación bien conocida ya en época clásica. Dada «una cierta predilección por el arcaísmo» en las fuentes (Chapinal-Heras 2021: 129-130), la mejor explicación no es tanto la existencia de lazos desde la Edad Oscura como la voluntad consciente del koinon beocio de vincular ambos lugares en el período clásico, como refuerzo de la identidad colectiva de sus miembros, de manera similar a como la dinastía eácida instrumentalizó los vínculos míticos con Tesalia." />
+            conclusion="El conjunto de referencias literarias cruzadas muestra una fuerte relación bien conocida ya en época clásica. Dada “una cierta predilección por el arcaísmo” en las fuentes (Chapinal-Heras 2021: 129-130), la mejor explicación no es tanto la existencia de lazos desde la Edad Oscura como la voluntad consciente del koinon beocio de vincular ambos lugares en el período clásico, como refuerzo de la identidad colectiva de sus miembros, de manera similar a como la dinastía eácida instrumentalizó los vínculos míticos con Tesalia." />
         </Sec>
 
         <Sec title="Contexto político" sub="La τριποδηφορία y el koinon beocio: instrumentalización del vínculo con Dodona">
@@ -140,7 +140,7 @@ export default function Beocio({ switcher }) {
               inscripciones podrían clasificarse en uno u otro dialecto. Méndez Dosuna (2018a: 288) señala que los textos con rasgos
               beocios verdaderamente sobresalientes se reducen a <Ref src="DVC" id="313A" />, <Ref src="DVC" id="4157A" /> e{" "}
               <Ref src="Lhôte" id="27" />, a los que añade <Ref src="DVC" id="186A" /> y <Ref src="DVC" id="187A" /> por la mención de
-              Orcómeno. Su aportación al conocimiento del beocio es, en sus palabras, <i>«relatively modest»</i>: no aporta rasgos
+              Orcómeno. Su aportación al conocimiento del beocio es, en sus palabras, <i>“relatively modest”</i>: no aporta rasgos
               que no fueran ya conocidos, aunque sí constituye un valioso complemento en un registro informal y privado.
             </p>
           </Card>
