@@ -1,8 +1,8 @@
 """Genera src/data/doricoNO.js (vista del dórico noroccidental) y completa src/data/inscriptions.json.
 
 Fuentes:
-  · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Dórico NO”, 76).
-  · DORICO_NO_1_Redaccion_v49.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Dórico NO”, 75).
+  · DORICO_NO_1_Redaccion_v52.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_noroccidental_rasgos.py: tabla de rasgos (dno_9) y matrices (dno_10, dno_11).
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dno"] de graficos_dialecto_pandas.py).
 
@@ -23,7 +23,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parents[1]
 UVA = RAIZ.parent
 EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v49.docx"
+DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v52.docx"
 GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
 SALIDA = RAIZ / "src" / "data" / "doricoNO.js"
 INSC = RAIZ / "src" / "data" / "inscriptions.json"
@@ -62,7 +62,7 @@ for k, r in EX.items():
         for m in re.finditer(r"Lhôte, no (\d+)\s*(?:\(Face ([A-Za-z]+)\))?", str(r[2] or "")):
             LH2DVC.setdefault("Lhôte " + m.group(1) + (m.group(2) or ""), k)
 CAP = {k: r for k, r in EX.items() if col(r, "DIALECTO_SUB") == "Dórico NO"}
-assert len(CAP) == 76, len(CAP)
+assert len(CAP) == 75, len(CAP)   # 76 hasta el 26/10/2026 (424B pasa al ático, fila 166)
 
 ROM = {"2": "II", "3": "III", "4": "IV", "5": "V", "6": "VI"}
 TABD = {"α΄ μισό": "primera mitad del", "β΄ μισό": "segunda mitad del", "μέσα": "mediados del", "αρχές": "principios del",
@@ -114,7 +114,9 @@ def ptext(p):
                 out.append(ch.text or "")
             elif ch.tag == W + "tab":
                 out.append(" ")
-    return unicodedata.normalize("NFC", "".join(out).translate(PUA))
+    # Sin las marcas de trabajo del capítulo ([VERIFICAR …], [CITA PENDIENTE]), que no se publican.
+    t = re.sub(r"\s*\[(?:VERIFICAR|CITA PENDIENTE)[^\]]*\]", "", "".join(out))
+    return unicodedata.normalize("NFC", t.translate(PUA))
 
 
 doc = etree.fromstring(zipfile.ZipFile(DOCX).read("word/document.xml"))
@@ -203,7 +205,7 @@ for r in CAP.values():
     c = parse_fecha(col(r, "Date"))
     crono[c] = crono.get(c, 0) + 1
 CHRONO = [{"period": c, "n": crono[c]} for c in ORDEN_CRONO if c in crono]
-assert sum(c["n"] for c in CHRONO) == 76
+assert sum(c["n"] for c in CHRONO) == 75
 temas = {}
 for r in CAP.values():
     t = col(r, "TEMA_MACRO") or "Desconocido"
@@ -219,7 +221,7 @@ for r in CAP.values():
     c = col(r, "DIALECTO_CERTEZA")
     c = "Solo nombre o alfabeto" if c and c.startswith("Solo") else c
     cert[c] = cert.get(c, 0) + 1
-assert cert == {"Seguro": 34, "Dudoso": 41, "Solo nombre o alfabeto": 1}, cert
+assert cert == {"Seguro": 36, "Dudoso": 38, "Solo nombre o alfabeto": 1}, cert   # 26/10: 2364A y 3048A, seguras
 
 # ── Tabla de rasgos y matrices (graficos_dorico_noroccidental_rasgos.py) ───────
 TABLA = [{"sec": "§" + s, "rasgo": n.replace("\n", " "), "forma": f, "resto": re_.replace("\n", " "),
@@ -253,7 +255,8 @@ ESCRITURA = [  # clave, rasgo noroccidental que sostiene la adscripción, nota
     ("DVC 3179B", "σαμε͂ον (ηι sin abreviar)", "Solo si la Ε nota σαμῆον; la lectura no es segura."),
     ("DVC 3625A", "ἐ̣πιμελε͂σται (στ por σθ)", "El único ejemplo seguro de στ por σθ; la épsilon corintia alterna de forma vacilante con Ε."),
     ("Lhôte 88", "ἀποδάμο̅ν (εο > ου)", "Lhôte lee ἀποδάμον, con hiféresis; solo la épsilon corintia es característica. La autopsia de 2025 confirmó la lectura y el facsímil de Evangelidis."),
-    ("DVC 1015A", "ἰς δία̣ιταν (ἰς por εἰς)", "La única del capítulo en el alfabeto local de Dodona."),
+    ("DVC 1015A", "ἰς δία̣ιταν (ἰς por εἰς)", "Una de las dos del capítulo en el alfabeto local de Dodona, con 1368A."),
+    ("DVC 1368A", "ἰς τὸ πρυτανῆον (ἰς por εἰς; ηι sin abreviar)", "La consulta de los διαιτοί, en el alfabeto local de Dodona según Lhôte (2006: 367), que lo tiene por garantía del origen epirota del consultante, y Antonello y Equestri (2018: 102)."),
 ]
 assert {k for k, *_ in ESCRITURA} == set(alf["Corintio"]) | set(alf["Dodona"]), set(alf["Corintio"]) | set(alf["Dodona"])
 ESCR = [{"ref": clave_js(k), "date": fecha(col(EX[k], "Date")), "alf": col(EX[k], "ALFABETO_GRUPO_v2"),
@@ -332,6 +335,16 @@ LUGARES = [  # id, nombre, griego, lon, lat, rótulo (dx, dy en grados), ámbito
      "La mención descansa en la corrección ἐν Ἐλέα<ν> de Méndez Dosuna (2007e: 182-185); Vecchio la sitúa en el valle del Cocito."),
     ("padea", "Padea", "Παδέα", None, None, (0, 0), "Ubicación desconocida",
      [("DVC 3032", 1, "ἐν Παδή̣αν", T)], "Destino de Menisco en I.Dodone DVC 3032, con ἐν y acusativo; se desconoce su ubicación."),
+    # 26/10/2026, dudosas: Quemara (2012A) y Ofinio (82A)
+    ("quemara", "Quemara", "Χεμάριοι", 19.745, 40.10, (-0.09, 0.0), "Epiro · Caonia (costa acroceraunia)",
+     [("DVC 2012A", 0, "ἐγ Χε̅μαρίων", E)],
+     "Étnico de la consulta sobre el establecimiento ἐγ Χεμαρίων (I.Dodone DVC 2012A = I.Dodone Lhôte 131). Dakaris, "
+     "Christidis y Vokotopoulou (1993: 59-60) lo identifican con Quemara, en la costa de los montes Acroceraunios, entre "
+     "Órico y Onquesmo; Lhôte (2006: 274-275) duda de que el lugar llevara ya ese nombre. Mención dudosa."),
+    ("ofinio", "Ofinio", "Ὀφίνιον", None, None, (0, 0), "Ubicación desconocida",
+     [("DVC 82A", 0, "τὸ ἐν Ὀφινίωι", T)],
+     "Lugar del σαμῆον de I.Dodone DVC 82A. Los editores lo toman por un topónimo o un étnico no documentado; Lhôte, en "
+     "CIOD, restituye Ὀφι[ο]νίωι, el santuario del héroe Ofión. Mención dudosa."),
     ("locride", "Lócride opuntia", "Ὀποῦς", 22.95, 38.65, (0.0, 0.10), "Grecia central",
      [("DVC 3917A", 1, "[ἐν Ὀπ]όεντι", T), ("DVC 4132A", 0, "[- - -]οντιοι", E)],
      "La excepción más notable en la Grecia central, cuyos consultantes acudían sobre todo a Delfos (Giannakis 2024a: 36 n. 2)."),
@@ -348,7 +361,7 @@ for id_, nom, gr, lon, lat, off, amb, ments, nota in LUGARES:
         CITADAS.add(k)
     TOPONYMS.append({"id": id_, "name": nom, "greek": gr, "lon": lon, "lat": lat, "off": list(off), "ambito": amb,
                      "note": nota, "mentions": ms})
-assert len(TOPONYMS) == 22 and sum(len(t["mentions"]) for t in TOPONYMS) == 38
+assert len(TOPONYMS) == 24 and sum(len(t["mentions"]) for t in TOPONYMS) == 40   # 26/10: + Quemara y Ofinio
 assert sum(m["certain"] for t in TOPONYMS for m in t["mentions"]) == 32
 
 # ── Textos de las inscripciones citadas ────────────────────────────────────────

@@ -94,7 +94,7 @@ export const AUTOPSIAS_DATA = [
     id: "2247A", dialect: "tesalio", date: "Finales del s. IV a.C.",
     ami: "ΑΜΙ 12890", siglum: "M793", autopsy_year: 2024, related: ["2246A"],
     text_dvc: "εἶ οὐ ἔσσεται;",
-    carlos: "Lectura εἰ οὐ ἔσσεται de *I.Dodone DVC* confirmada. Por tanto, εἶ tesalio (= át. ἦ). Las formas de las letras no coinciden con las de *I.Dodone DVC* 2246A: la ypsilon presenta forma de V y la sigma cuatro trazos.",
+    carlos: "Lectura εἰ οὐ ἔσσεται de *I.Dodone DVC* confirmada. Por tanto, εἶ tesalio (= át. ἦ). Las formas de las letras no coinciden con las de *I.Dodone DVC* 2246A: la ípsilon presenta forma de V y la sigma cuatro trazos.",
     photos: ["assets/autopsias/2247A/m793-dvc-2247a-editado.jpg"],
   },
   {
@@ -152,7 +152,7 @@ export const AUTOPSIAS_DATA = [
     id: "190B", dialect: "beocio", date: "Mediados del s. V a.C.",
     ami: "ΑΜΙ 12294", siglum: "M185", autopsy_year: 2025, related: ["186A", "187A"],
     text_dvc: "γᾶν Ϝοικε͂ι πότερα\nἐν Ὀπόεντι;",
-    carlos: "La rho coincide con la de *I.Dodone DVC* 187A, las formas de alpha parecen iguales, y los trazos son muy parecidos en las tres caras. La segunda omicron de la línea 2 muestra un punto interior, característica habitual de la epigrafía pública del centro de Grecia y del Peloponeso, donde se trazaban las letras redondas con compás (cf. Martín González 2021: 250). El mismo rasgo aparece en *I.Dodone DVC* 296A. La digamma presenta forma de C con los extremos rectos (cf. Alonso Déniz 2022: 444), configuración ajena al alfabeto epirota.",
+    carlos: "La rho coincide con la de *I.Dodone DVC* 187A, las formas de alfa parecen iguales, y los trazos son muy parecidos en las tres caras. La segunda omicron de la línea 2 muestra un punto interior, característica habitual de la epigrafía pública del centro de Grecia y del Peloponeso, donde se trazaban las letras redondas con compás (cf. Martín González 2021: 250). El mismo rasgo aparece en *I.Dodone DVC* 296A. La digamma presenta forma de C con los extremos rectos (cf. Alonso Déniz 2022: 444), configuración ajena al alfabeto epirota.",
     photos: FOTOS_M185,
   },
   // ═════════ DORIS SEVERIOR ═════════
@@ -213,7 +213,7 @@ export const AUTOPSIAS_DATA = [
     id: "306A", dialect: "sinClasificar", date: "Segunda mitad del s. V a.C.",
     ami: "ΑΜΙ 12284", siglum: "M211", autopsy_year: 2025, related: ["307A", "308A"],
     text_dvc: "ΗΑΡΓΑΙΑΝΝΑϜΟ ἐ͂ λόϊο(ν) βέ(λτιον)",
-    carlos: "Se ha perdido un pequeño fragmento en la parte inferior de la laminilla. Lecturas seguras; la alpha de ΝΑϜΟ no se lee. Los editores atribuyen la inscripción al alfabeto de la Élide o de Eubea y proponen alternativamente ἦ Ἀργαίαν νάϜο o ἦ ἀρ γαῖαν ναϜο[ς]. Johnston (2021: 113) señala que el alfabeto propuesto contrasta con el dialecto dórico de la inscripción, sin justificarlo. Comparte laminilla con *I.Dodone DVC* 307A, escrita debajo, y 308A.",
+    carlos: "Se ha perdido un pequeño fragmento en la parte inferior de la laminilla. Lecturas seguras; la alfa de ΝΑϜΟ no se lee. Los editores atribuyen la inscripción al alfabeto de la Élide o de Eubea y proponen alternativamente ἦ Ἀργαίαν νάϜο o ἦ ἀρ γαῖαν ναϜο[ς]. Johnston (2021: 113) señala que el alfabeto propuesto contrasta con el dialecto dórico de la inscripción, sin justificarlo. Comparte laminilla con *I.Dodone DVC* 307A, escrita debajo, y 308A.",
     photos: [
       "assets/autopsias/306A-307A/facsimil-306a-307a.jpg",
     ],

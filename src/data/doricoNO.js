@@ -3,7 +3,7 @@
 // DORICO_NO_1_Redaccion_v49 (§2-§7) y graficos_dorico_noroccidental_rasgos.py (tabla dno_9 y matrices dno_10-dno_11).
 
 export const INTRO_FON_NO = "Las consultas del capítulo comparten con el resto del dórico la práctica totalidad de sus rasgos fonéticos, descritos en el capítulo anterior, de modo que los apartados que siguen se limitan a reunir sus testimonios y a valorar su alcance. Solo unos pocos tratamientos separan el noroccidental del dórico propio, y de ellos solo dos son frecuentes en las laminillas, la contracción de εο y εω en ου y ω (§4.1.2.3) y la grafía ἰς por εἰς (§4.1.4); los demás, la contracción de εα en η (§4.1.2.4), el diptongo ηι sin abreviar (§4.1.5), στ por σθ (§4.2.5) y la pérdida de la nasal ante ϝ (§4.2.7), aparecen en unas pocas consultas. Varios se comparten, además, con el ático o con la koiné, de modo que su valor diagnóstico depende también de la fecha del texto y de los rasgos que lo acompañan.";
-export const INTRO_MORF_NO = "Como en la fonética, la mayor parte de los rasgos morfológicos de las consultas del capítulo son comunes a todo el dórico y se han descrito en el capítulo anterior. Los que separan el noroccidental del dórico propio, ἐν con acusativo (§5.1.4), παρά con acusativo de situación (§5.1.5), el optativo de tercera persona del plural en -οιν (§5.2.6), el tipo βόλομαι (§5.2.7), el dativo singular temático en -οι (§5.3.4) y el dativo plural atemático en -οις (§5.3.5), son escasos, varios dependen de lecturas inseguras y casi todos se comparten con otros dialectos, de modo que, como los fonéticos, solo identifican una consulta noroccidental en combinación con otros indicios.";
+export const INTRO_MORF_NO = "Como en la fonética, la mayor parte de los rasgos morfológicos de las consultas del capítulo son comunes a todo el dórico y se han descrito en el capítulo anterior. Los que separan el noroccidental del dórico propio, ἐν con acusativo (§5.1.4), παρά con acusativo de situación (§5.1.5), el optativo de tercera persona del plural en -οιν (§5.2.6), el dativo singular temático en -οι (§5.3.4) y el dativo plural atemático en -οις (§5.3.5), son escasos, varios dependen de lecturas inseguras y casi todos se comparten con otros dialectos, de modo que, como los fonéticos, solo identifican una consulta noroccidental en combinación con otros indicios.";
 export const CONCLUSION_NO = "En definitiva, el dórico noroccidental resulta en las laminillas una variedad difícil de aislar, como anticipaban Lhôte y Tselikas (cf. §1). La mayoría de sus rasgos son comunes a todo el dórico, y los que lo separan del dórico propio se reducen, en la práctica, a la contracción de εο en ου, a la grafía ἰς por εἰς y al diptongo sin abreviar de σαμῆον, que reúnen la mayor parte de las adscripciones seguras y que las laminillas documentan desde el s. V a.C., antes que la epigrafía de la región. Los rasgos morfológicos que la investigación considera más característicos del Noroeste, como ἐν con acusativo, el dativo plural en -οις o el optativo en -οιν, apenas se documentan o dependen de lecturas inseguras, en consonancia con la epigrafía del Epiro y de Acarnania, que evitó varios de ellos (§5.1.4; §5.3.5). El recuento del capítulo es, por ello, un límite inferior: muchas de las consultas que se cuentan en el dórico general debieron de proceder de hablantes del noroccidental, que, con toda probabilidad, constituían el grueso de los visitantes del santuario, pero su dialecto solo puede reconocerse cuando el texto conserva alguno de esos pocos rasgos.";
 // Rasgos: cada apartado de §4-§7 con su texto y las inscripciones que cita (claves “123A” o “LOD 94”).
 export const RASGOS_NO = [
@@ -165,7 +165,7 @@ export const RASGOS_NO = [
   "name": "El diptongo ηι sin abreviar",
   "short": "El diptongo ηι sin abreviar",
   "cat": "Fonología",
-  "desc": "En los derivados en -ήϊον, como σημήϊον, el diptongo largo ηι (< *-ēwi̯-) no se abrevia en ει, como en el ático σημεῖον y πρυτανεῖον, sino que se conserva o pierde la iota. Filos (2018a: 236) lo cuenta entre los rasgos que podrían ser epicóricos del Epiro. En el capítulo se documenta en σαμῆον de las consultas de los dodoneos I.Dodone DVC 1089B (ss. V-IV a.C.) y 2519B (principios del s. III a.C.), en la segunda de las cuales los dodoneos preguntan si hay un signo en la encina ([ἐ]ν τῶι δρυῒ σαμῆον ἔστι), en τὸ σαμῆον τὸ ἐν Ὀφινίωι de I.Dodone DVC 82A (finales del s. V a.C.), que Chaniotis (2017: 56) interpreta como la respuesta negativa a una consulta perdida, en el genitivo plural σαμήων de I.Dodone Lhôte 134 (ss. IV-III a.C.) y en πρυτανῆον de la consulta de los διαιτοί, I.Dodone DVC 1368A (ss. V-IV a.C.), que repite ἰς τὸ πρυτανῆον. En I.Dodone DVC 3179B (segunda mitad del s. V a.C.), en alfabeto corintio, σαμε͂ον podría notar σαμῆον, pero también σαμεῖον, por lo que la lectura no es segura y la consulta se cuenta como dudosa. Lo mismo ocurre con el genitivo σαμε̄́ου de 60A (finales del s. V a.C.), con la Ε̅ de la notación antigua, que puede corresponder a σαμῆου, pero también a σαμείου. La forma σαμῆον, con la ᾱ dórica, el diptongo sin abreviar y la pérdida de la iota, no se documenta fuera de Dodona, y la variante con iota, σαμήιον, solo aparece en la Doris severior de Tera y de Cirene, en inscripciones del s. IV a.C. En el corpus, otras consultas no jónico-áticas escriben, en cambio, σαμεῖον, con el diptongo abreviado, como I.Dodone DVC 3026A (segunda mitad del s. V a.C.) y 2937A (primera mitad del s. IV a.C.), y también la de 268A (ss. V-IV a.C.), de la Doris severior, con σαμείω, de modo que la forma sin abreviar se concentra en las consultas de los dodoneos y en otras dos que no presentan rasgos de otros grupos. Como las inscripciones del capítulo no presentan rasgos de la Doris severior, e I.Dodone DVC 82A e I.Dodone Lhôte 134 escriben, además, el genitivo temático en -ου (Προδάμου̣, τοῦ πινακίου), σαμῆον se tiene aquí por un rasgo noroccidental, de modo que las cuatro consultas en que aparece se cuentan como seguras, aunque no presenten otros rasgos propios del noroccidental. Los testimonios, desde finales del s. V hasta comienzos del s. III a.C., muestran que el noroccidental conservaba el diptongo largo en estos derivados todavía a comienzos de la época helenística.",
+  "desc": "En los derivados en -ήϊον, como σημήϊον, el diptongo largo ηι (< *-ēwi̯-) no se abrevia en ει, como en el ático σημεῖον y πρυτανεῖον, sino que se conserva o pierde la iota. Filos (2018a: 236) lo cuenta entre los rasgos que podrían ser epicóricos del Epiro. En el capítulo se documenta en σαμῆον de las consultas de los dodoneos I.Dodone DVC 1089B (ss. V-IV a.C.) y 2519B (principios del s. III a.C.), en la segunda de las cuales los dodoneos preguntan si hay un signo en la encina ([ἐ]ν τῶι δρυῒ σαμῆον ἔστι), en τὸ σαμῆον τὸ ἐν Ὀφινίωι de I.Dodone DVC 82A (finales del s. V a.C.), que Chaniotis (2017: 56) interpreta como la respuesta negativa a una consulta perdida, en el genitivo plural σαμήων de I.Dodone Lhôte 134 (ss. IV-III a.C.) y en πρυτανῆον de la consulta de los διαιτοί, I.Dodone DVC 1368A (ss. V-IV a.C.), que repite ἰς τὸ πρυτανῆον. En I.Dodone DVC 3179B (segunda mitad del s. V a.C.), en alfabeto corintio, σαμε͂ον podría notar σαμῆον, pero también σαμεῖον, por lo que la lectura no es segura y la consulta se cuenta como dudosa. Lo mismo ocurre con el genitivo σαμε̄́ου de 60A (finales del s. V a.C.), con la Ε̅ de la notación antigua, que puede corresponder a σαμῆου, pero también a σαμείου. La forma σαμῆον, con la ᾱ dórica, el diptongo sin abreviar y la pérdida de la iota, no se documenta fuera de Dodona, y la variante con iota, σαμήιον, solo aparece en la Doris severior de Tera y de Cirene, en inscripciones del s. IV a.C. Lo característico no es, sin embargo, la palabra, sino el tratamiento del sufijo. Los derivados en -ήιον, que el ático abrevia en -εῖον, conservan en otros dialectos el diptongo largo, cuya iota puede perderse, y la terminación llegó a emplearse como un sufijo independiente, que es el que forma σαμῆον sobre σᾶμα (Lhôte 2006: 380-381). La misma solución sin iota se repite en el πρυτανῆον de I.Dodone DVC 1368A, el ejemplo con que Filos (2018a: 236) ilustra el rasgo, de modo que este no depende de una sola palabra. En el corpus, otras consultas no jónico-áticas escriben, en cambio, σαμεῖον, con el diptongo abreviado, como I.Dodone DVC 3026A (segunda mitad del s. V a.C.) y 2937A (primera mitad del s. IV a.C.), y también la de 268A (ss. V-IV a.C.), de la Doris severior, con σαμείω, de modo que la forma sin abreviar se concentra en las consultas de los dodoneos y en otras dos que no presentan rasgos de otros grupos. Como las inscripciones del capítulo no presentan rasgos de la Doris severior, e I.Dodone DVC 82A e I.Dodone Lhôte 134 escriben, además, el genitivo temático en -ου (Προδάμου̣, τοῦ πινακίου), σαμῆον se tiene aquí por un rasgo noroccidental, de modo que las cuatro consultas en que aparece se cuentan como seguras, aunque no presenten otros rasgos propios del noroccidental. Los testimonios, desde finales del s. V hasta comienzos del s. III a.C., muestran que el noroccidental conservaba el diptongo largo en estos derivados todavía a comienzos de la época helenística.",
   "dvcs": [
    "1089B",
    "2519B",
@@ -258,7 +258,7 @@ export const RASGOS_NO = [
   "name": "στ por σθ",
   "short": "στ por σθ",
   "cat": "Fonología",
-  "desc": "El griego noroccidental, como el eleo, tiende a ensordecer las oclusivas precedidas de una silbante y atestigua στ por σθ y, con menor frecuencia, σκ por σχ, y conoce las grafías ultracorrectas σθ por στ y σχ por σκ. Méndez Dosuna (2018b: 47 y n. 160) interpreta στ y σκ como notación de [stʰ] y [skʰ] en un período en que φ, θ y χ notaban ya las fricativas /f θ x/, y el mismo autor (2014) atribuye a esa fricatización las excepciones a la ley de Grassmann que se documentan en el Noroeste, como ἀνεθέθη, frente al ático ἀνετέθη. En las inscripciones del capítulo solo hay un ejemplo seguro, ἐ̣πιμελε͂σται (= ἐπιμελεῖσθαι) de I.Dodone DVC 3625A (segunda mitad del s. V a.C.), junto a ἔμπροσθ[εν] en el mismo texto. Se documentan, además, la ultracorrección σθ por στ de μα̣σθεύειν (= μαστεύειν), en I.Dodone DVC 2228 (mediados del s. III a.C.), la de σχ por σκ de Ἀσχλα[πιῶι], en 3741B (s. IV a.C.), y el σκ por σχ del antropónimo Αἰσκίνας, en 331B (primera mitad del s. IV a.C.). Los editores leen, por otra parte, [- - -] ἀνῆσσται en I.Dodone DVC 63B (finales del s. V a.C.) y lo interpretan como un infinitivo de ἀνίημι con la sigma duplicada, frecuente en muchos dialectos, y con στ por σθ. Méndez Dosuna (2018b: 47 n. 158), que reproduce la lectura de los editores como ἀννῆσται y la compara, con dudas, con el ático ἀνέσθαι, la juzga improbable y, como la laminilla no conserva ningún contexto que permita interpretarla, también imposible de comprobar. El único rasgo noroccidental de la consulta depende, por tanto, de una lectura aislada y discutida, y por esa razón se cuenta como dudosa (§3). Por último, cabe destacar, en este sentido, la excepción a la ley de Grassmann, que se documenta en el οὐκ ἀνεθέθη de la consulta de Sátiro (I.Dodone Lhôte 113, ss. IV-III a.C.), una forma que Lhôte (2006: 238) explica por la extensión de la aspiración a la sílaba contigua, pero que se registra también en inscripciones del Epiro, de Etolia y de Acarnania, por lo que podría tratarse de un rasgo del dórico noroccidental. El rasgo, característico del noroccidental y del eleo, aunque no exclusivo de ellos, tiene en el corpus un solo ejemplo seguro, del s. V a.C., que convive con ἔμπροσθ[εν] en el mismo texto, mientras que las demás consultas del capítulo escriben σθ, como γενέσθαι de I.Dodone DVC 2552A (mediados del s. IV a.C.). Junto al Αἰσκίνας de I.Dodone DVC 331B y a las ultracorrecciones de 2228 y 3741B, que presuponen la misma pronunciación, el corpus confirma que el rasgo existía en el noroccidental de los ss. V y IV a.C., pero no permite valorar su extensión.",
+  "desc": "El griego noroccidental, como el eleo, tiende a ensordecer las oclusivas precedidas de una silbante y atestigua στ por σθ y, con menor frecuencia, σκ por σχ, y conoce las grafías ultracorrectas σθ por στ y σχ por σκ. Méndez Dosuna (2018b: 47 y n. 160) interpreta στ y σκ como notación de [stʰ] y [skʰ] en un período en que φ, θ y χ notaban ya las fricativas /f θ x/, y el mismo autor (2014: 520) atribuye a esa fricatización las excepciones a la ley de Grassmann que se documentan en el Noroeste, como ἀνεθέθη, frente al ático ἀνετέθη. En las inscripciones del capítulo solo hay un ejemplo seguro, ἐ̣πιμελε͂σται (= ἐπιμελεῖσθαι) de I.Dodone DVC 3625A (segunda mitad del s. V a.C.), junto a ἔμπροσθ[εν] en el mismo texto. Se documentan, además, la ultracorrección σθ por στ de μα̣σθεύειν (= μαστεύειν), en I.Dodone DVC 2228 (mediados del s. III a.C.), la de σχ por σκ de Ἀσχλα[πιῶι], en 3741B (s. IV a.C.), y el σκ por σχ del antropónimo Αἰσκίνας, en 331B (primera mitad del s. IV a.C.). Los editores leen, por otra parte, [- - -] ἀνῆσσται en I.Dodone DVC 63B (finales del s. V a.C.) y lo interpretan como un infinitivo de ἀνίημι con la sigma duplicada, frecuente en muchos dialectos, y con στ por σθ. Méndez Dosuna (2018b: 47 n. 158), que reproduce la lectura de los editores como ἀννῆσται y la compara, con dudas, con el ático ἀνέσθαι, la juzga improbable y, como la laminilla no conserva ningún contexto que permita interpretarla, también imposible de comprobar. El único rasgo noroccidental de la consulta depende, por tanto, de una lectura aislada y discutida, y por esa razón se cuenta como dudosa (§3). Por último, cabe destacar, en este sentido, la excepción a la ley de Grassmann, que se documenta en el οὐκ ἀνεθέθη de la consulta de Sátiro (I.Dodone Lhôte 113, ss. IV-III a.C.), una forma que Lhôte (2006: 238) explica por la extensión de la aspiración a la sílaba contigua, pero que se registra también en inscripciones del Epiro, de Etolia y de Acarnania, por lo que podría tratarse de un rasgo del dórico noroccidental. El rasgo, característico del noroccidental y del eleo, aunque no exclusivo de ellos, tiene en el corpus un solo ejemplo seguro, del s. V a.C., que convive con ἔμπροσθ[εν] en el mismo texto, mientras que las demás consultas del capítulo escriben σθ, como γενέσθαι de I.Dodone DVC 2552A (mediados del s. IV a.C.). Junto al Αἰσκίνας de I.Dodone DVC 331B y a las ultracorrecciones de 2228 y 3741B, que presuponen la misma pronunciación, el corpus confirma que el rasgo existía en el noroccidental de los ss. V y IV a.C., pero no permite valorar su extensión.",
   "dvcs": [
    "3625A",
    "2228",
@@ -465,17 +465,6 @@ export const RASGOS_NO = [
  },
  {
   "id": 27,
-  "sec": "§5.2.7",
-  "name": "El tipo βόλομαι",
-  "short": "El tipo βόλομαι",
-  "cat": "Morfología",
-  "desc": "El tipo βόλομαι, frente al βούλομαι del jónico-ático y al δείλομαι y δήλομαι de otros dialectos dóricos, es propio del griego noroccidental. En el capítulo podría documentarse en βο̄́λεται de I.Dodone DVC 424B (primera mitad del s. V a.C.), pero la grafía arcaica Ο no permite distinguir aquí βόλεται de βούλεται, puesto que el mismo texto escribe también ἄλλο̄ς y πο̣̄ς con Ο, y por esa razón la consulta se cuenta como dudosa.",
-  "dvcs": [
-   "424B"
-  ]
- },
- {
-  "id": 28,
   "sec": "§5.3.1",
   "name": "El artículo τοί, ταί",
   "short": "El artículo τοί, ταί",
@@ -487,7 +476,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 29,
+  "id": 28,
   "sec": "§5.3.2",
   "name": "Pronombres personales y anafóricos",
   "short": "Pronombres personales y anafóricos",
@@ -501,7 +490,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 30,
+  "id": 29,
   "sec": "§5.3.3",
   "name": "El demostrativo οὗτος",
   "short": "El demostrativo οὗτος",
@@ -514,12 +503,12 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 31,
+  "id": 30,
   "sec": "§5.3.4",
   "name": "El dativo singular temático en -οι",
   "short": "El dativo singular temático en -οι",
   "cat": "Morfología",
-  "desc": "Entre los rasgos que separan el noroccidental del dórico propio, el dativo singular temático en -οι, por -ωι, es el único que Filos (2018a: 229) considera documentado en el Epiro. Méndez Dosuna (1985: 413-463; 2018b: 48 n. 166) no lo explica como la continuación de un antiguo locativo, sino como el resultado de un proceso fonético de abreviación, que afecta también al diptongo largo en interior de palabra, como en λοῖον, y que comparten el eubeo, el tesalio de la Histiótide, el beocio, el eleo y el arcadio. Según el mismo autor (2014), en las inscripciones del Noroeste la grafía se limita casi por completo a textos privados recientes, de finales del s. III al s. I a.C., mientras que los oficiales escriben -ωι, de modo que el rasgo parece propio de los registros menos formales. Los testimonios de las laminillas son escasos. Los más claros proceden de I.Dodone DVC 3220A (mediados del s. III a.C.), con λοῖον, ἐν τοῖ ἕρποντι ἐνιαυτοῖ y quizá αὐτο<ῖ>, en un texto que escribe Ω en todas las demás formas (χωρία, ἀποδαμῶ, Ἀκτίων). Se suman a ellos el dativo Ἑρμ̣ων<ύ>μο̄ι de I.Dodone DVC 2882B (finales del s. IV a.C.), junto a λώ[ϊον], el λοῖον de 471A (segunda mitad del s. III a.C.), junto a ἐπερωτεῖ y Διώναν con Ω, y el λο͂ιστα de I.Dodone Lhôte 47 (ss. III-II a.C.), que Lhôte toma por un error y Méndez Dosuna (2008: 74) por la abreviación del diptongo que se documenta en epirota. A ellos hay que añadir I.Dodone DVC 548B (segunda mitad del s. IV a.C.), que escribe dos veces el dativo Δαμοξένο̄ι con Ο, frente a la Ω de Φιλωτίδι en el mismo texto. La Ο no parece aquí una notación antigua de ω, como suponen los editores, sino el dativo en -οι, como entienden Filos (2018a: 228-229) y Méndez Dosuna (2018b: 48), y en la consulta intervienen, además, τοὶ Διαιτοί, como en I.Dodone DVC 1368A. La forma aparece, por tanto, en textos del s. IV a.C. o posteriores, y casi siempre junto a la grafía con Ω en el mismo texto, lo que concuerda con la explicación de Méndez Dosuna como un fenómeno de registro antes que como una desinencia distinta. Los testimonios de I.Dodone DVC 548B y 2882B, de la segunda mitad del s. IV a.C., son, además, anteriores a la mayoría de los de la epigrafía del Noroeste, que se concentran en textos privados de finales del s. III a.C. en adelante, y confirman que la abreviación pertenecía a los registros menos formales, a los que corresponden las laminillas.",
+  "desc": "Entre los rasgos que separan el noroccidental del dórico propio, el dativo singular temático en -οι, por -ωι, es el único que Filos (2018a: 229) considera documentado en el Epiro. Méndez Dosuna (1985: 413-463; 2018b: 48 n. 166) no lo explica como la continuación de un antiguo locativo, sino como el resultado de un proceso fonético de abreviación, que afecta también al diptongo largo en interior de palabra, como en λοῖον, y que comparten el eubeo, el tesalio de la Histiótide, el beocio, el eleo y el arcadio. Según el mismo autor (2014: 520), en las inscripciones del Noroeste la grafía se limita casi por completo a textos privados recientes, de finales del s. III al s. I a.C., mientras que los oficiales escriben -ωι, de modo que el rasgo parece propio de los registros menos formales. Los testimonios de las laminillas son escasos. Los más claros proceden de I.Dodone DVC 3220A (mediados del s. III a.C.), con λοῖον, ἐν τοῖ ἕρποντι ἐνιαυτοῖ y quizá αὐτο<ῖ>, en un texto que escribe Ω en todas las demás formas (χωρία, ἀποδαμῶ, Ἀκτίων). Se suman a ellos el dativo Ἑρμ̣ων<ύ>μο̄ι de I.Dodone DVC 2882B (finales del s. IV a.C.), junto a λώ[ϊον], el λοῖον de 471A (segunda mitad del s. III a.C.), junto a ἐπερωτεῖ y Διώναν con Ω, y el λο͂ιστα de I.Dodone Lhôte 47 (ss. III-II a.C.), que Lhôte toma por un error y Méndez Dosuna (2008: 74) por la abreviación del diptongo que se documenta en epirota. A ellos hay que añadir I.Dodone DVC 548B (segunda mitad del s. IV a.C.), que escribe dos veces el dativo Δαμοξένο̄ι con Ο, frente a la Ω de Φιλωτίδι en el mismo texto. La Ο no parece aquí una notación antigua de ω, como suponen los editores, sino el dativo en -οι, como entienden Filos (2018a: 228-229) y Méndez Dosuna (2018b: 48), y en la consulta intervienen, además, τοὶ Διαιτοί, como en I.Dodone DVC 1368A. La forma aparece, por tanto, en textos del s. IV a.C. o posteriores, y casi siempre junto a la grafía con Ω en el mismo texto, lo que concuerda con la explicación de Méndez Dosuna como un fenómeno de registro antes que como una desinencia distinta. Los testimonios de I.Dodone DVC 548B y 2882B, de la segunda mitad del s. IV a.C., son, además, anteriores a la mayoría de los de la epigrafía del Noroeste, que se concentran en textos privados de finales del s. III a.C. en adelante, y confirman que la abreviación pertenecía a los registros menos formales, a los que corresponden las laminillas.",
   "dvcs": [
    "3220A",
    "2882B",
@@ -530,7 +519,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 32,
+  "id": 31,
   "sec": "§5.3.5",
   "name": "El dativo plural atemático en -οις",
   "short": "El dativo plural atemático en -οις",
@@ -544,7 +533,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 33,
+  "id": 32,
   "sec": "§5.4",
   "name": "Paradigma adverbial",
   "short": "Paradigma adverbial",
@@ -560,7 +549,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 34,
+  "id": 33,
   "sec": "§5.5",
   "name": "La partícula modal κα y la conjunción αἰ",
   "short": "La partícula modal κα y la conjunción αἰ",
@@ -581,7 +570,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 35,
+  "id": 34,
   "sec": "§6.1",
   "name": "ἦ y αἰ en las interrogativas totales",
   "short": "ἦ y αἰ en las interrogativas totales",
@@ -607,12 +596,12 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 36,
+  "id": 35,
   "sec": "§6.2",
   "name": "El reflexivo indirecto y los modos de la pregunta",
   "short": "El reflexivo indirecto y los modos de la pregunta",
   "cat": "Sintaxis",
-  "desc": "El reflexivo indirecto, que remite al sujeto de la oración principal y es el único indicio seguro del carácter subordinado de una pregunta (cf. el capítulo anterior, §6.1), tiene en este capítulo su testimonio más claro, la consulta del koinon de I.Dodone Lhôte 9 (primera mitad del s. II a.C.), ἦ α[ὐ]τ<ο>ιαυτοῖς συμπολειτεύουσι μετὰ Μολοσσῶν ἀσφαλῆ ἦι. Lhôte (2006: 397) leía en ella el adverbio αὐτί (α[ὐ]τὶ αὐτοῖς), pero Méndez Dosuna (2007b: 137-139) reconoce el reflexivo compuesto α[ὐ]τ<ο>ιαυτοῖς, un compuesto aglutinado como el αὐτοσαυτῶν que el mismo autor (2014) documenta en Delfos en el s. II a.C., y Nieto Izquierdo (2019: 111-112) observa que concuerda con el plural del verbo ἐπερωτῶντι y no con su sujeto gramatical, τὸ κοινόν, de modo que la pregunta es con seguridad indirecta. Del mismo tipo es el αὐτοῖς de la consulta de Onquesmo, ἦ ’στι αὐτοῖς [- - -]ὸς ἐν τὰν αὐτῶ̣ν (I.Dodone Lhôte 13, primera mitad del s. IV a.C.), que remite a la comunidad que pregunta, aunque, como el de la consulta de los dodoneos I.Dodone DVC 2425A, puede deberse también a una pregunta directa reformulada en tercera persona. En las consultas privadas cumplen la misma función el αὑτῶι de τί κα ποι[έων] … ἔστι αὑτῶι [παραμο]νὰ πὰρ τὸν δεσπότα, en I.Dodone DVC 3690B (primera mitad del s. IV a.C.), y el anafórico οἱ de [τ]έκνα<ν> οἱ γενέσθαι, en 2552A (mediados del s. IV a.C.), que remite a la consultante, Κλευν<ί>κα. En los modos, las consultas del capítulo siguen el uso del dórico general (cf. el capítulo anterior, §6.2). El optativo potencial con κα se emplea en la fórmula τίνι κα θεῶν, como en τίνι κ[α θεο͂]ν καὶ hε̄ρο̄́ο̄ν θύο̄ν λο̄́ϊον πράσ<σ>οι de I.Dodone DVC 2242A (primera mitad del s. V a.C.) o τίνει κα θεῶν εὐχόμενος πράξαιμι de I.Dodone Lhôte 47 (ss. III-II a.C.), y en las preguntas con ἦ, como ἦ οἰκέο<ι>μές κα λο̄́ϊον de I.Dodone DVC 1228A (mediados del s. V a.C.), y alterna con el optativo sin partícula, como en λο̄́ϊον καὶ ἄμεινον πράσσοι de 337B (primera mitad del s. IV a.C.). Se aparta de ese uso la consulta de los bilíones, τίν<ι> θεῶι θύοντες βέλτιστα πραξοῦντι (I.Dodone DVC 2364A, primera mitad del s. IV a.C.), que sustituye el optativo de la fórmula por el futuro de indicativo, con la contracción noroccidental de su desinencia (cf. §5.2.3).",
+  "desc": "El reflexivo indirecto, que remite al sujeto de la oración principal y es el único indicio seguro del carácter subordinado de una pregunta (cf. el capítulo anterior, §6.1), tiene en este capítulo su testimonio más claro, la consulta del koinon de I.Dodone Lhôte 9 (primera mitad del s. II a.C.), ἦ α[ὐ]τ<ο>ιαυτοῖς συμπολειτεύουσι μετὰ Μολοσσῶν ἀσφαλῆ ἦι. Lhôte (2006: 397) leía en ella el adverbio αὐτί (α[ὐ]τὶ αὐτοῖς), pero Méndez Dosuna (2007b: 137-139) reconoce el reflexivo compuesto α[ὐ]τ<ο>ιαυτοῖς, un compuesto aglutinado como el αὐτοσαυτῶν que el mismo autor (2014: 523) documenta en Delfos en el s. II a.C., y Nieto Izquierdo (2019: 111-112) observa que concuerda con el plural del verbo ἐπερωτῶντι y no con su sujeto gramatical, τὸ κοινόν, de modo que la pregunta es con seguridad indirecta. Del mismo tipo es el αὐτοῖς de la consulta de Onquesmo, ἦ ’στι αὐτοῖς [- - -]ὸς ἐν τὰν αὐτῶ̣ν (I.Dodone Lhôte 13, primera mitad del s. IV a.C.), que remite a la comunidad que pregunta, aunque, como el de la consulta de los dodoneos I.Dodone DVC 2425A, puede deberse también a una pregunta directa reformulada en tercera persona. En las consultas privadas cumplen la misma función el αὑτῶι de τί κα ποι[έων] … ἔστι αὑτῶι [παραμο]νὰ πὰρ τὸν δεσπότα, en I.Dodone DVC 3690B (primera mitad del s. IV a.C.), y el anafórico οἱ de [τ]έκνα<ν> οἱ γενέσθαι, en 2552A (mediados del s. IV a.C.), que remite a la consultante, Κλευν<ί>κα. En los modos, las consultas del capítulo siguen el uso del dórico general (cf. el capítulo anterior, §6.2). El optativo potencial con κα se emplea en la fórmula τίνι κα θεῶν, como en τίνι κ[α θεο͂]ν καὶ hε̄ρο̄́ο̄ν θύο̄ν λο̄́ϊον πράσ<σ>οι de I.Dodone DVC 2242A (primera mitad del s. V a.C.) o τίνει κα θεῶν εὐχόμενος πράξαιμι de I.Dodone Lhôte 47 (ss. III-II a.C.), y en las preguntas con ἦ, como ἦ οἰκέο<ι>μές κα λο̄́ϊον de I.Dodone DVC 1228A (mediados del s. V a.C.), y alterna con el optativo sin partícula, como en λο̄́ϊον καὶ ἄμεινον πράσσοι de 337B (primera mitad del s. IV a.C.). Se aparta de ese uso la consulta de los bilíones, τίν<ι> θεῶι θύοντες βέλτιστα πραξοῦντι (I.Dodone DVC 2364A, primera mitad del s. IV a.C.), que sustituye el optativo de la fórmula por el futuro de indicativo, con la contracción noroccidental de su desinencia (cf. §5.2.3).",
   "dvcs": [
    "LOD 9",
    "LOD 13",
@@ -627,7 +616,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 37,
+  "id": 36,
   "sec": "§7.1",
   "name": "ἕρπω",
   "short": "ἕρπω",
@@ -639,7 +628,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 38,
+  "id": 37,
   "sec": "§7.2",
   "name": "La familia de πάομαι y πανκλαρία",
   "short": "La familia de πάομαι y πανκλαρία",
@@ -653,7 +642,7 @@ export const RASGOS_NO = [
   ]
  },
  {
-  "id": 39,
+  "id": 38,
   "sec": "§7.3",
   "name": "Otros términos",
   "short": "Otros términos",
@@ -691,6 +680,7 @@ export const RASGO_TEXTS_NO = {
  "1930B": "[- - -] ἐ̣π' Ἄκτιο[ν - - -]",
  "1958B": "[- - -] αἰ Ϝοικο͂σι Ο̣[- - -] \n[- - -]ΝΙ[.]ΚΑΙ[.]ΤΑ[.][- - -] \n[- - -]ιας̣ αἰ ἐ[κ] Βυ[- - -] \n[- - -]Α [πα]μπασ[ία - - -]",
  "1989A": "ἦ̣ 'πολαψοῦ[μαι] \nἅπαντα αὐ̣[τός];",
+ "2012A": "περὶ τᾶς ο̣ἰκήσιος τᾶς \nἐγ Χε̅μαρίων πότερον \nαὐτεῖ οἰκ[έ]ωντι ;",
  "2014A": "εἰς Ἀκαρνανίαν \nἀποπέμψαι",
  "2024A": "θεός• \nΔαμαίνετος πὲρ Προξέ-\nνου πο͂ς κε ἐ̣κ Μελιτείας σωθῆ \nκαὶ τίνι θεῶν ἢ δαιμόνων \nεὐχόμενος σωθῆ διὰ θαχέων \nκαὶ τῶι θεῶ[ι] δῶρον ἀποφέρε̅ι;",
  "2050A": "ἐρωτῆι Θεύπομπος τὸ[ν Δία καὶ τὰν Διώναν τίνι] \nκα θεῶν ἢ ἡρό̅ων εὐχόμεν̣[ος γενεά οἱ γένοιτο] \nἐκ τᾶς γυναικὸς ἃν ἔχε̣[ι]",
@@ -749,7 +739,6 @@ export const RASGO_TEXTS_NO = {
  "4016A": "Ζεῦ Νάϊε καὶ Δ̣[ιώνα τύχα] \nἀγαθά· Ἀθ̣[α]μᾶ̣ν̣[ες ἐπερωτῶντι τίνι κα] \nθεῶν θύο(ν)τες̣ [- - -]\nκάλλιστα πράσ̣[σοιεν - - -]\n[.]ΟΙΗ ἄ̣ριστα τὸν̣ [- - -]\n[. . .]ΑΕΑ οἰκῆας [- - -]",
  "4132A": "[ἐπερωτῶντι τὸν θε]ὸν πε<ι>ρὶ τῶ[ν - - -] \n[- - -]οντιοι οἰκ[έοντες - - -]\n[- - -][.] συνέθετ[ο - - -] \n[- - - ἐσσ]εῖται ἐν Γ[- - -]",
  "4195A": "[ἐπικοινῶ]νται Μολοσσ[οὶ τῶι Διὶ τῶι Ναΐωι καὶ τᾶι Διώναι τίνι κα] \n[θεῶν εὐχ]όμενοι καὶ θύ̣[οντες - - -]\n[- - -]ΣΕ Μολοσσ[- - -]",
- "424B": "ἐ͂ ἄλλο̅ς πο̣̅ς βό̅λεται;",
  "463A": "ἦ ἰς Φάρον Ϝοικέων;",
  "471A": "ἐπερωτεῖ Μνασικλ[ῆ]-\nς τὸν Δία τὸν Νᾶον καὶ \nτὰν Διώναν ἦ λοῖόν νι-\nν καὶ ἄμεινόν ἐστι στρ-\nατεῦσαι πὰρ τὸν βασι-\nλῆ• [ἐ]περωτεῖ Μνα-\nσικλῆ̣[ς τὸ]ν̣ Δία̣ τὸν̣ Νᾶ[ον] \nκαὶ τὰ[ν] Διώναν",
  "473B": "[ἦ] λό̅ϊο[ν βέλτ]ιον καὶ \nἄμε[ινό]ν ἐστι αὐτ̣ί-\nκα μ̣α̣γεία[ς ἰ]ᾶσθαι \nκαὶ γυναῖκα ἔχην;",
@@ -788,8 +777,8 @@ export const TABLA_RASGOS_NO = [
   "forma": "πραξοῦντι, ἀποδαμῶ",
   "resto": "hiato o sinicesis (εο, ευ, ιο)",
   "otros": "ático, koiné",
-  "seg": 9,
-  "dud": 11
+  "seg": 10,
+  "dud": 10
  },
  {
   "sec": "§4.1.2.4",
@@ -806,8 +795,8 @@ export const TABLA_RASGOS_NO = [
   "forma": "ἰς τὸν ἔπειτα χρόνον",
   "resto": "εἰς, ἐς",
   "otros": "koiné tardía (itacismo)",
-  "seg": 11,
-  "dud": 5
+  "seg": 12,
+  "dud": 4
  },
  {
   "sec": "§4.1.5",
@@ -884,11 +873,11 @@ export const TABLA_RASGOS_NO = [
  {
   "sec": "§3",
   "rasgo": "Otros indicios de adscripción",
-  "forma": "Ποτειδᾶν, ἔχην, βόλομαι,\nἀμφίπολος, Θευ-, Κλευ-",
+  "forma": "Ποτειδᾶν, ἔχην,\nἀμφίπολος, Θευ-, Κλευ-",
   "resto": "rasgos comunes o no exclusivos",
   "otros": "varios",
   "seg": 0,
-  "dud": 12
+  "dud": 11
  }
 ];
 // Matrices de valor diagnóstico (dno_10 y dno_11): 2 = lo excluye; 1 = en parte; 0 = rasgo compartido; -1 = no se trata.
@@ -1091,7 +1080,7 @@ export const CHRONO_DETAIL_NO = [
  },
  {
   "period": "1ª mit. s. V",
-  "n": 3
+  "n": 2
  },
  {
   "period": "Med. s. V",
@@ -1176,11 +1165,11 @@ export const THEMES_NO = [
   "value": 8
  },
  {
-  "name": "Desconocido / Sin clasificar",
-  "value": 7
+  "name": "Amor / Familia / Matrimonio",
+  "value": 6
  },
  {
-  "name": "Amor / Familia / Matrimonio",
+  "name": "Desconocido / Sin clasificar",
   "value": 6
  },
  {
@@ -1233,7 +1222,6 @@ export const ALF_NO = {
   "337B",
   "340A",
   "353B",
-  "424B",
   "463A",
   "471A",
   "473B",
@@ -1244,7 +1232,6 @@ export const ALF_NO = {
   "1089B",
   "1363A",
   "1365A",
-  "1368A",
   "1678B",
   "1958B",
   "1989A",
@@ -1285,12 +1272,13 @@ export const ALF_NO = {
   "LOD 113"
  ],
  "Dodona": [
-  "1015A"
+  "1015A",
+  "1368A"
  ]
 };
 export const CERTEZA_NO = {
- "Dudoso": 41,
- "Seguro": 34,
+ "Dudoso": 38,
+ "Seguro": 36,
  "Solo nombre o alfabeto": 1
 };
 export const INSCRIPCIONES_NO = [
@@ -1421,13 +1409,6 @@ export const INSCRIPCIONES_NO = [
   "cert": "Dudoso"
  },
  {
-  "ref": "424B",
-  "date": "primera mitad del s. V a.C.",
-  "tema": "Desconocido",
-  "alf": "Reformado / Desconocido",
-  "cert": "Dudoso"
- },
- {
   "ref": "463A",
   "date": "principios del s. IV a.C.",
   "tema": "Viaje / Migración",
@@ -1522,7 +1503,7 @@ export const INSCRIPCIONES_NO = [
   "ref": "1368A",
   "date": "ss. V-IV a.C.",
   "tema": "Otros",
-  "alf": "Reformado / Desconocido",
+  "alf": "Dodona",
   "cert": "Seguro"
  },
  {
@@ -1614,7 +1595,7 @@ export const INSCRIPCIONES_NO = [
   "date": "primera mitad del s. IV a.C.",
   "tema": "Otros",
   "alf": "Reformado / Desconocido",
-  "cert": "Dudoso"
+  "cert": "Seguro"
  },
  {
   "ref": "2507",
@@ -1670,7 +1651,7 @@ export const INSCRIPCIONES_NO = [
   "date": "primera mitad del s. IV a.C.",
   "tema": "Amor / Familia / Matrimonio",
   "alf": "Reformado / Desconocido",
-  "cert": "Dudoso"
+  "cert": "Seguro"
  },
  {
   "ref": "3116A",
@@ -1854,8 +1835,8 @@ export const CONTRACCION_NO = [
  },
  {
   "period": "s. IV",
-  "seguras": 5,
-  "dudosas": 5,
+  "seguras": 6,
+  "dudosas": 4,
   "dvcs": [
    "2364A",
    "143A",
@@ -1958,7 +1939,15 @@ export const ESCRITURA_NO = [
   "alf": "Dodona",
   "cert": "Seguro",
   "rasgo": "ἰς δία̣ιταν (ἰς por εἰς)",
-  "note": "La única del capítulo en el alfabeto local de Dodona."
+  "note": "Una de las dos del capítulo en el alfabeto local de Dodona, con 1368A."
+ },
+ {
+  "ref": "1368A",
+  "date": "ss. V-IV a.C.",
+  "alf": "Dodona",
+  "cert": "Seguro",
+  "rasgo": "ἰς τὸ πρυτανῆον (ἰς por εἰς; ηι sin abreviar)",
+  "note": "La consulta de los διαιτοί, en el alfabeto local de Dodona según Lhôte (2006: 367), que lo tiene por garantía del origen epirota del consultante, y Antonello y Equestri (2018: 102)."
  }
 ];
 // §2: comunidades y lugares del Noroeste (22 nombres, 38 menciones, 32 seguras; TOPONIMOS["dno"] de graficos_dialecto_pandas.py).
@@ -2505,6 +2494,50 @@ export const TOPONYMS_NO = [
     "date": "ss. V-IV a.C.",
     "type": "topónimo",
     "certain": true
+   }
+  ]
+ },
+ {
+  "id": "quemara",
+  "name": "Quemara",
+  "greek": "Χεμάριοι",
+  "lon": 19.745,
+  "lat": 40.1,
+  "off": [
+   -0.09,
+   0.0
+  ],
+  "ambito": "Epiro · Caonia (costa acroceraunia)",
+  "note": "Étnico de la consulta sobre el establecimiento ἐγ Χεμαρίων (I.Dodone DVC 2012A = I.Dodone Lhôte 131). Dakaris, Christidis y Vokotopoulou (1993: 59-60) lo identifican con Quemara, en la costa de los montes Acroceraunios, entre Órico y Onquesmo; Lhôte (2006: 274-275) duda de que el lugar llevara ya ese nombre. Mención dudosa.",
+  "mentions": [
+   {
+    "ref": "2012A",
+    "form": "ἐγ Χε̅μαρίων",
+    "date": "primera mitad del s. IV a.C.",
+    "type": "etnónimo",
+    "certain": false
+   }
+  ]
+ },
+ {
+  "id": "ofinio",
+  "name": "Ofinio",
+  "greek": "Ὀφίνιον",
+  "lon": null,
+  "lat": null,
+  "off": [
+   0,
+   0
+  ],
+  "ambito": "Ubicación desconocida",
+  "note": "Lugar del σαμῆον de I.Dodone DVC 82A. Los editores lo toman por un topónimo o un étnico no documentado; Lhôte, en CIOD, restituye Ὀφι[ο]νίωι, el santuario del héroe Ofión. Mención dudosa.",
+  "mentions": [
+   {
+    "ref": "82A",
+    "form": "τὸ ἐν Ὀφινίωι",
+    "date": "finales del s. V a.C.",
+    "type": "topónimo",
+    "certain": false
    }
   ]
  },

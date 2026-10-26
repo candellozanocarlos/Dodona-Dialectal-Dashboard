@@ -103,13 +103,13 @@ export default function DoricoNO({ switcher, subnav }) {
         <Sec title="El griego noroccidental y Dodona" sub="El dialecto del santuario y, con toda probabilidad, el de la mayoría de sus visitantes (§1)">
           <Grid>
             <CardT title="El griego noroccidental">
-              <P>Es la variedad dórica hablada desde la costa del mar Jónico, en el Epiro y Acarnania, por la orilla norte del golfo de Corinto, en Etolia, la Lócride occidental y la Fócide, hasta la Lócride oriental, además de la Dóride; de ella procedían también los fundadores de Locros Epicefirios (Méndez Dosuna 2014). Conservadora, comparte con el resto del dórico la práctica totalidad de sus rasgos y es más un área de convergencia que un grupo dialectal originario (Méndez Dosuna 1985: 508-510).</P>
+              <P>Es la variedad dórica hablada desde la costa del mar Jónico, en el Epiro y Acarnania, por la orilla norte del golfo de Corinto, en Etolia, la Lócride occidental y la Fócide, hasta la Lócride oriental, además de la Dóride; de ella procedían también los fundadores de Locros Epicefirios (Méndez Dosuna 2014: 518). Conservadora, comparte con el resto del dórico la práctica totalidad de sus rasgos y es más un área de convergencia que un grupo dialectal originario (Méndez Dosuna 1985: 508-510).</P>
             </CardT>
             <CardT title="Un dialecto difícil de aislar" accent={C.blue}>
               <P>Lhôte (2006: 365) no encuentra un solo rasgo exclusivo de los epirotas, y Tselikas (2018: 258) observa que la mayoría de las consultas dóricas, que atribuye a epirotas, solo presentan rasgos comunes a todo el dórico. Filos (2018a: 228-229) separa los rasgos que distinguen el noroccidental del dórico propio, pero ninguno aparece por igual en todas las regiones: en el Epiro solo el dativo en -οι y, de forma muy escasa, el dativo plural en -οις.</P>
             </CardT>
             <CardT title="La koiná noroccidental" accent={C.terra}>
-              <P>A lo largo del s. III a.C., la liga etolia favoreció una {"<i>koiná</i>"} de base dórica con préstamos de la {"<i>koiné</i>"} jónico-ática, que difumina las diferencias locales (Filos 2018a: 229-233). Epirotas y acarnanios evitaron, sin embargo, dos de sus rasgos más característicos, el dativo plural en -οις y ἐν con acusativo, quizá para distanciarse de los etolios (Méndez Dosuna 2014).</P>
+              <P>A lo largo del s. III a.C., la liga etolia favoreció una {"<i>koiná</i>"} de base dórica con préstamos de la {"<i>koiné</i>"} jónico-ática, que difumina las diferencias locales (Filos 2018a: 229-233). Epirotas y acarnanios evitaron, sin embargo, dos de sus rasgos más característicos, el dativo plural en -οις y ἐν con acusativo, quizá para distanciarse de los etolios (Méndez Dosuna 2014: 523).</P>
             </CardT>
           </Grid>
         </Sec>
@@ -161,7 +161,7 @@ export default function DoricoNO({ switcher, subnav }) {
               {!place && (
                 <Card>
                   <div style={{ fontFamily: "var(--fh)", fontSize: 15, color: C.heading, marginBottom: 6 }}>Selecciona un lugar</div>
-                  <P>La mayoría de las menciones corresponde al Epiro, con catorce nombres y veintidós menciones, entre las que destacan las seis consultas de los dodoneos; le sigue Acarnania, con cinco nombres y doce menciones, cinco de ellas de Accio. De la Grecia central solo aparecen la Lócride opuntia y Melitea.</P>
+                  <P>La mayoría de las menciones corresponde al Epiro, con quince nombres y veintitrés menciones, entre las que destacan las seis consultas de los dodoneos; le sigue Acarnania, con cinco nombres y doce menciones, cinco de ellas de Accio. De la Grecia central solo aparecen la Lócride opuntia y Melitea.</P>
                   <Stats style={{ marginTop: 12, marginBottom: 0 }}>
                     <Stat label="Seguras" value={String(segMenciones)} accent={NO} />
                     <Stat label="Dudosas" value={String(totalMenciones - segMenciones)} accent={ORO} />
@@ -257,7 +257,7 @@ export default function DoricoNO({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="Recuento según la autopsia y la revisión de los alfabetos (ALFABETO_GRUPO_v2); la del alfabeto local de Dodona es I.Dodone DVC 1015A. El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ambracia.">
+          note="Recuento según la autopsia y la revisión de los alfabetos (ALFABETO_GRUPO_v2); las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ambracia.">
           <DonutLegend data={ALF_PIE} height={210} valueColor={INK} />
         </Sec>
 
@@ -316,7 +316,7 @@ export default function DoricoNO({ switcher, subnav }) {
           </Card>
         </Sec>
 
-        <Sec title="El alfabeto corintio y el alfabeto local" sub="Las nueve inscripciones del capítulo en alfabeto corintio y la del alfabeto local de Dodona, con el rasgo que las adscribe (§2-§3)">
+        <Sec title="El alfabeto corintio y el alfabeto local" sub="Las nueve inscripciones del capítulo en alfabeto corintio y las dos del alfabeto local de Dodona, con el rasgo que las adscribe (§2-§3)">
           <Grid min={300}>
             {ESCRITURA_NO.map((e) => {
               const col = e.alf === "Dodona" ? ALFABETO_COLORS.dodona : ALFABETO_COLORS.corintio;
