@@ -14,7 +14,7 @@ import { DvcLabel, Ref } from "../components/Inscriptions.jsx";
 import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
 import DoricoGeneral from "./DoricoGeneral.jsx";
 import DoricoNO from "./DoricoNO.jsx";
-import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Select, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Sec, Select, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 
 const TABS = [
   { id: "context", l: "Contexto histórico", i: "📜" },
@@ -79,6 +79,7 @@ const SevInscriptionPanel = ({ id, onClose }) => {
 export default function Dorico({ switcher }) {
   const [sub, setSub] = useState("general");
   const [tab, setTab] = useState("context");
+  const [perfil, setPerfil] = useState("cifras");   // subpestaña de Perfil dialectal
   const [selGroup, setSelGroup] = useState(null);
   const [clickedId, setClickedId] = useState(null);
   const [selPlace, setSelPlace] = useState(null);
@@ -315,7 +316,12 @@ export default function Dorico({ switcher }) {
       </>}
 
       {tab === "profile" && <>
-        <Sec title={<>La <i>Doris severior</i> en números</>} sub={`${TOTAL_SEV} inscripciones, el ${pct(TOTAL_SEV)} % del corpus dialectal, por detrás del beocio`}>
+        <SubNav color={C.severior} value={perfil} onChange={setPerfil} items={[
+          ["cifras", <>La <i>Doris severior</i> en números</>, "inscripciones, cronología, temática y alfabeto"],
+          ["rasgos", "Rasgos dialectales", "el vocalismo severior y la matriz inscripción × criterio"],
+        ]} />
+        {perfil === "cifras" && <>
+        <Sec title="Las inscripciones del capítulo" sub={`${TOTAL_SEV} inscripciones, el ${pct(TOTAL_SEV)} % del corpus dialectal, por detrás del beocio`}>
           <Stats>
             <Stat label="Inscripciones" value={String(TOTAL_SEV)} sub="con vocalismo severior" accent={C.severior} />
             <Stat label="Del s. IV a.C." value={String(nSigloIV)} sub={`de ${TOTAL_SEV}`} accent={C.amber} />
@@ -367,6 +373,8 @@ export default function Dorico({ switcher }) {
           <DonutLegend data={ALF_SEV_PIE} height={220} valueColor={C.severior} />
         </Sec>
 
+        </>}
+        {perfil === "rasgos" && <>
         <Sec title="Rasgo dialectal: el vocalismo severior"
           sub="Único rasgo diagnóstico del conjunto; las dieciséis inscripciones se agrupan según la solidez del testimonio (§4.1.2)">
           <Card style={{ marginBottom: 14, padding: "16px 20px" }}>
@@ -478,6 +486,7 @@ export default function Dorico({ switcher }) {
               ];
             })} />
         </Sec>
+        </>}
       </>}
 
       {tab === "vowels" && <>

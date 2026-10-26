@@ -345,3 +345,21 @@ export const PlaceCard = ({ place, kinds, color, onClose, empty }) => {
     </Card>
   );
 };
+
+// Subpestañas de una pestaña larga: items = [[id, título, descripción breve], …].
+export const SubNav = ({ value, onChange, items, color = C.gold }) => (
+  <div role="tablist" style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(240px, 100%), 1fr))`, gap: 6,
+    margin: "4px 0 22px", padding: 5, border: `1px solid ${C.border}`, borderRadius: 12, background: "rgba(255,252,245,0.7)" }}>
+    {items.map(([id, t, d]) => {
+      const on = value === id;
+      return (
+        <button key={id} role="tab" aria-selected={on} onClick={() => onChange(id)} style={{ textAlign: "left", padding: "9px 14px",
+          borderRadius: 8, border: "none", cursor: "pointer", background: on ? fade(color, 0.12) : "transparent",
+          boxShadow: on ? `inset 0 -2px 0 ${color}` : "none" }}>
+          <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: on ? 700 : 500, color: on ? color : C.heading }}>{t}</div>
+          <div style={{ fontSize: 11, color: C.dim, marginTop: 1 }}>{d}</div>
+        </button>
+      );
+    })}
+  </div>
+);

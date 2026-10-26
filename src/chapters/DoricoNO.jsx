@@ -12,7 +12,7 @@ import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
 import { NO_LAND_PATH } from "../components/maps/coastlines.js";
-import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 
 const NO = DIALECT_COLORS.doricoNO;
 const INK = DIALECT_INK.doricoNO;
@@ -79,6 +79,7 @@ const certChip = (cert) => {
 
 export default function DoricoNO({ switcher, subnav }) {
   const [tab, setTab] = useState("context");
+  const [sub, setSub] = useState("cifras");   // subpestaña de Perfil dialectal
   const [selPlace, setSelPlace] = useState(null);
   const [anillo, setAnillo] = useState(false);
   const [mentionFilter, setMentionFilter] = useState("todas");
@@ -229,7 +230,12 @@ export default function DoricoNO({ switcher, subnav }) {
       </>}
 
       {tab === "profile" && <>
-        <Sec title="El dórico noroccidental en números" sub={`${TOTAL_DOR_NO} inscripciones, el ${pct(TOTAL_DOR_NO)} % del corpus dialectal`}>
+        <SubNav color={NO} value={sub} onChange={setSub} items={[
+          ["cifras", "El dórico noroccidental en números", "inscripciones, cronología, temática y alfabeto"],
+          ["rasgos", "Rasgos dialectales", `${RASGOS_NO.length} apartados del capítulo y su valor diagnóstico`],
+        ]} />
+        {sub === "cifras" && <>
+        <Sec title="Las inscripciones del capítulo" sub={`${TOTAL_DOR_NO} inscripciones, el ${pct(TOTAL_DOR_NO)} % del corpus dialectal`}>
           <Stats>
             <Stat label="Seguras" value={String(nSeguras)} sub={`de ${TOTAL_DOR_NO}`} accent={NO} />
             <Stat label="Dudosas" value={String(nDudosas)} sub={nNombre ? `y ${nNombre} solo por el nombre` : ""} accent={ORO} />
@@ -261,6 +267,8 @@ export default function DoricoNO({ switcher, subnav }) {
           <DonutLegend data={ALF_PIE} height={210} valueColor={INK} />
         </Sec>
 
+        </>}
+        {sub === "rasgos" && <>
         <Sec title="Rasgos que sostienen la adscripción" sub="Formas que distinguen una consulta noroccidental del resto del dórico y su documentación en el capítulo"
           note="En la última columna, las consultas del capítulo con el rasgo de adscripción segura y, entre paréntesis, las de adscripción dudosa. La sinicesis εο > ευ y los antropónimos en Θευ- y Κλευ- no figuran, porque son comunes a todo el dórico.">
           <Table color={NO} head={["§", "Rasgo", "Forma noroccidental", "Resto del dórico", "Otros dialectos con el rasgo", "Consultas"]}
@@ -305,6 +313,7 @@ export default function DoricoNO({ switcher, subnav }) {
         <Sec title="En definitiva" sub="La conclusión del capítulo">
           <Card accent={INK}><P>{CONCLUSION_NO}</P></Card>
         </Sec>
+        </>}
       </>}
 
       {tab === "writing" && <>

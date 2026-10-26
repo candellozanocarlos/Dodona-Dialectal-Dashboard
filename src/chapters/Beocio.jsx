@@ -10,9 +10,7 @@ import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref, RefList } from "../components/Inscriptions.jsx";
 import BoeotiaMap from "../components/maps/BoeotiaMap.jsx";
-import {
-  Card, CatLegend, ChapterLayout, EventTable, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, Table,
-} from "../components/ui.jsx";
+import { Card, CatLegend, ChapterLayout, EventTable, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import CompartidosTesBeoc from "./CompartidosTesBeoc.jsx";
 
 const TABS = [
@@ -34,6 +32,7 @@ const SYSTEM_ROWS = [
 
 export default function Beocio({ switcher }) {
   const [tab, setTab] = useState("context");
+  const [sub, setSub] = useState("cifras");   // subpestaña de Perfil dialectal
   const [place, setPlace] = useState(null);
 
   return (
@@ -128,6 +127,11 @@ export default function Beocio({ switcher }) {
       </>}
 
       {tab === "profile" && <>
+        <SubNav color={C.beocio} value={sub} onChange={setSub} items={[
+          ["cifras", "El dialecto beocio en números", "inscripciones, cronología, temática y alfabeto"],
+          ["rasgos", "Rasgos dialectales", `${RASGOS_BEOC.length} rasgos y la matriz inscripción × rasgo`],
+        ]} />
+        {sub === "cifras" && <>
         <Sec title="El beocio en el corpus de Dodona">
           <Stats>
             <Stat label="Inscripciones beocias" value={String(TOTAL_BEOC)} accent={C.beocio} sub={`el ${pct(TOTAL_BEOC)} % del corpus dialectal`} />
@@ -169,6 +173,8 @@ export default function Beocio({ switcher }) {
           <DonutLegend data={ALF_BEOC_PIE} height={220} valueColor={C.beocio} />
         </Sec>
 
+        </>}
+        {sub === "rasgos" && <>
         <Sec title="Rasgos dialectales beocios" sub={`${RASGOS_BEOC.length} rasgos identificados en el corpus, en el orden del capítulo`}>
           <RasgoExplorer rasgos={RASGOS_BEOC} texts={RASGO_TEXTS_BEOC} color={C.beocio} />
         </Sec>
@@ -210,6 +216,7 @@ export default function Beocio({ switcher }) {
           </div>
           <CatLegend />
         </Sec>
+        </>}
       </>}
 
       {tab === "vowels" && <>
