@@ -2,7 +2,7 @@
 
 Fuentes:
   · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Dórico NO”, 75).
-  · DORICO_NO_1_Redaccion_v52.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · DORICO_NO_1_Redaccion_v53.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_noroccidental_rasgos.py: tabla de rasgos (dno_9) y matrices (dno_10, dno_11).
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dno"] de graficos_dialecto_pandas.py).
 
@@ -23,7 +23,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parents[1]
 UVA = RAIZ.parent
 EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v52.docx"
+DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v53.docx"
 GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
 SALIDA = RAIZ / "src" / "data" / "doricoNO.js"
 INSC = RAIZ / "src" / "data" / "inscriptions.json"

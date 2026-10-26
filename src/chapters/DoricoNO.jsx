@@ -147,7 +147,8 @@ export default function DoricoNO({ switcher, subnav }) {
 
       {tab === "map" && <>
         <Sec title="Comunidades y lugares del Noroeste en el corpus"
-          sub={`${TOPONYMS_NO.length} nombres en ${totalMenciones} menciones, ${segMenciones} de ellas seguras`}>
+          sub={`${TOPONYMS_NO.length} nombres en ${totalMenciones} menciones, ${segMenciones} de ellas seguras`}
+          note="Ambracia, Anactorio, Apolonia y Epidamno, aunque se sitúan en la costa del Epiro, de Acarnania y de Iliria, son colonias corintias: se examinan con Corcira en el dórico general, y sus menciones no se cuentan aquí.">
           <div style={{ display: "flex", justifyContent: "flex-end", gap: 6, marginBottom: 8 }}>
             <Btn active={!anillo} onClick={() => setAnillo(false)}>Total de menciones</Btn>
             <Btn active={anillo} onClick={() => setAnillo(true)}>Seguras frente a dudosas</Btn>
