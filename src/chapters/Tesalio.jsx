@@ -11,7 +11,7 @@ import { renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, Donut, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref, RefList } from "../components/Inscriptions.jsx";
 import ThessalyMap from "../components/maps/ThessalyMap.jsx";
-import { Card, ChapterLayout, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import CompartidosTesBeoc from "./CompartidosTesBeoc.jsx";
 
 const TABS = [
@@ -47,6 +47,7 @@ const THEORIES = [
 
 export default function Tesalio({ switcher }) {
   const [tab, setTab] = useState("context");
+  const [sub, setSub] = useState("cifras");   // subpestaña de Perfil dialectal
   const [region, setRegion] = useState(null);
   const [place, setPlace] = useState(null);
   const selRegion = REGIONS_TES.find((r) => r.id === region);
@@ -223,6 +224,11 @@ export default function Tesalio({ switcher }) {
       </>}
 
       {tab === "profile" && <>
+        <SubNav color={C.tesalio} value={sub} onChange={setSub} items={[
+          ["cifras", "El dialecto tesalio en números", "inscripciones, cronología, temática y alfabeto"],
+          ["rasgos", "Rasgos dialectales", `${RASGOS_TES.length} rasgos, en el orden del capítulo`],
+        ]} />
+        {sub === "cifras" && <>
         <Sec title="El tesalio, dialecto “extranjero” más representado">
           <Stats>
             <Stat label="Inscripciones tesalias" value={String(TOTAL_TES)} accent={C.tesalio} sub={`el ${pct(TOTAL_TES)} % del corpus dialectal`} />
@@ -262,9 +268,12 @@ export default function Tesalio({ switcher }) {
           <DonutLegend data={ALF_TES_PIE} height={230} valueColor={C.tesalio} />
         </Sec>
 
+        </>}
+        {sub === "rasgos" && <>
         <Sec title="Rasgos dialectales tesalios" sub={`${RASGOS_TES.length} rasgos identificados en el corpus, en el orden del capítulo: fonética (§3), morfología (§4), sintaxis (§5) y léxico (§6)`}>
           <RasgoExplorer rasgos={RASGOS_TES} texts={RASGO_TEXTS_TES} color={C.tesalio} />
         </Sec>
+        </>}
       </>}
 
       {tab === "vowels" && <>

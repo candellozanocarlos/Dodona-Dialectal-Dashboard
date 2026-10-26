@@ -12,7 +12,7 @@ import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { DvcLabel } from "../components/Inscriptions.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
-import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 
 const DOR = DIALECT_COLORS.dorico;
 const TABS = [
@@ -73,6 +73,7 @@ const ESTADO = {
 
 export default function DoricoGeneral({ switcher, subnav }) {
   const [tab, setTab] = useState("context");
+  const [sub, setSub] = useState("cifras");   // subpestaña de Perfil dialectal
   const [selPlace, setSelPlace] = useState(null);
   const [anillo, setAnillo] = useState(false);
   const [mentionFilter, setMentionFilter] = useState("todas");
@@ -241,7 +242,12 @@ export default function DoricoGeneral({ switcher, subnav }) {
       </>}
 
       {tab === "profile" && <>
-        <Sec title="El dórico general en números" sub={`${TOTAL_DOR} inscripciones, el ${pct(TOTAL_DOR)} % del corpus dialectal`}>
+        <SubNav color={DOR} value={sub} onChange={setSub} items={[
+          ["cifras", "El dórico en números", "inscripciones, cronología, temática y alfabeto"],
+          ["rasgos", "Rasgos dialectales", `${RASGOS_DOR.length} apartados del capítulo y su valor diagnóstico`],
+        ]} />
+        {sub === "cifras" && <>
+        <Sec title="Las inscripciones del capítulo" sub={`${TOTAL_DOR} inscripciones, el ${pct(TOTAL_DOR)} % del corpus dialectal`}>
           <Stats>
             <Stat label="Seguras" value={String(nSeguras)} sub={`de ${TOTAL_DOR}`} accent={DOR} />
             <Stat label="Dudosas" value={String(nDudosas)} sub={nNombre ? `y ${nNombre} solo por el nombre o el alfabeto` : ""} accent={ORO} />
@@ -273,6 +279,8 @@ export default function DoricoGeneral({ switcher, subnav }) {
           <DonutLegend data={ALF_PIE} height={230} valueColor={DOR} />
         </Sec>
 
+        </>}
+        {sub === "rasgos" && <>
         <Sec title="Rasgos dialectales del dórico"
           sub={`${RASGOS_DOR.length} apartados del capítulo, en su orden: fonética (§4), morfología (§5), sintaxis (§6) y léxico (§7); cada ficha reúne las inscripciones que el apartado cita`}>
           <Grid min={320}>
@@ -298,6 +306,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               }),
             ])} />
         </Sec>
+        </>}
       </>}
 
       {tab === "writing" && <>
