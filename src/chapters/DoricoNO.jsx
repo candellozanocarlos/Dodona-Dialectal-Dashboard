@@ -216,7 +216,7 @@ export default function DoricoNO({ switcher, subnav }) {
               <Btn key={k} active={mentionFilter === k} onClick={() => setMentionFilter(k)}>{l}</Btn>
             ))}
           </div>
-          <Table color={NO} head={["Lugar", "Forma", "Inscripción", "Datación", "Tipo", "Certeza"]}
+          <Table rowHeader={0} color={NO} head={["Lugar", "Forma", "Inscripción", "Datación", "Tipo", "Certeza"]}
             rows={filtered.map((m) => [
               <span style={{ fontFamily: "var(--fh)", fontWeight: 600, color: C.heading }}>{m.place}</span>,
               <span className="greek" style={{ fontSize: 14, color: C.heading }}>{renderGreekText(m.form)}</span>,
@@ -272,10 +272,10 @@ export default function DoricoNO({ switcher, subnav }) {
         {sub === "rasgos" && <>
         <Sec title="Rasgos que sostienen la adscripción" sub="Formas que distinguen una consulta noroccidental del resto del dórico y su documentación en el capítulo"
           note="En la última columna, las consultas del capítulo con el rasgo de adscripción segura y, entre paréntesis, las de adscripción dudosa. La sinicesis εο > ευ y los antropónimos en Θευ- y Κλευ- no figuran, porque son comunes a todo el dórico.">
-          <Table color={NO} head={["§", "Rasgo", "Forma noroccidental", "Resto del dórico", "Otros dialectos con el rasgo", "Consultas"]}
+          <Table color={NO} rowHeader={1} head={["§", "Rasgo", "Forma noroccidental", "Resto del dórico", "Otros dialectos con el rasgo", "Consultas"]}
             rows={TABLA_RASGOS_NO.map((r) => [
               <span style={{ color: C.dim, fontSize: 11 }}>{r.sec}</span>,
-              <b style={{ color: C.heading }}>{renderGreekText(r.rasgo)}</b>,
+              <span style={{ color: C.heading }}>{renderGreekText(r.rasgo)}</span>,
               <span className="greek" style={{ fontSize: 13.5, color: C.heading }}>{renderGreekText(r.forma)}</span>,
               <span>{renderGreekText(r.resto)}</span>,
               <span style={{ color: C.muted }}>{renderGreekText(r.otros)}</span>,
@@ -298,10 +298,10 @@ export default function DoricoNO({ switcher, subnav }) {
 
         <Sec title="Valor diagnóstico" sub="Grupos dialectales de los que cada rasgo distingue una consulta noroccidental"
           note="● el grupo carece del rasgo, de modo que su presencia lo excluye · ◐ lo excluye solo en parte · ○ rasgo compartido · – el capítulo no lo trata. En “Otros” se nombran otras variedades que comparten el rasgo (Buck 1955: §42.1, §42.5, §106.2, §107.3, §135.4, §136.2; Lhôte 2006: 381).">
-          <Table color={NO} head={["§", "Rasgo", ...DIAG_COLS_NO]}
+          <Table color={NO} rowHeader={1} head={["§", "Rasgo", ...DIAG_COLS_NO]}
             rows={DIAGNOSTICO_NO.map((d) => [
               <span style={{ color: C.dim, fontSize: 11 }}>{d.sec}</span>,
-              <b style={{ color: C.heading }}>{renderGreekText(d.rasgo)}</b>,
+              <span style={{ color: C.heading }}>{renderGreekText(d.rasgo)}</span>,
               ...d.vals.map((v, i) => {
                 const e = ESTADO[v];
                 const txt = i === d.vals.length - 1 && d.otros ? d.otros : e.g;

@@ -204,7 +204,7 @@ export default function Tesalio({ switcher }) {
                   </Card>
                 ))}
               </div>
-              <Table color={C.tesalio} head={["Inscripción", "Texto", "Datación", "Rasgos"]}
+              <Table rowHeader={0} color={C.tesalio} head={["Inscripción", "Texto", "Datación", "Rasgos"]}
                 rows={REGION_INSCRIPTIONS_TES[selRegion.id].map((ins) => [
                   <span style={{ whiteSpace: "nowrap" }}><Ref src={ins.src} id={ins.id} /></span>,
                   <span className="greek" style={{ whiteSpace: "pre-line", fontSize: 13 }}>{renderGreekText(ins.text)}</span>,
@@ -284,7 +284,7 @@ export default function Tesalio({ switcher }) {
         </Sec>
 
         <Sec title={`Detalle de las ${VOWEL_EXAMPLES_TES.length} inscripciones`} sub="Formas con notación de vocales largas">
-          <Table sticky maxHeight={480} color={C.tesalio} head={["Inscripción", "Grupo", "Datación", "Región", "Formas"]}
+          <Table rowHeader={0} sticky maxHeight={480} color={C.tesalio} head={["Inscripción", "Grupo", "Datación", "Región", "Formas"]}
             rows={VOWEL_EXAMPLES_TES.map((r) => {
               const col = [null, NOTACION_COLORS.tesalia, NOTACION_COLORS.mezcla, NOTACION_COLORS.atica][r.cat];
               return [
@@ -299,7 +299,7 @@ export default function Tesalio({ switcher }) {
         </Sec>
 
         <Sec title="Sistema de notación vocálica" sub="Evolución ortográfica del tesalio (Scarborough 2014: 1538)">
-          <Table color={C.tesalio} head={["Fuente etimológica", "Alfabeto tesalio arcaico", "Alfabeto tesalio reformado", "Ático posterior al 403"]}
+          <Table rowHeader={0} color={C.tesalio} head={["Fuente etimológica", "Alfabeto tesalio arcaico", "Alfabeto tesalio reformado", "Ático posterior al 403"]}
             rows={NOTATION_ROWS.map((row) => row.map((cell, j) => (
               <span className={j ? "greek" : undefined} style={{ fontSize: j ? 15 : 13, fontWeight: j === 2 ? 700 : 400,
                 color: j === 0 ? C.amber : j === 2 ? C.green : C.text }}>{renderGreekText(cell)}</span>

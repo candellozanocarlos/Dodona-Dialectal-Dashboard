@@ -333,7 +333,7 @@ export const WithLegend = ({ chart, data, valueColor = C.gold, renderSub = null 
         <div key={d.id} style={{ marginBottom: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
             <div style={{ width: 11, height: 11, borderRadius: 3, background: d.color, flexShrink: 0 }} />
-            <span style={{ fontSize: 13.5, fontWeight: 600, color: C.text }}>{renderGreekText(d.label)}</span>
+            <span style={{ fontSize: 13.5, color: C.text }}>{renderGreekText(d.label)}</span>
             <span style={{ fontSize: 17, fontWeight: 700, color: valueColor, fontFamily: "var(--fh)", marginLeft: "auto" }}>{d.value}</span>
           </div>
           {renderSub && <div style={{ fontSize: 11, color: C.dim, paddingLeft: 19 }}>{renderSub(d)}</div>}

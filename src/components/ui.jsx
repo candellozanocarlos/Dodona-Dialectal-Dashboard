@@ -68,7 +68,8 @@ export const Select = ({ value, onChange, color = C.gold, label, children }) => 
 );
 
 // Tabla sencilla: cabeceras + filas de celdas (texto o nodos).
-export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = null, fontSize = 12.5 }) => (
+// rowHeader: índice de la columna que actúa como cabecera de fila (fondo de cabecera y filete del color del capítulo).
+export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = null, fontSize = 12.5, rowHeader = null }) => (
   <div style={{ overflowX: "auto", maxHeight, overflowY: maxHeight ? "auto" : undefined }}>
     <table style={{ width: "100%", borderCollapse: "collapse", fontSize }}>
       <thead><tr>
@@ -80,7 +81,8 @@ export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = 
       </tr></thead>
       <tbody>{rows.map((cells, i) => (
         <tr key={i} style={{ borderBottom: "1px solid rgba(120,90,40,0.08)", background: i % 2 === 0 ? "rgba(255,252,245,0.4)" : "transparent" }}>
-          {cells.map((c, j) => <td key={j} style={{ padding: "7px 10px", verticalAlign: "top" }}>{c}</td>)}
+          {cells.map((c, j) => <td key={j} style={{ padding: "7px 10px", verticalAlign: "top", ...(j === rowHeader ? {
+            background: C.thHead, boxShadow: `inset 3px 0 0 ${fade(color, 0.55)}`, color: C.heading } : {}) }}>{c}</td>)}
         </tr>
       ))}</tbody>
     </table>
@@ -107,7 +109,7 @@ export const SourceList = ({ sources, color, conclusion = "" }) => (
 
 // Vínculos políticos: [{ event, date, agent, desc }].
 export const EventTable = ({ rows, color }) => (
-  <Table color={color} fontSize={13} head={["Evento", "Fecha", "Agentes", "Descripción"]}
+  <Table rowHeader={0} color={color} fontSize={13} head={["Evento", "Fecha", "Agentes", "Descripción"]}
     rows={rows.map((r) => [
       <span style={{ fontWeight: 500 }}>{renderGreekText(r.event)}</span>,
       <span style={{ color: C.dim, fontSize: 12, whiteSpace: "nowrap" }}>{r.date}</span>,
@@ -158,7 +160,8 @@ export function RasgoExplorer({ rasgos, texts, color, minAcum = 2 }) {
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
             <span style={{ fontFamily: "var(--fh)", fontSize: 28, fontWeight: 700, color, lineHeight: 1 }}>{r.id}</span>
             <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontFamily: "var(--fh)", fontSize: 17, fontWeight: 600, color: C.heading }}>{renderGreekText(r.name)}</div>
+              <div style={{ fontFamily: "var(--fh)", fontSize: 17, fontWeight: 400, color: C.heading, background: C.thHead, padding: "4px 10px",
+                borderRadius: 6, boxShadow: `inset 3px 0 0 ${fade(color, 0.55)}` }}>{renderGreekText(r.name)}</div>
               <span style={{ display: "inline-block", padding: "2px 9px", borderRadius: 4, fontSize: 10, marginTop: 3, fontWeight: 600,
                 background: fade(catColor, 0.1), color: catColor, border: `1px solid ${fade(catColor, 0.2)}` }}>{r.cat}</span>
             </div>

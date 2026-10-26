@@ -104,7 +104,7 @@ export default function Beocio({ switcher }) {
         </Sec>
 
         <Sec title="Topónimos beocios en el corpus" sub="Menciones en las laminillas y procedencia propuesta">
-          <Table color={C.beocio} head={["Lugar", "Forma", "Inscripción", "Datación", "Relación con el corpus"]}
+          <Table rowHeader={0} color={C.beocio} head={["Lugar", "Forma", "Inscripción", "Datación", "Relación con el corpus"]}
             rows={BO_PLACES.filter((p) => p.mentions.length).flatMap((p) => p.mentions.map((m) => [
               <button onClick={() => setPlace(p.id)} style={{ fontFamily: "var(--fh)", fontWeight: 600, color: BO_KIND[p.kind].color, padding: 0 }}>{p.name}</button>,
               <span className="greek" style={{ fontSize: 14, color: C.beocioDeep }}>{renderGreekText(m.form)}</span>,
@@ -199,7 +199,7 @@ export default function Beocio({ switcher }) {
                 {MATRIX_BEOC.map((row, i) => (
                   <tr key={row.dvc} style={{ borderBottom: "1px solid rgba(120,90,40,0.08)", background: i % 2 === 0 ? "rgba(255,252,245,0.5)" : "transparent" }}>
                     <td style={{ padding: "5px 10px", whiteSpace: "nowrap", fontFamily: "var(--fh)", fontWeight: row.ids.size >= 3 ? 700 : 400,
-                      color: row.ids.size >= 3 ? C.beocio : C.text, position: "sticky", left: 0, background: i % 2 === 0 ? "#fbf7ef" : "#fdfaf3", zIndex: 1 }}>
+                      color: row.ids.size >= 3 ? C.beocio : C.heading, position: "sticky", left: 0, background: C.thHead, boxShadow: `inset 3px 0 0 ${fade(C.beocio, 0.55)}`, zIndex: 1 }}>
                       {renderDesc(fmtDvc(row.dvc))}</td>
                     {RASGOS_BEOC.map((r) => (
                       <td key={r.id} style={{ padding: "5px 4px", textAlign: "center" }}>
@@ -258,7 +258,7 @@ export default function Beocio({ switcher }) {
         </Sec>
 
         <Sec title="Detalle de las inscripciones" sub="Formas fonológicamente relevantes del corpus beocio">
-          <Table sticky maxHeight={480} color={C.beocio} head={["Inscripción", "Fenómeno", "Datación", "Formas"]}
+          <Table rowHeader={0} sticky maxHeight={480} color={C.beocio} head={["Inscripción", "Fenómeno", "Datación", "Formas"]}
             rows={VOWEL_EXAMPLES_BEOC.map((r) => [
               <span style={{ whiteSpace: "nowrap" }}><Ref src={r.src} id={r.id} /></span>,
               <span style={{ padding: "2px 7px", borderRadius: 4, fontSize: 10, color: r.color, background: fade(r.color, 0.09),
@@ -269,7 +269,7 @@ export default function Beocio({ switcher }) {
         </Sec>
 
         <Sec title="Evoluciones vocálicas del beocio" sub="Resultados y grafías frente al ático">
-          <Table color={C.beocio} head={["Origen", "Ático", "Beocio", "Grafía"]}
+          <Table rowHeader={0} color={C.beocio} head={["Origen", "Ático", "Beocio", "Grafía"]}
             rows={SYSTEM_ROWS.map((row) => row.map((cell, j) => (
               <span className={j ? "greek" : undefined} style={{ fontSize: j ? 14 : 13, fontWeight: j === 2 ? 700 : 400,
                 color: j === 0 ? C.amber : j === 2 ? C.beocio : C.text }}>{renderGreekText(cell)}</span>
