@@ -25,7 +25,6 @@ const photoUrl = (p) => import.meta.env.BASE_URL + p;
 // En la versión pública (Netlify) solo se muestran los facsímiles: no hay permiso para publicar las fotografías.
 const SIN_FOTOS = import.meta.env.VITE_SIN_FOTOS === "true";
 const years = [...new Set(AUTOPSIAS_DATA.map((a) => a.autopsy_year).filter(Boolean))].sort();
-const yearLabel = (a) => a.autopsy_year ?? "fecha por confirmar";
 
 // Texto con *cursivas* y citas enlazadas.
 const renderInline = (str) => {
@@ -116,7 +115,7 @@ export default function Autopsias({ switcher }) {
                     <span style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: active ? 700 : 500 }}><i>I.Dodone DVC</i> {a.id}</span>
                     <span style={{ fontSize: 10.5, color: ci, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{DIALECTS[a.dialect].label}</span>
                   </div>
-                  <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>{a.date} · autopsia {yearLabel(a)}</div>
+                  <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>{a.date}{a.autopsy_year ? ` · autopsia ${a.autopsy_year}` : ""}</div>
                 </button>
               );
             })}
@@ -134,7 +133,7 @@ export default function Autopsias({ switcher }) {
               <div style={{ display: "flex", gap: 18, flexWrap: "wrap", fontSize: 12.5, color: C.muted }}>
                 <span><b style={{ color: C.text }}>Datación:</b> {selected.date}</span>
                 <span><b style={{ color: C.text }}>Inv.:</b> {selected.ami || "—"}{selected.siglum ? ` / ${selected.siglum}` : ""}</span>
-                <span><b style={{ color: C.text }}>Autopsia:</b> {yearLabel(selected)}</span>
+                {selected.autopsy_year && <span><b style={{ color: C.text }}>Autopsia:</b> {selected.autopsy_year}</span>}
                 {selected.related?.length > 0 && (
                   <span><b style={{ color: C.text }}>Cf.: </b>
                     {selected.related.map((r, i) => {
@@ -172,12 +171,12 @@ export default function Autopsias({ switcher }) {
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10, gap: 8 }}>
                 <H3>Fotografías</H3>
-                <label style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: C.terra, cursor: "pointer",
+                {!SIN_FOTOS && <label style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: C.terra, cursor: "pointer",
                   padding: "5px 12px", border: `1px solid ${fade(C.terra, 0.25)}`, borderRadius: 16, background: fade(C.terra, 0.03),
                   fontFamily: "var(--fh)", fontWeight: 600 }}>
                   + Añadir foto (solo en esta sesión)
                   <input type="file" accept="image/*" multiple onChange={handleUpload} style={{ display: "none" }} />
-                </label>
+                </label>}
               </div>
               {photos.length === 0 && session.length === 0 ? (
                 <div style={{ border: `1.5px dashed ${C.border}`, borderRadius: 10, padding: "36px 20px", textAlign: "center",

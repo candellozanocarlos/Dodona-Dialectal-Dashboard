@@ -99,7 +99,7 @@ export const RASGOS_BEOC = [
     dvcs: ["4157A", "313A"] },
   // §3.1.2  /e/ > /i/ en posición prevocálica
   { id: 2, cat: "Fonología", name: "/e/ > /i/ en posición prevocálica", short: "ε > ι prevocálica",
-    desc: "/e/ > /i/ en posición prevocálica, que afecta sistemáticamente a las secuencias /ea/ y /eo/ y produce formas como θιός (= ático θεός) en IG VII 2817 (Hieto, ca. 246 a.C.) o πωλίοντας (< πωλέοντας) en SEG 32:450 (Acrefias, finales s. III-principios s. II a.C.). Méndez Dosuna (1993b) ha propuesto que estas grafías no reflejan una elevación vocálica como se pensaba, sino un proceso de sinizesis de la /e/ antevocálica (/eo/ > /e̯o/) seguido de la formación de una yod (/e̯o/ > /i̯o/), representada con ⟨Ι⟩ como ocurre en griego moderno. El corpus ofrece cuatro instancias distribuidas en dos inscripciones: I.Dodone DVC 313A (primera mitad s. IV a.C.) presenta θιός (< θεός) en la invocación inicial, γενιὰ (< γενεά) e ἰόντων (< ἐόντων); a ellas se añade γενιᾶς (< γενεᾶς) en I.Dodone DVC 4157A (finales del s. V a.C.). Los cuatro testimonios son coherentes entre sí, no existen grafías contrarias al fenómeno y la cronología se ajusta a los datos de la epigrafía beocia continental, que atestigua el rasgo desde época arcaica.",
+    desc: "/e/ > /i/ en posición prevocálica, que afecta sistemáticamente a las secuencias /ea/ y /eo/ y produce formas como θιός (= ático θεός) en IG VII 2817 (Hieto, ca. 246 a.C.) o πωλίοντας (< πωλέοντας) en SEG 32:450 (Acrefias, finales s. III-principios s. II a.C.). Méndez Dosuna (1993b) ha propuesto que estas grafías no reflejan una elevación vocálica como se pensaba, sino un proceso de sinicesis de la /e/ antevocálica (/eo/ > /e̯o/) seguido de la formación de una yod (/e̯o/ > /i̯o/), representada con ⟨Ι⟩ como ocurre en griego moderno. El corpus ofrece cuatro instancias distribuidas en dos inscripciones: I.Dodone DVC 313A (primera mitad s. IV a.C.) presenta θιός (< θεός) en la invocación inicial, γενιὰ (< γενεά) e ἰόντων (< ἐόντων); a ellas se añade γενιᾶς (< γενεᾶς) en I.Dodone DVC 4157A (finales del s. V a.C.). Los cuatro testimonios son coherentes entre sí, no existen grafías contrarias al fenómeno y la cronología se ajusta a los datos de la epigrafía beocia continental, que atestigua el rasgo desde época arcaica.",
     dvcs: ["313A", "4157A"] },
   // §3.1.3  Cierre /εː/ heredada > /eː/
   { id: 3, cat: "Fonología", name: "Cierre /εː/ heredada > /eː/ ⟨ΕΙ⟩", short: "Cierre /εː/ heredada > ⟨ΕΙ⟩",
@@ -211,7 +211,7 @@ export const VOWEL_PHENOM_BEOC = [
 
 export const VOWEL_EXAMPLES_BEOC = [
   { id: "4157A", src: "DVC", date: "Finales s. V a.C.", form: "α[ρ]κε͂τη (< ἀρκῆται)", phenom: "Monoptongación /ai̯/", color: C.green },
-  { id: "313A", src: "DVC", date: "1ª mit. s. IV a.C.", form: "κὴ (< καί); Πολυμνάστη (<Πολυμνάσται (dat.))", phenom: "Monoptongación /ai̯/", color: C.green },
+  { id: "313A", src: "DVC", date: "1ª mit. s. IV a.C.", form: "κὴ (< καί); Πολυμνάστη (< Πολυμνάσται, dat.)", phenom: "Monoptongación /ai̯/", color: C.green },
   { id: "4157A", src: "DVC", date: "Finales s. V a.C.", form: "γενιᾶς (< γενεᾶς)", phenom: "/e/ > /i/ prevocálica", color: C.blue },
   { id: "313A", src: "DVC", date: "1ª mit. s. IV a.C.", form: "θιός (< θεός); γενιὰ (< γενεά); ἰόντων (< ἐόντων)", phenom: "/e/ > /i/ prevocálica", color: C.blue },
   { id: "1344A", src: "DVC", date: "1ª mit. s. V a.C.", form: "ΕὐϜέτειρος̣ (sufijo *-tēr- con ⟨ΕΙ⟩); antropónimo aislado", phenom: "⟨ΕΙ⟩ < /εː/ heredada", color: C.beocioVowel },
