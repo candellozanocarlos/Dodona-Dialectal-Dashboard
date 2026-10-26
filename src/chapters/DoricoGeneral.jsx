@@ -213,7 +213,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               <Btn key={k} active={mentionFilter === k} onClick={() => setMentionFilter(k)}>{l}</Btn>
             ))}
           </div>
-          <Table color={DOR} head={["Lugar", "Forma", "Inscripción", "Datación", "Tipo", "Certeza"]}
+          <Table rowHeader={0} color={DOR} head={["Lugar", "Forma", "Inscripción", "Datación", "Tipo", "Certeza"]}
             rows={filtered.map((m) => [
               <span style={{ fontFamily: "var(--fh)", fontWeight: 600, color: C.heading }}>{m.place}</span>,
               <span className="greek" style={{ fontSize: 14, color: C.heading }}>{renderGreekText(m.form)}</span>,
@@ -294,10 +294,10 @@ export default function DoricoGeneral({ switcher, subnav }) {
 
         <Sec title="Valor diagnóstico" sub="Grupos dialectales de los que cada rasgo distingue una consulta dórica"
           note="● el grupo carece del rasgo, de modo que su presencia lo excluye · ◐ lo excluye solo en parte · ○ rasgo compartido · – el capítulo no lo trata. En “Otros” se nombran otras variedades, dóricas o no, que el rasgo excluye.">
-          <Table color={DOR} head={["§", "Rasgo", ...DIAG_COLS_DOR]}
+          <Table color={DOR} rowHeader={1} head={["§", "Rasgo", ...DIAG_COLS_DOR]}
             rows={DIAGNOSTICO_DOR.map((d) => [
               <span style={{ color: C.dim, fontSize: 11 }}>{d.sec}</span>,
-              <b style={{ color: C.heading }}>{renderGreekText(d.rasgo)}</b>,
+              <span style={{ color: C.heading }}>{renderGreekText(d.rasgo)}</span>,
               ...d.vals.map((v, i) => {
                 const e = ESTADO[v];
                 const txt = i === d.vals.length - 1 && d.otros ? d.otros : e.g;
@@ -326,7 +326,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               return (
                 <Card key={g.id} accent={col}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
-                    <span style={{ fontFamily: "var(--fh)", fontWeight: 700, color: col }}>{renderGreekText(g.name)}</span>
+                    <span style={{ fontFamily: "var(--fh)", fontWeight: 400, color: col }}>{renderGreekText(g.name)}</span>
                     <span style={{ fontFamily: "var(--fh)", fontSize: 20, fontWeight: 700, color: col }}>{g.dvcs.length}</span>
                   </div>
                   <P style={{ fontSize: 12, marginBottom: 8 }}>{g.note}</P>
@@ -340,7 +340,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Arcaísmos gráficos y fonéticos" sub="Digamma conservada (19 inscripciones) y notación de la aspiración (16), por período (§4.2.2-4.2.3)">
-          <Table color={DOR} head={["Período", "Inscripciones del capítulo", "Digamma inicial", "Digamma intervocálica", "Aspiración con Η", "Aspiración con Ͱ"]}
+          <Table rowHeader={0} color={DOR} head={["Período", "Inscripciones del capítulo", "Digamma inicial", "Digamma intervocálica", "Aspiración con Η", "Aspiración con Ͱ"]}
             rows={[...ARCAISMOS_DOR, ARCAISMOS_DOR.reduce((t, r) => ({ period: "Total", total: t.total + r.total, digIni: t.digIni + r.digIni,
               digInter: t.digInter + r.digInter, aspEta: t.aspEta + r.aspEta, aspSigno: t.aspSigno + r.aspSigno }),
               { total: 0, digIni: 0, digInter: 0, aspEta: 0, aspSigno: 0 })].map((r) => [

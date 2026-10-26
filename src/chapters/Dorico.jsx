@@ -286,7 +286,7 @@ export default function Dorico({ switcher }) {
               <Btn key={k} active={mentionFilter === k} onClick={() => setMentionFilter(k)}>{l}</Btn>
             ))}
           </div>
-          <Table color={C.severior} head={["Lugar", "Forma", "Inscripción", "Datación", "Tipo", "Certeza"]}
+          <Table rowHeader={0} color={C.severior} head={["Lugar", "Forma", "Inscripción", "Datación", "Tipo", "Certeza"]}
             rows={filteredMentions.map((m) => [
               <span style={{ fontFamily: "var(--fh)", fontWeight: 600, color: C.heading }}>{m.place}</span>,
               <span className="greek" style={{ fontSize: 14, color: C.severiorDeep }}>{renderGreekText(sevForm(m.form))}</span>,
@@ -466,7 +466,7 @@ export default function Dorico({ switcher }) {
 
         <Sec title="Matriz inscripción × criterio" sub="Qué respalda cada adscripción, según los criterios de §4.1.1-4.1.3"
           note="● criterio presente · ◐ vocalismo de lectura dudosa · ○ vocalismo que no permite descartar la Doris media. Indicio de área: rasgo que orienta hacia una región sin identificar una ciudad (signo Ͱ, onomástica suditálica, distribución de *-ονσ- > ⟨Ω⟩). Procedencia declarada: T = topónimo (Hergetio), E = etnónimo (tarentinos).">
-          <Table color={C.severior} head={["Inscripción", "Grupo", "Vocalismo severior", "Excluye la Doris media", "Otros rasgos dóricos", "Alfabeto ítalo-dórico", "Indicio de área", "Procedencia"]}
+          <Table rowHeader={0} color={C.severior} head={["Inscripción", "Grupo", "Vocalismo severior", "Excluye la Doris media", "Otros rasgos dóricos", "Alfabeto ítalo-dórico", "Indicio de área", "Procedencia"]}
             rows={INSCRIPCIONES_SEV.map((ins) => {
               const g = SEV_GROUPS.find((x) => x.id === ins.group);
               const dot = (on, col = g.color) => on
@@ -501,7 +501,7 @@ export default function Dorico({ switcher }) {
               </tr></thead>
               <tbody>{VOWEL_SYSTEMS_SEV.map((r, i) => (
                 <tr key={r.proc} style={{ borderBottom: "1px solid rgba(120,90,40,0.08)", background: i === 0 ? "rgba(120,90,40,0.04)" : "transparent" }}>
-                  <td style={{ padding: "8px 10px", color: C.text }}>{r.proc}</td>
+                  <td style={{ padding: "8px 10px", color: C.heading, background: C.thHead, boxShadow: `inset 3px 0 0 ${fade(C.severior, 0.55)}` }}>{r.proc}</td>
                   {["sev", "media", "mit"].map((k) => {
                     const open = r[k] === "open";
                     return (
@@ -544,7 +544,7 @@ export default function Dorico({ switcher }) {
             <Stat label="No la descartan" value={String(SEV_NO_EXCLUYE_MEDIA.length)} sub={SEV_NO_EXCLUYE_MEDIA.map(fmtDvc).join(" y ")} accent={C.amber} />
             <Stat label="Tercer alargamiento" value="0" sub="formas en el corpus" accent={C.muted} />
           </Stats>
-          <Table color={C.severior} head={["Forma", "Inscripción", "Origen de la vocal", "Frente a la Doris media"]}
+          <Table rowHeader={0} color={C.severior} head={["Forma", "Inscripción", "Origen de la vocal", "Frente a la Doris media"]}
             rows={DIAGNOSTIC_FORMS_SEV.map((f) => [
               <span className="greek" style={{ fontSize: 14.5, color: C.severiorDeep }}>{renderGreekText(sevForm(f.form))}</span>,
               <span style={{ fontSize: 12 }}>{renderDesc(f.ids.map(fmtDvc).join(", ").replace(/, I\.Dodone DVC /g, ", "))}</span>,
