@@ -4,8 +4,13 @@ import { C } from "./theme.js";
 import { ChapterSwitcher } from "./components/ui.jsx";
 import { InscriptionLayer } from "./components/Inscriptions.jsx";
 
-// El capítulo activo se guarda en la URL (#tesalio, #beocio…) para poder enlazarlo.
-const fromHash = () => CHAPTERS.find((c) => c.id === window.location.hash.slice(1))?.id ?? CHAPTERS[0].id;
+// La parte activa se guarda en la URL (#dorico, #eolicos…) para poder enlazarla; #tesalio y #beocio, de los enlaces
+// anteriores, abren los dialectos eólicos, y #frontera, la mezcla.
+const ALIAS = { tesalio: "eolicos", beocio: "eolicos", frontera: "mezcla" };
+const fromHash = () => {
+  const h = window.location.hash.slice(1);
+  return CHAPTERS.find((c) => c.id === (ALIAS[h] ?? h))?.id ?? CHAPTERS[0].id;
+};
 
 export default function App() {
   const [current, setCurrent] = useState(fromHash);

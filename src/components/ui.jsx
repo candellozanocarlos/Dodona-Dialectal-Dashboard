@@ -69,7 +69,8 @@ export const Select = ({ value, onChange, color = C.gold, label, children }) => 
 
 // Tabla sencilla: cabeceras + filas de celdas (texto o nodos).
 // rowHeader: índice de la columna que actúa como cabecera de fila (fondo de cabecera y filete del color del capítulo).
-export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = null, fontSize = 12.5, rowHeader = null }) => (
+// valign: alineación vertical de las celdas ("top" por defecto; "middle" en la tabla de adscripción).
+export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = null, fontSize = 12.5, rowHeader = null, valign = "top" }) => (
   <div style={{ overflowX: "auto", maxHeight, overflowY: maxHeight ? "auto" : undefined }}>
     <table style={{ width: "100%", borderCollapse: "collapse", fontSize }}>
       <thead><tr>
@@ -81,7 +82,7 @@ export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = 
       </tr></thead>
       <tbody>{rows.map((cells, i) => (
         <tr key={i} style={{ borderBottom: "1px solid rgba(120,90,40,0.08)", background: i % 2 === 0 ? "rgba(255,252,245,0.4)" : "transparent" }}>
-          {cells.map((c, j) => <td key={j} style={{ padding: "7px 10px", verticalAlign: "top", ...(j === rowHeader ? {
+          {cells.map((c, j) => <td key={j} style={{ padding: "7px 10px", verticalAlign: valign, ...(j === rowHeader ? {
             background: C.thHead, boxShadow: `inset 3px 0 0 ${fade(color, 0.55)}`, color: C.heading } : {}) }}>{c}</td>)}
         </tr>
       ))}</tbody>
@@ -348,6 +349,22 @@ export const PlaceCard = ({ place, kinds, color, onClose, empty }) => {
     </Card>
   );
 };
+
+// Capítulos de una parte de la tesis (dórico, eólico, zonas de frontera): items = [{ id, label, color }].
+export const SectionNav = ({ label, items, value, onChange, tint = C.gold }) => (
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap",
+    padding: "10px 20px", background: fade(tint, 0.05), borderBottom: `1px solid ${C.border}` }}>
+    <span style={{ fontSize: 11.5, color: C.muted, fontFamily: "var(--fh)", fontStyle: "italic" }}>{label}:</span>
+    {items.map((s) => {
+      const act = value === s.id;
+      return (
+        <button key={s.id} onClick={() => onChange(s.id)} aria-pressed={act} style={{ background: act ? s.color : "transparent",
+          color: act ? "#fff" : C.muted, border: `1px solid ${act ? s.color : C.border}`, borderRadius: 20,
+          padding: "4px 14px", fontFamily: "var(--fh)", fontSize: 12.5, fontWeight: act ? 700 : 500 }}>{s.label}</button>
+      );
+    })}
+  </div>
+);
 
 // Subpestañas de una pestaña larga: items = [[id, título, descripción breve], …].
 export const SubNav = ({ value, onChange, items, color = C.gold }) => (

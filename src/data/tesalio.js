@@ -7,7 +7,7 @@ import { ALFABETO_COLORS, C, NOTACION_COLORS } from "../theme.js";
 // 307A y 2103A, reasignados por autopsia frente a los editores: Candel Lozano, en
 // prensa), de Dodona (17B, 93B, 145A), eubeo (948A) y occidental (1351A). Suma: TOTAL_TES.
 export const ALF_TES = {
-  milesio: 68,
+  milesio: 69,
   tesalio: 6,
   dodona: 3,
   eubea: 1,
@@ -25,8 +25,8 @@ export const ALF_TES_PIE = [
 // Cronología según la columna Date del Excel (DIALECTO_SUB); la transición
 // V–IV (“5-4”) se cuenta aparte, no dentro del s. IV.
 export const REGIONS_TES = [
-  { id: "pelasgiotis", name: "Pelasgiótide", short: "Pelasg.", en: "Pelasgiotis", value: 12,
-    chronoV: 5, chronoVIV: 2, chronoIV: 4, chronoPost: 1 },
+  { id: "pelasgiotis", name: "Pelasgiótide", short: "Pelasg.", en: "Pelasgiotis", value: 13,   // + 93B (Resúmenes, fila 169)
+    chronoV: 6, chronoVIV: 2, chronoIV: 4, chronoPost: 1 },
   { id: "histiaiotis", name: "Histiótide", short: "Histiót.", en: "Histiaiotis", value: 9,
     chronoV: 2, chronoVIV: 2, chronoIV: 5, chronoPost: 0 },
   { id: "thessaliotis", name: "Tesaliótide", short: "Tesaliót.", en: "Thessaliotis", value: 6,
@@ -36,6 +36,7 @@ export const REGIONS_TES = [
 // Inscripciones de cada tétrada (§7): { id, src, date, text, desc }.
 export const REGION_INSCRIPTIONS_TES = {
   pelasgiotis: [
+    { id: "93B", src: "DVC", date: "principios del s. V a.C.", text: "Φύρκο̅ν \nΠΑΡΤΕΡΟΙΟ", desc: "ΠΑΡΤΕΡΟΙΟ, posible genitivo en -οιο — adscripción a Pelasgiótide dudosa: la lectura no es clara" },
     { id: "2761B", src: "DVC", date: "s. V a.C.", text: "[. .]Ρ[- - - περ'] \nὀρέχσιο[ς - - -] \nκίνι [κε θεῶν εὐχόμενος - - -]", desc: "κίνι, κε + κίς — Méndez Dosuna (2016: 133): adscripción a Pelasgiótide por κίνι y alfabeto rojo (χσ = ξ)" },
     { id: "2544B", src: "DVC", date: "mediados del s. V a.C.", text: "[ὁ δεῖνα ἐπερωτᾶι - - -] κίννι κε φ[ε]ο͂ν̣ [εὐχόμενος - - -]" },
     { id: "1433A", src: "DVC", date: "segunda mitad del s. V a.C.", text: "θεὸς τύχα· Φε̅δίας : π̣ὲρ [.][- - -]\nκίνι κε θ[ε]ο͂ν : εὐχόμενο[ς - - -]" },
@@ -80,7 +81,7 @@ export const CHRONO_DETAIL_TES = [
   { period: "2ª mit. s. V", n: 4 },
   { period: "Finales s. V", n: 10 },
   { period: "s. V (gen.)", n: 3 },
-  { period: "Transición V–IV", n: 7 },
+  { period: "Transición V–IV", n: 8 },
   { period: "Princ. s. IV", n: 4 },
   { period: "1ª mit. s. IV", n: 13 },
   { period: "Med. s. IV", n: 7 },
@@ -97,7 +98,7 @@ export const THEMES_TES = [
   { name: "Oficio / Comercio", value: 12 },
   { name: "Amor / Familia / Matrimonio", value: 12 },
   { name: "Vida / Salud", value: 10 },
-  { name: "Dinero / Patrimonio", value: 5 },
+  { name: "Dinero / Patrimonio", value: 6 },
   { name: "Otros", value: 4 },
   { name: "Viaje / Migración", value: 2 },
   { name: "Amigos / Enemigos", value: 2 },
@@ -163,7 +164,7 @@ export const TH_PLACES = [
     mentions: [{ ref: "2940B", form: "πὲρ πόλιος Φεραίας", date: "primera mitad del s. IV a.C." }],
     note: "Mención segura, con el adjetivo gentilicio en lugar del genitivo (§5.2); según Aston (2024: 338), la mención más antigua de un topónimo tesalio en el corpus. Fuera de las laminillas, un decreto de proxenía del koinon de los molosos (anterior al 330 a.C.) honra a Lagetas, tesalio de Feras (Cabanes y Hatzopoulos 2020: nº 32)." },
   // Acaya Ftiótide (periecia, no tétrada); coordenadas de Pleiades (540941 y 540749).
-  { id: "melitea", kind: "mencion", certain: false, name: "Melitea", greek: "Μελίταια", tetrada: "Acaya Ftiótide",
+  { id: "melitea", kind: "mencion", certain: true, name: "Melitea", greek: "Μελίταια", tetrada: "Acaya Ftiótide",
     lon: 22.4567, lat: 39.0384, dx: -12, dy: 4, anchor: "end",
     mentions: [{ ref: "2024A", form: "ἐ̣κ Μελιτείας", date: "primera mitad del s. IV a.C." }],
     note: "Ciudad de la Acaya Ftiótide, la periecia que se extendía entre el Otris y el golfo Maliaco, fuera de las tétradas. En I.Dodone DVC 2024A, adscrita con reservas a Tesaliótide, Damaíneto pregunta cómo podrá ponerse a salvo Próxeno ἐκ Μελιτείας; la consulta combina rasgos tesalios con elementos ajenos al dialecto (§7.1). Melitea figura también entre los topónimos del dórico noroccidental." },
@@ -206,12 +207,12 @@ export const REGION_TRAITS_TES = {
   pelasgiotis: {
     capital: "Larisa",
     inscripciones: "12",
-    intro: "El corpus conserva doce inscripciones adscritas al dialecto tesalio de Pelasgiótide, dos de ellas con reservas (I.Dodone DVC 328 e I.Dodone Lhôte 34): I.Dodone DVC 2761B (s. V a.C.), 3545B (finales del s. V a.C.), 2544B (mediados del s. V a.C.), 1433A (segunda mitad del s. V a.C.), 1465A (finales del s. V a.C.), 159A (ss. V-IV a.C.), 328 (principios del s. IV a.C.), 1416A (primera mitad del s. IV a.C.), 556A y 3113A (finales del s. IV a.C.), I.Dodone Lhôte 34 (ss. V-IV a.C.) e I.Dodone Lhôte 8B (ss. III-II a.C.), esta última de Mondaya, en Perrebia, pero en dialecto de Pelasgiótide. Es la región mejor documentada del corpus, tanto en número de inscripciones como en variedad de rasgos, lo que refleja la posición de Larisa como la polis tesalia más influyente. El criterio diagnóstico principal es la combinación de la partícula modal κε con el pronombre interrogativo-indefinido κίς, frente al τίς de Tesaliótide e Histiótide: aparece con la forma simple κίνι en I.Dodone DVC 2761B, 3545B y 1433A y con la geminada κίννι en 2544B y 556A; 1416A conserva κίννι sin la partícula modal.",
+    intro: "El corpus conserva trece inscripciones adscritas al dialecto tesalio de Pelasgiótide, tres de ellas con reservas (I.Dodone DVC 93B, 328 e I.Dodone Lhôte 34): I.Dodone DVC 93B (principios del s. V a.C.), 2761B (s. V a.C.), 3545B (finales del s. V a.C.), 2544B (mediados del s. V a.C.), 1433A (segunda mitad del s. V a.C.), 1465A (finales del s. V a.C.), 159A (ss. V-IV a.C.), 328 (principios del s. IV a.C.), 1416A (primera mitad del s. IV a.C.), 556A y 3113A (finales del s. IV a.C.), I.Dodone Lhôte 34 (ss. V-IV a.C.) e I.Dodone Lhôte 8B (ss. III-II a.C.), esta última de Mondaya, en Perrebia, pero en dialecto de Pelasgiótide. Es la región mejor documentada del corpus, tanto en número de inscripciones como en variedad de rasgos, lo que refleja la posición de Larisa como la polis tesalia más influyente. El criterio diagnóstico principal es la combinación de la partícula modal κε con el pronombre interrogativo-indefinido κίς, frente al τίς de Tesaliótide e Histiótide: aparece con la forma simple κίνι en I.Dodone DVC 2761B, 3545B y 1433A y con la geminada κίννι en 2544B y 556A; 1416A conserva κίννι sin la partícula modal.",
     rasgos: [
       { label: "Criterio diagnóstico: κε + κίς", text: "La combinación de la partícula modal κε con el pronombre interrogativo-indefinido κίς es el marcador regional más fiable. Las formas sin geminada (κίνι) alternan con las hiperdialectales (κίννι), pero ninguna laminilla combina ambas grafías. Esta oposición κίς (Pelasgiótide) frente a τίς (Tesaliótide e Histiótide) es, junto con la partícula modal, el criterio de adscripción regional más seguro del corpus." },
       { label: "Fonética: -αι > -ει en desinencias verbales", text: "El paso -αι > -ει en las desinencias verbales está documentado en la epigrafía de Pelasgiótide (cf. las formas en -σειν de IG IX2 517). El corpus ofrece un testimonio en I.Dodone DVC 159A, que presenta ὀρύξξειν (= ático ὀρύξαι); Méndez Dosuna (2018a: 286) señala que podría tratarse también de un infinitivo de futuro, aunque la interpretación como aoristo es la más probable. Un posible segundo testimonio es ἄγο̄μει en I.Dodone Lhôte 34, interpretable como subjuntivo de presente medio-pasivo con el mismo paso (Méndez Dosuna 2024: 4.3). Méndez Dosuna (2018a: 286) apunta un tercero en γίνυτε̅ y ἄγετε̅ de I.Dodone DVC 328, que podrían reflejar la desinencia -τει con una monoptongación temprana. Ninguno de los dos testimonios es seguro: en Lhôte 34 la forma admite otras explicaciones, y en 328 la notación ⟨Ε⟩ carece de paralelos en tesalio para formas de este tipo; por ello, ambas inscripciones se adscriben a Pelasgiótide solo con reservas." },
       { label: "Fonética: ἱαρ-", text: "El corpus aporta el que es también el testimonio más antiguo del vocablo para el tesalio: ἱαροῖο en I.Dodone DVC 1465A (Pelasgiótide, finales del s. V a.C.). La concurrencia en un mismo texto de ἱαρ- y la desinencia de genitivo propia de Pelasgiótide -οιο refuerza la credibilidad dialectal del vocalismo, pues ambos rasgos son tesalios y difícilmente explicables por contaminación dórica." },
-      { label: "Morfología: gen. sg. temático -οι/-οιο", text: "El genitivo singular temático en -οι/-οιο es el rasgo más específico de Pelasgiótide, frente al -ου de Tesaliótide. El corpus ofrece cuatro posibles testimonios: τοῖ ἱαροῖο τοῖ ἐμπέδοι en I.Dodone DVC 1465A (finales del s. V a.C.), τ̣οῖ κατ<ε>ιγνείτοιο y γάμοιο en 3113A (finales del s. IV a.C.), πὲρ τοῖ ἀρρωστέ̅ματος en 556A, según la lectura de Méndez Dosuna (2016: 125; 2018a: 274, n. 19), pues los editores leen τοῦ, y πὲρ το<ῖ> [ἀρ]γύρροι en I.Dodone Lhôte 8B, donde la desinencia es corrección editorial. Solo los dos primeros son, por tanto, seguros." },
+      { label: "Morfología: gen. sg. temático -οι/-οιο", text: "El genitivo singular temático en -οι/-οιο es el rasgo más específico de Pelasgiótide, frente al -ου de Tesaliótide. El corpus ofrece cinco posibles testimonios: τοῖ ἱαροῖο τοῖ ἐμπέδοι en I.Dodone DVC 1465A (finales del s. V a.C.), τ̣οῖ κατ<ε>ιγνείτοιο y γάμοιο en 3113A (finales del s. IV a.C.), πὲρ τοῖ ἀρρωστέ̅ματος en 556A, según la lectura de Méndez Dosuna (2016: 125; 2018a: 274, n. 19), pues los editores leen τοῦ, y πὲρ το<ῖ> [ἀρ]γύρροι en I.Dodone Lhôte 8B, donde la desinencia es corrección editorial, y la secuencia ΠΑΡΤΕΡΟΙΟ de I.Dodone DVC 93B (principios del s. V a.C.), que podría contener un genitivo en -οιο, aunque su lectura no es clara. Solo los dos primeros son, por tanto, seguros." },
       { label: "Morfología: infinitivo temático en -μεν", text: "Buck (1955: §155.1) lo recoge como característica de Pelasgiótide, y Blümel (1982: §224) lo documenta con seguridad solo en Pelasgiótide y Perrebia. En el corpus: ἐσκιχρέμεν en I.Dodone Lhôte 8B y χαλκοπο̅λε͂μεν en I.Dodone DVC 3008A. Lhôte 8B muestra otros rasgos claros de Pelasgiótide; en 3008A, sin otros rasgos regionales, la sola desinencia invita a postular también un origen pelasgiota. Si se acepta la interpretación de ἁμοῖ (rasgo 30), también I.Dodone DVC 3274A presentaría un rasgo de esta región." },
       { label: "Morfología: nom. pl. artículo οἱ", text: "La forma οἱ del artículo en nominativo plural (frente al τοί del tesalio occidental) es un rasgo diferenciador de Pelasgiótide. El único testimonio del corpus es I.Dodone DVC 556A, que presenta οἱ συγγενέες y οἱ πατέρες en las líneas 2 y 4 respectivamente." },
     ],
@@ -345,8 +346,8 @@ export const RASGOS_TES = [
     cat: "Morfología", dvcs: ["4119B","336A"] },
   // §4.2.1  Desinencia -μεν (1ª pl.)
   { id: 14, name: "1ª persona pl. en -μεν", short: "1ª pl. -μεν",
-    desc: "Frente a -μες del griego occidental, los dialectos orientales y eolios emplean -μεν en la 1ª persona del plural (ἐπινοείσουμεν, IG IX2 517; ἐκρίνναμεν, SEG 43:311). El corpus ofrece tres testimonios: I.Dodone DVC 336A (segunda mitad del s. IV a.C.), con una 1ª pl. en -μεν cualquiera que sea la lectura adoptada; μα[στε]ύουμεν en 3274A (primera mitad del s. IV a.C.), con la notación ⟨ΟΥ⟩; y ἦ γαοργέουμ̣[εν] en 3002B (primera mitad del s. IV a.C.). Como -μεν es común a varios dialectos, su valor diagnóstico depende de otros rasgos tesalios de la misma inscripción: el léxico (λειτορεῖον) y ὀν- en 336A, la notación ⟨ΟΥ⟩ en 3274A y 3002B. No se cuenta 4162B, cuya desinencia -μεν, compartida con el jónico-ático, es su único rasgo dialectal.",
-    cat: "Morfología", dvcs: ["336A","3274A","3002B"] },
+    desc: "Frente a -μες del griego occidental, los dialectos orientales y eolios emplean -μεν en la 1ª persona del plural (ἐπινοείσουμεν, IG IX2 517; ἐκρίνναμεν, SEG 43:311). El corpus ofrece cuatro testimonios: I.Dodone DVC 336A (segunda mitad del s. IV a.C.), con una 1ª pl. en -μεν cualquiera que sea la lectura adoptada; μα[στε]ύουμεν en 3274A (primera mitad del s. IV a.C.), con la notación ⟨ΟΥ⟩; ἦ γαοργέουμ̣[εν] en 3002B (primera mitad del s. IV a.C.) y ἐ͂ πο̅λέο̅μεν en 4162B (ss. V-IV a.C.), contada en el tesalio, aunque con doble adscripción, porque la desinencia es también jónica (Méndez Dosuna 2016: 137). Como -μεν es común a varios dialectos, su valor diagnóstico depende de otros rasgos tesalios de la misma inscripción: el léxico (λειτορεῖον) y ὀν- en 336A, la notación ⟨ΟΥ⟩ en 3274A y 3002B.",
+    cat: "Morfología", dvcs: ["336A","3274A","3002B","4162B"] },
   // §4.2.2  Desinencia -εν (3ª pl. aor.)
   { id: 15, name: "-εν por -ν en 3ª pl. aoristo", short: "3ª pl. aor. -εν",
     desc: "La 3ª persona del plural del aoristo presenta en tesalio la desinencia secundaria -εν en lugar del -ν resultante de *-ντ. El dossier epigráfico (Morpurgo Davies 1965: 237-238; Blümel 1982: 195-198; García Ramón 2008: 197) reúne doce ejemplos, como ὀνεθείκαεν (IG IX2 244.4; Fársalo, s. IV a.C.), junto a una variante -ιεν restringida a Pelasgiótide (ἐδώκαιεν, SEG 23:422.3, Feras; ἐστάσαιεν, IGC 9, 1.32, Larisa). El único testimonio del corpus es ἀρρωστήσαεν en I.Dodone DVC 556A (Pelasgiótide, finales del s. IV a.C.), uno de los escasísimos aoristos sigmáticos con -εν del tesalio, cuyo único paralelo directo es ἐσστάσαεν en I.Atrax 102 (Pelasgiótide, primera mitad del s. IV a.C.). Procede de la región en que conviven -εν e -ιεν, pero un único ejemplo no permite precisar la distribución de ambas variantes.",

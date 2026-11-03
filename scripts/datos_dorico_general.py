@@ -2,7 +2,7 @@
 
 Fuentes:
   · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”).
-  · DORICO_GENERAL_1_Redaccion_v65.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · DORICO_GENERAL_1_Redaccion_v83.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_fonetica.py: matrices de valor diagnóstico y listas de notación y arcaísmos.
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dor"] de graficos_dialecto_pandas.py).
 
@@ -10,6 +10,7 @@ Uso:  py scripts/datos_dorico_general.py
 """
 import io
 import json
+import os
 import re
 import sys
 import unicodedata
@@ -23,10 +24,11 @@ sys.stdout.reconfigure(encoding="utf-8")
 RAIZ = Path(__file__).resolve().parents[1]
 UVA = RAIZ.parent
 EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "1. DÓRICO GENERAL" / "DORICO_GENERAL_1_Redaccion_v65.docx"
+# Desde el 2 nov. 2026, el capítulo 4 de la Parte II (la versión más reciente del dórico general, con 1993A); antes, el suelto v83.
+DOCX = Path(os.environ.get("DOCX_DOR", UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "PARTE II. LOS DIALECTOS DÓRICOS REVISADO 18.docx"))
 GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
-SALIDA = RAIZ / "src" / "data" / "doricoGeneral.js"
-INSC = RAIZ / "src" / "data" / "inscriptions.json"
+SALIDA = Path(os.environ.get("SALIDA_DOR", RAIZ / "src" / "data" / "doricoGeneral.js"))
+INSC = Path(os.environ.get("INSC_DOR", RAIZ / "src" / "data" / "inscriptions.json"))
 
 # ── Excel (sin la caché de las tablas dinámicas, que openpyxl no lee) ──────────
 def sin_pivots(path):
@@ -61,7 +63,7 @@ for k, r in EX.items():
         for m in re.finditer(r"Lhôte, no (\d+)\s*(?:\(Face ([A-Za-z]+)\))?", str(r[2] or "")):
             LH2DVC.setdefault("Lhôte " + m.group(1) + (m.group(2) or ""), k)
 CAP = {k: r for k, r in EX.items() if col(r, "DIALECTO_SUB") in ("Doris mitior", "Dórico Magna Grecia")}
-assert len(CAP) == 176, len(CAP)
+assert len(CAP) == 176, len(CAP)   # 176 desde el 3/11/2026 (fila 186: entran 257A y 574A); 176 hasta el 27/10/2026 (fila 173: 1673B, 3612B y 3871 pasan a no jónico-áticas); 174 desde el 2/11/2026 (fila 182: entra 1993A)
 
 ROM = {"2": "II", "3": "III", "4": "IV", "5": "V", "6": "VI"}
 TABD = {"α΄ μισό": "primera mitad del", "β΄ μισό": "segunda mitad del", "μέσα": "mediados del", "αρχές": "principios del",
@@ -246,17 +248,17 @@ GRUPOS_COR = [
     ("paomai", "La familia de πάομαι", ["DVC 6A", "DVC 146A", "DVC 1381B"], "πέπατα<ι>, πεπαμένος y παμπασία."),
     ("nombre", "El antropónimo dórico Κλεπώ", ["DVC 2448A"], "Κλεπώ (Katsadima 2017: 132 nn. 14-15, 139)."),
     ("reservas", "Con reservas por el alfabeto o la lectura",
-     ["DVC 3871", "DVC 1673B", "DVC 3612B", "DVC 2133B", "DVC 2368A", "DVC 825A", "DVC 3641A"],
-     "Épsilon corintia aislada (3871, 1673B, 3612B), fragmento de una sola palabra (2133B), variante epirota o corcirense "
-     "del alfabeto (2368A) y lectura discutida de κα con una datación que choca con la escritura arcaica (825A); en 3641A, κα̣ con la alfa insegura."),
+     ["DVC 2133B", "DVC 2368A", "DVC 825A"],
+     "Fragmento de una sola palabra (2133B), alfabeto más bien local "
+     "del Epiro y de Corcira, según los editores (2368A), y lectura discutida de κα con una datación que choca con la escritura arcaica (825A)."),
 ]
 usadas = {k for g in GRUPOS_COR for k in g[2]}
 assert usadas <= set(corintias), usadas - set(corintias)
 GRUPOS_COR.insert(3, ("seguras", "Rasgo común y alfabeto corintio: dórica segura", sorted(set(corintias) - usadas,
                       key=lambda k: (k.startswith("Lhôte"), int(re.search(r"\d+", k).group()))),
                       "Rasgos comunes al dórico y a otros dialectos (κα, ᾱ, digamma o ζώω), que el alfabeto corintio, ajeno al eolio, "
-                      "basta para atribuir al dórico."))
-assert len(GRUPOS_COR[3][2]) == 34, len(GRUPOS_COR[3][2])
+                      "basta para atribuir al dórico. En 3641A, la alfa de κα es insegura, pero la posición de la partícula, entre πότερα y el optativo, la asegura."))
+assert len(GRUPOS_COR[3][2]) == 35, len(GRUPOS_COR[3][2])   # 34 hasta el 27/10/2026 (fila 171: 3641A segura)
 DIAG_COLS = list(F.COLS)
 DIAGNOSTICO = [{"sec": "§" + s, "rasgo": n, "vals": v, "otros": o, "cat": "Fonología"} for s, n, v, o in F.MATRIZ] + \
               [{"sec": "§" + s, "rasgo": n, "vals": v, "otros": o, "cat": "Morfología"} for s, n, v, o in F.MATRIZ_MORF]
@@ -371,7 +373,7 @@ J = lambda x: json.dumps(x, ensure_ascii=False, indent=1)
 partes = [
     "// Generado por scripts/datos_dorico_general.py: no editar a mano.",
     "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”, 176 inscripciones,",
-    "// Resúmenes fila 165), DORICO_GENERAL_1_Redaccion_v65 (§2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
+    "// Resúmenes fila 186), PARTE II. LOS DIALECTOS DÓRICOS REVISADO 18 (cap. 4, §2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
     "",
     f"export const INTRO_FON_DOR = {J(INTRO['4'])};",
     f"export const INTRO_MORF_DOR = {J(INTRO['5'])};",
@@ -389,7 +391,7 @@ partes = [
     f"export const INSCRIPCIONES_DOR = {J(INSCRIPCIONES)};",
     "// §4.1.3: inscripciones que notan con Ε u Ο alguna vocal media larga, por período.",
     f"export const NOTACION_DOR = {J(NOTACION)};",
-    "// §3: las 47 inscripciones del capítulo en alfabeto corintio (ALFABETO_GRUPO_v2), según lo que sostiene su adscripción.",
+    "// §3: las 44 inscripciones del capítulo en alfabeto corintio (ALFABETO_GRUPO_v2), según lo que sostiene su adscripción.",
     f"export const CORINTIAS_DOR = {J([{'id': g[0], 'name': g[1], 'dvcs': [clave_js(k) for k in g[2]], 'note': g[3]} for g in GRUPOS_COR])};",
     "// §4.2.2-4.2.3: digamma y notación de la aspiración por período.",
     f"export const ARCAISMOS_DOR = {J(ARCA)};",

@@ -12,6 +12,8 @@ import { Ref, RefList } from "../components/Inscriptions.jsx";
 import BoeotiaMap from "../components/maps/BoeotiaMap.jsx";
 import { Card, CatLegend, ChapterLayout, EventTable, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import CompartidosTesBeoc from "./CompartidosTesBeoc.jsx";
+import { AdscripcionTable } from "../components/Adscripcion.jsx";
+import { ADSCRIPCION_BEOC } from "../data/adscripcion.js";
 
 const TABS = [
   { id: "context", l: "Contexto histórico", i: "📜" },
@@ -30,13 +32,13 @@ const SYSTEM_ROWS = [
   ["*oi̯", "/oi̯/", "/oe̯/ > /yː/", "⟨ΟΕ⟩, luego ⟨Υ⟩"],
 ];
 
-export default function Beocio({ switcher }) {
+export default function Beocio({ switcher, subnav }) {
   const [tab, setTab] = useState("context");
   const [sub, setSub] = useState("cifras");   // subpestaña de Perfil dialectal
   const [place, setPlace] = useState(null);
 
   return (
-    <ChapterLayout switcher={switcher} color={C.beocio} accent={[C.terra, C.beocio, C.blue, C.green]}
+    <ChapterLayout switcher={switcher} subnav={subnav} color={C.beocio} accent={[C.terra, C.beocio, C.blue, C.green]}
       title={<>El dialecto <em style={{ fontWeight: 700, color: C.beocio }}>beocio</em> en las laminillas oraculares de Dodona</>}
       subtitle="Análisis lingüístico del corpus oracular · Fonología, morfología, sintaxis y léxico"
       stats={<>
@@ -148,6 +150,10 @@ export default function Beocio({ switcher }) {
               que no fueran ya conocidos, aunque sí constituye un valioso complemento en un registro informal y privado.
             </p>
           </Card>
+        </Sec>
+
+        <Sec title="Adscripción de las consultas" sub="Bases de la adscripción, grado de certeza y consultas excluidas del capítulo">
+          <AdscripcionTable data={ADSCRIPCION_BEOC} color={C.beocio} />
         </Sec>
 
         <Sec title="Beocio en contexto" sub="Macrogrupos dialectales del corpus de Dodona">

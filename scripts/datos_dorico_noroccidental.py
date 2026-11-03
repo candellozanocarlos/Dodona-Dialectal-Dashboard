@@ -348,8 +348,7 @@ LUGARES = [  # id, nombre, griego, lon, lat, rótulo (dx, dy en grados), ámbito
     ("locride", "Lócride opuntia", "Ὀποῦς", 22.95, 38.65, (0.0, 0.10), "Grecia central",
      [("DVC 3917A", 1, "[ἐν Ὀπ]όεντι", T), ("DVC 4132A", 0, "[- - -]οντιοι", E)],
      "La excepción más notable en la Grecia central, cuyos consultantes acudían sobre todo a Delfos (Giannakis 2024a: 36 n. 2)."),
-    ("melitea", "Melitea", "Μελίτεια", 22.38, 39.06, (0.09, 0.0), "Acaya Ftiótide",
-     [("DVC 2024A", 1, "ἐ̣κ Μελιτείας", T)], "En una consulta con rasgos tesalios y dóricos que se examina en el capítulo del tesalio."),
+    # Melitea (2024A) va con el tesalio: Acaya Ftiótide, periecia de Tesalia (26 oct. 2026).
 ]
 TOPONYMS = []
 for id_, nom, gr, lon, lat, off, amb, ments, nota in LUGARES:
@@ -361,8 +360,8 @@ for id_, nom, gr, lon, lat, off, amb, ments, nota in LUGARES:
         CITADAS.add(k)
     TOPONYMS.append({"id": id_, "name": nom, "greek": gr, "lon": lon, "lat": lat, "off": list(off), "ambito": amb,
                      "note": nota, "mentions": ms})
-assert len(TOPONYMS) == 24 and sum(len(t["mentions"]) for t in TOPONYMS) == 40   # 26/10: + Quemara y Ofinio
-assert sum(m["certain"] for t in TOPONYMS for m in t["mentions"]) == 32
+assert len(TOPONYMS) == 23 and sum(len(t["mentions"]) for t in TOPONYMS) == 39   # 26/10: + Quemara y Ofinio; − Melitea
+assert sum(m["certain"] for t in TOPONYMS for m in t["mentions"]) == 31
 
 # ── Textos de las inscripciones citadas ────────────────────────────────────────
 CITADAS = {k for k in CITADAS if k in EX}

@@ -13,6 +13,8 @@ import { Ref, RefList } from "../components/Inscriptions.jsx";
 import ThessalyMap from "../components/maps/ThessalyMap.jsx";
 import { Card, ChapterLayout, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import CompartidosTesBeoc from "./CompartidosTesBeoc.jsx";
+import { AdscripcionTable } from "../components/Adscripcion.jsx";
+import { ADSCRIPCION_TES } from "../data/adscripcion.js";
 
 const TABS = [
   { id: "context", l: "Contexto histórico", i: "📜" },
@@ -45,7 +47,7 @@ const THEORIES = [
     desc: "⟨ΕΙ⟩ y ⟨ΟΥ⟩ representarían vocales medias /e̞ː/ y /o̞ː/, no cerradas: un sistema de cinco vocales largas en el que las medias conservan su naturaleza central. La elección de los dígrafos fue sistémica, no fonética: (1) transparencia morfofonológica (⟨Ε⟩ : ⟨ΕΙ⟩, ⟨Ο⟩ : ⟨ΟΥ⟩); (2) marcación explícita de la cantidad; (3) compatibilidad fonética si, como propone Allen (1959), el sistema breve tesalio era “top-skewed”. Vacilaciones como las de IG IX2 426 (Φρασιμήδας junto a θείκα) indican que ninguna de las dos grafías equivalía exactamente al fonema tesalio." },
 ];
 
-export default function Tesalio({ switcher }) {
+export default function Tesalio({ switcher, subnav }) {
   const [tab, setTab] = useState("context");
   const [sub, setSub] = useState("cifras");   // subpestaña de Perfil dialectal
   const [region, setRegion] = useState(null);
@@ -54,7 +56,7 @@ export default function Tesalio({ switcher }) {
   const nRegional = REGIONS_TES.reduce((a, r) => a + r.value, 0);
 
   return (
-    <ChapterLayout switcher={switcher} color={C.tesalio} accent={[C.terra, C.tesalio, C.amber, C.blue]}
+    <ChapterLayout switcher={switcher} subnav={subnav} color={C.tesalio} accent={[C.terra, C.tesalio, C.amber, C.blue]}
       title={<>El dialecto <em style={{ fontWeight: 700, color: C.tesalio }}>tesalio</em> en las laminillas oraculares de Dodona</>}
       subtitle="Análisis lingüístico del corpus oracular · Fonología, morfología, sintaxis y léxico"
       stats={<>
@@ -244,6 +246,10 @@ export default function Tesalio({ switcher }) {
               indicios sólidos de una <b style={{ color: C.text }}>vinculación profunda y continuada</b> entre el oráculo y Tesalia.
             </p>
           </Card>
+        </Sec>
+
+        <Sec title="Adscripción de las consultas" sub="Bases de la adscripción, grado de certeza y consultas excluidas del capítulo">
+          <AdscripcionTable data={ADSCRIPCION_TES} color={C.tesalio} />
         </Sec>
 
         <Sec title="Tesalio en contexto" sub="Macrogrupos dialectales del corpus de Dodona">

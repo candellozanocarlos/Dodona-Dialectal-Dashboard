@@ -7,13 +7,16 @@ sobre las laminillas oraculares de Dodona. Cada capítulo de la tesis tiene su v
 
 | Capítulo | Contenido |
 |---|---|
-| **Tesalio** | Contexto histórico, mapa de Tesalia por tétradas, perfil dialectal (31 rasgos), vocalismo y rasgos compartidos con el beocio |
-| **Beocio** | Contexto histórico, mapa de Beocia, perfil dialectal (18 rasgos), vocalismo y rasgos compartidos con el tesalio |
-| **Dórico** | Tres subsecciones: dórico general (contexto, mapa de topónimos y etnónimos dóricos, perfil dialectal con los rasgos de §4-§7 y su valor diagnóstico, escritura y notación), dórico noroccidental (contexto, mapa de las comunidades del Noroeste, perfil dialectal con los rasgos propios del noroeste, los apartados del capítulo y su valor diagnóstico, escritura y contracción de εο en ου) y Doris severior (Magna Grecia y Dodona, mapa de topónimos y etnónimos occidentales, clasificación de las 16 inscripciones y vocalismo frente a la Doris media) |
+| **Introducción** | El santuario, las laminillas (corpus y cronología), la metodología y los criterios de adscripción, y el corpus en cifras (grupos dialectales con su certeza y alfabetos epicóricos) |
+| **Dialectos dóricos** | Tres subsecciones: el dialecto dórico (contexto, mapa de topónimos y etnónimos dóricos, perfil dialectal con los rasgos de §4-§7 y su valor diagnóstico, escritura y notación), el dórico noroccidental (contexto, mapa de las comunidades del Noroeste, perfil dialectal con los rasgos propios del noroeste, los apartados del capítulo y su valor diagnóstico, escritura y contracción de εο en ου) y Doris severior (Magna Grecia y Dodona, mapa de topónimos y etnónimos occidentales, clasificación de las 16 inscripciones y vocalismo frente a la Doris media) |
+| **Dialectos eólicos** | Dos subsecciones: el dialecto tesalio (contexto histórico, mapa de Tesalia por tétradas, perfil dialectal con 31 rasgos, vocalismo y rasgos compartidos con el beocio) y el dialecto beocio (contexto, mapa de Beocia, perfil dialectal con 18 rasgos, vocalismo y rasgos compartidos con el tesalio) |
+| **Jónico-ático y koiné** | Contexto, mapa de topónimos y etnónimos, perfil dialectal (adscripción, subgrupos, cronología, temática, alfabeto y rasgos), el jónico, el ático y la koiné, y las 137 inscripciones |
+| **Mezcla dialectal** | Concepto y criterio (con las mezclas de Crespo y Giannakis), perfil y tipos de mezcla, explicaciones y las 98 inscripciones |
+| **Minoritarios y no jónico-áticas** | Dos subsecciones: los dialectos minoritarios (perfil y las doce inscripciones por grupo) y las inscripciones no jónico-áticas (perfil, rasgos, dialectos compatibles y anexo con las 844 inscripciones) |
 | **Autopsias** | Notas de autopsia de laminillas examinadas en la Eforía de Antigüedades de Ioánina |
 
 Las citas de inscripciones (*I.Dodone DVC* 123A, *I.Dodone Lhôte* 8B) muestran su texto al pasar
-el cursor y lo fijan al pulsar. Cada capítulo tiene su propia URL (`#tesalio`, `#beocio`, `#dorico`,
+el cursor y lo fijan al pulsar. Cada parte tiene su propia URL (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`,
 `#autopsias`).
 
 ## Uso
@@ -40,6 +43,9 @@ src/
     corpus.js             totales del corpus y macrogrupos dialectales
     tesalio.js, beocio.js, dorico.js, autopsias.js
     doricoGeneral.js, doricoNO.js   generados con scripts/datos_dorico_general.py y datos_dorico_noroccidental.py
+    jonicoAtico.js, adscripcion.js  generados con scripts/datos_jonico_atico.py y datos_adscripcion.py
+    frontera.js, anexoNoJonAt.json  generados con scripts/datos_frontera.py (caps. 13-15)
+    introduccion.js                 generado con scripts/datos_introduccion.py
     inscriptions.json     índice de inscripciones citadas (datación, texto, dialecto)
   chapters/               una vista por capítulo (+ la pestaña común tesalio/beocio)
   components/
@@ -49,7 +55,7 @@ src/
     maps/                 mapas de Tesalia, Beocia, Magna Grecia y el dórico (general y noroccidental) sobre una base común
   lib/text.jsx            griego politónico y enlace automático de citas
 scripts/coastline.py      genera la costa y las áreas de un mapa nuevo
-scripts/datos_dorico_*.py generan los datos del dórico desde el Excel y los capítulos
+scripts/datos_*.py        generan los datos desde el Excel, los capítulos y los scripts de gráficos de la tesis
 ```
 
 ## Añadir un capítulo
