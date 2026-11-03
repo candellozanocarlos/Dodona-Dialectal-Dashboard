@@ -11,8 +11,8 @@ export const MG_LIGHT = ORO;
 
 // ── Subsecciones del dórico, en el orden de la tesis (cap. 4 dórico general, 5 noroccidental, 6 severior) ──
 export const SUBSECCIONES_DOR = [
-  { id: "general", label: "Dórico general", color: DIALECT_COLORS.dorico },
-  { id: "noroccidental", label: "Dórico noroccidental", color: DIALECT_COLORS.doricoNO },
+  { id: "general", label: "El dialecto dórico", color: DIALECT_COLORS.dorico },
+  { id: "noroccidental", label: "El dórico noroccidental", color: DIALECT_COLORS.doricoNO },
   { id: "severior", label: "Doris severior", color: C.severior },
 ];
 

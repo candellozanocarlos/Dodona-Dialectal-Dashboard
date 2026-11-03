@@ -13,6 +13,8 @@ import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
 import { NO_LAND_PATH } from "../components/maps/coastlines.js";
 import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { AdscripcionTable } from "../components/Adscripcion.jsx";
+import { ADSCRIPCION_NO } from "../data/adscripcion.js";
 
 const NO = DIALECT_COLORS.doricoNO;
 const INK = DIALECT_INK.doricoNO;
@@ -124,7 +126,7 @@ export default function DoricoNO({ switcher, subnav }) {
               <P>Los dodoneos consultan en seis ocasiones, y lo hacen también los caones, los molosos, los atamanes, los fanoteos, Casope, los bilíones y Onquesmo, además de un {"<i>koinon</i>"} que, en vísperas de la conquista romana, pregunta si le conviene hacer causa común con los molosos (I.Dodone Lhôte 9). La consulta de los διαιτοί, I.Dodone DVC 1368A (ss. V-IV a.C.), se tiene por ejemplo canónico del dialecto epirota.</P>
             </CardT>
             <CardT title="Acarnania y la Grecia central" accent={C.terra}>
-              <P>Acarnania está bien representada, con Tirreo, Alicia, Ástaco y Accio. Etolia apenas aparece, por la hostilidad casi permanente entre etolios y epirotas, y las Lócrides y la Fócide, atraídas por Delfos (Giannakis 2024a: 36 n. 2), solo dejan la mención de la Lócride opuntia; Melitea, en la Acaya Ftiótide, aparece en una consulta con rasgos tesalios.</P>
+              <P>Acarnania está bien representada, con Tirreo, Alicia, Ástaco y Accio. Etolia apenas aparece, por la hostilidad casi permanente entre etolios y epirotas, y las Lócrides y la Fócide, atraídas por Delfos (Giannakis 2024a: 36 n. 2), solo dejan la mención de la Lócride opuntia. Melitea, que aparece en I.Dodone DVC 2024A, pertenecía a la Acaya Ftiótide, en Tesalia, y esa consulta se examina en el capítulo del tesalio.</P>
             </CardT>
             <CardT title="Las colonias corintias" accent={ALFABETO_COLORS.corintio}>
               <P>El corintio y el epirota pertenecían a la {"<i>Doris mitior</i>"}, y sus textos solo se distinguen por el alfabeto. Corcira no se cuenta entre los dialectos noroccidentales (Méndez Dosuna 1985: 378-379), de modo que sus consultas solo pasan a este capítulo si presentan un rasgo propio del noroeste; el alfabeto corintio apunta al dórico, pero no permite saber si en el Epiro se escribía en él.</P>
@@ -163,7 +165,7 @@ export default function DoricoNO({ switcher, subnav }) {
               {!place && (
                 <Card>
                   <div style={{ fontFamily: "var(--fh)", fontSize: 15, color: C.heading, marginBottom: 6 }}>Selecciona un lugar</div>
-                  <P>La mayoría de las menciones corresponde al Epiro, con quince nombres y veintitrés menciones, entre las que destacan las seis consultas de los dodoneos; le sigue Acarnania, con cinco nombres y doce menciones, cinco de ellas de Accio. De la Grecia central solo aparecen la Lócride opuntia y Melitea.</P>
+                  <P>La mayoría de las menciones corresponde al Epiro, con quince nombres y veintitrés menciones, entre las que destacan las seis consultas de los dodoneos; le sigue Acarnania, con cinco nombres y doce menciones, cinco de ellas de Accio. De la Grecia central solo aparece la Lócride opuntia.</P>
                   <Stats style={{ marginTop: 12, marginBottom: 0 }}>
                     <Stat label="Seguras" value={String(segMenciones)} accent={NO} />
                     <Stat label="Dudosas" value={String(totalMenciones - segMenciones)} accent={ORO} />
@@ -246,6 +248,10 @@ export default function DoricoNO({ switcher, subnav }) {
           <Card>
             <P>La contracción de εο en ου, en veinte inscripciones, y la grafía ἰς por εἰς, en dieciséis, sostienen la mayor parte de las adscripciones; los demás rasgos solo aparecen en unas pocas consultas. Varias adscripciones descansan en indicios débiles y se cuentan como dudosas: un rasgo menor, como παρά con acusativo de situación, una lectura insegura o restituida, o un indicio que no es exclusivo del noroccidental, como la onomástica en Θευ- y Κλευ-.</P>
           </Card>
+        </Sec>
+
+        <Sec title="Adscripción de las consultas" sub="Bases de la adscripción, grado de certeza y consultas excluidas del capítulo">
+          <AdscripcionTable data={ADSCRIPCION_NO} color={NO} />
         </Sec>
 
         <Sec title="Dórico noroccidental en contexto" sub="Macrogrupos dialectales del corpus de Dodona">

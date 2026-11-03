@@ -1,0 +1,15 @@
+// Generado por scripts/datos_introduccion.py: no editar a mano.
+// Introducción de la tesis (caps. 1-3): las cifras de las figuras int_1 a int_4 (graficos_introduccion.py), con los datos de
+// DVC_v5_FINAL.xlsx (hoja Datos; Resúmenes, fila 186, 3 nov. 2026).
+
+export const TOTAL_INSCRIPCIONES = 4418;
+export const TOTAL_EPICORICAS = 189;
+// int_1: inscripciones con y sin características dialectales, por edición.
+export const CORPUS_INT = [{"name": "Corpus completo", "con": 1455, "sin": 2963}, {"name": "I.Dodone DVC", "con": 1329, "sin": 2887}, {"name": "Solo en I.Dodone Lhôte", "con": 126, "sin": 76}];
+// int_2: grupos dialectales (orden de la antigua tabla 1) con su certeza y el color de su macrogrupo.
+export const GRUPOS_INT = [{"name": "No jónico-áticas", "segura": 768, "dudosa": 75, "nombre": 1, "color": "#b5a58a"}, {"name": "Dórico (Doris mitior y Magna Grecia)", "segura": 133, "dudosa": 40, "nombre": 3, "color": "#c0392b"}, {"name": "Dórico noroccidental", "segura": 36, "dudosa": 38, "nombre": 1, "color": "#e07a5f"}, {"name": "Doris severior", "segura": 11, "dudosa": 5, "nombre": 0, "color": "#7b2d26"}, {"name": "Jónico-ático y koiné", "segura": 86, "dudosa": 49, "nombre": 2, "color": "#2a6a8e"}, {"name": "Mezcla dialectal", "segura": 33, "dudosa": 53, "nombre": 12, "color": "#c08a2e"}, {"name": "Tesalio", "segura": 48, "dudosa": 29, "nombre": 3, "color": "#2e7d46"}, {"name": "Beocio", "segura": 10, "dudosa": 5, "nombre": 2, "color": "#7b5ea7"}, {"name": "Dialectos minoritarios", "segura": 1, "dudosa": 9, "nombre": 2, "color": "#9a9080"}];
+export const CERTEZA_INT = {"seguras": 1126, "dudosas": 303, "nombre": 26};
+// int_3: alfabetos epicóricos (ALFABETO_GRUPO_v2); clave: color de ALFABETO_COLORS.
+export const ALFABETOS_INT = [{"name": "Corintio", "value": 92, "clave": "corintio"}, {"name": "Local de Dodona", "value": 16, "clave": "dodona"}, {"name": "Magna Grecia o Sicilia", "value": 16, "clave": "magnaGrecia"}, {"name": "Tesalio o beocio", "value": 11, "clave": "tesalio"}, {"name": "Euboico", "value": 11, "clave": "eubea"}, {"name": "Élide", "value": 10, "clave": "elide"}, {"name": "Acaya", "value": 9, "clave": "otros"}, {"name": "Epirota", "value": 7, "clave": "epirota"}, {"name": "Otros", "value": 6, "clave": "otros"}, {"name": "Mégara o Sición", "value": 6, "clave": "otros"}, {"name": "Occidental o calcídico", "value": 5, "clave": "occidental"}];
+// int_4: cronología por siglos y transiciones; siglo: clave de SIGLO_COLORS.
+export const CHRONO_INT = [{"period": "s. VI", "n": 35, "siglo": "VI"}, {"period": "Transición VI–V", "n": 11, "siglo": "VI-V"}, {"period": "s. V", "n": 1434, "siglo": "V"}, {"period": "Transición V–IV", "n": 390, "siglo": "V-IV"}, {"period": "s. IV", "n": 2226, "siglo": "IV"}, {"period": "Transición IV–III", "n": 57, "siglo": "IV-III"}, {"period": "s. III", "n": 50, "siglo": "III"}, {"period": "Transición III–II", "n": 25, "siglo": "III-II"}, {"period": "s. II", "n": 3, "siglo": "II"}, {"period": "Sin datar", "n": 187, "siglo": "Sin datar"}];

@@ -1162,7 +1162,7 @@ export const THEMES_NO = [
  },
  {
   "name": "Oficio / Comercio",
-  "value": 8
+  "value": 9
  },
  {
   "name": "Amor / Familia / Matrimonio",
@@ -1173,12 +1173,12 @@ export const THEMES_NO = [
   "value": 6
  },
  {
-  "name": "Otros",
+  "name": "Vida / Salud",
   "value": 6
  },
  {
-  "name": "Vida / Salud",
-  "value": 6
+  "name": "Otros",
+  "value": 5
  },
  {
   "name": "Esclavitud",
@@ -1341,7 +1341,7 @@ export const INSCRIPCIONES_NO = [
  {
   "ref": "143A",
   "date": "primera mitad del s. IV a.C.",
-  "tema": "Otros",
+  "tema": "Oficio / Comercio",
   "alf": "Reformado / Desconocido",
   "cert": "Seguro"
  },
@@ -2567,28 +2567,6 @@ export const TOPONYMS_NO = [
     "date": "primera mitad del s. IV a.C.",
     "type": "etnónimo",
     "certain": false
-   }
-  ]
- },
- {
-  "id": "melitea",
-  "name": "Melitea",
-  "greek": "Μελίτεια",
-  "lon": 22.38,
-  "lat": 39.06,
-  "off": [
-   0.09,
-   0.0
-  ],
-  "ambito": "Acaya Ftiótide",
-  "note": "En una consulta con rasgos tesalios y dóricos que se examina en el capítulo del tesalio.",
-  "mentions": [
-   {
-    "ref": "2024A",
-    "form": "ἐ̣κ Μελιτείας",
-    "date": "primera mitad del s. IV a.C.",
-    "type": "topónimo",
-    "certain": true
    }
   ]
  }

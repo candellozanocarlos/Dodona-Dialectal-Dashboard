@@ -14,7 +14,9 @@ import { DvcLabel, Ref } from "../components/Inscriptions.jsx";
 import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
 import DoricoGeneral from "./DoricoGeneral.jsx";
 import DoricoNO from "./DoricoNO.jsx";
-import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Sec, Select, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Sec, SectionNav, Select, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { AdscripcionTable } from "../components/Adscripcion.jsx";
+import { ADSCRIPCION_SEV } from "../data/adscripcion.js";
 
 const TABS = [
   { id: "context", l: "Contexto histórico", i: "📜" },
@@ -94,20 +96,7 @@ export default function Dorico({ switcher }) {
   const filteredMentions = TOPONYM_MENTIONS_SEV.filter((m) =>
     mentionFilter === "todas" ? true : mentionFilter === "dudosas" ? !m.certain : m.type === mentionFilter);
 
-  const subnav = (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap",
-      padding: "10px 20px", background: fade(C.severior, 0.05), borderBottom: `1px solid ${C.border}` }}>
-      <span style={{ fontSize: 11.5, color: C.muted, fontFamily: "var(--fh)", fontStyle: "italic" }}>Variedades dóricas:</span>
-      {SUBSECCIONES_DOR.map((s) => {
-        const act = sub === s.id;
-        return (
-          <button key={s.id} onClick={() => setSub(s.id)} aria-pressed={act} style={{ background: act ? s.color : "transparent",
-            color: act ? "#fff" : C.muted, border: `1px solid ${act ? s.color : C.border}`, borderRadius: 20,
-            padding: "4px 14px", fontFamily: "var(--fh)", fontSize: 12.5, fontWeight: act ? 700 : 500 }}>{s.label}</button>
-        );
-      })}
-    </div>
-  );
+  const subnav = <SectionNav label="Dialectos dóricos" items={SUBSECCIONES_DOR} value={sub} onChange={setSub} tint={C.severior} />;
 
   if (sub === "general") return <DoricoGeneral switcher={switcher} subnav={subnav} />;
   if (sub === "noroccidental") return <DoricoNO switcher={switcher} subnav={subnav} />;
@@ -342,6 +331,10 @@ export default function Dorico({ switcher }) {
               las {FILIACION_SEV.panhelenica} restantes.
             </p>
           </Card>
+        </Sec>
+
+        <Sec title="Adscripción de las consultas" sub="Bases de la adscripción, grado de certeza y consultas excluidas del capítulo">
+          <AdscripcionTable data={ADSCRIPCION_SEV} color={C.severior} />
         </Sec>
 
         <Sec title={<><i>Doris severior</i> en contexto</>} sub="Macrogrupos dialectales del corpus de Dodona">
