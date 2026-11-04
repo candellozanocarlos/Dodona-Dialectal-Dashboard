@@ -35,6 +35,11 @@ const renderInline = (str) => {
   return <span dangerouslySetInnerHTML={{ __html: wrapGreekHtml(linkInscriptionRefs(html)) }} />;
 };
 
+// Clave interna "123A" (DVC) o "LOD 88" (Lhôte) -> nombre del corpus en cursiva y número.
+const corpus = (id) => (id.startsWith("LOD ") ? "I.Dodone Lhôte" : "I.Dodone DVC");
+const numero = (id) => (id.startsWith("LOD ") ? id.slice(4) : id);
+const Sigla = ({ id }) => <><i>{corpus(id)}</i> {numero(id)}</>;
+
 const H3 = ({ children }) => (
   <h3 style={{ fontSize: 13, fontWeight: 600, color: C.muted, letterSpacing: 1.3, textTransform: "uppercase", margin: "0 0 10px" }}>{children}</h3>
 );
@@ -79,10 +84,10 @@ export default function Autopsias({ switcher }) {
           <h1 style={{ fontSize: 36, fontWeight: 700, margin: "0 0 10px", letterSpacing: -0.5 }}>Notas de autopsia</h1>
           <p style={{ fontSize: 14.5, color: C.muted, maxWidth: 720, margin: "0 auto", lineHeight: 1.65 }}>
             Observaciones de autopsia directa sobre laminillas oraculares relevantes para los capítulos dialectales de la tesis.
-            Cada ficha confronta la lectura editorial de <em>I.Dodone DVC</em> con lo observado <em>in situ</em>.
+            Cada ficha confronta la lectura editorial de <em>I.Dodone DVC</em> (o de <em>I.Dodone Lhôte</em>) con lo observado <em>in situ</em>.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", maxWidth: 760, margin: "22px auto 0" }}>
-            <Stat label="Autopsias" value={String(AUTOPSIAS_DATA.length)} sub="laminillas examinadas" accent={C.terra} />
+            <Stat label="Autopsias" value={String(AUTOPSIAS_DATA.length)} sub="inscripciones examinadas" accent={C.terra} />
             {PRESENTES.map(([k, d]) => <Stat key={k} label={d.label} value={String(count(k))} accent={d.ink} />)}
             <Stat label="Campañas" value={String(years.length)} accent={C.blue}
               sub={years.map((y) => `${AUTOPSIAS_DATA.filter((a) => a.autopsy_year === y).length} en ${y}`).join(" · ")} />
@@ -112,7 +117,7 @@ export default function Autopsias({ switcher }) {
                   borderLeft: `3px solid ${active ? c : "transparent"}`, padding: "10px 12px", marginBottom: 2,
                   borderRadius: "0 8px 8px 0", color: active ? C.heading : C.text }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 6 }}>
-                    <span style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: active ? 700 : 500 }}><i>I.Dodone DVC</i> {a.id}</span>
+                    <span style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: active ? 700 : 500 }}><Sigla id={a.id} /></span>
                     <span style={{ fontSize: 10.5, color: ci, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{DIALECTS[a.dialect].label}</span>
                   </div>
                   <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>{a.date}{a.autopsy_year ? ` · autopsia ${a.autopsy_year}` : ""}</div>
@@ -124,7 +129,7 @@ export default function Autopsias({ switcher }) {
           <section style={{ background: "rgba(255,252,245,0.6)", border: `1px solid ${C.border}`, borderRadius: 12, padding: "28px 28px" }}>
             <div style={{ borderBottom: `1px solid ${C.border}`, paddingBottom: 18, marginBottom: 22 }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap", marginBottom: 6 }}>
-                <h2 style={{ fontSize: 28, fontWeight: 700 }}><i>I.Dodone DVC</i> {selected.id}</h2>
+                <h2 style={{ fontSize: 28, fontWeight: 700 }}><Sigla id={selected.id} /></h2>
                 <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", background: fade(col, 0.09),
                   color: ink, padding: "4px 10px", borderRadius: 4 }}>
                   {DIALECTS[selected.dialect].label}{selected.subdialect ? ` · ${selected.subdialect}` : ""}
@@ -142,7 +147,7 @@ export default function Autopsias({ switcher }) {
                         <span key={r}>
                           {has ? <button onClick={() => { setTab("todas"); setSelectedId(r); }}
                             style={{ color: C.gold, fontStyle: "italic", padding: 0, fontSize: 12.5, textDecoration: "underline dotted" }}>
-                            <i>I.Dodone DVC</i> {r}</button> : <span><i>I.Dodone DVC</i> {r}</span>}
+                            <Sigla id={r} /></button> : <span><Sigla id={r} /></span>}
                           {i < selected.related.length - 1 ? ", " : ""}
                         </span>
                       );
@@ -153,7 +158,7 @@ export default function Autopsias({ switcher }) {
             </div>
 
             <div style={{ marginBottom: 24 }}>
-              <H3>Lectura · <em>I.Dodone DVC</em></H3>
+              <H3>Lectura · <em>{corpus(selected.id)}</em></H3>
               <pre lang="grc" className="greek-inscription" style={{ fontSize: 17, lineHeight: 1.85, color: C.heading, margin: 0,
                 padding: "16px 20px", background: C.thHead, border: `1px solid ${C.border}`, borderRadius: 8, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
                 {renderGreekText(selected.text_dvc)}
@@ -188,7 +193,7 @@ export default function Autopsias({ switcher }) {
                   {photos.map((src, i) => (
                     <figure key={src} style={{ margin: 0 }}>
                       <a href={photoUrl(src)} target="_blank" rel="noreferrer">
-                        <img src={photoUrl(src)} alt={`I.Dodone DVC ${selected.id}, fotografía ${i + 1}`} loading="lazy"
+                        <img src={photoUrl(src)} alt={`${corpus(selected.id)} ${numero(selected.id)}, fotografía ${i + 1}`} loading="lazy"
                           onError={() => setBroken((b) => ({ ...b, [src]: true }))}
                           style={{ width: "100%", height: 160, objectFit: src.includes("facsimil") ? "contain" : "cover", background: "#fff", borderRadius: 8, border: `1px solid ${C.border}` }} />
                       </a>
