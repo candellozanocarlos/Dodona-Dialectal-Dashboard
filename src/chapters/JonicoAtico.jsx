@@ -9,7 +9,7 @@ import {
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
-import { Card, ChapterLayout, Sec, Stat, Stats, SubNav } from "../components/ui.jsx";
+import { Card, ChapterLayout, EventTable, Sec, SourceList, Stat, Stats, SubNav } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo } from "../components/Anexo.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
@@ -18,7 +18,7 @@ import { JAK_LAND_PATH } from "../components/maps/coastlines.js";
 const COLOR = DIALECT_COLORS.jonicoAtico;
 
 const TABS = [
-  { id: "context", l: "Atenas, Jonia y Dodona", i: "📜" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
   { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Η" },
   { id: "subgrupos", l: "Jónico, ático y koiné", i: "Ω" },
@@ -96,6 +96,195 @@ const SUBGRUPOS = {
   },
 };
 
+// ── Contexto histórico (§2 de los capítulos 9-12): síntesis, testimonios literarios y acontecimientos ──
+const BIG = { ...PROSE, fontSize: 13, color: C.text, lineHeight: 1.8 };
+const CONTEXTO = {
+  grupo: {
+    nav: "El grupo jónico-ático", navSub: "capítulo 9 · la unidad del grupo y unos consultantes lejanos", color: COLOR,
+    titulo: "El jónico, el ático y la koiné", sub: "Un grupo dialectal unitario de fronteras difusas",
+    intro: <>
+      El jónico y el ático forman un grupo dialectal unitario, que Buck (1955: 8) incluye, junto al eolio y al arcadochipriota, en la
+      división oriental del griego y que comparte un conjunto de innovaciones prehistóricas, entre ellas la anteriorización de la ᾱ
+      heredada, que se fecha hacia el 1000 a.C., en vísperas de la colonización ática de Jonia. La frontera entre ambos se difuminó con
+      el tiempo: tras las guerras médicas el ático desplazó al jónico como dialecto de mayor prestigio y, del contacto entre atenienses y
+      jonios en la liga de Delos, surgió el llamado gran ático, mientras que el eubeo comparte con el ático tantas innovaciones que
+      Colvin (2007: 35-36) observa que el grupo podría llamarse con igual razón ático-eubeo-jónico. La koiné parte de ese gran ático,
+      pero no se identifica con ningún dialecto anterior: su forma más característica es un híbrido como πράσσω, que no es ni ático
+      (πράττω) ni jonio (πρήσσω).
+    </>,
+    bloques: [
+      ["Tres variedades difíciles de separar", <>
+        Para los documentos de la época en que se fijó la koiné, Crespo (2010a: 144) señala que la escasez y la brevedad de los textos,
+        la identidad gráfica de las posibles diferencias fonéticas y la parquedad de rasgos que distinguen el ático de la koiné impiden
+        decidir si las grafías reproducen el ático usado fuera del Ática, el gran ático o la koiné. Las laminillas, todavía más breves,
+        comparten ese límite, y solo cuando conservan un rasgo exclusivo de una variedad pueden atribuirse a ella.
+      </>],
+      ["Consultantes que venían de lejos", <>
+        Ni el Epiro ni sus vecinos hablaban jónico o ático, y las regiones donde se hablaban, como Jonia, Eubea o el Ática, apenas dejan
+        huella en los topónimos de las consultas. Es raro que el consultante declare su patria, salvo excepciones como Porino, el
+        Κυμαῖος de <Ref src="DVC" id="35A" /> (segunda mitad del s. IV a.C.), y el ateniense Diógneto de <Ref src="Lhôte" id="23" />{" "}
+        (segunda mitad del s. IV a.C.). Los lugares que mencionan son sobre todo destinos de viajes por el Jónico y el Adriático, por las
+        mismas vías que seguían los dóricos de las colonias (véase «Mapa y topónimos»).
+      </>],
+    ],
+  },
+  jon: {
+    nav: "El jónico", navSub: "capítulo 10 · Eubea, Jonia y Dodona", color: "#3c9d8f",
+    titulo: "Eubea, Jonia y Dodona", sub: "Una relación antigua, pero indirecta",
+    intro: <>
+      Los eubeos fueron, según Piccinini (2017: 45-49), los primeros griegos de fuera del Epiro que entraron en contacto con el santuario,
+      y su presencia en el bajo Adriático y en el Jónico desde el s. VIII a.C. fue clave para que Dodona saliera de su ámbito regional en
+      el s. VII a.C. En la época de las laminillas, en cambio, los consultantes jonios llegaban de lugares muy distintos, desde Asia Menor
+      hasta las colonias de Occidente, sin que ninguna ciudad jonia mantuviera con el oráculo una relación pública comparable a la de
+      Atenas.
+    </>,
+    fuentes: [
+      { author: "Heródoto IV, 33, 1-2", type: "Historia, s. V a.C.",
+        desc: "Las ofrendas de los hiperbóreos pasaban de pueblo en pueblo hasta el Adriático y, hacia el sur, los dodoneos eran los primeros griegos en recibirlas; desde Dodona bajaban al golfo Malíaco y recorrían Eubea de ciudad en ciudad hasta Caristo, de donde pasaban a Tenos y a Delos. Moscati Castelnuovo (2005: 143-146) y Piccinini (2017: 46-48) ven en ese relevo un rito paneubeo, del que quedaba excluida Andros, y lo relacionan con el final de la guerra lelantina, hacia mediados del s. VII a.C." },
+      { author: "Filócoro y Hesíodo (Str. VII, 7, 10)", type: "Geografía, s. I a.C.",
+        desc: "Filócoro sostenía que la región de Dodona se había llamado Helopia, como una parte de Eubea, apoyándose en unos versos de Hesíodo. El nombre no prueba una relación directa, porque Helopia se llamaban también una ciudad de la Dolopia y un lugar del territorio de Tespias." },
+      { author: "Plutarco, Licofrón, Pausanias y Pseudo-Escimno", type: "Relatos de fundación",
+        desc: "Los eretrios habrían habitado Corcira antes de la llegada del corintio Caricrates (Plu. Quaest. Graec. 11 = Mor. 293a-b); los abantes de Elefénor, la isla de Otronos y Amantia (Lyc. Alex. 1034-1046); locrios y abantes habrían fundado Tronio (Paus. V, 22, 3-4), y unos eubeos desviados a su regreso de Troya, Órico (Ps.-Scymn. 441-443). La arqueología no confirma ningún asentamiento eubeo estable: fueron navegantes de paso y no colonos." },
+      { author: "Heródoto II, 55-57", type: "Historia, s. V a.C.",
+        desc: "Heródoto, un jonio de Halicarnaso, recogió de boca de las sacerdotisas de Dodona, Promenea, Timárete y Nicandra, la versión local del origen del oráculo, la de la paloma negra llegada desde la Tebas de Egipto, y la contrastó con el relato de los sacerdotes de Tebas." },
+    ],
+    bloques: [
+      ["El rastro de Eubea en las laminillas", <>
+        Es mucho más tenue de lo que esas tradiciones harían esperar, porque el eubeo se distingue mal del ático, con el que comparte ττ,
+        ρρ, ξένος y la monoptongación de ηι en ει (Buck 1955: §39.a, §186). El antropónimo Ὀνήριμος de <Ref src="DVC" id="2217A" />{" "}
+        (segunda mitad del s. IV a.C.), con el rotacismo de Eretria, apunta a la isla (Méndez Dosuna 2016: 131; 2018a: 279), y no cabe
+        descartar un autor eretrio en <Ref src="DVC" id="214A" /> ni en <Ref src="DVC" id="424B" />, cuyo verbo puede ser también el
+        βόλομαι de Eretria.
+      </>],
+      ["Comerciantes y navegantes jonios", <>
+        El εἰρωτᾶι de <Ref src="DVC" id="1881A" /> (principios del s. IV a.C.) y de <Ref src="Lhôte" id="100A" /> (primer cuarto del
+        s. IV a.C.) remite al jónico minorasiático. Esquilino pregunta en esta última si le conviene navegar hacia el Adriático, en los
+        años en que Dionisio el Viejo refundaba el emporio de Adria, y unos navegantes dudan entre quedarse en Ambracia o partir hacia
+        Μεσσήνη en <Ref src="Lhôte" id="106A" /> (s. IV a.C.); siete de las trece consultas jonias se refieren al trabajo o al comercio.
+      </>],
+    ],
+  },
+  ati: {
+    nav: "El ático", navSub: "capítulo 11 · Atenas y Dodona", color: "#4a4e7a",
+    titulo: "Atenas y Dodona", sub: "La relación mejor documentada de un estado de habla jónico-ática con el santuario",
+    intro: <>
+      Atenas es el estado de habla jónico-ática cuya relación con Dodona mejor puede seguirse, desde el s. V a.C. hasta época
+      helenística. Ninguna fuente sitúa a atenienses en Dodona antes de Temístocles, el interés de la ciudad crece desde mediados del
+      s. V a.C. y alcanza su punto culminante en el s. IV a.C., y las diecisiete consultas áticas del corpus se distribuyen de la misma
+      manera, con cuatro del s. V a.C., tres de la transición y diez del s. IV a.C. El número de atenienses hubo de ser mayor, porque
+      muchas consultas jónico-áticas sin precisar pudieron salir de sus manos.
+    </>,
+    eventos: [
+      { event: "Temístocles en la Molosia", date: "tras su ostracismo", agent: "Temístocles, Admeto",
+        desc: "Huyó a Corcira y de allí a la Molosia, donde se acogió como suplicante al rey Admeto (Th. I, 136); según Plutarco, el oráculo le indicó dirigirse al homónimo del dios, el Gran Rey (Plu. Them. 28, 5)." },
+      { event: "Intervención en Acarnania", date: "mediados del s. V a.C.", agent: "Atenas",
+        desc: "Las relaciones se estrechan con la presencia ateniense en Acarnania (Th. I, 108, 5; II, 68)." },
+      { event: "Ciudadanía ateniense de Taripas", date: "ca. 428-424 a.C.", agent: "Taripas, Alcetas, Aribas",
+        desc: "El rey moloso, educado en Atenas, recibió la ciudadanía, que se concedió después a su hijo Alcetas y se recordó en el 343/2 a.C. a su nieto Aribas, refugiado en Atenas tras ser expulsado por Filipo II (Piccinini 2017: 142 y n. 42; Cabanes 2020: 145, 147)." },
+      { event: "Dedicatoria de una victoria naval", date: "mediados del s. V a.C.", agent: "los atenienses",
+        desc: "Ἀθεναῖοι ἀπὸ Πελοπον[ν]εσίον ναυμαχίᾳ νικέσαντες ἀ[νέθεσαν], en alfabeto ático anterior a la reforma (Carapanos 1878: 47, n.º 20 = Syll.³ 73). La batalla se ha identificado con la de Formión frente a Patras (429 a.C.), la de Cecrifalea (459-458 a.C.) o la intervención en Síbota (433 a.C.) (Piccinini 2017: 144-145; Cabanes 2020: 209)." },
+      { event: "Respuestas leídas por Demóstenes", date: "348/7 a.C.", agent: "el pueblo ateniense",
+        desc: "Dos respuestas del Zeus de Dodona ordenan enviar teoros, sacrificar tres bueyes a Zeus Naios y uno a Dione, dedicar una mesa de bronce junto a la ofrenda del pueblo ateniense y celebrar sacrificios públicos a Dioniso (D. XXI, 51-54)." },
+      { event: "La estatua de Dione", date: "años de Olimpíade", agent: "Atenas, Olimpíade",
+        desc: "Según Hiperides, el dios ordenó embellecer la estatua de Dione, y la ciudad le hizo un rostro nuevo y envió una teoría con un sacrificio costoso, lo que provocó las quejas de Olimpíade, que reclamaba como suya la Molosia (Hyp. Eux. 24-26)." },
+      { event: "Trigo del Epiro", date: "ca. 330 a.C.", agent: "Leócrates, Cleopatra",
+        desc: "Leócrates, huido de Atenas tras Queronea, compró trigo a la reina Cleopatra en el Epiro y lo llevó a Léucade y a Corinto (Lycurg. Leocr. 26), cuando la región exportaba grano (Cabanes 2020: 141)." },
+    ],
+    fuentes: [
+      { author: "Esquilo, Sófocles y Eurípides", type: "Tragedia, s. V a.C.",
+        desc: "Dodona es un hito geográfico en las Suplicantes (A. Supp. 256-259), interviene en la historia de Ío en el Prometeo encadenado (A. Pr. 659-661, 829-835) y desempeña un papel decisivo en las Traquinias, que conocen la encina, las peleíades y los Selloi (S. Tr. 171-172, 1166-1168); la Andrómaca de Eurípides presupone un público familiarizado con la Molosia (Piccinini 2017: 142-144)." },
+      { author: "Demóstenes, Dinarco y Jenofonte", type: "Oratoria y tratados, s. IV a.C.",
+        desc: "Demóstenes alude a los oráculos de Dodona favorables a la ciudad (D. XVIII, 253; XIX, 299) y Dinarco hace leer uno que advertía contra sus dirigentes (Din. I, 78); Jenofonte aconseja consultar a Dodona y a Delfos antes de su reforma financiera con la misma fórmula de las laminillas, εἰ λῷον καὶ ἄμεινον εἴη ἂν τῇ πόλει (X. Vect. 6, 2-3)." },
+      { author: "Plutarco y Pausanias", type: "Biografía y periégesis",
+        desc: "Las sacerdotisas de Dodona habrían advertido a la ciudad que guardara las alturas de Ártemis (Plu. Phoc. 28, 4); el oráculo que habría ordenado colonizar Sicilia, entendido como una exhortación a la expedición del 415 a.C. (Paus. VIII, 11, 12), procede con toda probabilidad de una colección de oráculos (Piccinini 2017: 144 n. 57)." },
+    ],
+    bloques: [
+      ["El culto de Dodona en Atenas", <>
+        Las cuentas del Erecteo del 409/8 y del 408/7 a.C. mencionan un altar de Dione, un sitial del teatro de Dioniso está dedicado a la
+        diosa en el s. IV a.C. y en el s. I a.C. se dedicaba todavía en la Acrópolis un altar a Zeus Naios; un decreto del 263/2 a.C.
+        recuerda que el santuario de Bendis en el Pireo se fundó de acuerdo con una respuesta de Dodona (Piccinini 2017: 137-140).
+      </>],
+      ["Los atenienses de las laminillas", <>
+        Desde en torno al 400 a.C. acuden a Dodona bastantes atenienses (Lhôte 2006: XIII): Diógneto, hijo de Aristomedes
+        (<Ref src="Lhôte" id="23" />); Isodemo, que reside en Atenas (<Ref src="Lhôte" id="52" />); el esclavo Kittos (<Ref src="DVC" id="1411" />),
+        que aparece en una lista ateniense de fíalas de libertos (McArthur 2019: 274-279); Fanóstrato, que pregunta por su amistad con
+        Ifícrates (<Ref src="DVC" id="123" />), y Aristón, que piensa navegar a Siracusa (<Ref src="Lhôte" id="103A" />). Exacón
+        (<Ref src="Lhôte" id="130A" />) y Nike (<Ref src="Lhôte" id="141A" />), con alguna forma dórica, se cuentan entre las mezclas.
+      </>],
+    ],
+  },
+  koi: {
+    nav: "La koiné", navSub: "capítulo 12 · formación y llegada al Epiro", color: "#8a3a6a",
+    titulo: "La formación de la koiné y su llegada al Epiro", sub: "Del gran ático a la lengua común de los griegos",
+    intro: <>
+      La koiné es, en esencia, una variedad ampliada e internacional del ático, con una fuerte influencia jonia (Colvin 2007: 65). Sus
+      raíces se remontan a la Atenas posterior a las guerras médicas, y el paso decisivo fue su adopción por la corte macedonia. El Epiro
+      se hallaba entonces en la órbita de Macedonia, pero esa cercanía no llevó la koiné a sus documentos: es verosímil que hubiera
+      hablantes de koiné entre los consultantes desde finales del s. IV a.C., y las siete consultas de koiné del corpus son todas de esa
+      fecha o posteriores, pero el material no sostiene una koiné en Dodona en el s. V a.C. ni en la primera mitad del s. IV a.C.
+    </>,
+    eventos: [
+      { event: "Liga de Delos", date: "478/7 a.C.", agent: "Atenas y los jonios",
+        desc: "El ático desplaza al jónico como dialecto de prestigio, y el contacto en la flota, las cleruquías y el comercio da lugar al gran ático, que renuncia a sus rasgos más locales (Bubenik 2014: 278-279; Colvin 2007: 65)." },
+      { event: "El ático, lengua de la liga", date: "s. V a.C.", agent: "Atenas y sus aliados",
+        desc: "El decreto de la moneda, los pesos y las medidas se graba en ático en ciudades de otros dialectos (Crespo 2006: 94-96; 2014a: 310-311), y los tratados citan en ático el juramento de la otra parte (Crespo 2004: 109-110, 116-117)." },
+      { event: "Acuerdos en ático fuera de Atenas", date: "ca. 370-360 a.C.", agent: "Tegea, Argos",
+        desc: "El ático registra acuerdos entre estados griegos, mientras en el Peloponeso surgen koinai regionales con formas híbridas (Crespo 2009: 141-142; 2010a: 140; 2014b: 57-58, 65-66)." },
+      { event: "Lengua oficial de Macedonia", date: "Filipo II (360/59-336 a.C.)", agent: "los temenidas",
+        desc: "El ático de la administración se convierte en la lengua oficial del reino (Bubenik 2014: 279; Brixhe y Panayotou 1988: 246; Hatzopoulos 2018: 300-301); sus rasgos aparecen en las inscripciones más antiguas de Macedonia, como las de Olevéni (345 a.C.) y Filipos (330 a.C.) (Crespo 2012: 122 y n. 10)." },
+      { event: "Congreso de Corinto", date: "338/7 a.C.", agent: "Filipo II, Atenas",
+        desc: "El juramento de los atenienses como miembros de la liga, IG II² 236, con κατὰ [θ]άλασ[σαν], es el primer documento con la σσ de la koiné; Crespo (2010a: 142-145; 2010b: 132-134) atribuye su fijación a una elección consciente de la corte de Filipo II." },
+      { event: "Alejandro el Moloso y Olimpíade", date: "342-331 a.C.", agent: "Filipo II, Alejandro, Olimpíade",
+        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopia y las ciudades eleas, y el reino moloso llega al golfo de Ambracia; tras su muerte en Italia, Olimpíade gobierna la Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
+      { event: "La lengua común de los griegos", date: "desde finales del s. IV a.C.", agent: "Alejandro y sus sucesores",
+        desc: "La koiné se convierte en la lengua oficial de un territorio inmenso; el término κοινὴ διάλεκτος procede probablemente de los gramáticos alejandrinos de los ss. III-II a.C. (Colvin 2007: 63; Bubenik 2014: 279-280)." },
+    ],
+    bloques: [
+      ["Macedonia, el Epiro y el santuario", <>
+        Las fuentes emparentaban el habla de los macedonios con la de etolios y epirotas (Méndez Dosuna 2012: 133-134), y Estrabón recuerda
+        que algunos llamaban Macedonia a todo el territorio hasta Corcira (Str. VII, 7, 8). Los macedonios acudían también al santuario:
+        Méndez Dosuna (2012: 144-145) atribuye al macedonio la pregunta de Κεβάλιος en <Ref src="DVC" id="2493A" /> (principios del
+        s. IV a.C.), y Pirro dedicó en Dodona los escudos de los macedonios vencidos (Paus. I, 13, 3).
+      </>],
+      ["La koiné en los documentos y en las consultas", <>
+        Las inscripciones del Epiro de los ss. III y II a.C. están escritas sobre todo en la koiná noroccidental, y los textos en koiné son muy
+        escasos hasta época imperial (Filos 2018a: 231-232); las monedas del koinon mantienen Ἀπειρωτᾶν hasta el 167 a.C. y ningún
+        consultante epirota se expresa solo en koiné (Lhôte 2006: 14-15). En las consultas de los dorios, la koiné penetra en rasgos
+        aislados, como εἰ en el híbrido εἴ κα de <Ref src="DVC" id="2186A" /> (s. IV a.C.) o la contracción de ἐπερωτᾶι en{" "}
+        <Ref src="Lhôte" id="22A" /> (ss. III-II a.C.). La única consulta de koiné cuyo autor puede situarse es la del ateniense Isodemo
+        (<Ref src="Lhôte" id="52" />).
+      </>],
+    ],
+  },
+};
+
+// Contexto de una variedad: síntesis, acontecimientos, testimonios literarios y otros bloques, como en los demás capítulos.
+const ContextoHistorico = ({ c }) => <>
+  <Sec title={c.titulo} sub={c.sub}>
+    <Card style={{ padding: "18px 22px" }}><p style={BIG}>{c.intro}</p></Card>
+  </Sec>
+  {c.eventos && (
+    <Sec title="Contexto político" sub="Acontecimientos que marcan la relación con el santuario y la difusión de la variedad">
+      <EventTable rows={c.eventos} color={c.color} />
+    </Sec>
+  )}
+  {c.fuentes && (
+    <Sec title="Testimonios literarios">
+      <SourceList sources={c.fuentes} color={c.color} />
+    </Sec>
+  )}
+  <Sec title="En las laminillas y en el santuario">
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: 12 }}>
+      {c.bloques.map(([t, d]) => (
+        <Card key={t} accent={c.color}>
+          <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: 700, color: C.heading, marginBottom: 6 }}>{t}</div>
+          <p style={PROSE}>{d}</p>
+        </Card>
+      ))}
+    </div>
+  </Sec>
+</>;
+
 const th = { padding: "7px 10px", textAlign: "left", color: COLOR, fontFamily: "var(--fh)", fontSize: 11.5, borderBottom: `2px solid ${C.border}` };
 const td = { padding: "6px 10px", fontSize: 12, borderBottom: "1px solid rgba(120,90,40,0.08)", verticalAlign: "top" };
 
@@ -103,6 +292,7 @@ export default function JonicoAtico({ switcher }) {
   const [tab, setTab] = useState("context");
   const [sub, setSub] = useState("cifras");
   const [grupo, setGrupo] = useState("jon");
+  const [ctx, setCtx] = useState("grupo");   // subpestaña del contexto histórico
   const [selPlace, setSelPlace] = useState(null);
   const place = TOPONYMS_JAK.find((t) => t.id === selPlace);
   const g = SUBGRUPOS[grupo];
@@ -120,21 +310,9 @@ export default function JonicoAtico({ switcher }) {
       tabs={TABS} tab={tab} onTab={setTab}>
 
       {tab === "context" && <>
-        <Sec title="Atenas, Jonia y Dodona" sub="Consultantes que procedían de lejos del santuario">
-          <Card style={{ padding: "18px 22px" }}>
-            <p style={{ ...PROSE, fontSize: 13, color: C.text, lineHeight: 1.8 }}>
-              Ni el Epiro ni sus vecinos hablaban jónico o ático, de modo que la presencia de estas consultas se explica por las rutas,
-              la política y el prestigio del oráculo. El interés ateniense creció desde mediados del s. V a.C., y las laminillas permiten
-              identificar a algunos atenienses: Diógneto, hijo de Aristomedes (<Ref src="Lhôte" id="23" />), Isodemo, que reside en Atenas
-              (<Ref src="Lhôte" id="52" />), el esclavo Kittos (<Ref src="DVC" id="1411" />) o el Fanóstrato que pregunta por Ifícrates
-              (<Ref src="DVC" id="123" />). Los jonios se reconocen por su lengua o por el objeto de su pregunta, como el comerciante
-              Esquilino, que piensa navegar al Adriático (<Ref src="Lhôte" id="100A" />), o los navegantes que dudan entre quedarse en
-              Ambracia o partir hacia Mesene (<Ref src="Lhôte" id="106A" />). Porino, el Κυμαῖος de <Ref src="DVC" id="35A" />, pregunta
-              si le conviene servir a un sátrapa, y su εἰρωτᾶ apunta, como propone Lhôte (2017b: 43), a un jonio establecido en la Cime
-              eolia.
-            </p>
-          </Card>
-        </Sec>
+        <SubNav color={CONTEXTO[ctx].color} value={ctx} onChange={setCtx}
+          items={Object.entries(CONTEXTO).map(([id, x]) => [id, x.nav, x.navSub])} />
+        <ContextoHistorico c={CONTEXTO[ctx]} />
       </>}
 
       {tab === "map" && <>

@@ -159,7 +159,9 @@ SALIDA.write_text("\n".join(partes), encoding="utf-8")
 print(f"jonicoAtico.js: {TOTAL} ({SEG} seguras), subgrupos {dict(subs)}, s. IV {SIGLO_IV}")
 
 # ── inscriptions.json: etiquetas al día con el Excel y citas nuevas de las tablas de la Parte IV ──
-citadas = {"DVC 2217A", "Lhôte 65B", "DVC 2899A", "DVC 3742B", "DVC 3156B"}
+citadas = {"DVC 2217A", "Lhôte 65B", "DVC 2899A", "DVC 3742B", "DVC 3156B", "DVC 214A", "DVC 424B", "DVC 1881A", "Lhôte 100A",
+            "Lhôte 106A", "Lhôte 103A", "Lhôte 130A", "Lhôte 141A", "DVC 2493A", "DVC 2186A", "Lhôte 22A", "DVC 35A", "Lhôte 23", "Lhôte 52",
+            "DVC 1411", "DVC 123"}
 for t in ("jak", "jon", "ati", "koi"):
     citadas.update(claves_indice(filas_js(t)))
 actualizar_indice(df, citadas)
