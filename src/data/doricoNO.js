@@ -341,13 +341,12 @@ export const RASGOS_NO = [
   "name": "ἐν con acusativo",
   "short": "ἐν con acusativo",
   "cat": "Morfología",
-  "desc": "En el griego noroccidental, ἐν se construye también con acusativo para expresar la dirección, frente al εἰς o ἐς de la mayoría de los dialectos, un arcaísmo sintáctico que comparten el tesalio, el beocio, el eleo y el arcadochipriota. En el Epiro y en Acarnania, sin embargo, predominaba ya en el s. IV a.C. εἰς o ἐς con acusativo, según muestran las inscripciones que reúne Méndez Dosuna (1985: 234-235), quien sugiere que epirotas y acarnanios evitaron esta construcción, como el dativo plural en -οις, para distanciarse de los etolios. En las inscripciones del capítulo, la construcción se documenta en ἐν τὸ<ν> πρ̣[ότ]ερον χρό[νον] de I.Dodone DVC 1245A (segunda mitad del s. V a.C.), en alfabeto corintio, con valor temporal, en ἐν Παδή̣αν ἕρπων de 3032 (ss. V-IV a.C.), en ἐ̣ν ἄλλαν̣ de 981A (finales del s. V a.C.) y en ἐν τὰν αὐτῶ̣ν en I.Dodone Lhôte 13 (primera mitad del s. IV a.C.), a las que se suma, si se acepta la corrección de Méndez Dosuna (2018b: 46-47), el ἐν Ἐλέα<ν> de I.Dodone Lhôte 113 (ss. IV-III a.C.). Se cuenta también el καὶ αὐτίκα καὶ ἐν τ̣[ὸν ἔπειτα χρόνον] de I.Dodone DVC 3116A (primera mitad del s. IV a.C.), con valor temporal, porque, aunque el acusativo está restituido, la secuencia reproduce la fórmula καὶ αὐτίκα καὶ ἰς τὸν ἔπειτα χρόνον de 337B (primera mitad del s. IV a.C.) o καὶ αὐτίκα καὶ εἰς τὸν ἔπειτα χρόνον de 3294A (s. IV a.C.), en la que el corpus no ofrece nunca el dativo, de modo que la τ que sigue a ἐν solo puede ser la del artículo; Filos (2018a: 233-234 n. 50) la cuenta ya entre los ejemplos de ἐν con acusativo de valor temporal. Frente a ellas, εἰς con acusativo aparece en εἰς Φάρον de I.Dodone DVC 3030A (segunda mitad del s. V a.C.), en εἰς Κόρινθον de 3220A (mediados del s. III a.C.) y en εἰς Ἐλίναν y εἰς Ἀνακτόριον de I.Dodone Lhôte 46Bb (segunda mitad del s. IV a.C.) y en εἰς Κ[ο]ρ[- - -] de la propia I.Dodone DVC 3116A, además de en las dieciséis inscripciones con ἰς (§4.1.4). La convivencia de las dos construcciones concuerda, en líneas generales, con esa distribución: εἰς aparece en las consultas que se refieren al Epiro y a Acarnania, como I.Dodone DVC 3220A, que Méndez Dosuna (2016: 134-136) atribuye por esa razón a esa área, y ἐν, en las demás. Dos testimonios matizan, con todo, el reparto: I.Dodone Lhôte 13 (primera mitad del s. IV a.C.), la consulta pública de Onquesmo, actual Sarandë en Epiro, emplea ἐν con acusativo; y la de Sátiro, si este procedía de la región de Accio, sería, según el mismo autor (2007e: 185), el primer indicio de esa construcción en Acarnania. En resumen, el corpus confirma que ἐν con acusativo seguía vivo en el noroccidental de los ss. V y IV a.C., pero no permite trazar su distribución regional.",
+  "desc": "En el griego noroccidental, ἐν se construye también con acusativo para expresar la dirección, frente al εἰς o ἐς de la mayoría de los dialectos, un arcaísmo sintáctico que comparten el tesalio, el beocio, el eleo y el arcadochipriota. En el Epiro y en Acarnania, sin embargo, predominaba ya en el s. IV a.C. εἰς o ἐς con acusativo, según muestran las inscripciones que reúne Méndez Dosuna (1985: 234-235), quien sugiere que epirotas y acarnanios evitaron esta construcción, como el dativo plural en -οις, para distanciarse de los etolios. En las inscripciones del capítulo, la construcción se documenta en ἐν τὸ<ν> πρ̣[ότ]ερον χρό[νον] de I.Dodone DVC 1245A (segunda mitad del s. V a.C.), en alfabeto corintio, con valor temporal, en ἐν Παδή̣αν ἕρπων de 3032 (ss. V-IV a.C.), en ἐ̣ν ἄλλαν̣ de 981A (finales del s. V a.C.) y en ἐν τὰν αὐτῶ̣ν en I.Dodone Lhôte 13 (primera mitad del s. IV a.C.). No se cuenta, en cambio, el ἐν Ἐλέα<ν> de I.Dodone Lhôte 113 (ss. IV-III a.C.) que propone Méndez Dosuna (2018b: 46-47), porque la autopsia de 2025 muestra con claridad la iota final de Ἐλέαι, grabada en el hueco de la laminilla, que ya estaba partida. Se cuenta también el καὶ αὐτίκα καὶ ἐν τ̣[ὸν ἔπειτα χρόνον] de I.Dodone DVC 3116A (primera mitad del s. IV a.C.), con valor temporal, porque, aunque el acusativo está restituido, la secuencia reproduce la fórmula καὶ αὐτίκα καὶ ἰς τὸν ἔπειτα χρόνον de 337B (primera mitad del s. IV a.C.) o καὶ αὐτίκα καὶ εἰς τὸν ἔπειτα χρόνον de 3294A (s. IV a.C.), en la que el corpus no ofrece nunca el dativo, de modo que la τ que sigue a ἐν solo puede ser la del artículo; Filos (2018a: 233-234 n. 50) la cuenta ya entre los ejemplos de ἐν con acusativo de valor temporal. Frente a ellas, εἰς con acusativo aparece en εἰς Φάρον de I.Dodone DVC 3030A (segunda mitad del s. V a.C.), en εἰς Κόρινθον de 3220A (mediados del s. III a.C.) y en εἰς Ἐλίναν y εἰς Ἀνακτόριον de I.Dodone Lhôte 46Bb (segunda mitad del s. IV a.C.) y en εἰς Κ[ο]ρ[- - -] de la propia I.Dodone DVC 3116A, además de en las dieciséis inscripciones con ἰς (§4.1.4). La convivencia de las dos construcciones concuerda, en líneas generales, con esa distribución: εἰς aparece en las consultas que se refieren al Epiro y a Acarnania, como I.Dodone DVC 3220A, que Méndez Dosuna (2016: 134-136) atribuye por esa razón a esa área, y ἐν, en las demás. Dos testimonios matizan, con todo, el reparto: I.Dodone Lhôte 13 (primera mitad del s. IV a.C.), la consulta pública de Onquesmo, actual Sarandë en Epiro, emplea ἐν con acusativo; y la de Sátiro, si este procedía de la región de Accio, sería, según el mismo autor (2007e: 185), el primer indicio de esa construcción en Acarnania. En resumen, el corpus confirma que ἐν con acusativo seguía vivo en el noroccidental de los ss. V y IV a.C., pero no permite trazar su distribución regional.",
   "dvcs": [
    "1245A",
    "3032",
    "981A",
    "LOD 13",
-   "LOD 113",
    "3116A",
    "337B",
    "3294A",
@@ -818,12 +817,12 @@ export const TABLA_RASGOS_NO = [
  },
  {
   "sec": "§5.1.1",
-  "rasgo": "ἀνά con dativo",
-  "forma": "ἂν Λάδωνι",
-  "resto": "ἐπί con dativo",
+  "rasgo": "ἀνά con dativo o acusativo",
+  "forma": "ἂν Λάδωνι, ἂν τὸν κέλητα",
+  "resto": "ἐπί con dativo o acusativo",
   "otros": "—",
   "seg": 1,
-  "dud": 0
+  "dud": 1
  },
  {
   "sec": "§5.1.4",
@@ -832,7 +831,7 @@ export const TABLA_RASGOS_NO = [
   "resto": "εἰς, ἐς",
   "otros": "tesalio, beocio, arcadochipriota",
   "seg": 2,
-  "dud": 4
+  "dud": 3
  },
  {
   "sec": "§5.1.5",
@@ -982,7 +981,7 @@ export const DIAGNOSTICO_NO = [
  },
  {
   "sec": "§5.1.1",
-  "rasgo": "ἀνά con dativo",
+  "rasgo": "ἀνά con dativo o acusativo",
   "vals": [
    2,
    2,

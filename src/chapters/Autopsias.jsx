@@ -26,6 +26,25 @@ const photoUrl = (p) => import.meta.env.BASE_URL + p;
 const SIN_FOTOS = import.meta.env.VITE_SIN_FOTOS === "true";
 const years = [...new Set(AUTOPSIAS_DATA.map((a) => a.autopsy_year).filter(Boolean))].sort();
 
+// Una ficha por laminilla (siglum M o, si falta, AMI), con sus inscripciones en orden y las fotos de todas ellas.
+const num = (id) => (id.startsWith("LOD ") ? 10000 : 0) + parseInt(id.replace(/\D/g, ""), 10);
+const mnum = (s) => parseInt((s || "").replace(/^\D*/, ""), 10) || 99999;
+const clave = (a) => a.siglum || (a.ami && a.ami !== "—" ? a.ami : a.id);
+const LAMINILLAS = Object.values(AUTOPSIAS_DATA.reduce((acc, a) => {
+  (acc[clave(a)] ||= { key: clave(a), items: [] }).items.push(a);
+  return acc;
+}, {})).map((l) => {
+  const items = [...l.items].sort((x, y) => num(x.id) - num(y.id));
+  return {
+    ...l, items,
+    siglum: items.map((a) => a.siglum).find(Boolean) || null,
+    ami: items.map((a) => a.ami).find((x) => x && x !== "—") || null,
+    year: items.map((a) => a.autopsy_year).find(Boolean) || null,
+    dialects: [...new Set(items.map((a) => a.dialect))],
+    photos: [...new Set(items.flatMap((a) => a.photos || []))],
+  };
+}).sort((a, b) => (a.year || 9999) - (b.year || 9999) || mnum(a.siglum) - mnum(b.siglum));
+
 // Texto con *cursivas* y citas enlazadas.
 const renderInline = (str) => {
   const html = normGreekMarks(str)
@@ -44,25 +63,33 @@ const H3 = ({ children }) => (
   <h3 style={{ fontSize: 13, fontWeight: 600, color: C.muted, letterSpacing: 1.3, textTransform: "uppercase", margin: "0 0 10px" }}>{children}</h3>
 );
 
+// Rótulo de la laminilla: "M51 · ΑΜΙ 12198"; sin inventario, las sigla de sus inscripciones.
+const Titulo = ({ l }) => (l.siglum || l.ami
+  ? <>{l.siglum}{l.siglum && l.ami ? " · " : ""}{l.ami}</>
+  : <>{l.items.map((a, i) => <span key={a.id}>{i ? ", " : ""}<Sigla id={a.id} /></span>)}</>);
+const lista = (l) => {
+  const lod = l.items.filter((a) => a.id.startsWith("LOD ")), dvc = l.items.filter((a) => !a.id.startsWith("LOD "));
+  return [dvc.length ? <span key="d"><i>I.Dodone DVC</i> {dvc.map((a) => a.id).join(", ")}</span> : null,
+    lod.length ? <span key="l">{dvc.length ? "; " : ""}<i>I.Dodone Lhôte</i> {lod.map((a) => a.id.slice(4)).join(", ")}</span> : null];
+};
+
 export default function Autopsias({ switcher }) {
   const [tab, setTab] = useState("todas");
-  const [selectedId, setSelectedId] = useState(AUTOPSIAS_DATA[0].id);
-  const [uploaded, setUploaded] = useState({});   // fotos añadidas en esta sesión: { id: [{ name, src }] }
+  const [selectedKey, setSelectedKey] = useState(LAMINILLAS[0].key);
+  const [uploaded, setUploaded] = useState({});   // fotos añadidas en esta sesión: { laminilla: [{ name, src }] }
   const [broken, setBroken] = useState({});       // rutas de fotos que no se han podido cargar
 
-  const filtered = tab === "todas" ? AUTOPSIAS_DATA : AUTOPSIAS_DATA.filter((a) => a.dialect === tab);
-  const selected = filtered.find((a) => a.id === selectedId) || filtered[0];
-  const col = DIALECTS[selected.dialect].color;
-  const ink = DIALECTS[selected.dialect].ink;
+  const filtered = tab === "todas" ? LAMINILLAS : LAMINILLAS.filter((l) => l.items.some((a) => a.dialect === tab));
+  const selected = filtered.find((l) => l.key === selectedKey) || filtered[0];
   const count = (d) => AUTOPSIAS_DATA.filter((a) => a.dialect === d).length;
-  const photos = (selected.photos || []).filter((p) => !broken[p] && (!SIN_FOTOS || p.includes("facsimil")));
-  const session = uploaded[selected.id] || [];
+  const photos = selected.photos.filter((p) => !broken[p] && (!SIN_FOTOS || p.includes("facsimil")));
+  const session = uploaded[selected.key] || [];
 
   const handleUpload = (e) => {
     Array.from(e.target.files || []).forEach((file) => {
       const reader = new FileReader();
       reader.onload = (ev) => setUploaded((prev) => ({
-        ...prev, [selected.id]: [...(prev[selected.id] || []), { name: file.name, src: ev.target.result }],
+        ...prev, [selected.key]: [...(prev[selected.key] || []), { name: file.name, src: ev.target.result }],
       }));
       reader.readAsDataURL(file);
     });
@@ -87,17 +114,17 @@ export default function Autopsias({ switcher }) {
             Cada ficha confronta la lectura editorial de <em>I.Dodone DVC</em> (o de <em>I.Dodone Lhôte</em>) con lo observado <em>in situ</em>.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", maxWidth: 760, margin: "22px auto 0" }}>
-            <Stat label="Autopsias" value={String(AUTOPSIAS_DATA.length)} sub="inscripciones examinadas" accent={C.terra} />
+            <Stat label="Laminillas" value={String(LAMINILLAS.length)} sub={`${AUTOPSIAS_DATA.length} inscripciones con observaciones`} accent={C.terra} />
             {PRESENTES.map(([k, d]) => <Stat key={k} label={d.label} value={String(count(k))} accent={d.ink} />)}
             <Stat label="Campañas" value={String(years.length)} accent={C.blue}
-              sub={years.map((y) => `${AUTOPSIAS_DATA.filter((a) => a.autopsy_year === y).length} en ${y}`).join(" · ")} />
+              sub={years.map((y) => `${LAMINILLAS.filter((l) => l.year === y).length} laminillas en ${y}`).join(" · ")} />
           </div>
         </div>
       </header>
 
       <nav style={{ display: "flex", gap: 4, justifyContent: "center", flexWrap: "wrap", padding: "18px 0 0",
         borderBottom: `1px solid ${C.border}`, background: "rgba(255,252,245,0.5)" }}>
-        <Tag color={C.terra} active={tab === "todas"} onClick={() => setTab("todas")}>Todas ({AUTOPSIAS_DATA.length})</Tag>
+        <Tag color={C.terra} active={tab === "todas"} onClick={() => setTab("todas")}>Todas ({LAMINILLAS.length} laminillas)</Tag>
         {PRESENTES.map(([k, d]) => (
           <Tag key={k} color={C.terra} active={tab === k} onClick={() => setTab(k)}>{d.label} ({count(k)})</Tag>
         ))}
@@ -107,20 +134,25 @@ export default function Autopsias({ switcher }) {
         <div className="autopsy-grid">
           <aside style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14, maxHeight: "75vh", overflowY: "auto" }}>
             <div style={{ fontFamily: "var(--fh)", fontSize: 12, color: C.muted, letterSpacing: 1.2, textTransform: "uppercase",
-              padding: "4px 8px 10px", borderBottom: `1px solid ${C.border}`, marginBottom: 6 }}>Inscripciones · {filtered.length}</div>
-            {filtered.map((a) => {
-              const active = a.id === selected.id;
-              const c = DIALECTS[a.dialect].color, ci = DIALECTS[a.dialect].ink;
+              padding: "4px 8px 10px", borderBottom: `1px solid ${C.border}`, marginBottom: 6 }}>Laminillas · {filtered.length}</div>
+            {filtered.map((l) => {
+              const active = l.key === selected.key;
+              const c = DIALECTS[l.dialects[0]].color;
               return (
-                <button key={a.id} onClick={() => setSelectedId(a.id)} aria-current={active ? "true" : undefined} style={{
+                <button key={l.key} onClick={() => setSelectedKey(l.key)} aria-current={active ? "true" : undefined} style={{
                   display: "block", width: "100%", textAlign: "left", background: active ? fade(c, 0.08) : "transparent",
                   borderLeft: `3px solid ${active ? c : "transparent"}`, padding: "10px 12px", marginBottom: 2,
                   borderRadius: "0 8px 8px 0", color: active ? C.heading : C.text }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 6 }}>
-                    <span style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: active ? 700 : 500 }}><Sigla id={a.id} /></span>
-                    <span style={{ fontSize: 10.5, color: ci, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{DIALECTS[a.dialect].label}</span>
+                    <span style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: active ? 700 : 500 }}><Titulo l={l} /></span>
+                    <span style={{ fontSize: 11, color: C.muted, whiteSpace: "nowrap" }}>{l.year ? `autopsia ${l.year}` : ""}</span>
                   </div>
-                  <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>{a.date}{a.autopsy_year ? ` · autopsia ${a.autopsy_year}` : ""}</div>
+                  <div style={{ fontSize: 12, color: C.text, marginTop: 2 }}>{lista(l)}</div>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 3 }}>
+                    {l.dialects.map((d) => (
+                      <span key={d} style={{ fontSize: 10, color: DIALECTS[d].ink, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{DIALECTS[d].label}</span>
+                    ))}
+                  </div>
                 </button>
               );
             })}
@@ -128,50 +160,38 @@ export default function Autopsias({ switcher }) {
 
           <section style={{ background: "rgba(255,252,245,0.6)", border: `1px solid ${C.border}`, borderRadius: 12, padding: "28px 28px" }}>
             <div style={{ borderBottom: `1px solid ${C.border}`, paddingBottom: 18, marginBottom: 22 }}>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap", marginBottom: 6 }}>
-                <h2 style={{ fontSize: 28, fontWeight: 700 }}><Sigla id={selected.id} /></h2>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", background: fade(col, 0.09),
-                  color: ink, padding: "4px 10px", borderRadius: 4 }}>
-                  {DIALECTS[selected.dialect].label}{selected.subdialect ? ` · ${selected.subdialect}` : ""}
-                </span>
-              </div>
+              <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 6 }}><Titulo l={selected} /></h2>
               <div style={{ display: "flex", gap: 18, flexWrap: "wrap", fontSize: 12.5, color: C.muted }}>
-                <span><b style={{ color: C.text }}>Datación:</b> {selected.date}</span>
-                <span><b style={{ color: C.text }}>Inv.:</b> {selected.ami || "—"}{selected.siglum ? ` / ${selected.siglum}` : ""}</span>
-                {selected.autopsy_year && <span><b style={{ color: C.text }}>Autopsia:</b> {selected.autopsy_year}</span>}
-                {selected.related?.length > 0 && (
-                  <span><b style={{ color: C.text }}>Cf.: </b>
-                    {selected.related.map((r, i) => {
-                      const has = AUTOPSIAS_DATA.some((a) => a.id === r);
-                      return (
-                        <span key={r}>
-                          {has ? <button onClick={() => { setTab("todas"); setSelectedId(r); }}
-                            style={{ color: C.gold, fontStyle: "italic", padding: 0, fontSize: 12.5, textDecoration: "underline dotted" }}>
-                            <Sigla id={r} /></button> : <span><Sigla id={r} /></span>}
-                          {i < selected.related.length - 1 ? ", " : ""}
-                        </span>
-                      );
-                    })}
-                  </span>
-                )}
+                <span><b style={{ color: C.text }}>Inscripciones:</b> {lista(selected)}</span>
+                {selected.year && <span><b style={{ color: C.text }}>Autopsia:</b> {selected.year}</span>}
               </div>
             </div>
 
-            <div style={{ marginBottom: 24 }}>
-              <H3>Lectura · <em>{corpus(selected.id)}</em></H3>
-              <pre lang="grc" className="greek-inscription" style={{ fontSize: 17, lineHeight: 1.85, color: C.heading, margin: 0,
-                padding: "16px 20px", background: C.thHead, border: `1px solid ${C.border}`, borderRadius: 8, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
-                {renderGreekText(selected.text_dvc)}
-              </pre>
-            </div>
-
-            <div style={{ marginBottom: 24 }}>
-              <H3>Observaciones de autopsia</H3>
-              <div style={{ fontSize: 14, lineHeight: 1.8, color: C.text, padding: "16px 20px", textAlign: "justify",
-                background: "rgba(255,252,245,0.9)", borderLeft: `3px solid ${col}`, borderRadius: "0 8px 8px 0" }}>
-                {renderInline(selected.carlos)}
-              </div>
-            </div>
+            {selected.items.map((a) => {
+              const d = DIALECTS[a.dialect];
+              return (
+                <article key={a.id} style={{ marginBottom: 26, paddingBottom: 20, borderBottom: `1px dashed ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap", marginBottom: 10 }}>
+                    <h3 style={{ fontSize: 20, fontWeight: 700, margin: 0 }}><Sigla id={a.id} /></h3>
+                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", background: fade(d.color, 0.09),
+                      color: d.ink, padding: "3px 9px", borderRadius: 4 }}>
+                      {d.label}{a.subdialect ? ` · ${a.subdialect}` : ""}
+                    </span>
+                    <span style={{ fontSize: 12.5, color: C.muted }}>{a.date}</span>
+                  </div>
+                  <H3>Lectura · <em>{corpus(a.id)}</em></H3>
+                  <pre lang="grc" className="greek-inscription" style={{ fontSize: 17, lineHeight: 1.85, color: C.heading, margin: "0 0 16px",
+                    padding: "14px 20px", background: C.thHead, border: `1px solid ${C.border}`, borderRadius: 8, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                    {renderGreekText(a.text_dvc)}
+                  </pre>
+                  <H3>Observaciones de autopsia</H3>
+                  <div style={{ fontSize: 14, lineHeight: 1.8, color: C.text, padding: "14px 20px", textAlign: "justify",
+                    background: "rgba(255,252,245,0.9)", borderLeft: `3px solid ${d.color}`, borderRadius: "0 8px 8px 0" }}>
+                    {renderInline(a.carlos)}
+                  </div>
+                </article>
+              );
+            })}
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10, gap: 8 }}>
@@ -186,14 +206,14 @@ export default function Autopsias({ switcher }) {
               {photos.length === 0 && session.length === 0 ? (
                 <div style={{ border: `1.5px dashed ${C.border}`, borderRadius: 10, padding: "36px 20px", textAlign: "center",
                   color: C.dim, fontSize: 13, fontStyle: "italic" }}>
-                  No hay fotografías disponibles para esta inscripción.
+                  No hay fotografías disponibles para esta laminilla.
                 </div>
               ) : (
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
                   {photos.map((src, i) => (
                     <figure key={src} style={{ margin: 0 }}>
                       <a href={photoUrl(src)} target="_blank" rel="noreferrer">
-                        <img src={photoUrl(src)} alt={`${corpus(selected.id)} ${numero(selected.id)}, fotografía ${i + 1}`} loading="lazy"
+                        <img src={photoUrl(src)} alt={`Laminilla ${selected.siglum || selected.key}, fotografía ${i + 1}`} loading="lazy"
                           onError={() => setBroken((b) => ({ ...b, [src]: true }))}
                           style={{ width: "100%", height: 160, objectFit: src.includes("facsimil") ? "contain" : "cover", background: "#fff", borderRadius: 8, border: `1px solid ${C.border}` }} />
                       </a>
@@ -204,7 +224,7 @@ export default function Autopsias({ switcher }) {
                     <figure key={`s-${i}`} style={{ margin: 0, position: "relative" }}>
                       <img src={p.src} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", borderRadius: 8,
                         border: `1.5px dashed ${fade(C.terra, 0.25)}` }} />
-                      <button aria-label="Quitar foto" onClick={() => setUploaded((prev) => ({ ...prev, [selected.id]: session.filter((_, j) => j !== i) }))}
+                      <button aria-label="Quitar foto" onClick={() => setUploaded((prev) => ({ ...prev, [selected.key]: session.filter((_, j) => j !== i) }))}
                         style={{ position: "absolute", top: 6, right: 6, width: 22, height: 22, borderRadius: "50%", background: "rgba(0,0,0,0.55)",
                           color: "#fff", fontSize: 13, lineHeight: 1 }}>×</button>
                       <figcaption style={{ fontSize: 10.5, color: C.dim, marginTop: 4, textAlign: "center", fontStyle: "italic" }}>
@@ -220,7 +240,7 @@ export default function Autopsias({ switcher }) {
 
         <p style={{ fontSize: 11.5, color: C.dim, textAlign: "center", marginTop: 36, fontStyle: "italic", maxWidth: 720, marginInline: "auto", lineHeight: 1.7 }}>
           Las observaciones recogen lo constatado durante las autopsias directas a las laminillas en la Eforía de Antigüedades de
-          Ioánina. ΑΜΙ remite al número de inventario del Museo Arqueológico de Ioánina; M, al siglum de Méndez Dosuna.
+          Ioánina, agrupadas por laminilla. M y ΑΜΙ remiten a los números de inventario del Museo Arqueológico de Ioánina.
         </p>
       </main>
     </div>
