@@ -74,7 +74,7 @@ CRONO = [{"period": ROTULO_SIGLO[k], "n": int(serie[k]), "siglo": k} for k in RO
 partes = [
     "// Generado por scripts/datos_introduccion.py: no editar a mano.",
     "// Introducción de la tesis (caps. 1-3): las cifras de las figuras int_1 a int_4 (graficos_introduccion.py), con los datos de",
-    "// DVC_v5_FINAL.xlsx (hoja Datos; Resúmenes, fila 186, 3 nov. 2026).",
+    "// DVC_v5_FINAL.xlsx (hoja Datos; Resúmenes, fila 187, 4 nov. 2026).",
     "",
     f"export const TOTAL_INSCRIPCIONES = {I.N['total']};",
     f"export const TOTAL_EPICORICAS = {I.N['epicoricos']};",
