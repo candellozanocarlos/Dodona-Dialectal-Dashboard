@@ -258,7 +258,7 @@ GRUPOS_COR.insert(3, ("seguras", "Rasgo común y alfabeto corintio: dórica segu
                       key=lambda k: (k.startswith("Lhôte"), int(re.search(r"\d+", k).group()))),
                       "Rasgos comunes al dórico y a otros dialectos (κα, ᾱ, digamma o ζώω), que el alfabeto corintio, ajeno al eolio, "
                       "basta para atribuir al dórico. En 3641A, la alfa de κα es insegura, pero la posición de la partícula, entre πότερα y el optativo, la asegura."))
-assert len(GRUPOS_COR[3][2]) == 35, len(GRUPOS_COR[3][2])   # 34 hasta el 27/10/2026 (fila 171: 3641A segura)
+assert len(GRUPOS_COR[3][2]) == 34, len(GRUPOS_COR[3][2])   # 34 desde el 4/11/2026 (fila 188: 413B no es corintia); 35 desde el 27/10/2026 (fila 171: 3641A segura)
 DIAG_COLS = list(F.COLS)
 DIAGNOSTICO = [{"sec": "§" + s, "rasgo": n, "vals": v, "otros": o, "cat": "Fonología"} for s, n, v, o in F.MATRIZ] + \
               [{"sec": "§" + s, "rasgo": n, "vals": v, "otros": o, "cat": "Morfología"} for s, n, v, o in F.MATRIZ_MORF]

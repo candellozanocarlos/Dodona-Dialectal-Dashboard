@@ -195,7 +195,7 @@ def main():
         "// Generado por scripts/datos_adscripcion.py: no editar a mano.",
         "// Tablas de adscripción de cada capítulo (§ «… en números»): bases de la adscripción, certeza y consultas excluidas.",
         "// Fuente: PYTHON/SEABORN-ALTAIR/graficos_adscripcion.py (CAPITULOS), las mismas tablas de la tesis, con los datos de",
-        "// DVC_v5_FINAL.xlsx (hoja Datos, DIALECTO_SUB y DIALECTO_CERTEZA; Resúmenes, fila 186, 3 nov. 2026) y la columna CARLOS.",
+        "// DVC_v5_FINAL.xlsx (hoja Datos, DIALECTO_SUB y DIALECTO_CERTEZA; Resúmenes, fila 187, 4 nov. 2026) y la columna CARLOS.",
         "// tipo: \"seg\" (segura), \"dud\" (dudosa), \"nom\" (solo nombre o alfabeto), \"exc\" (excluida del capítulo).",
         "// dvcs: claves del dashboard (\"353B\", \"LOD 109\"); nota: texto en lugar de la lista.",
         "",
