@@ -11,7 +11,10 @@ npm-debug.log*
 
 # Fotografías de autopsia (Eforía de Antigüedades de Ioánina): se conservan en
 # local y no se publican sin autorización. La app muestra un aviso si faltan.
-public/assets/autopsias/
+public/assets/autopsias/**
+!public/assets/autopsias/**/
+# Los facsímiles, de elaboración propia, sí se publican.
+!public/assets/autopsias/**/facsimil-*
 
 # Editores y herramientas locales
 .vscode/*

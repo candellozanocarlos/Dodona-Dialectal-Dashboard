@@ -62,7 +62,7 @@ def _claves(insc):
 
 def _nota(t):
     t = t.replace("\n", " ").replace("¶", "; ")
-    t = re.sub(r"véase §\d+-§\d+", "véanse los rasgos dialectales", t)
+    t = re.sub(r"véase §\d+-§\d+|véase la tabla de rasgos", "véanse los rasgos dialectales", t)
     t = t.replace("el capítulo siguiente", "el capítulo del noroccidental")
     t = re.sub(r"\s*\(§[\d.]+\)", "", t)
     return re.sub(r"\bDVC (?=\d)", "I.Dodone DVC ", t)

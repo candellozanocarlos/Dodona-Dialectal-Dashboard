@@ -2,197 +2,42 @@
 
 Fuentes:
   · DVC_v5_FINAL.xlsx, hoja Datos (inscripciones del capítulo: DIALECTO_SUB “Dórico NO”, 75).
-  · DORICO_NO_1_Redaccion_v53.docx: los rasgos son los apartados de §4-§7 con su texto y las inscripciones que citan.
+  · PARTE II. LOS DIALECTOS DÓRICOS REVISADO <n>.docx (la de número más alto), cap. 5: los rasgos son los apartados de §4-§7
+    con su texto y las inscripciones que citan.
   · PYTHON/SEABORN-ALTAIR/graficos_dorico_noroccidental_rasgos.py: tabla de rasgos (dno_9) y matrices (dno_10, dno_11).
   · Topónimos: las menciones de §2 del capítulo (las mismas cifras que TOPONIMOS["dno"] de graficos_dialecto_pandas.py).
 
 Uso:  py scripts/datos_dorico_noroccidental.py
 """
-import io
 import json
+import os
 import re
 import sys
-import unicodedata
-import zipfile
 from pathlib import Path
 
-import openpyxl
-from lxml import etree
+from comun import CATS, DATOS, GRAF, Excel, clave_js, citas as _citas, etiqueta as _etiqueta, fecha, indices, parrafos as leer, parte2, rasgos_de, secciones as cortar
 
-sys.stdout.reconfigure(encoding="utf-8")
-RAIZ = Path(__file__).resolve().parents[1]
-UVA = RAIZ.parent
-EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
-DOCX = UVA / "CAPÍTULOS TESIS" / "DÓRICO" / "2. DÓRICO NOROCCIDENTAL" / "DORICO_NO_1_Redaccion_v53.docx"
-GRAF = UVA / "PYTHON" / "SEABORN-ALTAIR"
-SALIDA = RAIZ / "src" / "data" / "doricoNO.js"
-INSC = RAIZ / "src" / "data" / "inscriptions.json"
+DOCX = parte2()
+SALIDA = Path(os.environ.get("SALIDA_NO", DATOS / "doricoNO.js"))
+INSC = Path(os.environ.get("INSC_NO", DATOS / "inscriptions.json"))
 
-
-# ── Excel (sin la caché de las tablas dinámicas, que openpyxl no lee) ──────────
-def sin_pivots(path):
-    src, buf = zipfile.ZipFile(path), io.BytesIO()
-    dst = zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED)
-    for it in src.infolist():
-        if "pivot" in it.filename.lower():
-            continue
-        data = src.read(it.filename)
-        if it.filename == "[Content_Types].xml" or it.filename.endswith(".rels"):
-            data = re.sub(r"<(Override|Relationship)[^>]*pivot[^>]*/>", "", data.decode("utf8"), flags=re.I).encode("utf8")
-        dst.writestr(it, data)
-    dst.close(); buf.seek(0)
-    return buf
-
-
-wb = openpyxl.load_workbook(sin_pivots(EXCEL), data_only=True, read_only=True)
-filas = [list(r) for r in wb["Datos"].iter_rows(values_only=True)]
-H = {h: i for i, h in enumerate(filas[0]) if h}
-col = lambda r, h: r[H[h]]
-EX = {}
-for r in filas[1:]:
-    if r[0] is not None:
-        EX.setdefault("DVC " + str(r[0]).split("\n")[0].strip(), r)
-    else:
-        m = re.search(r"Lhôte, no (\d+)\s*(?:\(Face ([A-Za-z]+)\))?", str(r[2] or ""))
-        if m:
-            EX.setdefault("Lhôte " + m.group(1) + (m.group(2) or ""), r)
-LH2DVC = {}
-for k, r in EX.items():
-    if k.startswith("DVC "):
-        for m in re.finditer(r"Lhôte, no (\d+)\s*(?:\(Face ([A-Za-z]+)\))?", str(r[2] or "")):
-            LH2DVC.setdefault("Lhôte " + m.group(1) + (m.group(2) or ""), k)
+ex = Excel()
+EX, LH2DVC, col = ex.filas, ex.lh2dvc, ex.col
 CAP = {k: r for k, r in EX.items() if col(r, "DIALECTO_SUB") == "Dórico NO"}
 assert len(CAP) == 75, len(CAP)   # 76 hasta el 26/10/2026 (424B pasa al ático, fila 166)
 
-ROM = {"2": "II", "3": "III", "4": "IV", "5": "V", "6": "VI"}
-TABD = {"α΄ μισό": "primera mitad del", "β΄ μισό": "segunda mitad del", "μέσα": "mediados del", "αρχές": "principios del",
-        "τέλος": "finales del", "τελευταίο τέταρτο": "último cuarto del", "δ΄ τέταρτο": "último cuarto del",
-        "γ΄ τέταρτο": "tercer cuarto del", "α΄ τέταρτο": "primer cuarto del", "β΄ τέταρτο": "segundo cuarto del"}
-
-
-def fecha(d):
-    s = re.sub("([\u0384'])(?=\\S)", lambda m: m.group(1) + " ", str(d or "").strip())
-    s = s.replace("δ' ", "δ\u0384 ").replace("γ' ", "γ\u0384 ")
-    if not s or s == "αδιάγνωστη":
-        return "sin datación"
-    m2 = re.fullmatch(r"(\d)-(\d)", s)
-    if m2:
-        return f"ss. {ROM[m2.group(1)]}-{ROM[m2.group(2)]} a.C."
-    m = re.fullmatch(r"(\d)(?:, (.*))?", s)
-    if not m:
-        return s
-    return f"{TABD[m.group(2)]} s. {ROM[m.group(1)]} a.C." if m.group(2) else f"s. {ROM[m.group(1)]} a.C."
-
-
-def clave_js(k):          # “DVC 123A” → “123A”; “Lhôte 94” → “LOD 94” (claves de RASGO_TEXTS y de Ref)
-    src, i = k.split(" ", 1)
-    return i if src == "DVC" else f"LOD {i}"
-
 
 def etiqueta(r):
-    macro, sub = col(r, "DIALECTO_MACRO"), col(r, "DIALECTO_SUB")
-    if not macro:
-        return ""
-    return macro if not sub or sub == macro else f"{macro} · {sub}"
+    return _etiqueta(col(r, "DIALECTO_MACRO"), col(r, "DIALECTO_SUB"))
 
 
-# ── Texto de la v48 ───────────────────────────────────────────────────────────
-W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
-M_, AC, GR, PS, DA, CI = "\u0304", "\u0301", "\u0300", "\u0313", "\u0314", "\u0342"
-_e = ["ε" + CI, "ε" + PS + CI, "ε" + DA + CI, "ε" + M_, "ε" + M_ + AC, "ε" + M_ + GR, "ε" + M_ + PS, "ε" + M_ + DA,
-      "ε" + M_ + PS + GR, "ε" + M_ + DA + GR, "ε" + M_ + PS + AC, "ε" + M_ + DA + AC, "Ε" + PS + CI, "Ε" + DA + CI, "Ε" + M_, "Ε\u0306",
-      "ο" + CI, "ο" + PS + CI, "ο" + DA + CI, "ο" + M_, "ο" + M_ + AC, "ο" + M_ + GR, "ο" + M_ + PS, "ο" + M_ + DA,
-      "ο" + M_ + PS + GR, "ο" + M_ + DA + GR, "ο" + M_ + PS + AC, "ο" + M_ + DA + AC]
-PUA = {0xE1B0 + i: v for i, v in enumerate(_e)}
-
-
-def ptext(p):
-    out = []
-    for r in p.iter(W + "r"):
-        for ch in r:
-            if ch.tag == W + "t":
-                out.append(ch.text or "")
-            elif ch.tag == W + "tab":
-                out.append(" ")
-    # Sin las marcas de trabajo del capítulo ([VERIFICAR …], [CITA PENDIENTE]), que no se publican.
-    t = re.sub(r"\s*\[(?:VERIFICAR|CITA PENDIENTE)[^\]]*\]", "", "".join(out))
-    return unicodedata.normalize("NFC", t.translate(PUA))
-
-
-doc = etree.fromstring(zipfile.ZipFile(DOCX).read("word/document.xml"))
-parrafos = []
-for p in doc.find(W + "body").iter(W + "p"):
-    st = p.find(f"{W}pPr/{W}pStyle")
-    st = st.get(W + "val") if st is not None else ""
-    if st.startswith("TDC"):
-        continue
-    parrafos.append((st, ptext(p).strip()))
-i0 = next(i for i, (s, t) in enumerate(parrafos) if s.startswith("Ttulo") and t.startswith("4. CARACTER"))
-i1 = next(i for i, (s, t) in enumerate(parrafos) if s.startswith("Ttulo") and t.startswith("8. ANEXOS"))
-secciones = []           # (número, título, [párrafos]) de los apartados con texto propio
-CONCLUSION = ""
-for st, t in parrafos[i0:i1]:
-    if st.startswith("Ttulo"):
-        m = re.match(r"(\d+(?:\.\d+)*)\.\s+(.*)", t)
-        secciones.append([m.group(1), m.group(2), []])
-    elif t.startswith("En definitiva, el dórico noroccidental"):
-        CONCLUSION = t
-    elif t:
-        secciones[-1][2].append(t)
-assert CONCLUSION
-
-
-def titulo(t):
-    """Mayúsculas del título a minúsculas, salvo la inicial, en las letras latinas."""
-    out, primera = [], True
-    for ch in t:
-        if "A" <= unicodedata.normalize("NFD", ch)[0] <= "Z":
-            out.append(ch if primera else ch.lower())
-            primera = False
-        else:
-            if ch.isalpha():
-                primera = False
-            out.append(ch)
-    return "".join(out).replace(" Y ", " y ")
-
-
-TOK = re.compile(r"I\.Dodone (DVC|Lhôte)\s*|(?<![\d§:.,/–-])\b(\d{1,4}(?:[AB][abc]?)?)\b(?![\d:/])")
-EQ1 = re.compile(r"\(= I\.Dodone (?:DVC|Lhôte)[^()]*(?:\([^()]*\)[^()]*)*\)")
-EQ2 = re.compile(r"= I\.Dodone (?:DVC|Lhôte)\s*\d+\w*")
-
-
-def citas(texto):
-    out = []
-    for para in texto:
-        para = EQ2.sub("", EQ1.sub("", para))
-        corpus = None
-        for sent in re.split(r"(?<!\bs\.)(?<!ss\.)(?<=[.;?])\s+(?=[A-ZÁÉÍÓÚ(])", para):
-            for m in TOK.finditer(sent):
-                if m.group(1):
-                    corpus = m.group(1); continue
-                pre = sent[max(0, m.start() - 12):m.start()]
-                if corpus is None or re.search(r"(nn?\.|p\.|pp\.|§§?|ll?\.|n\.º|IG|SEG|SGDI|IC|Molossie|Thesp\.|fr\.|col\.|"
-                                               r"Bekker|GG)\s*$", pre):
-                    continue
-                if re.search(r"\d{4}[a-f]?(: | y |; )\s*$", pre) or re.search(r"[A-Z][a-zé]+ \($", pre) \
-                        or re.search(r"\b(las|los)\s$", pre):
-                    continue
-                k = f"{corpus} {m.group(2)}"
-                k = k if k in EX else LH2DVC.get(k)
-                if k and k not in out:
-                    out.append(k)
-    return out
-
-
-CATS = {"4": "Fonología", "5": "Morfología", "6": "Sintaxis", "7": "Vocabulario"}
-RASGOS, CITADAS = [], set()
-for num, tit, texto in secciones:
-    if not texto or num in ("4", "5"):          # las introducciones de §4 y §5 van aparte
-        continue
-    ks = citas(texto)
-    CITADAS.update(ks)
-    RASGOS.append({"id": len(RASGOS) + 1, "sec": "§" + num, "name": titulo(tit), "short": titulo(tit),
-                   "cat": CATS[num[0]], "desc": " ".join(texto), "dvcs": [clave_js(k) for k in ks]})
+# ── Texto del capítulo (§4-§7): el noroccidental es el segundo capítulo de la Parte II ──
+pars = leer(DOCX)
+i0 = indices(pars, "4. CARACTER", 1)
+i1 = next(i for i, (s, t) in enumerate(pars) if i > i0 and s.startswith("Ttulo") and t.startswith("8. ANEXOS"))
+CONCLUSION = next(t for s, t in pars[i0:i1] if t.startswith("En definitiva, el dórico noroccidental"))
+secciones = cortar([(s, t) for s, t in pars if t != CONCLUSION], i0, i1 - 1)
+RASGOS, CITADAS = rasgos_de(secciones, ex)
 INTRO = {num: " ".join(texto) for num, tit, texto in secciones if num in ("4", "5")}
 
 # ── Datos de §3 (Excel) ────────────────────────────────────────────────────────
@@ -375,7 +220,7 @@ J = lambda x: json.dumps(x, ensure_ascii=False, indent=1)
 partes = [
     "// Generado por scripts/datos_dorico_noroccidental.py: no editar a mano.",
     "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Dórico NO”, 76 inscripciones, Resúmenes fila 165),",
-    "// DORICO_NO_1_Redaccion_v49 (§2-§7) y graficos_dorico_noroccidental_rasgos.py (tabla dno_9 y matrices dno_10-dno_11).",
+    f"// {DOCX.stem} (cap. 5, §2-§7) y graficos_dorico_noroccidental_rasgos.py (tabla dno_9 y matrices dno_10-dno_11).",
     "",
     f"export const INTRO_FON_NO = {J(INTRO['4'])};",
     f"export const INTRO_MORF_NO = {J(INTRO['5'])};",

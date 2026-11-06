@@ -5,14 +5,15 @@ import { useState } from "react";
 import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
 import {
-  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, CERTEZA_MEZ, CERTEZA_MIN, CERTEZA_NJA, CHRONO_MEZ,
-  CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, DIALECTOS_MIN, INSCRIPCIONES_MIN, RASGOS_NJA, THEMES_MEZ, THEMES_MIN,
-  THEMES_NJA, TIPOS_MEZ, TOTAL_MEZ, TOTAL_MIN, TOTAL_NJA, ANEXO_MEZ, BIBLIO_MEZ,
+  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
+  CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, EXPLICACIONES_MEZ,
+  INSCRIPCIONES_MIN, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ,
+  TOTAL_MIN, TOTAL_NJA,
 } from "../data/frontera.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
-import { Card, ChapterLayout, Sec, SectionNav, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, Sec, Secciones, SectionNav, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo, InscripcionCard } from "../components/Anexo.jsx";
 
@@ -62,7 +63,7 @@ export function Mezcla({ switcher, subnav = null }) {
         <Stat label="Con el jónico-ático" value={String(TOTAL_MEZ - 1)} sub="todas salvo una" accent={C.blue} />
       </>}
       tabs={[
-        { id: "context", l: "Concepto y criterio", i: "📜" },
+        { id: "context", l: "Concepto y criterio", i: "§" },
         { id: "profile", l: "Perfil dialectal", i: "Μ" },
         { id: "interp", l: "Explicaciones", i: "Ω" },
         { id: "anexo", l: "Las inscripciones", i: "Ψ" },
@@ -178,6 +179,9 @@ export function Mezcla({ switcher, subnav = null }) {
             <Bars horizontal data={TIPOS_MEZ.map((t) => ({ name: t.tipo, segura: t.seguras, dudosa: t.dudosas }))} keys={["segura", "dudosa"]}
               colors={{ segura: MEZ_INK, dudosa: ORO }} labels={{ segura: "segura", dudosa: "dudosa o de solo nombre" }} height={300} left={260} />
           </Sec>
+          <Sec title="Las mezclas, tipo a tipo" sub="Los apartados de §4 del capítulo, con sus inscripciones: pulsa para desplegar cada uno">
+            <Secciones items={TIPOLOGIA_MEZ} color={MEZ_INK} />
+          </Sec>
         </>}
       </>}
 
@@ -199,7 +203,7 @@ export function Mezcla({ switcher, subnav = null }) {
             </p>
           </Card>
         </Sec>
-        <Sec title="Tres conclusiones">
+        <Sec title="Tres conclusiones para el conocimiento del oráculo">
           {[
             ["La koiné llegó tarde a Dodona", <>Las mezclas anteriores a finales del s. IV a.C., que son la mayoría, combinan el dórico con el ático o el jónico; la koineización solo se observa en las consultas helenísticas, en las que el dórico se repliega a las fórmulas y a los dioses. Entre las más antiguas figuran <Ref src="Lhôte" id="133A" /> (mediados del s. V a.C.), una consulta beocia con ταῦτα, y <Ref src="DVC" id="729A" /> y <Ref src="DVC" id="1410" /> (finales del s. V a.C.).</>],
             ["El personal del santuario no explica la mayoría", <>Su intervención es verosímil en algunos casos, pero la mayor parte de las mezclas es obra de consultantes que escribían su propia lengua con las formas de prestigio de su entorno.</>],
@@ -211,6 +215,9 @@ export function Mezcla({ switcher, subnav = null }) {
             </Card>
           ))}
         </Sec>
+        <Sec title="Las explicaciones, una a una" sub="Los apartados de §5 del capítulo: pulsa para desplegar cada uno">
+          <Secciones items={EXPLICACIONES_MEZ} color={MEZ_INK} />
+        </Sec>
       </>}
     </ChapterLayout>
   );
@@ -219,7 +226,7 @@ export function Mezcla({ switcher, subnav = null }) {
 // ══ Cap. 14: los dialectos minoritarios ════════════════════════════
 const GRUPOS_MIN = {
   mac: {
-    t: "Macedonio", dialectos: ["Macedonio"], texto: <>
+    t: "Macedonio", dialectos: ["Macedonio"], apartados: "§3", texto: <>
       Dos consultas de la primera mitad del s. IV a.C., y en las dos el indicio decisivo es el nombre. En{" "}
       <Ref src="DVC" id="2493A" /> (principios del s. IV a.C.), Méndez Dosuna (2007g: 283-284) propuso el origen macedonio por exclusión
       y por los futuros ἔσσονται y ζώσοντι, que él mismo admitió después como posibles futuros dóricos encubiertos (2018a: 292); la
@@ -230,7 +237,7 @@ const GRUPOS_MIN = {
     </>,
   },
   pel: {
-    t: "Dialectos del Peloponeso", sub: "eleo, acayo, laconio", dialectos: ["Acayo", "Eleo"], texto: <>
+    t: "Dialectos del Peloponeso", sub: "eleo, acayo, laconio", dialectos: ["Acayo", "Eleo"], apartados: "§4", texto: <>
       El acayo no se distingue en textos breves de los demás dialectos dóricos, y el único criterio es el alfabeto de las colonias de la
       Magna Grecia, con iota de tres trazos, san y delta redondeada: cinco consultas lo unen a un rasgo no jónico-ático visible, como{" "}
       <Ref src="DVC" id="968A" /> (finales del s. VI a.C.), una de las más antiguas del corpus, y <Ref src="DVC" id="109A" /> se cuenta
@@ -241,7 +248,7 @@ const GRUPOS_MIN = {
     </>,
   },
   otr: {
-    t: "Otros testimonios", sub: "rodio, textos no griegos y otras variedades", dialectos: ["Rodio", "Textos no griegos"], texto: <>
+    t: "Otros testimonios", sub: "rodio, textos no griegos y otras variedades", dialectos: ["Rodio", "Textos no griegos"], apartados: "§5", texto: <>
       El rodio de <Ref src="Lhôte" id="89Aa" /> (s. IV a.C.), la consulta del comerciante que Lhôte (2006: 186-188) atribuyó a una
       colonia siciliana, depende del infinitivo ἔμειν, que Méndez Dosuna (2007b: 143) explica como una errata; el χρῆυνται de{" "}
       <Ref src="DVC" id="172A" />, cuyo único paralelo procede de Telos, se cuenta entre las no jónico-áticas. La única adscripción
@@ -269,7 +276,7 @@ function Minoritarios({ switcher, subnav }) {
         <Stat label="Anteriores al 400 a.C." value={String(ant)} sub={`de ${TOTAL_MIN}`} accent={C.blue} />
       </>}
       tabs={[
-        { id: "context", l: "Los dialectos minoritarios", i: "📜" },
+        { id: "context", l: "Los dialectos minoritarios", i: "§" },
         { id: "profile", l: "Perfil dialectal", i: "Α" },
         { id: "grupos", l: "Dialectos y consultas", i: "Ω" },
       ]} tab={tab} onTab={setTab}>
@@ -305,6 +312,7 @@ function Minoritarios({ switcher, subnav }) {
               <i>Doris severior</i>, y buena parte de estos consultantes debe de esconderse entre las inscripciones no jónico-áticas.
             </p>
           </Card>
+          <div style={{ marginTop: 12 }}><Secciones items={APARTADOS_MIN.filter((x) => x.sec === "§6")} color={MIN_INK} /></div>
         </Sec>
       </>}
 
@@ -326,7 +334,7 @@ function Minoritarios({ switcher, subnav }) {
         <Sec title="Dialectos del grupo">
           <PorCerteza data={DIALECTOS_MIN} color={MIN} left={150} />
         </Sec>
-        <Sec title="Los dialectos minoritarios en contexto" sub="Macrogrupos dialectales del corpus de Dodona; los dialectos minoritarios figuran como «Otros»">
+        <Sec title="Los dialectos minoritarios en contexto" sub="Macrogrupos dialectales del corpus de Dodona; los dialectos minoritarios figuran como “Otros”">
           <Bars horizontal data={MACROGRUPOS} highlight="Otros" height={300} left={200} />
         </Sec>
         <Sec title="Distribución cronológica" sub="Las que se identifican por el alfabeto son anteriores al 400 a.C.; las del s. IV a.C., por formas o antropónimos">
@@ -342,6 +350,9 @@ function Minoritarios({ switcher, subnav }) {
           `${x.sub ? `${x.sub} · ` : ""}${INSCRIPCIONES_MIN.filter((d) => x.dialectos.includes(d.dialecto)).length} inscripciones`])} />
         <Sec title={gr.t}>
           <Card><p style={PROSE}>{gr.texto}</p></Card>
+        </Sec>
+        <Sec title="Los apartados del capítulo" sub="Pulsa para desplegar cada uno">
+          <Secciones items={APARTADOS_MIN.filter((x) => x.sec === gr.apartados || x.sec.startsWith(`${gr.apartados}.`))} color={MIN_INK} />
         </Sec>
         <Sec title="Inscripciones" sub="Texto de la edición y clasificación de la tesis">
           <div style={{ display: "grid", gap: 10 }}>
@@ -372,7 +383,7 @@ function NoJonAt({ switcher, subnav }) {
         <Stat label="Dórico probable" value="328-494" sub="con el dórico demostrado (267)" accent={DIALECT_COLORS.dorico} />
       </>}
       tabs={[
-        { id: "context", l: "Por qué hay tantas", i: "📜" },
+        { id: "context", l: "Por qué hay tantas", i: "§" },
         { id: "profile", l: "Perfil dialectal", i: "ᾱ" },
         { id: "anexo", l: "Las inscripciones", i: "Ω" },
       ]} tab={tab} onTab={setTab}>
@@ -401,6 +412,7 @@ function NoJonAt({ switcher, subnav }) {
               <p style={PROSE}>{d}</p>
             </Card>
           ))}
+          <div style={{ marginTop: 12 }}><Secciones items={POR_QUE_NJA} color={NJA_INK} /></div>
         </Sec>
       </>}
 
@@ -418,7 +430,7 @@ function NoJonAt({ switcher, subnav }) {
                 La seguridad se refiere a la exclusión del jónico-ático, no a la adscripción a un dialecto concreto. En las dudosas, la letra
                 diagnóstica es insegura, la forma admite otra lectura, como ΑΥΤΑΙ en <Ref src="DVC" id="1630A" /> (primera mitad del
                 s. V a.C.), que puede ser αὐτᾶι o αὐταί, carece de un contexto legible, como ἄλλαν en <Ref src="DVC" id="1562A" /> (segunda
-                mitad del s. V a.C.), o tiene letras restituidas; la única de solo nombre, <Ref src="DVC" id="256A" />, descansa en Τ̣ιμολαΐδας.
+                mitad del s. V a.C.), o tiene letras restituidas; las dos de solo nombre, <Ref src="DVC" id="9A" /> y <Ref src="DVC" id="256A" />, descansan en Ἐθνιάδας y Τ̣ιμολαΐδας.
               </p>
             </Card>
           </Sec>
@@ -447,6 +459,7 @@ function NoJonAt({ switcher, subnav }) {
                 <span style={{ color: C.muted }}>{r.ambito}</span>, g(r.ejemplos),
                 <span><b style={{ color: NJA_INK }}>{r.n}</b> <span style={{ color: C.dim, fontSize: 11 }}>({pct(r.n, TOTAL_NJA)} %)</span></span>,
               ])} />
+            <div style={{ marginTop: 14 }}><Secciones items={RASGOS_TXT_NJA} color={NJA_INK} /></div>
           </Sec>
         )}
         {sub === "compatibles" && <>
@@ -468,6 +481,7 @@ function NoJonAt({ switcher, subnav }) {
                 compatibles con el dórico, pero también con el tesalio de Histiótide.
               </p>
             </Card>
+            <div style={{ marginTop: 14 }}><Secciones items={COMPATIBLES_TXT_NJA} color={NJA_INK} /></div>
           </Sec>
         </>}
       </>}

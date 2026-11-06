@@ -3,6 +3,7 @@ import { useState } from "react";
 import { C, CAT_COLORS, CATS, PROSE, fade } from "../theme.js";
 import { asRef, fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { DvcLabel, Ref } from "./Inscriptions.jsx";
+import { AUTOR, CITA, INSTITUCION, TESIS, URL_SITIO, VERSION } from "../sitio.js";
 
 export const Stat = ({ label, value, sub = "", accent = C.gold, noCase = false }) => (
   <div style={{ background: "linear-gradient(180deg, rgba(255,252,245,0.85) 0%, rgba(255,252,245,0.55) 100%)",
@@ -129,6 +130,21 @@ export const GreekBlock = ({ title, children, size = 15 }) => (
   </div>
 );
 
+// Apartados de un capítulo con su texto, desplegables: items = [{ sec, name, paras }].
+export const Secciones = ({ items, color = C.gold }) => (
+  <div style={{ display: "grid", gap: 8 }}>
+    {items.map((x) => (
+      <details key={x.sec} className="seccion" style={{ background: "rgba(255,252,245,0.6)", border: `1px solid ${C.border}`,
+        borderLeft: `3px solid ${color}`, borderRadius: "0 10px 10px 0", padding: "10px 16px" }}>
+        <summary style={{ cursor: "pointer", fontFamily: "var(--fh)", fontSize: 14.5, color: C.heading }}>
+          <span style={{ color, fontWeight: 700, marginRight: 8 }}>{x.sec}</span>{renderGreekText(x.name)}
+        </summary>
+        {x.paras.map((p) => <p key={p.slice(0, 60)} style={{ ...PROSE, marginTop: 10 }}>{renderDesc(p)}</p>)}
+      </details>
+    ))}
+  </div>
+);
+
 // ── Rasgos dialectales ───────────────────────────────────────────
 // rasgos: [{ id, cat, name, short, desc, dvcs: ["123A", "LOD 8B", …] }]; texts: { dvc: texto }.
 // minAcum: rasgos que ha de reunir una inscripción para figurar en “Inscripciones con más rasgos acumulados”.
@@ -147,7 +163,7 @@ export function RasgoExplorer({ rasgos, texts, color, minAcum = 2 }) {
       <div style={{ marginBottom: 16 }}>
         <Select value={sel ?? ""} color={color} label="Rasgo dialectal"
           onChange={(v) => { setSel(v ? Number(v) : null); setClicked(null); }}>
-          <option value="">— Selecciona un rasgo dialectal —</option>
+          <option value="">Selecciona un rasgo dialectal</option>
           {CATS.map((cat) => (
             <optgroup key={cat} label={cat}>
               {rasgos.filter((x) => x.cat === cat).map((x) => <option key={x.id} value={x.id}>{x.id}. {x.name} ({x.dvcs.length})</option>)}
@@ -253,6 +269,33 @@ export const CatLegend = ({ rasgos = null }) => (
   </div>
 );
 
+// Pie común: autoría, cita, fuentes del corpus y créditos.
+export const Pie = ({ color = C.gold }) => {
+  const rot = { fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color, fontWeight: 600, margin: "16px 0 6px" };
+  const txt = { fontSize: 11, color: C.muted, lineHeight: 1.8 };
+  return (
+    <footer style={{ marginTop: 56, paddingTop: 8, borderTop: `1px solid ${C.border}` }}>
+      <div style={rot}>Autoría</div>
+      <p style={txt}>
+        {AUTOR}, {INSTITUCION}. Material complementario de la tesis doctoral <i>{TESIS}</i>, en preparación. Versión de {VERSION}.
+      </p>
+      <div style={rot}>Cómo citar</div>
+      <p style={txt}>{CITA.antes}<i>{CITA.titulo}</i>{CITA.despues} <a href={URL_SITIO} style={{ color }}>{URL_SITIO.replace("https://", "")}</a></p>
+      <div style={rot}>Fuentes del corpus</div>
+      <p style={txt}>
+        Dakaris, S., Vokotopoulou, I. y Christidis, A.-Ph. (2013). <i>Τα χρηστήρια ελάσματα της Δωδώνης των ανασκαφών Δ. Ευαγγελίδη</i> (<i>I.Dodone DVC</i>).<br />
+        Lhôte, É. (2006). <i>Les lamelles oraculaires de Dodone</i> (<i>I.Dodone Lhôte</i>).
+      </p>
+      <div style={rot}>Créditos</div>
+      <p style={txt}>
+        Costas de los mapas: Natural Earth (dominio público); Beocia, © OpenStreetMap contributors (ODbL). Tipografía griega derivada de Cardo
+        (SIL Open Font License 1.1). Las fotografías de las laminillas no se publican: su difusión depende de la autorización de la Eforía de
+        Antigüedades de Ioánina.
+      </p>
+    </footer>
+  );
+};
+
 // ── Estructura de un capítulo ────────────────────────────────────
 export const ChapterSwitcher = ({ chapters, current, onChange }) => (
   <nav aria-label="Capítulos" style={{ display: "flex", justifyContent: "center", gap: 4, padding: "12px 8px 0",
@@ -292,7 +335,7 @@ export function ChapterLayout({ switcher, color, accent, title, subtitle, stats,
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>{stats}</div>
         </header>
-        <nav style={{ display: "flex", gap: 4, justifyContent: "center", flexWrap: "wrap", margin: "18px 16px 0",
+        <nav aria-label="Secciones de esta parte" style={{ display: "flex", gap: 4, justifyContent: "center", flexWrap: "wrap", margin: "18px 16px 0",
           background: "rgba(255,252,245,0.55)", borderRadius: 12, padding: 5, border: `1px solid ${C.border}` }}>
           {tabs.map((t) => (
             <Tag key={t.id} color={color} active={tab === t.id} onClick={() => onTab(t.id)}>
@@ -300,15 +343,9 @@ export function ChapterLayout({ switcher, color, accent, title, subtitle, stats,
             </Tag>
           ))}
         </nav>
-        <main style={{ padding: "30px 20px" }}>
+        <main id="contenido" tabIndex={-1} style={{ padding: "30px 20px" }}>
           {children}
-          <footer style={{ marginTop: 56, paddingTop: 24, borderTop: `1px solid ${C.border}` }}>
-            <div style={{ fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color, fontWeight: 600, marginBottom: 8 }}>Fuentes del corpus</div>
-            <p style={{ fontSize: 11, color: C.muted, lineHeight: 1.9 }}>
-              Dakaris, S., Vokotopoulou, I. &amp; Christidis, A.-Ph. (2013). <i>Τα χρηστήρια ελάσματα της Δωδώνης των ανασκαφών Δ. Ευαγγελίδη</i> (<i>I.Dodone DVC</i>)<br />
-              Lhôte, É. (2006). <i>Les lamelles oraculaires de Dodone</i> (<i>I.Dodone Lhôte</i>)
-            </p>
-          </footer>
+          <Pie color={color} />
         </main>
       </div>
     </div>

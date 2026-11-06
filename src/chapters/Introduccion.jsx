@@ -16,7 +16,7 @@ const nDialecto = (s) => MACROGRUPOS.filter((m) => s.includes(m.name)).reduce((a
 const DEMOSTRADO = nDialecto(["Dórico general", "Dórico noroccidental", "Doris severior"]);
 
 const TABS = [
-  { id: "santuario", l: "El santuario", i: "📜" },
+  { id: "santuario", l: "El santuario", i: "§" },
   { id: "laminillas", l: "Las laminillas", i: "Λ" },
   { id: "metodo", l: "Metodología", i: "Μ" },
   { id: "cifras", l: "El corpus en cifras", i: "Σ" },
@@ -40,6 +40,14 @@ const CRITERIOS = [
   ["La mezcla dialectal", "mezcla", <>Rasgos visibles de dos grupos que no pueden convivir en un único dialecto, como κα junto a εἰ; la categoría no presupone una explicación, y son dudosas las mezclas en que la fórmula dórica solo convive con ἐπερωτᾶι, como <Ref src="DVC" id="2423B" /> (mediados del s. IV a.C.).</>],
   ["Las inscripciones no jónico-áticas", "noJonAt", <>Un grupo definido por un criterio negativo: algún rasgo ajeno al jónico-ático, pero ninguno que permita atribuirlas a un dialecto concreto. No contradicen el predominio del dórico, sino que separan lo que puede demostrarse de lo que solo resulta probable.</>],
   ["Los dialectos minoritarios", "otros", <>El macedonio, el eleo, el acayo o el rodio, con un rasgo propio, un antropónimo o un alfabeto bien identificado de la región junto a un rasgo no jónico-ático visible; se cuenta también la única inscripción que no parece escrita en griego, <Ref src="DVC" id="27A" /> (principios del s. V a.C.).</>],
+];
+
+const OBJETIVOS = [
+  ["Criterios de adscripción", "Establecer unos criterios explícitos y homogéneos, adaptados a textos breves, fragmentarios y formulares, que distingan lo que una inscripción demuestra de lo que solo hace probable y midan el grado de certeza de cada adscripción."],
+  ["Clasificación del corpus", "Clasificar con esos criterios todas las inscripciones que conservan algún rasgo dialectal visible y cuantificar la presencia de cada dialecto, también por siglos y, cuando el texto lo permite, por regiones."],
+  ["Descripción de las variedades", "Describir los rasgos de cada variedad y contrastarlos con la documentación epigráfica de su región y con la bibliografía, con especial atención a las peor conocidas, como el griego del Epiro o el tesalio de Histiótide."],
+  ["Alfabeto y autopsia", "Examinar la relación entre alfabeto y dialecto y revisar, mediante la autopsia de las laminillas, las lecturas que deciden la adscripción de un texto."],
+  ["Mezcla y koiné", "Estudiar la mezcla dialectal y la difusión de la koiné, así como el peso de las fórmulas y del propio santuario, para valorar en qué medida el dialecto de una consulta permite reconocer el de quien la formuló."],
 ];
 
 export default function Introduccion({ switcher }) {
@@ -72,6 +80,11 @@ export default function Introduccion({ switcher }) {
               demuestra de lo que solo hace probable, con una calificación de certeza para cada adscripción.
             </p>
           </Card>
+        </Sec>
+        <Sec title="Objetivos" sub="Identificar y caracterizar las variedades dialectales de las laminillas y valorar lo que revela su distribución">
+          <Rejilla>
+            {OBJETIVOS.map(([t, d]) => <Bloque key={t} t={t}>{d}</Bloque>)}
+          </Rejilla>
         </Sec>
         <Sec title="El santuario de Dodona" sub="Contexto histórico y geográfico (capítulo 1)">
           <Rejilla>
@@ -182,7 +195,7 @@ export default function Introduccion({ switcher }) {
             <Bloque t="Un proceso de revisión">
               La clasificación resulta de varias revisiones completas del corpus: los criterios redujeron de forma drástica el número de
               inscripciones dóricas y dieron lugar al grupo de las no jónico-áticas, y la revisión de las inscripciones sin clasificar elevó las
-              que tienen características dialectales de 946 a más de 1.400.
+              que tienen características dialectales de 946 a 1.438.
             </Bloque>
           </Rejilla>
         </Sec>

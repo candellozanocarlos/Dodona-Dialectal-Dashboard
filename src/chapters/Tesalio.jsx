@@ -17,11 +17,11 @@ import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_TES } from "../data/adscripcion.js";
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "📜" },
-  { id: "map", l: "Mapa y regiones", i: "🗺️" },
+  { id: "context", l: "Contexto histórico", i: "§" },
+  { id: "map", l: "Mapa y regiones", i: "◎" },
   { id: "profile", l: "Perfil dialectal", i: "Θ" },
   { id: "vowels", l: "Vocalismo", i: "Ε" },
-  { id: "shared", l: "Compartidos con beocio", i: "🤝" },
+  { id: "shared", l: "Compartidos con beocio", i: "⇄" },
 ];
 const REGION_COLORS = { pelasgiotis: C.regions.pelasgiotis, histiaiotis: C.regions.histiaiotis, thessaliotis: C.regions.thessaliotis };
 
@@ -99,8 +99,6 @@ export default function Tesalio({ switcher, subnav }) {
             </p>
           </Card>
         </Sec>
-        {/* Contexto político (POLITICAL_LINKS_TES): oculto de momento; para mostrarlo,
-            <EventTable rows={POLITICAL_LINKS_TES} color={C.amber} />. */}
       </>}
 
       {tab === "map" && <>
@@ -139,7 +137,7 @@ export default function Tesalio({ switcher, subnav }) {
                 <p style={PROSE}>
                   Las ciudades más mencionadas son las de Histiótide, la región colindante con el Epiro: Farcadón (cuatro
                   veces) y Trica (tres), a las que se suma Eginio (<Ref src="DVC" id="303B" />). En <Ref src="DVC" id="3738A" /> se reconstruye
-                  además el nombre de Tesalia, y en <Ref src="DVC" id="552A" /> se lee Θεσσαλίαν, aunque CIOD lo toma por antropónimo; de la
+                  además el nombre de Tesalia, y en <Ref src="DVC" id="552A" /> se lee Θεσσαλίαν, aunque en CIOD se toma por antropónimo; de la
                   Acaya Ftiótide proceden las menciones de Melitea (<Ref src="DVC" id="2024A" />) y, con dudas, de Equino
                   (<Ref src="DVC" id="345B" />), que parte de la bibliografía identifica con la ciudad acarnania. Si bien
                   los topónimos no denotan el origen de los consultantes, sí son una prueba indudable del radio de acción del oráculo.

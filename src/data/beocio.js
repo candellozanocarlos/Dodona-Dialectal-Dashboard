@@ -15,7 +15,7 @@ export const CHRONO_DETAIL_BEOC = [
   { period: "1ª mit. s. IV", n: 1 },
   { period: "Med. s. IV", n: 1 },
   { period: "s. IV (gen.)", n: 2 },
-  { period: "ss. III–II", n: 1 },
+  { period: "Transición III–II", n: 1 },
 ];
 
 // Cronología comparada tesalio/beocio sobre periodos comunes: agrupa los tramos de
@@ -31,7 +31,7 @@ export const CHRONO_COMPARE_TES_BEOC = [
   { period: "Med. s. IV",     tes: 7,  beoc: 1 },
   { period: "2ª mit. s. IV",  tes: 7,  beoc: 0 },
   { period: "s. IV (gen.)",   tes: 8,  beoc: 2 },
-  { period: "ss. III–II",     tes: 2,  beoc: 1 },
+  { period: "Transición III–II",     tes: 2,  beoc: 1 },
 ].map(d => ({
   ...d,
   tesPct: +(d.tes / TOTAL_TES * 100).toFixed(1),
@@ -152,7 +152,7 @@ export const RASGOS_BEOC = [
     dvcs: ["186A", "313A"] },
   // §4.4.1  Adverbios en -ᾱι
   { id: 15, cat: "Morfología", name: "Adverbios en -ᾱι", short: "Adv. -ᾱι",
-    desc: "En los dialectos griegos no jónico-áticos, los adverbios de valor locativo-modal forman una serie en -ᾱι (o -ᾱ). El sufijo, que Buck (1955: §132.5) describe como 'place where, whither, and especially manner', genera formaciones del tipo ἀλλᾶι ('de otro modo, en otro lugar') en cretense y corcireo, παντᾶι ('en todas direcciones') en heracleota, o αἶ y ὄπαι ('donde, de cualquier modo que') en cretense, donde además funcionan como conjunciones finales. I.Dodone DVC 187A (segunda mitad s. V a.C.) conserva el adverbio hόπᾱι (= át. ὅπῃ), cuya aspiración se ha tratado ya en §3.2.2. La lectura de la laminilla ha sido objeto de debate: los editores del I.Dodone DVC recogenἐ͂ καὶ hόπαι (ἱ)κανο͂ς φέρει ('o a donde sea provechoso'), pero Méndez Dosuna (2016: 121) señala dos objeciones a esta lectura. Por un lado, la ausencia de la aspiración inicial esperada en ἱκανο͂ς; por otro, la construcción impersonal u omisión del sujeto en ἱκανο͂ς φέρει, que no tiene paralelo documentado. Frente a ello, Méndez Dosuna (2016: 121) propone, siguiendo la sugerencia de Tsantsanoglou, que 186A y 187A forman una sola pregunta, y lee la secuencia como una disyunción: ἒ̄ καὶ ἐν Ὀρχομενο͂ι / ἒ̄ καὶ hόπᾱι κα νο͂ς φέρει, es decir, 'o bien en Orcómeno, o bien adondequiera que su inclinación le lleve', con un paralelo documentado en Hdt. 9.120 (αὐτοῦ τοῦ στρατηγοῦ ταύτῃ νόος ἔφερε). La serie de adverbios en -ᾱι, productiva en numerosos dialectos del griego, no estaba documentada hasta la fecha en la epigrafía beocia. El hόπᾱι de I.Dodone DVC 187A constituiría, así, el primer testimonio epigráfico de esta formación en una inscripción beocia. Con todo, el valor diagnóstico de la forma debe matizarse. Su carácter aislado en el corpus impide determinar si nos encontramos ante un rasgo vivo en el beocio del s. V a.C. o ante una formación marginal, y la adscripción beocia de la propia inscripción depende de su lectura conjunta con I.Dodone DVC 186A y de criterios paleográficos: las autopsias muestran que la paleografía y la profundidad de los trazos de 186A y 187A apuntan a una misma mano, con las letras esperables en un alfabeto beocio del s. V a.C.",
+    desc: "En los dialectos griegos no jónico-áticos, los adverbios de valor locativo-modal forman una serie en -ᾱι (o -ᾱ). El sufijo, que Buck (1955: §132.5) describe como 'place where, whither, and especially manner', genera formaciones del tipo ἀλλᾶι ('de otro modo, en otro lugar') en cretense y corcireo, παντᾶι ('en todas direcciones') en heracleota, o αἶ y ὄπαι ('donde, de cualquier modo que') en cretense, donde además funcionan como conjunciones finales. I.Dodone DVC 187A (segunda mitad s. V a.C.) conserva el adverbio hόπᾱι (= át. ὅπῃ), cuya aspiración se ha tratado ya en §3.2.2. La lectura de la laminilla ha sido objeto de debate: los editores del I.Dodone DVC recogen ἐ͂ καὶ hόπαι (ἱ)κανο͂ς φέρει ('o a donde sea provechoso'), pero Méndez Dosuna (2016: 121) señala dos objeciones a esta lectura. Por un lado, la ausencia de la aspiración inicial esperada en ἱκανο͂ς; por otro, la construcción impersonal u omisión del sujeto en ἱκανο͂ς φέρει, que no tiene paralelo documentado. Frente a ello, Méndez Dosuna (2016: 121) propone, siguiendo la sugerencia de Tsantsanoglou, que 186A y 187A forman una sola pregunta, y lee la secuencia como una disyunción: ἒ̄ καὶ ἐν Ὀρχομενο͂ι / ἒ̄ καὶ hόπᾱι κα νο͂ς φέρει, es decir, 'o bien en Orcómeno, o bien adondequiera que su inclinación le lleve', con un paralelo documentado en Hdt. 9.120 (αὐτοῦ τοῦ στρατηγοῦ ταύτῃ νόος ἔφερε). La serie de adverbios en -ᾱι, productiva en numerosos dialectos del griego, no estaba documentada hasta la fecha en la epigrafía beocia. El hόπᾱι de I.Dodone DVC 187A constituiría, así, el primer testimonio epigráfico de esta formación en una inscripción beocia. Con todo, el valor diagnóstico de la forma debe matizarse. Su carácter aislado en el corpus impide determinar si nos encontramos ante un rasgo vivo en el beocio del s. V a.C. o ante una formación marginal, y la adscripción beocia de la propia inscripción depende de su lectura conjunta con I.Dodone DVC 186A y de criterios paleográficos: las autopsias muestran que la paleografía y la profundidad de los trazos de 186A y 187A apuntan a una misma mano, con las letras esperables en un alfabeto beocio del s. V a.C.",
     dvcs: ["187A"] },
   // ═══ SINTAXIS (16) ═══
   // §5.1  Oraciones finales con ὥς κα + subjuntivo
@@ -171,30 +171,7 @@ export const RASGOS_BEOC = [
 
 ];
 
-export const RASGO_TEXTS_BEOC = {
-  "38A":   "αἴτε οὐδε-\nμία κόρα μοι \nγίνυτα(ι)",
-  "162B":  "[- - -]ΟΛΕΥΤ[- - -] \n[- - -]Β̣Α [γ]ίνυται Ε[- - -]",
-  "293B":  "[ὁ δεῖνα ἐπερο̅τᾶι τὸν Δία τὸ]ν Νά̣ϊο̣ν [- - -]\n[- - - τ]ίν̣ι κε θεο̣͂[ν θύο̅ν - - -]",
-  "1509B": "ἐνγενεῖτα[ι]",
-  "186A":  "[ed. I.Dodone DVC]\nἐ͂ καὶ ἐν Ὀρχομενο͂ι;\n[Méndez Dosuna 2016: 121; 2018a: 290, que une 186A y 187A en una sola pregunta]\nἐ͂ καὶ ἐν Ὀρχομενο͂ι\nἐ͂ καὶ hόπᾱι κα νο͂ς φέρει;",
-  "187A":  "[ed. I.Dodone DVC]\nἐ͂ καὶ hόπαι (ἱ)κανο͂ς φέρει;\n[Méndez Dosuna 2016: 121; 2018a: 290, que une 186A y 187A en una sola pregunta]\nἐ͂ καὶ ἐν Ὀρχομενο͂ι\nἐ͂ καὶ hόπᾱι κα νο͂ς φέρει;",
-  "190B":  "γᾶν Ϝοικε͂ι πότερα \nἐν Ὀπόεντι;",
-  "215A":  "Πε̣ρίκκη",
-  "296A":  "θ[ε]ὸς τύχαν ἀ[γαθάν]• \nΜυρδιό̅(ν)δαο : ὅπο̅ς νι[κ]ῆν ὄντ' <ἐς> κῆσε \nἐν ἐνάτας hό̅ρας : δόε̣[ν] αἰ λῶντες [αἰ δὲ μὴ] \nὈρο̅πόνδε με̅δὲν ἴτο̅;",
-  "313A":  "Θιὸς τύχα ἀγαθὰ : Βο̅κόλο̅ κὴ Πολυμνάστη \nτί κα δράοντοιν hυγία κὴ γενιὰ κ' ἀνδρογένεια \nγινύο[ι]το κ̣ὴ παραμόνιμος ἰοιὸ[ς] κ̣ὴ χρε̅μάτων \nἐπιγγ[ύ]ασις κ̣ὴ τῶν ἰόντων ὄνασις",
-  "328":   "πὲρ πανκλαρία(ς) αἰ γίνυ-\nτε̅ καὶ γυναῖκα ἄγετε̅",
-  "1060A": "Ἀετίναι πὲρ παν-\nπασία(ς) γίνυτο",
-  "1344A": "ΕὐϜέτειρος̣",
-  "1649A": "θεὸς τύχ̣[α• ὁ δεῖνα ἐπερωτᾶι - - -]\nἐ͂ γένυτ[ο - - -]",
-  "1676A": "[ἦ γενε]ὰ γίνυτ[ο];",
-  "3017B": "[θε]ὸς τ[ύ]χα· περὶ πα[μπασί]-\n[ας] ἐ͂ κα δατεύο̅;",
-  "3478A": "[- - -] δικάδ(δ)ε̅ται",
-  "3673B": "[- - -] ἀνθθέμ[ενος - - -] \n[- - -] γίνυται [- - -]",
-  "3809B": "ἔνθι· \nθεός",
-  "4157A": "[ed. I.Dodone DVC]\nπερὶ γενιᾶς : ὅ̅ς κα ἀ[ρ]κετὴ : ὁ̅ς εἴει\n[Méndez Dosuna 2016: 137]\nπερὶ γενιᾶς : ὂ̅ς κα ἀ[ρ]κε͂τη : ὀ̅ς εἴει",
-  "LOD 10": "[Ἐπικοινῆται τὸ - - -] κυνὸν (?) περὶ τᾶ̣ν Κ\n[ - - - - - - - - - - - - - ]ΣΑΡΙΑΣ καὶ ἐπὶ πᾶσι\n[ - - - - - - - - - - - - - ]ΟΣΡΕΜΙΑ τῶν συντ[ε]-\n[λέων (?) - - - - - - - - ] ΧΠΙΝ κα δίκαον (?) τίν-\n[ειν (?) - - - - - - - - - ] ΤΙΟΝ ξένο<ν> ἐό[ντα] (?)",
-  "LOD 27A": "Ὀνασίμο̅ι ἄμει-\nνον τὰν γυναῖκα\nκομίδεσθαι ;",
-};
+export { RASGO_TEXTS_BEOC } from "./lecturas.js";
 
 // Fenómenos vocálicos (§3.1): número de formas atestiguadas.
 export const VOWEL_PHENOM_BEOC = [
@@ -204,7 +181,7 @@ export const VOWEL_PHENOM_BEOC = [
     dvcs: [{ src: "DVC", id: "313A" }, { src: "DVC", id: "4157A" }] },
   { type: "Cierre /εː/ heredada > /eː/ ⟨ΕΙ⟩", n: 4, desc: "εἴει, α[ρ]κε͂τη (4157A); ΕὐϜέτειρος̣ (1344A); χρε̄μάτων (313A)", color: C.beocioVowel,
     dvcs: [{ src: "DVC", id: "4157A" }, { src: "DVC", id: "1344A" }, { src: "DVC", id: "313A" }] },
-  { type: "Monoptongación οι > υ", n: 4, desc: "γίνυτο, γένυτο y κυνὸν — todos los testimonios son problemáticos (véase rasgo dialectal nº 4)", color: C.terra,
+  { type: "Monoptongación οι > υ", n: 4, desc: "γίνυτο, γένυτο y κυνὸν: todos los testimonios son problemáticos (véase rasgo dialectal nº 4)", color: C.terra,
     dvcs: [{ src: "DVC", id: "1060A" }, { src: "DVC", id: "1649A" }, { src: "DVC", id: "1676A" }, { src: "Lhôte", id: "10" }] },
 ];
 
@@ -215,12 +192,12 @@ export const VOWEL_EXAMPLES_BEOC = [
   { id: "4157A", src: "DVC", date: "Finales s. V a.C.", form: "γενιᾶς (< γενεᾶς)", phenom: "/e/ > /i/ prevocálica", color: C.blue },
   { id: "313A", src: "DVC", date: "1ª mit. s. IV a.C.", form: "θιός (< θεός); γενιὰ (< γενεά); ἰόντων (< ἐόντων)", phenom: "/e/ > /i/ prevocálica", color: C.blue },
   { id: "1344A", src: "DVC", date: "1ª mit. s. V a.C.", form: "ΕὐϜέτειρος̣ (sufijo *-tēr- con ⟨ΕΙ⟩); antropónimo aislado", phenom: "⟨ΕΙ⟩ < /εː/ heredada", color: C.beocioVowel },
-  { id: "4157A", src: "DVC", date: "Finales s. V a.C.", form: "εἴει (< εἴη) con ⟨ΕΙ⟩ para /εː/ heredada; α[ρ]κε͂τη con ⟨Ε⟩ para /εː/ heredada (notación arcaica) — doble notación de /εː/ heredada", phenom: "⟨ΕΙ⟩ < /εː/ heredada", color: C.beocioVowel },
+  { id: "4157A", src: "DVC", date: "Finales s. V a.C.", form: "εἴει (< εἴη) con ⟨ΕΙ⟩ para /εː/ heredada; α[ρ]κε͂τη con ⟨Ε⟩ para /εː/ heredada (notación arcaica): doble notación de /εː/ heredada", phenom: "⟨ΕΙ⟩ < /εː/ heredada", color: C.beocioVowel },
   { id: "313A", src: "DVC", date: "1ª mit. s. IV a.C.", form: "χρε̄μάτων: grafía ⟨Ε⟩ para /εː/ heredada (notación arcaica)", phenom: "⟨ΕΙ⟩ < /εː/ heredada", color: C.beocioVowel },
-  { id: "1060A", src: "DVC", date: "Mediados s. V a.C.", form: "γίνυτο (< γίνοιτο) — interpretación problemática (véase rasgo dialectal nº 4); la apócope πέρ de la laminilla apunta al tesalio", phenom: "οι > υ", color: C.terra },
-  { id: "1649A", src: "DVC", date: "finales s. V – principios s. IV a.C.", form: "γένυτο (< γένοιτο) — interpretación problemática (véase rasgo dialectal nº 4)", phenom: "οι > υ", color: C.terra },
-  { id: "1676A", src: "DVC", date: "s. IV a.C.", form: "γίνυτ[ο] (< γίνοιτο) — interpretación problemática (véase rasgo dialectal nº 4)", phenom: "οι > υ", color: C.terra },
-  { id: "10",    src: "Lhôte", date: "ss. III-II a.C.", form: "κυνὸν (< κοινόν) — convive con palabras que presentan rasgos ajenos al dialecto beocio", phenom: "οι > υ", color: C.terra },
+  { id: "1060A", src: "DVC", date: "Mediados s. V a.C.", form: "γίνυτο (< γίνοιτο): interpretación problemática (véase rasgo dialectal nº 4); la apócope πέρ de la laminilla apunta al tesalio", phenom: "οι > υ", color: C.terra },
+  { id: "1649A", src: "DVC", date: "finales s. V – principios s. IV a.C.", form: "γένυτο (< γένοιτο): interpretación problemática (véase rasgo dialectal nº 4)", phenom: "οι > υ", color: C.terra },
+  { id: "1676A", src: "DVC", date: "s. IV a.C.", form: "γίνυτ[ο] (< γίνοιτο): interpretación problemática (véase rasgo dialectal nº 4)", phenom: "οι > υ", color: C.terra },
+  { id: "10",    src: "Lhôte", date: "ss. III-II a.C.", form: "κυνὸν (< κοινόν): convive con palabras que presentan rasgos ajenos al dialecto beocio", phenom: "οι > υ", color: C.terra },
 ];
 
 // Matriz inscripción × rasgo, derivada de RASGOS_BEOC (sin datos duplicados).
