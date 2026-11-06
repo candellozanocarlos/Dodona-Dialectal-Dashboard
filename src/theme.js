@@ -58,7 +58,7 @@ export const SIGLO_COLORS = {
   V: "#2a6a8e", "V-IV": "#3c9d8f", IV: "#d08c2a", "IV-III": "#b5523b", III: "#8a3a6a", "III-II": "#6a5b89", "Sin datar": "#b5a58a",
 };
 // Siglo de un periodo de las cronologías del dashboard (“1ª mit. s. V”, “Transición V–IV”, “ss. III–II”…).
-export const sigloDe = (periodo) => {
+const sigloDe = (periodo) => {
   const p = String(periodo).replace("–", "-");
   const par = p.match(/(VI|IV|V|III|II)\s*-\s*(VI|IV|V|III|II)/);
   if (par) return `${par[1]}-${par[2]}`;

@@ -19,8 +19,8 @@ import { ADSCRIPCION_NO } from "../data/adscripcion.js";
 const NO = DIALECT_COLORS.doricoNO;
 const INK = DIALECT_INK.doricoNO;
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "📜" },
-  { id: "map", l: "Mapa y comunidades", i: "🗺️" },
+  { id: "context", l: "Contexto histórico", i: "§" },
+  { id: "map", l: "Mapa y comunidades", i: "◎" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "writing", l: "Escritura y contracción", i: "Ε" },
 ];
@@ -94,7 +94,6 @@ export default function DoricoNO({ switcher, subnav }) {
       title={<>El <span style={{ fontWeight: 700, color: INK }}>dórico noroccidental</span> en las laminillas oraculares de Dodona</>}
       subtitle="Epiro, Acarnania y la Grecia central · El dialecto del santuario, conservador y difícil de aislar"
       stats={<>
-        {/* Recuentos de §3 del capítulo (DORICO_NO_1_Redaccion_v48; DVC_v5_FINAL.xlsx, DIALECTO_SUB “Dórico NO”, fila 165 de Resúmenes). */}
         <Stat label="Inscripciones" value={String(TOTAL_DOR_NO)} sub={`${nSeguras} seguras · ${nDudosas} dudosas · ${nNombre} solo por el nombre`} accent={INK} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR_NO)} %`} sub={`${TOTAL_DOR_NO} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgos propios" value={String(TABLA_RASGOS_NO.length)} sub="frente al resto del dórico" accent={C.green} />
@@ -270,7 +269,7 @@ export default function DoricoNO({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="Recuento según la autopsia y la revisión de los alfabetos (ALFABETO_GRUPO_v2); las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ambracia.">
+          note="Recuento según la autopsia y la revisión de los alfabetos; las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ambracia.">
           <DonutLegend data={ALF_PIE} height={210} valueColor={INK} />
         </Sec>
 

@@ -3,7 +3,7 @@
 import { C } from "../../theme.js";
 import { HALO as halo, star } from "./geo.js";
 
-export const LAND = "#f3ecdc";
+const LAND = "#f3ecdc";
 
 export const MapSvg = ({ proj, land, label, children }) => (
   <svg viewBox={`0 0 ${proj.w} ${proj.h}`} role="img" aria-label={label}

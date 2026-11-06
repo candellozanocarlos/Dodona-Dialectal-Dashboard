@@ -5,7 +5,7 @@ Fuentes:
   · DVC_v5_FINAL.xlsx, hoja Datos (DIALECTO_MACRO = Jónico-Ático-Koiné; DIALECTO_SUB, DIALECTO_CERTEZA, Date, TEMA_MACRO,
     ALFABETO_GRUPO_v2).
   · PYTHON/SEABORN-ALTAIR/graficos_adscripcion.py (tablas jak, jon, ati y koi) y graficos_jonico_atico_koine.py (RASGOS).
-Sustituye a gen_jak_dashboard.py (28 oct. 2026), que no se conserva.
+  · PARTE IV. JÓNICO-ÁTICO Y KOINÉ_v<n>.docx (la de número más alto, o la de DOCX_JAK): rasgos de §4-§7 del cap. 9 y §4 de los caps. 10-12.
 
 Uso:  py scripts/datos_jonico_atico.py
 """
@@ -32,6 +32,7 @@ os.environ.setdefault("EXCEL_DVC", str(EXCEL))
 sys.path.insert(0, str(GRAF))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from datos_adscripcion import actualizar_indice, capitulos, clave_excel, claves_indice, crono, fecha, filas_js, temas  # noqa: E402
+from comun import Excel, apartados, clave_js, es_titulo, indices, parrafos, rasgos_de, secciones, ultima  # noqa: E402
 
 df = pd.read_excel(EXCEL, sheet_name="Datos")
 jak = df[df["DIALECTO_MACRO"] == "Jónico-Ático-Koiné"]
@@ -72,10 +73,10 @@ T, E = "topónimo", "etnónimo"
 LUGARES = [
     ("atenas", "Atenas", "Ἀθῆναι", 23.727, 37.984, (-0.10, -0.22), "Ática",
      [("Lhôte 23", "Ἀθηναῖος", E, True), ("Lhôte 52", "Ἀθήνησι", T, True)],
-     "Lugar de origen o de residencia de los atenienses Diógneto, que declara su ciudadanía, e Isodemo, que pregunta por su residencia allí (cap. 11, §4.1; cap. 12, §4.2)."),
+     "Lugar de origen o de residencia de Diógneto, que se presenta como ateniense, y de Isodemo, que pregunta por su residencia allí (cap. 11, §4.1; cap. 12, §4.2)."),
     ("ambracia", "Ambracia", "Ἀμβρακία", 20.985, 39.160, (0.22, 0.05), "Colonias corintias",
      [("Lhôte 106A", "ἐν Ἀμπρα[κίαι]", T, True), ("DVC 2265B", "Ἀπρα[κίαν]", T, False)],
-     "Unos navegantes dudan entre permanecer en Ambracia o partir hacia Μεσσήνη; en la segunda consulta el topónimo está restituido."),
+     "Unos navegantes dudan entre permanecer en Ambracia o partir hacia Μεσσήνην; en la segunda consulta el topónimo está restituido."),
     ("apolonia", "Apolonia", "Ἀπολλωνία", 19.470, 40.720, (-0.22, 0.05), "Iliria",
      [("DVC 366A", "[εἰς] Ἀπολλωνίαν", T, True)], "En la costa iliria, destino de un viaje por mar (= I.Dodone Lhôte 97)."),
     ("siracusa", "Siracusa", "Συράκουσαι", 15.287, 37.076, (0.22, -0.10), "Sicilia",
@@ -114,6 +115,24 @@ for _, r in jak.iterrows():
     ANEXO.append([k[4:] if k.startswith("DVC ") else "LOD " + k[6:], fecha(r["Date"]), r["Text"] if pd.notna(r["Text"]) else "",
                   CERT[r["DIALECTO_CERTEZA"]], NOMBRE_ANEXO[r["DIALECTO_SUB"]]])
 sub = {k: jak[jak["DIALECTO_SUB"] == k] for k in ("Jónico", "Ático", "Koiné")}
+# ── Texto de la Parte IV: rasgos del cap. 9 (§4-§7) y apartados de §4 de los caps. 10-12 ──
+DOCX = Path(os.environ.get("DOCX_JAK") or ultima("PARTE IV. JÓNICO-ÁTICO-KOINÉ", "PARTE IV*_v*.docx"))
+pars = parrafos(DOCX)
+ex = Excel()
+
+
+def hasta(i0, inicio):
+    return next(i for i, (st, t) in enumerate(pars) if i > i0 and es_titulo(st) and t.startswith(inicio))
+
+
+i9 = indices(pars, "4. CARACTER")
+RASGOS_CAP9, CITADAS_CAP9 = rasgos_de(secciones(pars, i9, hasta(i9, "8. ANEXOS")), ex)
+SECS = {}
+for n, k in enumerate(("JON", "ATI", "KOI")):
+    i0 = indices(pars, "4. LAS INSCRIPCIONES", n)
+    SECS[k] = apartados(secciones(pars, i0, hasta(i0, "5. ANEXOS")))
+TEXTOS_CAP9 = {clave_js(k): ex.col(ex.filas[k], "Text") for k in sorted(CITADAS_CAP9) if ex.col(ex.filas[k], "Text")}
+
 partes = [
     "// Generado por scripts/datos_jonico_atico.py: no editar a mano.",
     "// Capítulos 9-12 de la tesis (Parte IV): el jónico-ático y la koiné. Fuentes: DVC_v5_FINAL.xlsx, hoja Datos",
@@ -148,6 +167,12 @@ partes = [
     f"export const THEMES_KOI = {J(temas(sub['Koiné']))};",
     "// Rasgos que separan el jónico-ático de los demás dialectos (tabla jak_9 del cap. 9): consultas con el rasgo visible.",
     f"export const RASGOS_TABLA_JAK = {J(rasgos())};",
+    f"// Rasgos del cap. 9 (§4-§7) y apartados de §4 de los caps. 10-12: {DOCX.stem}.",
+    f"export const RASGOS_JAK = {J(RASGOS_CAP9)};",
+    f"export const RASGO_TEXTS_JAK = {J(TEXTOS_CAP9)};",
+    f"export const SECCIONES_JON = {J(SECS['JON'])};",
+    f"export const SECCIONES_ATI = {J(SECS['ATI'])};",
+    f"export const SECCIONES_KOI = {J(SECS['KOI'])};",
     "// Topónimos y etnónimos del cap. 9, §2 (13 menciones de 11 lugares; figura jak_8_mapa_procedencias).",
     f"export const TOPONYMS_JAK = {J(TOPONYMS)}.map((t) => ({{ ...t, seg: t.mentions.filter((m) => m.certain).length,",
     "  dud: t.mentions.filter((m) => !m.certain).length, total: t.mentions.length }));",
@@ -164,4 +189,5 @@ citadas = {"DVC 2217A", "Lhôte 65B", "DVC 2899A", "DVC 3742B", "DVC 3156B", "DV
             "DVC 1411", "DVC 123"}
 for t in ("jak", "jon", "ati", "koi"):
     citadas.update(claves_indice(filas_js(t)))
+citadas.update(CITADAS_CAP9)
 actualizar_indice(df, citadas)

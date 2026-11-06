@@ -325,7 +325,7 @@ export const Temas = ({ data, color, height = 340 }) => (
 );
 
 // Gráfico a la izquierda y leyenda con cifras a la derecha; renderSub(d) añade una línea bajo cada entrada.
-export const WithLegend = ({ chart, data, valueColor = C.gold, renderSub = null }) => (
+const WithLegend = ({ chart, data, valueColor = C.gold, renderSub = null }) => (
   <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", padding: "12px 0" }}>
     <div style={{ flex: "1 1 300px", minWidth: 240 }}>{chart}</div>
     <div style={{ flex: "1 1 260px", minWidth: 230 }}>

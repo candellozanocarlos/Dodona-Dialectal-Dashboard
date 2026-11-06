@@ -1,7 +1,6 @@
 // Utilidades de texto: griego politónico y citas de inscripciones enlazadas.
 import INSCRIPTION_CORPUS from "../data/inscriptions.json";
-import { RASGO_TEXTS_TES } from "../data/tesalio.js";
-import { RASGO_TEXTS_BEOC } from "../data/beocio.js";
+import { RASGO_TEXTS_BEOC, RASGO_TEXTS_TES } from "../data/lecturas.js";
 
 // Fragmentos griegos: letras griegas (incluida Ⱶ) con sus marcas combinantes; una
 // h/H latina que funciona como signo de aspiración delante de letra griega se
@@ -70,7 +69,7 @@ export const asRef = (dvc) => dvc.startsWith("LOD") ? { src: "Lhôte", id: dvc.r
 
 // ── Índice de inscripciones citadas ─────────────────────────────
 // Clave “DVC 123A” / “Lhôte 8B” → [datación, texto, dialecto, equivalencia DVC].
-// Para las inscripciones con lectura propia en los capítulos (RASGO_TEXTS_*)
+// Para las inscripciones con lectura propia en los capítulos (lecturas.js)
 // se muestra esa lectura.
 export const hasInscription = (key) => Boolean(INSCRIPTION_CORPUS[key]);
 
@@ -99,7 +98,9 @@ export const linkInscriptionRefs = (html) => html
       (x) => (INSCRIPTION_CORPUS[`${src} ${x}`] ? inscSpan(`${src} ${x}`, x) : x));
     return (INSCRIPTION_CORPUS[key] ? inscSpan(key, head) : head) + tail;
   })
-  .replace(/I\.Dodone (DVC|Lhôte)(?!<\/em>)/g, "<em>I.Dodone $1</em>");
+  .replace(/I\.Dodone (DVC|Lhôte)(?!<\/em>)/g, "<em>I.Dodone $1</em>")
+  // Los demás corpus, también en cursiva (CIOD, IG, SEG), salvo que el texto ya los marque.
+  .replace(/(?<![\w>])(CIOD|IG|SEG)(?![\w<])/g, "<em>$1</em>");
 
 // Texto con citas enlazadas y griego en Cardo. Admite HTML sencillo (<i>, <b>).
 export const renderDesc = (text) => {

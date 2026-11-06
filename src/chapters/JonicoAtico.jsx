@@ -4,12 +4,13 @@ import { C, DIALECT_COLORS, ORO, PROSE, colorSiglo, fade } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
 import {
   ADSCRIPCION_ATI, ADSCRIPCION_JAK, ADSCRIPCION_JON, ADSCRIPCION_KOI, ALF_JAK_PIE, ANEXO_JAK, CERTEZA_JAK, CHRONO_ATI, CHRONO_DETAIL_JAK,
-  CHRONO_JON, CHRONO_KOI, RASGOS_TABLA_JAK, SIGLO_IV_JAK, SUBGRUPOS_JAK, THEMES_ATI, THEMES_JAK, THEMES_JON, THEMES_KOI, TOPONYMS_JAK, TOTAL_JAK,
+  CHRONO_JON, CHRONO_KOI, RASGOS_JAK, RASGOS_TABLA_JAK, RASGO_TEXTS_JAK, SECCIONES_ATI, SECCIONES_JON, SECCIONES_KOI, SIGLO_IV_JAK, SUBGRUPOS_JAK,
+  THEMES_ATI, THEMES_JAK, THEMES_JON, THEMES_KOI, TOPONYMS_JAK, TOTAL_JAK,
 } from "../data/jonicoAtico.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
-import { Card, ChapterLayout, EventTable, Sec, SourceList, Stat, Stats, SubNav } from "../components/ui.jsx";
+import { Card, ChapterLayout, EventTable, RasgoExplorer, Sec, Secciones, SourceList, Stat, Stats, SubNav } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo } from "../components/Anexo.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
@@ -18,8 +19,8 @@ import { JAK_LAND_PATH } from "../components/maps/coastlines.js";
 const COLOR = DIALECT_COLORS.jonicoAtico;
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "📜" },
-  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
+  { id: "context", l: "Contexto histórico", i: "§" },
+  { id: "map", l: "Mapa y topónimos", i: "◎" },
   { id: "profile", l: "Perfil dialectal", i: "Η" },
   { id: "subgrupos", l: "Jónico, ático y koiné", i: "Ω" },
   { id: "anexo", l: "Las inscripciones", i: "Ψ" },
@@ -59,7 +60,7 @@ const n = (s) => SUBGRUPOS_JAK.find((x) => x.name === s).value;
 const SUBGRUPOS = {
   jon: {
     nombre: "jónico", cap: "Capítulo 10", color: "#3c9d8f", total: n("Jónico"), adscripcion: ADSCRIPCION_JON, crono: CHRONO_JON,
-    temas: THEMES_JON,
+    temas: THEMES_JON, secciones: SECCIONES_JON,
     texto: <>
       Se separa del ático por la η tras ε, ι y ρ, el hiato de εο, εω y εε, la geminada σσ, las desinencias -αται, -ατο y, en el
       jónico de Asia Menor, el tercer alargamiento compensatorio (εἰρωτᾶι), como en <Ref src="Lhôte" id="100A" />, la consulta del
@@ -73,25 +74,29 @@ const SUBGRUPOS = {
   },
   ati: {
     nombre: "ático", cap: "Capítulo 11", color: "#4a4e7a", total: n("Ático"), adscripcion: ADSCRIPCION_ATI, crono: CHRONO_ATI,
-    temas: THEMES_ATI,
+    temas: THEMES_ATI, secciones: SECCIONES_ATI,
     texto: <>
-      Lo identifican la ᾱ tras ε, ι y ρ, la contracción de εο y εω y, en algunas consultas, ττ y οὖν. Varios consultantes son
-      atenienses conocidos: Diógneto, que declara su ciudadanía en <Ref src="Lhôte" id="23" />, el esclavo Kittos de{" "}
-      <Ref src="DVC" id="1411" />, que aparece en una lista ateniense de fíalas de libertos (McArthur 2019: 274-279), y el Fanóstrato
-      de <Ref src="DVC" id="123" />, que pregunta por Ifícrates (Chaniotis 2017: 64). <Ref src="DVC" id="424B" /> se cuenta como
-      jónico-ática sin precisar, porque πο̅ς no excluye el jónico en las inscripciones (Buck 1955: §68.4).
+      Lo identifican la ᾱ tras ε, ι y ρ, la contracción de εο y εω y, en algunas consultas, ττ, οὖν y la monoptongación de ηι en ει.
+      Los consultantes áticos rara vez declaran su origen, y solo uno, Diógneto, se presenta como ateniense (<Ref src="Lhôte" id="23" />).
+      Otros pueden relacionarse con Atenas por el dialecto y la prosopografía, con la cautela que impone la abundancia de fuentes
+      atenienses, como el Fanóstrato de <Ref src="DVC" id="123" />, si es el rico ateniense del círculo de Timoteo (Chaniotis 2017: 64), o
+      el esclavo Kittos de <Ref src="DVC" id="1411" />, si es el herrero de una lista ateniense de fíalas (McArthur 2019: 274-279). A
+      diferencia de las jonias, solo cuatro de las diecisiete consultas tratan del trabajo, el comercio o los viajes.{" "}
+      <Ref src="DVC" id="424B" /> se cuenta como jónico-ática sin precisar, porque πο̅ς no excluye el jónico en las inscripciones
+      (Buck 1955: §68.4).
     </>,
   },
   koi: {
     nombre: "koiné", cap: "Capítulo 12", color: "#8a3a6a", total: n("Koiné"), adscripcion: ADSCRIPCION_KOI, crono: CHRONO_KOI,
-    temas: THEMES_KOI,
+    temas: THEMES_KOI, secciones: SECCIONES_KOI,
     texto: <>
       Solo se cuenta como koiné la consulta con un rasgo propio o fechada desde finales del s. IV a.C. sin rasgos exclusivos del
-      ático o del jónico. Cinco lo son por la fecha, como la de Isodemo (<Ref src="Lhôte" id="52" />) o la de
-      Θεόφαντος (<Ref src="DVC" id="2510" />), y otras dos son dudosas: <Ref src="Lhôte" id="65B" />, tardía pero con un rasgo
-      jónico-ático sin contexto, y <Ref src="DVC" id="2899A" />, de finales del s. IV a.C., con γεινεά, que solo tiene rasgos comunes al
-      ático. La única con un rasgo propio, el híbrido πράσσοι de <Ref src="DVC" id="3033A" />, se cuenta como mezcla porque su
-      consultante lleva un nombre dórico.
+      ático o del jónico. Ese límite se apoya en la cronología de la propia koiné: sus rasgos aparecen en los documentos macedonios desde
+      mediados del s. IV a.C., su fijación se sitúa en torno al congreso de Corinto del 338/7 a.C. y su difusión llega con las conquistas
+      de Alejandro. Cinco consultas lo son por la fecha, como la de Isodemo (<Ref src="Lhôte" id="52" />) o la de
+      Θεόφαντος (<Ref src="DVC" id="2510" />), y otras dos son dudosas: <Ref src="Lhôte" id="65B" />, que solo conserva εἴ ἐστι, y{" "}
+      <Ref src="DVC" id="2899A" />, cuyo único rasgo jónico-ático, ἐπερωτᾶι, es común con el tesalio. La única con un rasgo propio, el
+      híbrido πράσσοι de <Ref src="DVC" id="3033A" />, se cuenta como mezcla porque su consultante lleva un nombre dórico.
     </>,
   },
 };
@@ -124,7 +129,7 @@ const CONTEXTO = {
         huella en los topónimos de las consultas. Es raro que el consultante declare su patria, salvo excepciones como Porino, el
         Κυμαῖος de <Ref src="DVC" id="35A" /> (segunda mitad del s. IV a.C.), y el ateniense Diógneto de <Ref src="Lhôte" id="23" />{" "}
         (segunda mitad del s. IV a.C.). Los lugares que mencionan son sobre todo destinos de viajes por el Jónico y el Adriático, por las
-        mismas vías que seguían los dóricos de las colonias (véase «Mapa y topónimos»).
+        mismas vías que seguían los dóricos de las colonias (véase “Mapa y topónimos”).
       </>],
     ],
   },
@@ -133,10 +138,10 @@ const CONTEXTO = {
     titulo: "Eubea, Jonia y Dodona", sub: "Una relación antigua, pero indirecta",
     intro: <>
       Los eubeos fueron, según Piccinini (2017: 45-49), los primeros griegos de fuera del Epiro que entraron en contacto con el santuario,
-      y su presencia en el bajo Adriático y en el Jónico desde el s. VIII a.C. fue clave para que Dodona saliera de su ámbito regional en
-      el s. VII a.C. En la época de las laminillas, en cambio, los consultantes jonios llegaban de lugares muy distintos, desde Asia Menor
-      hasta las colonias de Occidente, sin que ninguna ciudad jonia mantuviera con el oráculo una relación pública comparable a la de
-      Atenas.
+      y su presencia en el bajo Adriático y en el Jónico desde el s. VIII a.C. sería clave para que Dodona saliera de su ámbito regional en
+      la segunda mitad del s. VII a.C., aunque se trata de una reconstrucción indirecta. En la época de las laminillas, en cambio, los
+      consultantes jonios llegaban de lugares muy distintos, desde Asia Menor hasta las colonias de Occidente, sin que ninguna ciudad jonia
+      mantuviera con el oráculo una relación pública comparable a la de Atenas.
     </>,
     fuentes: [
       { author: "Heródoto IV, 33, 1-2", type: "Historia, s. V a.C.",
@@ -152,15 +157,16 @@ const CONTEXTO = {
       ["El rastro de Eubea en las laminillas", <>
         Es mucho más tenue de lo que esas tradiciones harían esperar, porque el eubeo se distingue mal del ático, con el que comparte ττ,
         ρρ, ξένος y la monoptongación de ηι en ει (Buck 1955: §39.a, §186). El antropónimo Ὀνήριμος de <Ref src="DVC" id="2217A" />{" "}
-        (segunda mitad del s. IV a.C.), con el rotacismo de Eretria, apunta a la isla (Méndez Dosuna 2016: 131; 2018a: 279), y no cabe
-        descartar un autor eretrio en <Ref src="DVC" id="214A" /> ni en <Ref src="DVC" id="424B" />, cuyo verbo puede ser también el
-        βόλομαι de Eretria.
+        (segunda mitad del s. IV a.C.), con el rotacismo de Eretria, apunta a la isla (Méndez Dosuna 2016: 131), y no cabe descartar un
+        autor eretrio en <Ref src="DVC" id="214A" /> ni en <Ref src="DVC" id="424B" />, cuyo verbo puede ser también el βόλομαι de Eretria.
+        Los editores atribuyen al alfabeto eubeo once inscripciones, ninguna con rasgos jónicos, y la autopsia ha mostrado que al menos dos,{" "}
+        <Ref src="DVC" id="2103A" /> y <Ref src="DVC" id="307A" />, están escritas en alfabeto tesalio.
       </>],
       ["Comerciantes y navegantes jonios", <>
         El εἰρωτᾶι de <Ref src="DVC" id="1881A" /> (principios del s. IV a.C.) y de <Ref src="Lhôte" id="100A" /> (primer cuarto del
         s. IV a.C.) remite al jónico minorasiático. Esquilino pregunta en esta última si le conviene navegar hacia el Adriático, en los
         años en que Dionisio el Viejo refundaba el emporio de Adria, y unos navegantes dudan entre quedarse en Ambracia o partir hacia
-        Μεσσήνη en <Ref src="Lhôte" id="106A" /> (s. IV a.C.); siete de las trece consultas jonias se refieren al trabajo o al comercio.
+        Μεσσήνην en <Ref src="Lhôte" id="106A" /> (s. IV a.C.); siete de las trece consultas jonias se refieren al trabajo o al comercio.
       </>],
     ],
   },
@@ -175,18 +181,18 @@ const CONTEXTO = {
       muchas consultas jónico-áticas sin precisar pudieron salir de sus manos.
     </>,
     eventos: [
-      { event: "Temístocles en la Molosia", date: "tras su ostracismo", agent: "Temístocles, Admeto",
-        desc: "Huyó a Corcira y de allí a la Molosia, donde se acogió como suplicante al rey Admeto (Th. I, 136); según Plutarco, el oráculo le indicó dirigirse al homónimo del dios, el Gran Rey (Plu. Them. 28, 5)." },
+      { event: "Temístocles en Molosia", date: "tras su ostracismo", agent: "Temístocles, Admeto",
+        desc: "Huyó a Corcira y de allí a Molosia, donde se acogió como suplicante al rey Admeto (Th. I, 136); según Plutarco, el oráculo le indicó dirigirse al homónimo del dios, el Gran Rey (Plu. Them. 28, 5)." },
       { event: "Intervención en Acarnania", date: "mediados del s. V a.C.", agent: "Atenas",
         desc: "Las relaciones se estrechan con la presencia ateniense en Acarnania (Th. I, 108, 5; II, 68)." },
-      { event: "Ciudadanía ateniense de Taripas", date: "ca. 428-424 a.C.", agent: "Taripas, Alcetas, Aribas",
-        desc: "El rey moloso, educado en Atenas, recibió la ciudadanía, que se concedió después a su hijo Alcetas y se recordó en el 343/2 a.C. a su nieto Aribas, refugiado en Atenas tras ser expulsado por Filipo II (Piccinini 2017: 142 y n. 42; Cabanes 2020: 145, 147)." },
-      { event: "Dedicatoria de una victoria naval", date: "mediados del s. V a.C.", agent: "los atenienses",
-        desc: "Ἀθεναῖοι ἀπὸ Πελοπον[ν]εσίον ναυμαχίᾳ νικέσαντες ἀ[νέθεσαν], en alfabeto ático anterior a la reforma (Carapanos 1878: 47, n.º 20 = Syll.³ 73). La batalla se ha identificado con la de Formión frente a Patras (429 a.C.), la de Cecrifalea (459-458 a.C.) o la intervención en Síbota (433 a.C.) (Piccinini 2017: 144-145; Cabanes 2020: 209)." },
+      { event: "Ciudadanía ateniense de Táripas", date: "ca. 428-424 a.C.", agent: "Táripas, Alcetas, Aribas",
+        desc: "El rey moloso, educado en Atenas, recibió la ciudadanía, que se concedió después a su hijo Alcetas y se recordó en el 343/2 a.C. a su nieto Aribas, refugiado en Atenas tras ser expulsado por Filipo II (Iust. XVII, 3, 9-13; Plu. Pyrrh. 1, 4; Cabanes 2020: 147)." },
+      { event: "Dedicatoria de una victoria naval", date: "s. V a.C.", agent: "los atenienses",
+        desc: "Ἀθεναῖοι ἀπὸ Πελοπον[ν]εσίον ναυμαχίᾳ νικέσαντες ἀ[νέθεσαν], en alfabeto ático anterior a la reforma (Carapanos 1878: 47, n.º 20 = I.Molossie 8). La batalla no puede precisarse: se han propuesto Cecrifalea (459-458 a.C.), la de Formión en Patras (429 a.C.) y la intervención en Síbota (433 a.C.) (Cabanes 2020: 209; Piccinini 2017: 144-145)." },
       { event: "Respuestas leídas por Demóstenes", date: "348/7 a.C.", agent: "el pueblo ateniense",
         desc: "Dos respuestas del Zeus de Dodona ordenan enviar teoros, sacrificar tres bueyes a Zeus Naios y uno a Dione, dedicar una mesa de bronce junto a la ofrenda del pueblo ateniense y celebrar sacrificios públicos a Dioniso (D. XXI, 51-54)." },
       { event: "La estatua de Dione", date: "años de Olimpíade", agent: "Atenas, Olimpíade",
-        desc: "Según Hiperides, el dios ordenó embellecer la estatua de Dione, y la ciudad le hizo un rostro nuevo y envió una teoría con un sacrificio costoso, lo que provocó las quejas de Olimpíade, que reclamaba como suya la Molosia (Hyp. Eux. 24-26)." },
+        desc: "Según Hipérides, el dios ordenó embellecer la estatua de Dione, y la ciudad le hizo un rostro nuevo, le preparó un rico adorno y envió una procesión con un sacrificio costoso, lo que provocó las quejas de Olimpíade, que reclamaba como suya Molosia (Hyp. Eux. 24-26)." },
       { event: "Trigo del Epiro", date: "ca. 330 a.C.", agent: "Leócrates, Cleopatra",
         desc: "Leócrates, huido de Atenas tras Queronea, compró trigo a la reina Cleopatra en el Epiro y lo llevó a Léucade y a Corinto (Lycurg. Leocr. 26), cuando la región exportaba grano (Cabanes 2020: 141)." },
     ],
@@ -204,12 +210,20 @@ const CONTEXTO = {
         diosa en el s. IV a.C. y en el s. I a.C. se dedicaba todavía en la Acrópolis un altar a Zeus Naios; un decreto del 263/2 a.C.
         recuerda que el santuario de Bendis en el Pireo se fundó de acuerdo con una respuesta de Dodona (Piccinini 2017: 137-140).
       </>],
-      ["Los atenienses de las laminillas", <>
-        Desde en torno al 400 a.C. acuden a Dodona bastantes atenienses (Lhôte 2006: XIII): Diógneto, hijo de Aristomedes
-        (<Ref src="Lhôte" id="23" />); Isodemo, que reside en Atenas (<Ref src="Lhôte" id="52" />); el esclavo Kittos (<Ref src="DVC" id="1411" />),
-        que aparece en una lista ateniense de fíalas de libertos (McArthur 2019: 274-279); Fanóstrato, que pregunta por su amistad con
-        Ifícrates (<Ref src="DVC" id="123" />), y Aristón, que piensa navegar a Siracusa (<Ref src="Lhôte" id="103A" />). Exacón
-        (<Ref src="Lhôte" id="130A" />) y Nike (<Ref src="Lhôte" id="141A" />), con alguna forma dórica, se cuentan entre las mezclas.
+      ["Las ofrendas de los atenienses", <>
+        Las ofrendas muestran la devoción privada: entre los bronces hallados en el santuario figura la placa de un cofrecillo con la
+        dedicatoria Διὶ Ναΐῳ Φιλῖνος Ἀθηναῖος (I.Molossie 25), y el atleta Μηνόδωρος Γναίου Ἀθηναῖος venció dos veces en los Naia de
+        Dodona, según la base de su estatua en Delos (I.Molossie 257).
+      </>],
+      ["Atenienses seguros y posibles en las laminillas", <>
+        Lhôte (2006: XIII) observó que, a partir de ca. 400 a.C., acuden a Dodona atenienses en número considerable, pero solo uno lo declara:
+        Diógneto, hijo de Aristomedes, se presenta como ateniense en <Ref src="Lhôte" id="23" />. Los demás se relacionan con Atenas por
+        indicios de distinta solidez: Isodemo pregunta si le conviene casarse mientras reside en Atenas (<Ref src="Lhôte" id="52" />); Aristón, de
+        lengua ática, pregunta por un viaje a Siracusa (<Ref src="Lhôte" id="103A" />); el esclavo Kittos (<Ref src="DVC" id="1411" />) podría
+        ser el mismo que aparece en una lista ateniense de fíalas (McArthur 2019: 274-279), y Fanóstrato pregunta por su amistad con un
+        Ifícrates que Chaniotis (2017: 64) identifica con el general ateniense (<Ref src="DVC" id="123" />). Lhôte (2006: 16, 293) considera
+        también atenienses a Exacón (<Ref src="Lhôte" id="130A" />), por su dialecto, y a Nike (<Ref src="Lhôte" id="141A" />); ambos textos, con
+        alguna forma dórica, se cuentan entre las mezclas.
       </>],
     ],
   },
@@ -218,10 +232,11 @@ const CONTEXTO = {
     titulo: "La formación de la koiné y su llegada al Epiro", sub: "Del gran ático a la lengua común de los griegos",
     intro: <>
       La koiné es, en esencia, una variedad ampliada e internacional del ático, con una fuerte influencia jonia (Colvin 2007: 65). Sus
-      raíces se remontan a la Atenas posterior a las guerras médicas, y el paso decisivo fue su adopción por la corte macedonia. El Epiro
-      se hallaba entonces en la órbita de Macedonia, pero esa cercanía no llevó la koiné a sus documentos: es verosímil que hubiera
-      hablantes de koiné entre los consultantes desde finales del s. IV a.C., y las siete consultas de koiné del corpus son todas de esa
-      fecha o posteriores, pero el material no sostiene una koiné en Dodona en el s. V a.C. ni en la primera mitad del s. IV a.C.
+      raíces se remontan a la Atenas posterior a las guerras médicas, y el paso decisivo fue su adopción por la corte macedonia. Esa lengua
+      pudo llegar al Epiro, que desde mediados del s. IV a.C. se hallaba en la órbita de Macedonia, pero la cercanía no llevó la koiné a
+      sus documentos: no es descabellado que hubiera hablantes de koiné entre los consultantes desde finales del s. IV a.C., y las siete
+      consultas de koiné del corpus son todas de esa fecha o posteriores, pero el material no sostiene una koiné en Dodona en el s. V a.C.
+      ni en la primera mitad del s. IV a.C.
     </>,
     eventos: [
       { event: "Liga de Delos", date: "478/7 a.C.", agent: "Atenas y los jonios",
@@ -229,13 +244,13 @@ const CONTEXTO = {
       { event: "El ático, lengua de la liga", date: "s. V a.C.", agent: "Atenas y sus aliados",
         desc: "El decreto de la moneda, los pesos y las medidas se graba en ático en ciudades de otros dialectos (Crespo 2006: 94-96; 2014a: 310-311), y los tratados citan en ático el juramento de la otra parte (Crespo 2004: 109-110, 116-117)." },
       { event: "Acuerdos en ático fuera de Atenas", date: "ca. 370-360 a.C.", agent: "Tegea, Argos",
-        desc: "El ático registra acuerdos entre estados griegos, mientras en el Peloponeso surgen koinai regionales con formas híbridas (Crespo 2009: 141-142; 2010a: 140; 2014b: 57-58, 65-66)." },
+        desc: "El ático registra acuerdos entre estados griegos, mientras en el Peloponeso surgen koinai regionales con formas híbridas (Crespo 2014b: 57-58, 65-66)." },
       { event: "Lengua oficial de Macedonia", date: "Filipo II (360/59-336 a.C.)", agent: "los temenidas",
-        desc: "El ático de la administración se convierte en la lengua oficial del reino (Bubenik 2014: 279; Brixhe y Panayotou 1988: 246; Hatzopoulos 2018: 300-301); sus rasgos aparecen en las inscripciones más antiguas de Macedonia, como las de Olevéni (345 a.C.) y Filipos (330 a.C.) (Crespo 2012: 122 y n. 10)." },
+        desc: "El ático de la administración se convierte en la lengua oficial del reino (Bubenik 2014: 279; Brixhe y Panayotou 1988: 246; Hatzopoulos 2018: 300-301); sus rasgos aparecen en las inscripciones más antiguas halladas en Macedonia (Crespo 2012: 122 n. 10), como la carta de Filipo II a los katlestai hallada cerca de Olevéni (IG X,2,2 1), que Hatzopoulos (1982: 21-42) fecha en el 345 a.C. y Arena (2003: 81-82) atribuye, con cautela, a Filipo V y al 206 a.C., y la delimitación del territorio de Filipos por Alejandro (SEG 34:664; 330 a.C.)." },
       { event: "Congreso de Corinto", date: "338/7 a.C.", agent: "Filipo II, Atenas",
         desc: "El juramento de los atenienses como miembros de la liga, IG II² 236, con κατὰ [θ]άλασ[σαν], es el primer documento con la σσ de la koiné; Crespo (2010a: 142-145; 2010b: 132-134) atribuye su fijación a una elección consciente de la corte de Filipo II." },
       { event: "Alejandro el Moloso y Olimpíade", date: "342-331 a.C.", agent: "Filipo II, Alejandro, Olimpíade",
-        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopia y las ciudades eleas, y el reino moloso llega al golfo de Ambracia; tras su muerte en Italia, Olimpíade gobierna la Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
+        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopia y las ciudades eleas, y el reino moloso llega al golfo de Ambracia; tras su muerte en Italia, Olimpíade gobierna Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
       { event: "La lengua común de los griegos", date: "desde finales del s. IV a.C.", agent: "Alejandro y sus sucesores",
         desc: "La koiné se convierte en la lengua oficial de un territorio inmenso; el término κοινὴ διάλεκτος procede probablemente de los gramáticos alejandrinos de los ss. III-II a.C. (Colvin 2007: 63; Bubenik 2014: 279-280)." },
     ],
@@ -251,8 +266,9 @@ const CONTEXTO = {
         escasos hasta época imperial (Filos 2018a: 231-232); las monedas del koinon mantienen Ἀπειρωτᾶν hasta el 167 a.C. y ningún
         consultante epirota se expresa solo en koiné (Lhôte 2006: 14-15). En las consultas de los dorios, la koiné penetra en rasgos
         aislados, como εἰ en el híbrido εἴ κα de <Ref src="DVC" id="2186A" /> (s. IV a.C.) o la contracción de ἐπερωτᾶι en{" "}
-        <Ref src="Lhôte" id="22A" /> (ss. III-II a.C.). La única consulta de koiné cuyo autor puede situarse es la del ateniense Isodemo
-        (<Ref src="Lhôte" id="52" />).
+        <Ref src="Lhôte" id="22A" /> (ss. III-II a.C.). La única consulta de koiné cuyo consultante puede situarse es la de Isodemo, que
+        pregunta por su residencia en Atenas (<Ref src="Lhôte" id="52" />), de modo que ninguna permite atribuir la koiné a un macedonio o a
+        un epirota.
       </>],
     ],
   },
@@ -413,7 +429,7 @@ export default function JonicoAtico({ switcher }) {
             <Bars data={CHRONO_DETAIL_JAK.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={300} rotate={-35} />
           </Sec>
 
-          <Sec title="Temática de las consultas" sub="Predominan las relativas al trabajo y al comercio, como corresponde a comerciantes y navegantes">
+          <Sec title="Temática de las consultas" sub="Predominan las relativas al trabajo y al comercio, lo que concuerda con la presencia de comerciantes y marinos">
             <Temas data={THEMES_JAK} color={COLOR} height={330} />
           </Sec>
 
@@ -446,6 +462,9 @@ export default function JonicoAtico({ switcher }) {
               </table>
             </div>
           </Sec>
+          <Sec title="Los rasgos, uno a uno" sub={`Los ${RASGOS_JAK.length} apartados del capítulo 9 (§4-§7), con su explicación y las inscripciones que citan`}>
+            <RasgoExplorer rasgos={RASGOS_JAK} texts={RASGO_TEXTS_JAK} color={COLOR} />
+          </Sec>
         </>}
       </>}
 
@@ -470,6 +489,9 @@ export default function JonicoAtico({ switcher }) {
         </Sec>
         <Sec title="Temática">
           <Temas data={g.temas} color={g.color} height={260} />
+        </Sec>
+        <Sec title="Las inscripciones" sub={`Los apartados de §4 del ${g.cap.toLowerCase()}: pulsa para desplegar cada uno`}>
+          <Secciones items={g.secciones} color={g.color} />
         </Sec>
       </>}
     </ChapterLayout>

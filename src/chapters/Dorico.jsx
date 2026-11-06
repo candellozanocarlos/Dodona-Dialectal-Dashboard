@@ -14,13 +14,13 @@ import { DvcLabel, Ref } from "../components/Inscriptions.jsx";
 import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
 import DoricoGeneral from "./DoricoGeneral.jsx";
 import DoricoNO from "./DoricoNO.jsx";
-import { Card, ChapterLayout, EventTable, GreekBlock, RasgoExplorer, Sec, SectionNav, Select, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, EventTable, GreekBlock, Sec, SectionNav, Select, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_SEV } from "../data/adscripcion.js";
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "📜" },
-  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
+  { id: "context", l: "Contexto histórico", i: "§" },
+  { id: "map", l: "Mapa y topónimos", i: "◎" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "vowels", l: "Vocalismo", i: "Ω" },
 ];
@@ -355,9 +355,9 @@ export default function Dorico({ switcher }) {
         <Sec title="Temática de las consultas" sub={`Temas de consulta (n = ${TOTAL_SEV})`}>
           <Temas data={THEMES_SEV} color={C.severior} height={310} />
           <p style={{ ...PROSE, fontSize: 11.5, marginTop: 8 }}>
-            Dos de las dieciséis inscripciones (el 12,5 %) no han podido clasificarse; en I.Dodone Lhôte 5, consulta pública sobre la
-            prosperidad y los territorios de la ciudad, ello obedece a la naturaleza del texto y no a su conservación. Destacan las
-            consultas religiosas y las relativas a la vida familiar o matrimonial, con tres testimonios cada una.
+            Solo una de las dieciséis inscripciones (el 6,3 %), <Ref src="DVC" id="212B" />, no ha podido clasificarse. Destacan las consultas
+            religiosas y las relativas a la vida familiar o matrimonial, con tres testimonios cada una; la consulta pública de los tarentinos
+            (<Ref src="Lhôte" id="5" />) es la única de tema político.
           </p>
         </Sec>
 

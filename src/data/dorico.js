@@ -55,7 +55,7 @@ export const INSCRIPCIONES_SEV = [
     note: "Consulta de un tal Agéloco procedente de Hergetio, en el interior de Sicilia ({{ἐξ Ηεργετίω}}). Presenta el genitivo temático en -ω del propio topónimo y el infinitivo {{γαοργῆ(ν)}}, ambos con vocalismo severior, a los que se suma el participio {{Hορμημένωι}}; la aspiración se nota mediante el signo Ͱ, propio de la zona. La consulta reviste un interés particular para la dialectología siciliana, puesto que frente a la convergencia de corte mitior que suele postularse para la isla, sostenida sobre el vocalismo de las grandes fundaciones costeras, Agéloco escribe en severior pleno. Puede que Hergetio, una pequeña localidad del interior, fuera ajena a ese eje costero y mantuviera el vocalismo severior original.",
     refs: "Méndez Dosuna (2008: 64, 75; 2024: §4.1); Giannakis (2024b: 122); Mimbrera Olarte (2012: 101)" },
   { id: "LOD 5", group: "a", date: "ss. IV-III a.C.", period: "Transición IV–III",
-    tema: "Desconocido / Sin clasificar", alf: "Magna Grecia / Sicilia",
+    tema: "Otros", alf: "Magna Grecia / Sicilia",
     crit: { voc: "s", media: false, dor: false, alf: true, proc: "etnónimo" },
     forms: ["τὰ χη̣ρῶι"],
     text: "Θεό[ς]. Τύχαι ἀγαθᾶι. [Ἐπερωτῆι] \nhα πόλις - hα τῶν Ταραν[τίνων] \nτὸν Δία τὸν Ναῖον καὶ τ[ὰν Διώναν] \nπερὶ παντυχίας καὶ π[ερὶ χωρίων ?] \nτὰ χη̣ρῶι καὶ περὶ τῶν [---]",
@@ -169,7 +169,7 @@ export const INSCRIPCIONES_SEV = [
 export const SEV_BY_ID = Object.fromEntries(INSCRIPCIONES_SEV.map(i => [i.id, i]));
 
 // Cronología (§3; suma: TOTAL_SEV).
-export const CHRONO_ORDER_SEV = ["Finales s. V", "Transición V–IV", "1ª mit. s. IV", "Med. s. IV",
+const CHRONO_ORDER_SEV = ["Finales s. V", "Transición V–IV", "1ª mit. s. IV", "Med. s. IV",
   "2ª mit. s. IV", "Finales s. IV", "Transición IV–III", "1ª mit. s. III"];
 export const CHRONO_DETAIL_SEV = CHRONO_ORDER_SEV.map(period => {
   const row = { period, n: 0, a: 0, b: 0, c: 0, d: 0, e: 0 };

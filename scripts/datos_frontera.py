@@ -7,6 +7,8 @@ Fuentes:
     DIALECTO_CERTEZA, Date, TEMA_MACRO, ALFABETO_GRUPO_v2, Text y la columna Carlos; Resúmenes, fila 186, 3 nov. 2026).
   · PYTHON/SEABORN-ALTAIR/graficos_mezcla.py (COMBINACION, TIPOS, tabla «mez»), graficos_minoritarios.py (DIALECTO,
     tabla «min») y graficos_no_jonico_aticas.py (RASGOS, COMPATIBLES, tabla «nja»): las mismas cifras que las figuras.
+  · MEZCLA_1_Redaccion, MINORITARIOS_1_Redaccion y NO_JON_AT_1_Redaccion (la versión más alta): tablas de los anexos y
+    texto de los apartados que la vista muestra desplegables.
 
 Uso:  py scripts/datos_frontera.py
 """
@@ -15,6 +17,7 @@ import os
 import re
 import sys
 import tempfile
+import unicodedata
 from pathlib import Path
 
 import docx
@@ -37,7 +40,7 @@ def ultima(carpeta, patron):
 
 def tabla(doc, i):
     """Filas (sin la cabecera) de la tabla i de un capítulo, con el texto de cada celda."""
-    return [[c.text.strip() for c in r.cells] for r in docx.Document(doc).tables[i].rows[1:]]
+    return [[unicodedata.normalize("NFC", TRABAJO.sub("", c.text).strip().translate(PUA)) for c in r.cells] for r in docx.Document(doc).tables[i].rows[1:]]
 
 
 def clave_cap(t):
@@ -55,6 +58,7 @@ import graficos_mezcla as MEZ  # noqa: E402  (añade «mez» a A.CAPITULOS)
 import graficos_minoritarios as MIN  # noqa: E402  (añade «min»)
 import graficos_no_jonico_aticas as NJA  # noqa: E402  (añade «nja»)
 import datos_adscripcion as DA  # noqa: E402
+from comun import PUA, TRABAJO, apartados, es_titulo, indices, parrafos, secciones  # noqa: E402
 
 DA.capitulos = lambda: A.CAPITULOS   # filas_js() lee las tablas de los tres capítulos, que no están en el AST
 J = lambda x: json.dumps(x, ensure_ascii=False)
@@ -131,7 +135,7 @@ ALF_PIE += [f'  {{ id: "{COLOR_ALF[k]}-{i}", label: "{ALF_NJA[k]}", value: {int(
             for i, k in enumerate(sorted((k for k in c_alf.index if k in ALF_NJA), key=lambda k: -c_alf[k]))]
 assert sum(int(c_alf[k]) for k in c_alf.index) == NJA.N["total"] and set(c_alf.index) <= set(ALF_NJA) | {"Reformado / Desconocido"}
 RASGOS = [{"sec": s, "rasgo": L(r), "ambito": L(a), "ejemplos": L(e), "n": n} for s, r, a, e, n in NJA.RASGOS]
-COMPAT = [{"dialectos": L(d), "rasgos": L(r), "n": n} for d, r, n in NJA.COMPATIBLES]
+COMPAT = [{"dialectos": L(d).replace("de la tabla de rasgos", "de los anteriores"), "rasgos": L(r), "n": n} for d, r, n in NJA.COMPATIBLES]
 
 # Tabla de adscripción: los treinta πέρ ante laguna, que la tesis remite al §4, salen del Excel (columna Carlos).
 ADS_NJA = DA.filas_js("nja")
@@ -141,12 +145,10 @@ for f in ADS_NJA:
         assert len(per) == f["n"], len(per)
         del f["nota"]
         f["dvcs"] = [clave(r) for _, r in per.iterrows()]
-    elif "nota" in f:
-        f["nota"] = f["nota"].replace("véase la tabla de rasgos", "véase «Rasgos no jónico-áticos»")
 ADS_MEZ = DA.filas_js("mez")
 for f in ADS_MEZ:
     if "nota" in f:
-        f["nota"] = f["nota"].replace("véase la tabla de tipos", "véase «Tipos de mezcla»")
+        f["nota"] = f["nota"].replace("véase la tabla de tipos", "véase “Tipos de mezcla”")
 
 # Anexo (§6 del cap. 15): las 844, con la base de la adscripción de las dudosas y la de solo nombre.
 DOC_NJA = ultima("NO JON-ÁT", "NO_JON_AT_1_Redaccion_v*.docx")
@@ -163,6 +165,24 @@ dud = [a for a in anexo if a[3] != "s"]
 assert len(dud) == NJA.N["Dudoso"] + NJA.N["Solo nombre/alfabeto"] and all(a[4] for a in dud), [a[0] for a in dud if not a[4]]
 assert len(RASGOS_ANEXO) == len(anexo) and all(a[5] for a in anexo), [a[0] for a in anexo if not a[5]]
 ANEXO.write_text(json.dumps(anexo, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+# ── Texto de los capítulos: apartados que la vista muestra desplegables ──
+def tramo(docx, inicio, fin):
+    pars = parrafos(docx)
+    i0 = indices(pars, inicio)
+    i1 = next(i for i, (st, t) in enumerate(pars) if i > i0 and es_titulo(st) and t.startswith(fin))
+    return apartados(secciones(pars, i0, i1))
+
+
+DOC_MIN = ultima("DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
+TIPOLOGIA_MEZ = tramo(DOC_MEZ, "4. TIPOLOG", "5. EXPLICACIONES")
+EXPLICACIONES_MEZ = [x for x in tramo(DOC_MEZ, "5. EXPLICACIONES", "6. ANEXOS") if x["sec"] != "§5.6"]
+APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "7. ANEXOS")
+RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
+COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
+POR_QUE_NJA = tramo(DOC_NJA, "2. POR QU", "3. LAS INSCRIPCIONES")
+for x in POR_QUE_NJA:   # la tabla del §4 del capítulo, que aquí es la de la subpestaña de los rasgos
+    x["paras"] = [p.replace("la tabla de rasgos", "la tabla del §4") for p in x["paras"]]
 
 partes = [
     "// Generado por scripts/datos_frontera.py: no editar a mano.",
@@ -191,6 +211,9 @@ partes = [
     f"export const ANEXO_MEZ = {J(ANEXO_MEZ)};",
     "// Anexo 6.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con su clasificación en la tesis.",
     f"export const BIBLIO_MEZ = {J(BIBLIO_MEZ)};",
+    f"// Texto de {DOC_MEZ.stem}: §4 (tipología) y §5.1-§5.5 (explicaciones).",
+    f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
+    f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",
     "",
     "// ── Cap. 14: los dialectos minoritarios (DIALECTO_MACRO = Otros)",
     f"export const TOTAL_MIN = {len(G['min'])};",
@@ -201,6 +224,8 @@ partes = [
     f"export const ADSCRIPCION_MIN = {J(DA.filas_js('min'))};",
     "// Las doce inscripciones (anexo 7.1), con el texto del Excel; certeza: s, d, n.",
     f"export const INSCRIPCIONES_MIN = {J(INSC_MIN)};",
+    f"// Texto de {DOC_MIN.stem}: §3-§6.",
+    f"export const APARTADOS_MIN = {J(APARTADOS_MIN)};",
     "",
     "// ── Cap. 15: las inscripciones no jónico-áticas (DIALECTO_MACRO = NO JON-ÁT); el anexo (§6: clave, datación, texto,",
     "// certeza, motivo de la duda y rasgos visibles), en anexoNoJonAt.json",
@@ -213,6 +238,10 @@ partes = [
     f"export const RASGOS_NJA = {J(RASGOS)};",
     f"export const COMPATIBLES_NJA = {J(COMPAT)};",
     f"export const ADSCRIPCION_NJA = {J(ADS_NJA)};",
+    f"// Texto de {DOC_NJA.stem}: §2, §4 y §5.",
+    f"export const POR_QUE_NJA = {J(POR_QUE_NJA)};",
+    f"export const RASGOS_TXT_NJA = {J(RASGOS_TXT_NJA)};",
+    f"export const COMPATIBLES_TXT_NJA = {J(COMPATIBLES_TXT_NJA)};",
     "",
 ]
 SALIDA.write_text("\n".join(partes), encoding="utf-8")

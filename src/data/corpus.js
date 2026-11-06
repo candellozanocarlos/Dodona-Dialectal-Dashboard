@@ -20,6 +20,7 @@ import { DIALECT_COLORS } from "../theme.js";
 // 968A, 2821A y 2822A al acayo; 1993A al dórico general; 2217A al jónico; 3977A sin clasificar (Otros 17 → 11).
 // Filas 185-186, 3/11/2026: revisión de las no jónico-áticas dudosas (cap. 15): 109A al acayo (solo alfabeto), 257A y
 // 574A al dórico general, 304B sin clasificar (NO JON-ÁT 848 → 844; Otros 12; 1.455).
+// Fila 190, 6/11/2026: 9A a solo nombre, 1771B y 2638B a dudosas (NO JON-ÁT 765/77/2; global 1.121/307/27), sin cambio de los totales.
 export const TOTAL_CORPUS = 1455;
 
 // Inscripciones de cada capítulo.

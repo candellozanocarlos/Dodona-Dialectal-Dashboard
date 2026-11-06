@@ -10,7 +10,7 @@ import {
 } from "../data/doricoGeneral.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
-import { DvcLabel } from "../components/Inscriptions.jsx";
+
 import DoricMap from "../components/maps/DoricMap.jsx";
 import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
@@ -18,8 +18,8 @@ import { ADSCRIPCION_DOR } from "../data/adscripcion.js";
 
 const DOR = DIALECT_COLORS.dorico;
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "📜" },
-  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
+  { id: "context", l: "Contexto histórico", i: "§" },
+  { id: "map", l: "Mapa y topónimos", i: "◎" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "writing", l: "Escritura y notación", i: "Ε" },
 ];
@@ -90,7 +90,6 @@ export default function DoricoGeneral({ switcher, subnav }) {
       title={<>El <span style={{ fontWeight: 700, color: DOR }}>dórico</span> en las laminillas oraculares de Dodona</>}
       subtitle={<><i>Doris mitior</i> y dórico de la Magna Grecia · Rasgos comunes al griego occidental</>}
       stats={<>
-        {/* Recuentos de §3 del capítulo (PARTE II REVISADO 17, cap. 4; DVC_v5_FINAL.xlsx, fila 184 de Resúmenes). */}
         <Stat label="Inscripciones" value={String(TOTAL_DOR)} sub={`${TOTAL_DOR - 2} de la Doris mitior · 2 de la Magna Grecia`} accent={DOR} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_DOR)} %`} sub={`${TOTAL_DOR} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Rasgos estudiados" value={String(RASGOS_DOR.length)} sub="fonética, morfología, sintaxis y léxico" accent={C.green} />
@@ -141,7 +140,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
             <Stat label="Dórico general" value={String(TOTAL_DOR)} sub="con un rasgo que excluye el eolio" accent={DOR} />
             <Stat label="No jónico-áticas" value={String(nNoJonAt)} sub="solo rasgos compartidos" accent={C.muted} />
             <Stat label="Dórico demostrado" value={String(nDemostrado)} sub={`con noroccidental y severior · ${pct(nDemostrado)} %`} accent={C.terra} />
-            <Stat label="Alfabeto corintio" value={String(nCorintias)} sub="de las 92 del corpus" accent={ALFABETO_COLORS.corintio} />
+            <Stat label="Alfabeto corintio" value={String(nCorintias)} sub="de las 91 del corpus" accent={ALFABETO_COLORS.corintio} />
           </Stats>
           <Card>
             <P>Una inscripción solo se cuenta como dórica cuando presenta al menos un rasgo que excluya los dialectos eólicos, porque algunos de los más frecuentes (la ᾱ, -τι, αἰ y κα) son comunes a ambos grupos. Se cuentan también las que emplean la familia de πάομαι y las escritas en alfabeto corintio con algún rasgo no jónico-ático visible. Las que solo documentan rasgos compartidos se reúnen aparte como no jónico-áticas: son {nNoJonAt}, el {pct(nNoJonAt)} % del corpus dialectal, y es verosímil que la mayoría procedan de consultantes dóricos, aunque el material no permite demostrarlo.</P>
@@ -274,7 +273,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
         <Sec title="Distribución cronológica"
           sub={`El s. IV a.C. reúne ${nSigloIV} inscripciones y el s. V a.C., ${nSigloV}; el peso del s. V se debe sobre todo a las consultas en alfabeto corintio`}>
           <Bars data={CHRONO_DETAIL_DOR.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={300} rotate={-35} />
-          <P style={{ fontSize: 11.5, marginTop: 4 }}>A diferencia del tesalio, cuyo material decrece de forma acusada en la segunda mitad del s. IV a.C., las inscripciones dóricas se mantienen en esa etapa (17, frente a 32 en su primera mitad y 9 a mediados) y continúan en el s. III a.C., una continuidad que concuerda con la de un dialecto hablado en el propio santuario y en su entorno.</P>
+          <P style={{ fontSize: 11.5, marginTop: 4 }}>A diferencia del tesalio, cuyo material decrece de forma acusada en la segunda mitad del s. IV a.C., las inscripciones dóricas se mantienen en esa etapa (17, frente a 33 en su primera mitad y 9 a mediados) y continúan en el s. III a.C., una continuidad que concuerda con la de un dialecto hablado en el propio santuario y en su entorno.</P>
         </Sec>
 
         <Sec title="Temática de las consultas" sub={`Temas de consulta (n = ${TOTAL_DOR})`}>
@@ -283,7 +282,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="Recuento según la autopsia y la revisión de los alfabetos (ALFABETO_GRUPO_v2). El alfabeto corintio basta para atribuir al dórico una consulta con un rasgo no jónico-ático visible, pero no por sí solo: de las 92 inscripciones del corpus en ese alfabeto, 44 se cuentan en este capítulo, nueve en el noroccidental y 39 quedan sin clasificar.">
+          note="Recuento según la autopsia y la revisión de los alfabetos. El alfabeto corintio basta para atribuir al dórico una consulta con un rasgo no jónico-ático visible, pero no por sí solo: de las 91 inscripciones del corpus en ese alfabeto, 43 se cuentan en este capítulo, nueve en el noroccidental y 39 quedan sin clasificar.">
           <DonutLegend data={ALF_PIE} height={230} valueColor={DOR} />
         </Sec>
 
