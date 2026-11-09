@@ -13,7 +13,7 @@ import {
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
-import { Card, ChapterLayout, Sec, Secciones, SectionNav, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, Sec, Secciones, SectionNav, Stat, Stats, SubNav, Table, TablaRasgos } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo, InscripcionCard } from "../components/Anexo.jsx";
 
@@ -63,7 +63,7 @@ export function Mezcla({ switcher, subnav = null }) {
         <Stat label="Con el jónico-ático" value={String(TOTAL_MEZ - 1)} sub="todas salvo una" accent={C.blue} />
       </>}
       tabs={[
-        { id: "context", l: "Concepto y criterio", i: "§" },
+        { id: "context", l: "Concepto y criterio", i: "📜" },
         { id: "profile", l: "Perfil dialectal", i: "Μ" },
         { id: "interp", l: "Explicaciones", i: "Ω" },
         { id: "anexo", l: "Las inscripciones", i: "Ψ" },
@@ -167,13 +167,9 @@ export function Mezcla({ switcher, subnav = null }) {
         </>}
         {sub === "tipos" && <>
           <Sec title="Tipos de mezcla dialectal en el corpus" sub="Dónde se encuentra el elemento ajeno al dialecto del texto"
-            note="Cada consulta se cuenta en un solo tipo, el de su elemento más característico. En las dos últimas columnas, las consultas seguras y las dudosas o de solo nombre.">
-            <Table color={MEZ_INK} rowHeader={1} head={["§", "Tipo", "Elemento no jónico-ático", "Elemento jónico-ático", "Explicación más probable", "Seguras", "Dudosas"]}
-              rows={TIPOS_MEZ.map((t) => [
-                <span style={{ color: C.muted }}>{t.sec}</span>, <span style={{ fontFamily: "var(--fh)" }}>{t.tipo}</span>, g(t.noja), g(t.ja),
-                <span style={{ color: C.muted }}>{t.expl}</span>,
-                <b style={{ color: MEZ_INK }}>{t.seguras}</b>, <span style={{ color: "#a0761c" }}>{t.dudosas}</span>,
-              ])} />
+            note={`Cada fila es un tipo de mezcla según el lugar del texto en que se encuentra el elemento ajeno, con el apartado del capítulo. En la última columna, las consultas seguras y, entre paréntesis, las dudosas y las que descansan en un nombre propio. Cada consulta se cuenta en un solo tipo, el de su elemento más característico; la suma da las ${TOTAL_MEZ} del capítulo.`}>
+            <TablaRasgos color={MEZ} cabeceras={["Elemento\nno jónico-ático", "Elemento\njónico-ático", "Explicación\nmás probable (§5)"]}
+              filas={TIPOS_MEZ.map((t) => ({ sec: `§${t.sec}`, rasgo: t.tipo, celdas: [t.noja, t.ja, t.expl], seg: t.seguras, dud: t.dudosas }))} />
           </Sec>
           <Sec title="Las mezclas según su tipo">
             <Bars horizontal data={TIPOS_MEZ.map((t) => ({ name: t.tipo, segura: t.seguras, dudosa: t.dudosas }))} keys={["segura", "dudosa"]}
@@ -276,7 +272,7 @@ function Minoritarios({ switcher, subnav }) {
         <Stat label="Anteriores al 400 a.C." value={String(ant)} sub={`de ${TOTAL_MIN}`} accent={C.blue} />
       </>}
       tabs={[
-        { id: "context", l: "Los dialectos minoritarios", i: "§" },
+        { id: "context", l: "Los dialectos minoritarios", i: "📜" },
         { id: "profile", l: "Perfil dialectal", i: "Α" },
         { id: "grupos", l: "Dialectos y consultas", i: "Ω" },
       ]} tab={tab} onTab={setTab}>
@@ -383,7 +379,7 @@ function NoJonAt({ switcher, subnav }) {
         <Stat label="Dórico probable" value="328-494" sub="con el dórico demostrado (267)" accent={DIALECT_COLORS.dorico} />
       </>}
       tabs={[
-        { id: "context", l: "Por qué hay tantas", i: "§" },
+        { id: "context", l: "Por qué hay tantas", i: "📜" },
         { id: "profile", l: "Perfil dialectal", i: "ᾱ" },
         { id: "anexo", l: "Las inscripciones", i: "Ω" },
       ]} tab={tab} onTab={setTab}>

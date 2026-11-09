@@ -16,11 +16,11 @@ import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_BEOC } from "../data/adscripcion.js";
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "§" },
-  { id: "map", l: "Mapa y topónimos", i: "◎" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
+  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Β" },
   { id: "vowels", l: "Vocalismo", i: "Ε" },
-  { id: "shared", l: "Compartidos con tesalio", i: "⇄" },
+  { id: "shared", l: "Compartidos con tesalio", i: "🤝" },
 ];
 
 // Evoluciones vocálicas del beocio (§3.1).

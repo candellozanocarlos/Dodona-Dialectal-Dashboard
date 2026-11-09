@@ -3,7 +3,7 @@ import { useState } from "react";
 import { C, CAT_COLORS, CATS, PROSE, fade } from "../theme.js";
 import { asRef, fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { DvcLabel, Ref } from "./Inscriptions.jsx";
-import { AUTOR, CITA, INSTITUCION, TESIS, URL_SITIO, VERSION } from "../sitio.js";
+import { AUTOR, CITA, INSTITUCION, LICENCIA, TESIS, URL_SITIO, VERSION } from "../sitio.js";
 
 export const Stat = ({ label, value, sub = "", accent = C.gold, noCase = false }) => (
   <div style={{ background: "linear-gradient(180deg, rgba(255,252,245,0.85) 0%, rgba(255,252,245,0.55) 100%)",
@@ -90,6 +90,42 @@ export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = 
     </table>
   </div>
 );
+
+// Tabla de rasgos o de tipos con la disposición y los colores de las figuras del capítulo (jak_9, dno_9, mez_9: tabla() de
+// graficos_dorico_noroccidental_rasgos.py). filas: [{ sec, rasgo, celdas: [tres textos], seg, dud }]; cabeceras: las de esas tres columnas.
+// Una sola letra, Cardo, como en la figura; el sitio no sirve su negrita (index.css), de ahí el trazo.
+const NEGRITA = { WebkitTextStroke: "0.45px" };
+const CELDA_RASGO = { padding: "8px 6px", height: 62, borderRadius: 3, textAlign: "center", verticalAlign: "middle", whiteSpace: "pre-line", textWrap: "balance" };
+// Espacios duros: ni "y" ni "en" al final de línea, ni una palabra suelta en la última (salvo un paréntesis, como "(jónico)").
+const etiquetaRasgo = (t) => t.replace(/ (y|en) /g, " $1\u00a0").replace(/ ([^\s(]\S*)$/, "\u00a0$1");
+export const TablaRasgos = ({ filas, cabeceras, color }) => {
+  const max = Math.max(...filas.map((f) => f.seg + f.dud));
+  return (
+    <div style={{ overflowX: "auto", background: "#fffdf8", border: `1px solid ${C.border}`, borderRadius: 10, padding: "10px 12px" }}>
+      <table style={{ width: "100%", minWidth: 800, borderCollapse: "separate", borderSpacing: 4, fontFamily: "var(--fg)", fontSize: 15, lineHeight: 1.3, color: C.heading }}>
+        <colgroup>{["6%", "21%", "21%", "20%", "19%", "13%"].map((w, i) => <col key={i} style={{ width: w }} />)}</colgroup>
+        <thead><tr>
+          <td colSpan={2} />
+          {[...cabeceras, "Consultas\ndel capítulo"].map((h) => (
+            <th key={h} scope="col" style={{ ...NEGRITA, padding: "2px 6px 8px", whiteSpace: "pre-line" }}>{h}</th>
+          ))}
+        </tr></thead>
+        <tbody>{filas.map((f, i) => {
+          const peso = (f.seg + f.dud) / max;
+          return <tr key={f.rasgo}>
+            <td style={{ color: C.muted, fontSize: 12.5, whiteSpace: "nowrap", verticalAlign: "middle" }}>{f.sec}</td>
+            <th scope="row" style={{ ...NEGRITA, padding: "0 8px 0 0", textAlign: "right", fontSize: 15.5, verticalAlign: "middle" }}>{renderGreekText(etiquetaRasgo(f.rasgo))}</th>
+            {f.celdas.map((t, j) => (
+              <td key={j} style={{ ...CELDA_RASGO, background: i % 2 ? "#efe7d2" : "#f6f0e1" }}>{renderGreekText(t)}</td>
+            ))}
+            <td style={{ ...CELDA_RASGO, ...NEGRITA, background: fade(color, 0.18 + 0.72 * peso), color: peso > 0.45 ? "#fff" : C.heading, fontSize: 19 }}>
+              {f.seg}{f.dud ? ` (${f.dud})` : ""}</td>
+          </tr>;
+        })}</tbody>
+      </table>
+    </div>
+  );
+};
 
 // Fuentes literarias: [{ author, type, desc }].
 export const SourceList = ({ sources, color, conclusion = "" }) => (
@@ -269,7 +305,7 @@ export const CatLegend = ({ rasgos = null }) => (
   </div>
 );
 
-// Pie común: autoría, cita, fuentes del corpus y créditos.
+// Pie común: autoría, cita, licencia, fuentes del corpus y créditos.
 export const Pie = ({ color = C.gold }) => {
   const rot = { fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color, fontWeight: 600, margin: "16px 0 6px" };
   const txt = { fontSize: 11, color: C.muted, lineHeight: 1.8 };
@@ -281,6 +317,12 @@ export const Pie = ({ color = C.gold }) => {
       </p>
       <div style={rot}>Cómo citar</div>
       <p style={txt}>{CITA.antes}<i>{CITA.titulo}</i>{CITA.despues} <a href={URL_SITIO} style={{ color }}>{URL_SITIO.replace("https://", "")}</a></p>
+      <div style={rot}>Licencia</div>
+      <p style={txt}>
+        © 2026 {AUTOR}. Textos, tablas, gráficos y facsímiles: <a href={LICENCIA.url} rel="license noreferrer" target="_blank" style={{ color }}>{LICENCIA.nombre}</a>.
+        Código: MIT. Quedan fuera de esta licencia los textos de las inscripciones, procedentes de <i>I.Dodone DVC</i> e <i>I.Dodone Lhôte</i>,
+        así como los datos cartográficos y las tipografías, con sus propias condiciones.
+      </p>
       <div style={rot}>Fuentes del corpus</div>
       <p style={txt}>
         Dakaris, S., Vokotopoulou, I. y Christidis, A.-Ph. (2013). <i>Τα χρηστήρια ελάσματα της Δωδώνης των ανασκαφών Δ. Ευαγγελίδη</i> (<i>I.Dodone DVC</i>).<br />
@@ -288,9 +330,8 @@ export const Pie = ({ color = C.gold }) => {
       </p>
       <div style={rot}>Créditos</div>
       <p style={txt}>
-        Costas de los mapas: Natural Earth (dominio público); Beocia, © OpenStreetMap contributors (ODbL). Tipografía griega derivada de Cardo
-        (SIL Open Font License 1.1). Las fotografías de las laminillas no se publican: su difusión depende de la autorización de la Eforía de
-        Antigüedades de Ioánina.
+        Costas de los mapas: Natural Earth (dominio público) y © OpenStreetMap contributors (ODbL). Tipografía griega derivada de Cardo
+        (SIL Open Font License 1.1).
       </p>
     </footer>
   );

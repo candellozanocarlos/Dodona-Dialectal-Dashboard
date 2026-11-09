@@ -118,19 +118,22 @@ TRABAJO = re.compile(r"\s*\[(?:VERIFICAR|CITA PENDIENTE|PENDIENTE)[^\]]*\]")
 PIE_FIGURA = re.compile(r"^(?:Figura|Tabla) \d+[.:]")
 
 
-def ptext(p):
+def ptext(p, cursiva=False):
+    """Texto de un párrafo; con `cursiva`, las cursivas como <i> (renderDesc ya pone las de I.Dodone DVC y Lhôte, y necesita esas citas sin marcas)."""
     out = []
     for r in p.iter(W + "r"):
-        for ch in r:
-            if ch.tag == W + "t":
-                out.append(ch.text or "")
-            elif ch.tag == W + "tab":
-                out.append(" ")
-    return unicodedata.normalize("NFC", TRABAJO.sub("", "".join(out)).translate(PUA))
+        t = "".join((ch.text or "") if ch.tag == W + "t" else " " if ch.tag == W + "tab" else "" for ch in r)
+        i = r.find(f"{W}rPr/{W}i")
+        if cursiva and t.strip() and i is not None and i.get(W + "val") not in ("0", "false"):
+            t = f"<i>{t}</i>"
+        out.append(t)
+    t = re.sub(r"</i>(\s*)<i>", r"\1", "".join(out))
+    t = re.sub(r"<i>([^<]*I\.Dodone[^<]*)</i>", r"\1", t)
+    return unicodedata.normalize("NFC", TRABAJO.sub("", t).translate(PUA))
 
 
 def parrafos(docx):
-    """[(estilo, texto)] del cuerpo de un .docx, sin el índice ni los pies de figura."""
+    """[(estilo, texto)] del cuerpo de un .docx, sin el índice ni los pies de figura; fuera de los títulos, con las cursivas como <i>."""
     doc = etree.fromstring(zipfile.ZipFile(docx).read("word/document.xml"))
     out = []
     for p in doc.find(W + "body").iter(W + "p"):
@@ -140,7 +143,7 @@ def parrafos(docx):
             continue
         t = ptext(p).strip()
         if not PIE_FIGURA.match(t):
-            out.append((st, t))
+            out.append((st, ptext(p, not es_titulo(st)).strip()))
     return out
 
 
@@ -191,7 +194,7 @@ def citas(texto, ex):
     """Inscripciones citadas en una lista de párrafos, en orden: las claves “DVC 123A” o “Lhôte 94” que existen en el Excel."""
     out = []
     for para in texto:
-        para = EQ2.sub("", EQ1.sub("", para))
+        para = EQ2.sub("", EQ1.sub("", re.sub(r"</?i>", "", para)))
         corpus = None
         for sent in re.split(r"(?<!\bs\.)(?<!ss\.)(?<=[.;?])\s+(?=[A-ZÁÉÍÓÚ(])", para):
             for m in TOK.finditer(sent):

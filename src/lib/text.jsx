@@ -80,7 +80,7 @@ export const getInscription = (key) => {
   const src = key.slice(0, i), id = key.slice(i + 1);
   const legacy = src === "Lhôte" ? `LOD ${id}` : id;
   const override = RASGO_TEXTS_TES[legacy] || RASGO_TEXTS_BEOC[legacy];
-  return { src, id, date: rec[0], text: override || rec[1], dialect: rec[2], eq: rec[3] && rec[3] !== key ? rec[3] : null };
+  return { src, id, date: rec[0], text: override || rec[1], dialect: rec[2]?.replace("NO JON-ÁT", "No jónico-ático"), eq: rec[3] && rec[3] !== key ? rec[3] : null };
 };
 
 const INSC_ID = "\\d+[A-Za-z]{0,2}";

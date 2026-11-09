@@ -34,6 +34,7 @@
     "vite": "^8.0.1"
   },
   "author": "Carlos Candel Lozano",
+  "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=22"
   }

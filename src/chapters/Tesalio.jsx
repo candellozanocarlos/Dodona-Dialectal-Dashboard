@@ -17,11 +17,11 @@ import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_TES } from "../data/adscripcion.js";
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "§" },
-  { id: "map", l: "Mapa y regiones", i: "◎" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
+  { id: "map", l: "Mapa y regiones", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Θ" },
   { id: "vowels", l: "Vocalismo", i: "Ε" },
-  { id: "shared", l: "Compartidos con beocio", i: "⇄" },
+  { id: "shared", l: "Compartidos con beocio", i: "🤝" },
 ];
 const REGION_COLORS = { pelasgiotis: C.regions.pelasgiotis, histiaiotis: C.regions.histiaiotis, thessaliotis: C.regions.thessaliotis };
 
