@@ -10,7 +10,7 @@ import {
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
-import { Card, ChapterLayout, EventTable, RasgoExplorer, Sec, Secciones, SourceList, Stat, Stats, SubNav } from "../components/ui.jsx";
+import { Card, ChapterLayout, EventTable, RasgoExplorer, Sec, Secciones, SourceList, Stat, Stats, SubNav, TablaRasgos } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo } from "../components/Anexo.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
@@ -19,8 +19,8 @@ import { JAK_LAND_PATH } from "../components/maps/coastlines.js";
 const COLOR = DIALECT_COLORS.jonicoAtico;
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "§" },
-  { id: "map", l: "Mapa y topónimos", i: "◎" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
+  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Η" },
   { id: "subgrupos", l: "Jónico, ático y koiné", i: "Ω" },
   { id: "anexo", l: "Las inscripciones", i: "Ψ" },
@@ -31,7 +31,8 @@ const VISTA_JAK = { lon0: 14.0, lon1: 24.6, lat0: 35.0, lat1: 42.5 };
 const MARES_JAK = [{ t: "Mar Jónico", lon: 18.3, lat: 38.2 }, { t: "Mar Egeo", lon: 24.3, lat: 36.4 }];
 const REGIONES_JAK = [{ t: "EPIRO", lon: 20.9, lat: 39.95 }, { t: "PELOPONESO", lon: 22.2, lat: 37.45 },
   { t: "ITALIA", lon: 16.2, lat: 40.7 }, { t: "SICILIA", lon: 14.75, lat: 37.4 }];
-const NOTAS_JAK = ["El tamaño del símbolo es proporcional al número de menciones.",
+const NOTAS_JAK = ["Lugares citados en las inscripciones del capítulo, no territorios de habla jónico-ática.",
+  "El tamaño del símbolo es proporcional al número de menciones.",
   "Sin cartografiar: Mesene o Mesina, el etnónimo Τισατε͂ς y Libia, que queda más al sur."];
 const MENCIONES_JAK = TOPONYMS_JAK.flatMap((t) => t.mentions.map((m) => ({ ...m, place: t.name })));
 const SEG_JAK = MENCIONES_JAK.filter((m) => m.certain).length;
@@ -301,9 +302,6 @@ const ContextoHistorico = ({ c }) => <>
   </Sec>
 </>;
 
-const th = { padding: "7px 10px", textAlign: "left", color: COLOR, fontFamily: "var(--fh)", fontSize: 11.5, borderBottom: `2px solid ${C.border}` };
-const td = { padding: "6px 10px", fontSize: 12, borderBottom: "1px solid rgba(120,90,40,0.08)", verticalAlign: "top" };
-
 export default function JonicoAtico({ switcher }) {
   const [tab, setTab] = useState("context");
   const [sub, setSub] = useState("cifras");
@@ -333,7 +331,16 @@ export default function JonicoAtico({ switcher }) {
 
       {tab === "map" && <>
         <Sec title="Topónimos y etnónimos en las consultas jónico-áticas y de koiné"
-          sub={`${MENCIONES_JAK.length} menciones de ${TOPONYMS_JAK.length} lugares, ${SEG_JAK} de ellas seguras`}>
+          sub={`Lugares citados en las inscripciones del capítulo, no territorios de habla jónico-ática: ${MENCIONES_JAK.length} menciones de ${TOPONYMS_JAK.length} lugares, ${SEG_JAK} de ellas seguras`}>
+          {/* Cap. 9, §2: a diferencia de los demás capítulos, el mapa no muestra dónde se hablaba el dialecto. */}
+          <Card accent={COLOR} style={{ marginBottom: 14 }}>
+            <p style={PROSE}>
+              Los lugares de este mapa no son los de las regiones donde se hablaban estas variedades, como Jonia, Eubea o el Ática, sino los citados
+              en las inscripciones del capítulo, que en su mayor parte son aquellos a los que el consultante piensa viajar o en los que piensa
+              residir: indican más bien destinos y no procedencias. Por eso este mapa, a diferencia de los de los demás dialectos, no rastrea la
+              relación de un territorio con el santuario.
+            </p>
+          </Card>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "flex-start" }}>
             <div style={{ flex: "2 1 520px", minWidth: 0 }}>
               <DoricMap selected={selPlace} onSelect={setSelPlace} places={TOPONYMS_JAK} color={COLOR} view={VISTA_JAK} land={JAK_LAND_PATH}
@@ -439,28 +446,10 @@ export default function JonicoAtico({ switcher }) {
           </Sec>
         </>}
         {sub === "rasgos" && <>
-          <Sec title="Rasgos del jónico-ático y de la koiné" sub="Formas que distinguen una consulta jónico-ática y su documentación en el grupo"
-            note="En las dos últimas columnas, las consultas con el rasgo visible de adscripción segura y dudosa; una consulta puede tener varios rasgos.">
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ borderCollapse: "collapse", width: "100%", minWidth: 720 }}>
-                <thead>
-                  <tr>{["§", "Rasgo", "Forma jónico-ática", "Forma de los demás", "Otros dialectos con el rasgo", "Seguras", "Dudosas"].map((h) => <th key={h} style={th}>{h}</th>)}</tr>
-                </thead>
-                <tbody>
-                  {RASGOS_TABLA_JAK.map((r) => (
-                    <tr key={r.rasgo}>
-                      <td style={{ ...td, color: C.muted }}>{r.sec}</td>
-                      <td style={{ ...td, fontFamily: "var(--fh)", color: C.heading }}>{r.rasgo}</td>
-                      <td style={td}><span className="greek-run">{r.jak}</span></td>
-                      <td style={td}><span className="greek-run">{r.otros}</span></td>
-                      <td style={{ ...td, color: C.muted }}>{r.comparten}</td>
-                      <td style={{ ...td, textAlign: "center", fontWeight: 700, color: COLOR }}>{r.seguras}</td>
-                      <td style={{ ...td, textAlign: "center", color: C.amber }}>{r.dudosas}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <Sec title="Rasgos del jónico-ático y de la koiné en el corpus" sub="Formas que distinguen una consulta jónico-ática y su documentación en el capítulo"
+            note={`Cada fila es un rasgo que separa el jónico-ático de los demás dialectos del corpus, con el apartado del capítulo 9. En la última columna, las consultas con el rasgo visible de adscripción segura y, entre paréntesis, las dudosas. Una consulta puede tener varios rasgos, de modo que la suma supera las ${TOTAL_JAK} del capítulo.`}>
+            <TablaRasgos color={COLOR} cabeceras={["Forma\njónico-ática", "Forma de\nlos demás", "Otros dialectos\ncon el rasgo"]}
+              filas={RASGOS_TABLA_JAK.map((r) => ({ sec: `§${r.sec}`, rasgo: r.rasgo, celdas: [r.jak, r.otros, r.comparten], seg: r.seguras, dud: r.dudosas }))} />
           </Sec>
           <Sec title="Los rasgos, uno a uno" sub={`Los ${RASGOS_JAK.length} apartados del capítulo 9 (§4-§7), con su explicación y las inscripciones que citan`}>
             <RasgoExplorer rasgos={RASGOS_JAK} texts={RASGO_TEXTS_JAK} color={COLOR} />

@@ -19,8 +19,8 @@ import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_SEV } from "../data/adscripcion.js";
 
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "§" },
-  { id: "map", l: "Mapa y topónimos", i: "◎" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
+  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "vowels", l: "Vocalismo", i: "Ω" },
 ];

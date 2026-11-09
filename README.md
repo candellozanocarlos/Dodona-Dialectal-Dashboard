@@ -6,7 +6,7 @@ Publicado en <https://atlasdialectaldodona.netlify.app>. Cada parte de la tesis 
 
 | Parte | Contenido |
 |---|---|
-| **Introducción** | Presentación y objetivos, el santuario, las laminillas (corpus y cronología), la metodología y los criterios de adscripción, y el corpus en cifras |
+| **Introducción** | Presentación y objetivos, el santuario, las laminillas (excavaciones, ediciones, características, autoría e investigación, con el texto del cap. 2), la metodología y los criterios de adscripción, y el corpus en cifras (rasgos dialectales, grupos y certeza, cronología y alfabetos) |
 | **Dialectos dóricos** | El dórico general, el noroccidental y la *Doris severior*: contexto, mapa de topónimos y etnónimos, perfil dialectal con los rasgos del capítulo y su valor diagnóstico, escritura y vocalismo |
 | **Dialectos eólicos** | El tesalio y el beocio: contexto, mapa, perfil dialectal, vocalismo y rasgos compartidos |
 | **Jónico-ático y koiné** | Contexto por variedades, mapa, perfil dialectal con los rasgos del cap. 9, el jónico, el ático y la koiné con sus apartados, y las 137 inscripciones |
@@ -98,6 +98,10 @@ Después de editar `tesalio.js` o `beocio.js`, hay que ejecutar `node exportar_d
 ## Fotografías de autopsia
 
 Las fotografías (`public/assets/autopsias/`) se conservan en local y están excluidas del repositorio: su publicación depende de la autorización de la Eforía de Antigüedades de Ioánina. Los facsímiles, de elaboración propia, sí se publican.
+
+## Licencia
+
+Contenidos (textos, tablas, gráficos, datos elaborados y facsímiles): [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es). Código: MIT. El detalle y el material excluido están en `LICENSE`, y lo que muestra el pie, en `src/sitio.js` y en `Pie` (`src/components/ui.jsx`).
 
 ## Fuentes y licencias de terceros
 

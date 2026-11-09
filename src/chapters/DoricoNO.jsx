@@ -12,15 +12,15 @@ import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
 import { NO_LAND_PATH } from "../components/maps/coastlines.js";
-import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table, TablaRasgos } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_NO } from "../data/adscripcion.js";
 
 const NO = DIALECT_COLORS.doricoNO;
 const INK = DIALECT_INK.doricoNO;
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "§" },
-  { id: "map", l: "Mapa y comunidades", i: "◎" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
+  { id: "map", l: "Mapa y comunidades", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "writing", l: "Escritura y contracción", i: "Ε" },
 ];
@@ -275,19 +275,10 @@ export default function DoricoNO({ switcher, subnav }) {
 
         </>}
         {sub === "rasgos" && <>
-        <Sec title="Rasgos que sostienen la adscripción" sub="Formas que distinguen una consulta noroccidental del resto del dórico y su documentación en el capítulo"
-          note="En la última columna, las consultas del capítulo con el rasgo de adscripción segura y, entre paréntesis, las de adscripción dudosa. La sinicesis εο > ευ y los antropónimos en Θευ- y Κλευ- no figuran, porque son comunes a todo el dórico.">
-          <Table color={NO} rowHeader={1} head={["§", "Rasgo", "Forma noroccidental", "Resto del dórico", "Otros dialectos con el rasgo", "Consultas"]}
-            rows={TABLA_RASGOS_NO.map((r) => [
-              <span style={{ color: C.dim, fontSize: 11 }}>{r.sec}</span>,
-              <span style={{ color: C.heading }}>{renderGreekText(r.rasgo)}</span>,
-              <span className="greek" style={{ fontSize: 13.5, color: C.heading }}>{renderGreekText(r.forma)}</span>,
-              <span>{renderGreekText(r.resto)}</span>,
-              <span style={{ color: C.muted }}>{renderGreekText(r.otros)}</span>,
-              <span style={{ display: "inline-block", minWidth: 44, padding: "2px 8px", borderRadius: 5, textAlign: "center", fontWeight: 700,
-                background: fade(NO, 0.15 + 0.6 * (r.seg + r.dud) / 20), color: (r.seg + r.dud) > 9 ? "#fff" : C.heading }}>
-                {r.seg}{r.dud ? ` (${r.dud})` : ""}</span>,
-            ])} />
+        <Sec title="Rasgos del dórico noroccidental frente al resto del dórico" sub="Formas que distinguen una consulta noroccidental y su documentación en el capítulo"
+          note={`Cada fila es un rasgo que separa el noroccidental del resto del dórico, con el apartado del capítulo en que se estudia. En la última columna, las consultas con el rasgo de adscripción segura y, entre paréntesis, las dudosas o basadas solo en un nombre. La última fila reúne las adscritas por indicios no exclusivos: Ποτειδᾶν (I.Dodone DVC 56A), sinicesis (I.Dodone DVC 305B), ἔχην (I.Dodone DVC 473B), ἀμφίπολος (I.Dodone DVC 70A), antropónimos (I.Dodone DVC 1078B, 1678B, 2050A, 2552A y 3030A), Χεμάριοι (I.Dodone DVC 2012A) y la otra cara de I.Dodone Lhôte 95B (I.Dodone Lhôte 95A). Cinco consultas figuran en dos filas (I.Dodone DVC 471A, 1368A, 2228, 2782A y 3220A), de modo que la suma (${TABLA_RASGOS_NO.reduce((s, r) => s + r.seg + r.dud, 0)}) supera las ${TOTAL_DOR_NO} del capítulo.`}>
+          <TablaRasgos color={NO} cabeceras={["Forma\nnoroccidental", "Resto\ndel dórico", "Otros dialectos\ncon el rasgo"]}
+            filas={TABLA_RASGOS_NO.map((r) => ({ sec: r.sec, rasgo: r.rasgo, celdas: [r.forma, r.resto, r.otros], seg: r.seg, dud: r.dud }))} />
         </Sec>
 
         <Sec title="Rasgos dialectales del noroccidental"

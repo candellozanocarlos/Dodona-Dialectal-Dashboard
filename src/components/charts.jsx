@@ -94,26 +94,43 @@ export function Bars({
   };
   const legend = labels && keys.length > 1;
 
-  const valueLayer = ({ bars }) => (
-    <g>
-      {bars.map((bar) => {
-        const v = bar.data.value;
-        if (!v) return null;
-        const txt = format(v);
-        const fits = horizontal ? bar.width > 12 + String(txt).length * 7 : bar.height > 18;
-        const fill = fits ? (esClaro(bar.color) ? C.heading : "rgba(255,252,245,0.96)") : C.muted;
-        const x = horizontal ? (fits ? bar.x + bar.width - 7 : bar.x + bar.width + 6) : bar.x + bar.width / 2;
-        const y = horizontal ? bar.y + bar.height / 2 : (fits ? bar.y + 11 : bar.y - 8);
-        return (
-          <text key={bar.key} x={x} y={y} dominantBaseline="central"
-            textAnchor={horizontal ? (fits ? "end" : "start") : "middle"}
-            style={{ fontFamily: "var(--fh)", fontSize: 11.5, fontWeight: 700, fill, pointerEvents: "none" }}>
-            {txt}
-          </text>
-        );
-      })}
-    </g>
-  );
+  const valueLayer = ({ bars }) => {
+    const VALOR = { fontFamily: "var(--fh)", fontSize: 11.5, fontWeight: 700, pointerEvents: "none" };
+    const conValor = bars.filter((bar) => bar.data.value);
+    const cabe = (bar) => (horizontal ? bar.width > 12 + String(format(bar.data.value)).length * 7 : bar.height > 18);
+    // Apiladas: las cifras que no caben en su tramo van juntas al final de la barra, con el color del tramo, para que no se pisen.
+    const apilada = keys.length > 1 && !grouped;
+    const pilas = apilada ? [...new Set(conValor.map((bar) => bar.data.indexValue))].map((i) => conValor.filter((bar) => bar.data.indexValue === i)) : [];
+    return (
+      <g>
+        {conValor.filter((bar) => !apilada || cabe(bar)).map((bar) => {
+          const fits = cabe(bar);
+          const fill = fits ? (esClaro(bar.color) ? C.heading : "rgba(255,252,245,0.96)") : C.muted;
+          const x = horizontal ? (fits ? bar.x + bar.width - 7 : bar.x + bar.width + 6) : bar.x + bar.width / 2;
+          const y = horizontal ? bar.y + bar.height / 2 : (fits ? bar.y + 11 : bar.y - 8);
+          return (
+            <text key={bar.key} x={x} y={y} dominantBaseline="central"
+              textAnchor={horizontal ? (fits ? "end" : "start") : "middle"} style={{ ...VALOR, fill }}>
+              {format(bar.data.value)}
+            </text>
+          );
+        })}
+        {pilas.map((pila) => {
+          const sueltas = pila.filter((bar) => !cabe(bar));
+          if (!sueltas.length) return null;
+          const x = horizontal ? Math.max(...pila.map((b) => b.x + b.width)) + 6 : pila[0].x + pila[0].width / 2;
+          const y = horizontal ? pila[0].y + pila[0].height / 2 : Math.min(...pila.map((b) => b.y)) - 8;
+          return (
+            <text key={pila[0].data.indexValue} x={x} y={y} dominantBaseline="central" textAnchor={horizontal ? "start" : "middle"} style={VALOR}>
+              {sueltas.map((bar, i) => (
+                <tspan key={bar.key} style={{ fill: esClaro(bar.color) ? C.muted : bar.color }}>{i > 0 && " · "}{format(bar.data.value)}</tspan>
+              ))}
+            </text>
+          );
+        })}
+      </g>
+    );
+  };
 
   // Franjas sombreadas (p. ej. periodos de datación menos fiable).
   const bandLayer = ({ xScale, innerHeight }) => (

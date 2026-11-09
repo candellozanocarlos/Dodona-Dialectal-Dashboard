@@ -1,13 +1,15 @@
 """Genera src/data/introduccion.js (introducción de la tesis, caps. 1-3): el corpus por edición, los grupos dialectales con
-su certeza, los alfabetos epicóricos y la cronología, con las mismas funciones y cifras que las figuras int_1 a int_4.
+su certeza, los alfabetos epicóricos y la cronología, con las mismas funciones y cifras que las figuras int_1 a int_4,
+y el texto del capítulo 2 (las laminillas), que añade a inscriptions.json las inscripciones que cita.
 
-Fuentes: DVC_v5_FINAL.xlsx, hoja Datos (DIALECTO_MACRO, DIALECTO_SUB, DIALECTO_CERTEZA, ALFABETO_GRUPO_v2, Date; Resúmenes,
-fila 186, 3 nov. 2026), y PYTHON/SEABORN-ALTAIR/graficos_introduccion.py (GRUPOS, N, grupo_de).
+Fuentes: DVC_v5_FINAL.xlsx, hoja Datos (DIALECTO_MACRO, DIALECTO_SUB, DIALECTO_CERTEZA, ALFABETO_GRUPO_v2, Date),
+PYTHON/SEABORN-ALTAIR/graficos_introduccion.py (GRUPOS, N, grupo_de) y la INTRODUCCIÓN vigente (§2.1-§2.4).
 
 Uso:  py scripts/datos_introduccion.py
 """
 import json
 import os
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -28,6 +30,7 @@ sys.path.insert(0, str(GRAF))
 import graficos_dialecto_altair as al  # noqa: E402
 import graficos_introduccion as I  # noqa: E402
 from graficos_dialecto_pandas import ROTULO_SIGLO, parse_fecha, siglo_macro  # noqa: E402
+from comun import Excel, anadir_a_indice, apartados, indices, parrafos, secciones, ultima  # noqa: E402
 
 J = lambda x: json.dumps(x, ensure_ascii=False)
 df = pd.read_excel(EXCEL, sheet_name="Datos")
@@ -71,10 +74,25 @@ serie = df["Date"].map(lambda x: siglo_macro(parse_fecha(x))).value_counts()
 assert int(serie.sum()) == I.N["total"]
 CRONO = [{"period": ROTULO_SIGLO[k], "n": int(serie[k]), "siglo": k} for k in ROTULO_SIGLO if k in serie.index]
 
+# Capítulo 2, las laminillas: los apartados con su texto; el de la cronología (§2.3.4) va aparte, con sus cifras.
+DOCX = ultima("INTRODUCCIÓN", "INTRODUCCIÓN_v*.docx")
+pars = parrafos(DOCX)
+i0 = indices(pars, "2.1.")
+secs = secciones(pars, i0, next(i for i in range(i0, len(pars)) if pars[i][1].startswith("CAPÍTULO 3")))
+CRONO_TXT = next(ps for n, _, ps in secs if n == "2.3.4")
+for d in CRONO:   # las cifras de §2.3.4 han de ser las del Excel
+    assert f"{d['n']:,}".replace(",", ".") in CRONO_TXT[0], d
+LAMINILLAS = [{**a, "name": a["name"].replace("carapanos", "Carapanos").replace("i.dodone dvc", "I.Dodone DVC")}
+              for a in apartados([x for x in secs if x[0] != "2.3.4"])]
+# Al índice, las citas que renderDesc enlaza: “I.Dodone DVC 194A y 195B”.
+REF = re.compile(r"I\.Dodone (DVC|Lhôte) (\d+\w*)((?:(?:,\s*|\s+[ye]\s+)\d+\w*)*)")
+NUEVAS = anadir_a_indice({f"{c} {x}" for _, _, ps in secs for p in ps for c, a, b in REF.findall(p)
+                          for x in [a, *re.findall(r"\d+\w*", b)]}, Excel())
+
 partes = [
     "// Generado por scripts/datos_introduccion.py: no editar a mano.",
     "// Introducción de la tesis (caps. 1-3): las cifras de las figuras int_1 a int_4 (graficos_introduccion.py), con los datos de",
-    "// DVC_v5_FINAL.xlsx (hoja Datos; Resúmenes, fila 187, 4 nov. 2026).",
+    "// DVC_v5_FINAL.xlsx (hoja Datos), y el texto del capítulo 2.",
     "",
     f"export const TOTAL_INSCRIPCIONES = {I.N['total']};",
     f"export const TOTAL_EPICORICAS = {I.N['epicoricos']};",
@@ -87,8 +105,13 @@ partes = [
     f"export const ALFABETOS_INT = {J(ALFABETOS)};",
     "// int_4: cronología por siglos y transiciones; siglo: clave de SIGLO_COLORS.",
     f"export const CHRONO_INT = {J(CRONO)};",
+    f"// Capítulo 2 ({DOCX.name}): apartados de las laminillas y texto de la cronología (§2.3.4).",
+    f"export const SECCIONES_LAM = {J(LAMINILLAS)};",
+    f"export const CRONOLOGIA_TXT = {J(CRONO_TXT)};",
     "",
 ]
 SALIDA.write_text("\n".join(partes), encoding="utf-8")
 print("introduccion.js:", CORPUS[0], CERTEZA, len(ALFABETOS), "alfabetos,", len(CRONO), "periodos")
 print(J(ALFABETOS)); print(J(CRONO))
+print("capítulo 2:", DOCX.name, [a["sec"] + " " + a["name"] for a in LAMINILLAS])
+print("inscripciones añadidas al índice:", NUEVAS)

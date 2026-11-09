@@ -18,8 +18,8 @@ import { ADSCRIPCION_DOR } from "../data/adscripcion.js";
 
 const DOR = DIALECT_COLORS.dorico;
 const TABS = [
-  { id: "context", l: "Contexto histórico", i: "§" },
-  { id: "map", l: "Mapa y topónimos", i: "◎" },
+  { id: "context", l: "Contexto histórico", i: "📜" },
+  { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "writing", l: "Escritura y notación", i: "Ε" },
 ];

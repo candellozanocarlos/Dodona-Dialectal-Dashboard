@@ -1,0 +1,46 @@
+Atlas dialectal de las laminillas oraculares de Dodona
+© 2026 Carlos Candel Lozano
+
+Este proyecto tiene dos licencias, según el tipo de material.
+
+
+CONTENIDOS
+
+Los textos, las tablas, los gráficos, los datos elaborados y los facsímiles, incluidos los
+textos escritos dentro de las vistas (src/chapters) y los datos de src/data, están bajo la
+licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional
+(CC BY-NC-ND 4.0):
+
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+
+CÓDIGO
+
+El resto del código (componentes, utilidades, scripts y configuración) está bajo la licencia MIT:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+MATERIAL EXCLUIDO
+
+Estas licencias no se aplican al siguiente material, que conserva sus propias condiciones:
+
+- Los textos de las inscripciones, procedentes de I.Dodone DVC (Dakaris, Vokotopoulou y
+  Christidis 2013) e I.Dodone Lhôte (Lhôte 2006).
+- Las costas de los mapas: Natural Earth (dominio público) y © OpenStreetMap contributors (ODbL).
+- Las tipografías: la griega, derivada de Cardo (src/assets/fonts/OFL.txt), DM Sans y Playfair
+  Display, todas bajo la SIL Open Font License 1.1.
+- Las dependencias de package.json, cada una bajo su licencia.
