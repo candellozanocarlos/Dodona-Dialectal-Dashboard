@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this atlas in your research, please cite it using the following metadata."
+title: "Atlas dialectal de las laminillas oraculares de Dodona"
+type: software
+authors:
+  - family-names: "Candel Lozano"
+    given-names: "Carlos"
+    affiliation: "Universidad de Valladolid"
+    orcid: "https://orcid.org/0009-0005-0448-9856"
+url: "https://atlasdialectaldodona.netlify.app"
+repository-code: "https://github.com/candellozanocarlos/Dodona-Dialectal-Dashboard"
+license:
+  - CC-BY-NC-ND-4.0
+  - MIT
+version: 2.0.0
+date-released: 2026-11-11
+keywords:
+  - "Ancient Greek dialects"
+  - Dodona
+  - "oracular lamellae"
+  - "Greek epigraphy"
+  - dialectology
+  - "digital humanities"
+  - "interactive atlas"
+abstract: >-
+  Interactive atlas of the Greek dialects attested in the oracular lead
+  lamellae of Dodona, the digital companion to the PhD thesis "Las
+  variedades dialectales de las laminillas oraculares de Dodona"
+  (Universidad de Valladolid, in preparation). It covers the 4,418 texts of
+  I.Dodone DVC and I.Dodone Lhôte, of which 1,455 carry dialect features,
+  and presents for each dialect group its attribution criteria and degree
+  of certainty, chronology, maps of place names and ethnics, linguistic
+  features with the inscriptions that attest them, and the list of
+  inscriptions, together with the notes of the author's autopsy of 71
+  lamellae. Its data are derived from the thesis chapters and research
+  database by generators that check the figures against the database.
+  Content is licensed CC BY-NC-ND 4.0 and code MIT.

@@ -13,6 +13,8 @@ import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 import DoricMap from "../components/maps/DoricMap.jsx";
 import { NO_LAND_PATH } from "../components/maps/coastlines.js";
 import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table, TablaRasgos } from "../components/ui.jsx";
+import { Anexo } from "../components/Anexo.jsx";
+import { ANEXOS } from "../data/anexos/index.js";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_NO } from "../data/adscripcion.js";
 
@@ -23,6 +25,7 @@ const TABS = [
   { id: "map", l: "Mapa y comunidades", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "writing", l: "Escritura y contracción", i: "Ε" },
+  { id: "anexo", l: "Las inscripciones", i: "Ψ" },
 ];
 
 const Btn = ({ active, onClick, children }) => (
@@ -149,7 +152,7 @@ export default function DoricoNO({ switcher, subnav }) {
       {tab === "map" && <>
         <Sec title="Comunidades y lugares del Noroeste en el corpus"
           sub={`${TOPONYMS_NO.length} nombres en ${totalMenciones} menciones, ${segMenciones} de ellas seguras`}
-          note="Ambracia, Anactorio, Apolonia y Epidamno, aunque se sitúan en la costa del Epiro, de Acarnania y de Iliria, son colonias corintias: se examinan con Corcira en el dórico general, y sus menciones no se cuentan aquí.">
+          note="Ampracia, Anactorio, Apolonia y Epidamno, aunque se sitúan en la costa del Epiro, de Acarnania y de Iliria, son colonias corintias: se examinan con Corcira en el dórico general, y sus menciones no se cuentan aquí.">
           <div style={{ display: "flex", justifyContent: "flex-end", gap: 6, marginBottom: 8 }}>
             <Btn active={!anillo} onClick={() => setAnillo(false)}>Total de menciones</Btn>
             <Btn active={anillo} onClick={() => setAnillo(true)}>Seguras frente a dudosas</Btn>
@@ -206,7 +209,7 @@ export default function DoricoNO({ switcher, subnav }) {
           <Bars horizontal data={TOPONYM_BARS_NO} keys={["seguras", "dudosas"]} height={560} left={120} unit="menciones"
             colors={{ seguras: NO, dudosas: ORO }} labels={{ seguras: "Mención segura", dudosas: "Mención restituida o dudosa" }} />
           <Card style={{ marginTop: 8 }}>
-            <P>Las menciones dudosas dependen de una restitución o de una identificación discutida, como la de los molosos en I.Dodone DVC 110A, la de Elea en I.Dodone Lhôte 113, que descansa en la corrección de Méndez Dosuna (2007e: 182-185), o las de Accio en I.Dodone DVC 3473A y 3607B. No se cuentan los διαιτοί, que son magistrados y no una comunidad, ni las Acciacas de I.Dodone DVC 3220A, que nombra la fiesta y no el lugar.</P>
+            <P>Las menciones dudosas dependen de una restitución o de una identificación discutida, como la de los molosos en I.Dodone DVC 110A, la de Elea en I.Dodone Lhôte 113, que descansa en la corrección de Méndez Dosuna (2007e: 182-185), o las de Accio en I.Dodone DVC 3473A y 3607B. No se cuentan los διαιτοί, que son magistrados y no una comunidad, ni las Accias de I.Dodone DVC 3220A, que nombra la fiesta y no el lugar.</P>
           </Card>
         </Sec>
 
@@ -269,14 +272,14 @@ export default function DoricoNO({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="Recuento según la autopsia y la revisión de los alfabetos; las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ambracia.">
+          note="Recuento según la autopsia y la revisión de los alfabetos; las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ampracia.">
           <DonutLegend data={ALF_PIE} height={210} valueColor={INK} />
         </Sec>
 
         </>}
         {sub === "rasgos" && <>
         <Sec title="Rasgos del dórico noroccidental frente al resto del dórico" sub="Formas que distinguen una consulta noroccidental y su documentación en el capítulo"
-          note={`Cada fila es un rasgo que separa el noroccidental del resto del dórico, con el apartado del capítulo en que se estudia. En la última columna, las consultas con el rasgo de adscripción segura y, entre paréntesis, las dudosas o basadas solo en un nombre. La última fila reúne las adscritas por indicios no exclusivos: Ποτειδᾶν (I.Dodone DVC 56A), sinicesis (I.Dodone DVC 305B), ἔχην (I.Dodone DVC 473B), ἀμφίπολος (I.Dodone DVC 70A), antropónimos (I.Dodone DVC 1078B, 1678B, 2050A, 2552A y 3030A), Χεμάριοι (I.Dodone DVC 2012A) y la otra cara de I.Dodone Lhôte 95B (I.Dodone Lhôte 95A). Cinco consultas figuran en dos filas (I.Dodone DVC 471A, 1368A, 2228, 2782A y 3220A), de modo que la suma (${TABLA_RASGOS_NO.reduce((s, r) => s + r.seg + r.dud, 0)}) supera las ${TOTAL_DOR_NO} del capítulo.`}>
+          note={`Cada fila es un rasgo que separa el noroccidental del resto del dórico, con el apartado del capítulo en que se estudia. En la última columna, el total de consultas con el rasgo y, entre paréntesis, las de adscripción segura y las dudosas o basadas solo en un nombre. La última fila reúne las adscritas por indicios no exclusivos: Ποτειδᾶν (I.Dodone DVC 56A), sinicesis (I.Dodone DVC 305B), ἔχην (I.Dodone DVC 473B), ἀμφίπολος (I.Dodone DVC 70A), antropónimos (I.Dodone DVC 1078B, 1678B, 2050A, 2552A y 3030A), Χεμάριοι (I.Dodone DVC 2012A) y la otra cara de I.Dodone Lhôte 95B (I.Dodone Lhôte 95A). Cinco consultas figuran en dos filas (I.Dodone DVC 471A, 1368A, 2228, 2782A y 3220A), de modo que la suma (${TABLA_RASGOS_NO.reduce((s, r) => s + r.seg + r.dud, 0)}) supera las ${TOTAL_DOR_NO} del capítulo.`}>
           <TablaRasgos color={NO} cabeceras={["Forma\nnoroccidental", "Resto\ndel dórico", "Otros dialectos\ncon el rasgo"]}
             filas={TABLA_RASGOS_NO.map((r) => ({ sec: r.sec, rasgo: r.rasgo, celdas: [r.forma, r.resto, r.otros], seg: r.seg, dud: r.dud }))} />
         </Sec>
@@ -344,6 +347,11 @@ export default function DoricoNO({ switcher, subnav }) {
           </Card>
         </Sec>
       </>}
+      {tab === "anexo" && (
+        <Sec title="Las inscripciones del dórico noroccidental" sub="Texto de la edición, datación y certeza">
+          <Anexo load={ANEXOS.doricoNO} color={INK} tint={NO} />
+        </Sec>
+      )}
     </ChapterLayout>
   );
 }

@@ -26,11 +26,53 @@ export const InscripcionCard = ({ d, color }) => (
   </Card>
 );
 
+
 const POR_PAGINA = 60;
+const POR_GRUPO = 12;
 const norm = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const REJILLA = { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: 8, alignItems: "start" };
+
+// Barra de certeza de un grupo: seguras, dudosas y de solo nombre.
+const BarraCerteza = ({ filas }) => {
+  const n = { s: 0, d: 0, n: 0 };
+  filas.forEach((r) => { n[r[3]] += 1; });
+  return (
+    <span style={{ display: "flex", width: 120, height: 8, borderRadius: 4, overflow: "hidden", background: "rgba(120,90,40,0.08)", flexShrink: 0 }}
+      title={`${n.s} seguras, ${n.d} dudosas, ${n.n} de solo nombre o alfabeto`}>
+      {["s", "d", "n"].map((k) => n[k] > 0 && <span key={k} style={{ width: `${n[k] / filas.length * 100}%`, background: CERT_TXT[k][1], opacity: 0.75 }} />)}
+    </span>
+  );
+};
+
+// Un grupo del anexo, desplegable, con sus tarjetas en rejilla.
+function GrupoAnexo({ nombre, filas, color, abierto }) {
+  const [n, setN] = useState(POR_GRUPO);
+  return (
+    <details open={abierto} className="seccion" style={{ background: "rgba(255,252,245,0.5)", border: `1px solid ${C.border}`,
+      borderLeft: `3px solid ${color}`, borderRadius: "0 10px 10px 0", padding: "10px 14px" }}>
+      <summary style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <span style={{ fontFamily: "var(--fh)", fontSize: 15, fontWeight: 700, color: C.heading }}>{renderGreekText(nombre)}</span>
+        <span style={{ fontSize: 12, color, fontWeight: 700 }}>{filas.length}</span>
+        <BarraCerteza filas={filas} />
+      </summary>
+      <div style={{ ...REJILLA, marginTop: 10 }}>
+        {filas.slice(0, n).map(([id, date, text, c, etq, rasgos]) => (
+          <InscripcionCard key={id} color={color} d={{ id, date, text, certeza: c, etq: norm(etq) === norm(nombre) ? null : etq, rasgos }} />
+        ))}
+      </div>
+      {n < filas.length && (
+        <div style={{ textAlign: "center", marginTop: 10 }}>
+          <button onClick={() => setN(filas.length)} style={{ padding: "5px 14px", borderRadius: 8, border: `1px solid ${C.border}`,
+            color, fontFamily: "var(--fh)", fontSize: 12.5 }}>Mostrar las {filas.length - n} restantes</button>
+        </div>
+      )}
+    </details>
+  );
+}
 
 // rows: [clave, datación, texto, certeza, etiqueta, rasgos?]; o load: () => import(…) para cargarlas al abrir la pestaña.
-export function Anexo({ rows: dadas = null, load = null, color, tint = color }) {
+// grupo: (fila) → nombre del grupo; orden: nombres en el orden de presentación (los demás, detrás, por tamaño).
+export function Anexo({ rows: dadas = null, load = null, color, tint = color, grupo = null, orden = [] }) {
   const [cargadas, setCargadas] = useState(null);
   const [q, setQ] = useState("");
   const [cert, setCert] = useState("todas");
@@ -41,6 +83,12 @@ export function Anexo({ rows: dadas = null, load = null, color, tint = color }) 
   const nq = norm(q.trim());
   const f = rows.filter(([id, , text, c, etq, ras]) => (cert === "todas" || (cert === "s" ? c === "s" : c !== "s"))
     && (!nq || [fmtDvc(id), text, etq, ras].some((x) => norm(x).includes(nq))));
+  const grupos = {};
+  if (grupo) f.forEach((r) => { (grupos[grupo(r)] ??= []).push(r); });
+  const nombres = Object.keys(grupos).sort((a, b) => {
+    const ia = orden.indexOf(a), ib = orden.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || grupos[b].length - grupos[a].length;
+  });
   const btn = (v, l) => (
     <button onClick={() => { setCert(v); setN(POR_PAGINA); }} aria-pressed={cert === v} style={{ padding: "4px 12px", borderRadius: 7, fontSize: 12,
       border: `1px solid ${cert === v ? fade(color, 0.4) : C.border}`, background: cert === v ? fade(tint, 0.16) : "transparent",
@@ -54,12 +102,24 @@ export function Anexo({ rows: dadas = null, load = null, color, tint = color }) 
       {btn("todas", "Todas")}{btn("s", "Seguras")}{btn("d", "Dudosas y de solo nombre")}
       <span style={{ fontSize: 11.5, color: C.dim }}>{f.length} inscripciones</span>
     </div>
-    <div style={{ display: "grid", gap: 8 }}>
+    {grupo && <>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", fontSize: 11, color: C.muted, margin: "-4px 0 10px" }}>
+        {["s", "d", "n"].map((k) => (
+          <span key={k} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+            <span style={{ width: 10, height: 8, borderRadius: 2, background: CERT_TXT[k][1], opacity: 0.75 }} />{CERT_TXT[k][0]}
+          </span>
+        ))}
+      </div>
+      <div style={{ display: "grid", gap: 8 }}>
+        {nombres.map((g, i) => <GrupoAnexo key={`${g}-${nq}-${cert}`} nombre={g} filas={grupos[g]} color={color} abierto={nq !== "" || i === 0} />)}
+      </div>
+    </>}
+    {!grupo && <div style={{ display: "grid", gap: 8 }}>
       {f.slice(0, n).map(([id, date, text, c, etq, rasgos]) => (
         <InscripcionCard key={id} color={color} d={{ id, date, text, certeza: c, etq, rasgos }} />
       ))}
-    </div>
-    {n < f.length && (
+    </div>}
+    {!grupo && n < f.length && (
       <div style={{ textAlign: "center", marginTop: 14 }}>
         <button onClick={() => setN(n + POR_PAGINA)} style={{ padding: "6px 16px", borderRadius: 8, border: `1px solid ${C.border}`,
           color, fontFamily: "var(--fh)", fontSize: 13 }}>Mostrar más ({f.length - n} restantes)</button>

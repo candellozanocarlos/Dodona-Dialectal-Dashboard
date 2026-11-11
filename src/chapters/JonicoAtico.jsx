@@ -70,7 +70,7 @@ const SUBGRUPOS = {
       <Ref src="DVC" id="206A" /> lo es también, aunque los editores lo atribuyan a la koiné. <Ref src="DVC" id="4162B" />, con -μεν,
       se cuenta en el tesalio como doble adscripción. El único consultante del corpus al que puede atribuirse con fundamento un
       origen eubeo es el Ὀνήριμος de <Ref src="DVC" id="2217A" />, con el rotacismo eretrio en su nombre; la consulta se cuenta como
-      jónica segura porque el artículo τὴν̣ asegura el jónico-ático (cap. 10, §4.6).
+      jónica segura porque el artículo τὴν̣ asegura el jónico-ático (cap. 10, §4.7).
     </>,
   },
   ati: {
@@ -150,7 +150,7 @@ const CONTEXTO = {
       { author: "Filócoro y Hesíodo (Str. VII, 7, 10)", type: "Geografía, s. I a.C.",
         desc: "Filócoro sostenía que la región de Dodona se había llamado Helopia, como una parte de Eubea, apoyándose en unos versos de Hesíodo. El nombre no prueba una relación directa, porque Helopia se llamaban también una ciudad de la Dolopia y un lugar del territorio de Tespias." },
       { author: "Plutarco, Licofrón, Pausanias y Pseudo-Escimno", type: "Relatos de fundación",
-        desc: "Los eretrios habrían habitado Corcira antes de la llegada del corintio Caricrates (Plu. Quaest. Graec. 11 = Mor. 293a-b); los abantes de Elefénor, la isla de Otronos y Amantia (Lyc. Alex. 1034-1046); locrios y abantes habrían fundado Tronio (Paus. V, 22, 3-4), y unos eubeos desviados a su regreso de Troya, Órico (Ps.-Scymn. 441-443). La arqueología no confirma ningún asentamiento eubeo estable: fueron navegantes de paso y no colonos." },
+        desc: "Los eretrios habrían habitado Corcira antes de la llegada del corintio Carícrates (Plu. Quaest. Graec. 11 = Mor. 293a-b); los abantes de Elefénor, la isla de Otrono y Amantia (Lyc. Alex. 1034-1046); locrios y abantes habrían fundado Tronio (Paus. V, 22, 3-4), y unos eubeos desviados a su regreso de Troya, Órico (Ps.-Scymn. 441-443). La arqueología no confirma ningún asentamiento eubeo estable: fueron navegantes de paso y no colonos." },
       { author: "Heródoto II, 55-57", type: "Historia, s. V a.C.",
         desc: "Heródoto, un jonio de Halicarnaso, recogió de boca de las sacerdotisas de Dodona, Promenea, Timárete y Nicandra, la versión local del origen del oráculo, la de la paloma negra llegada desde la Tebas de Egipto, y la contrastó con el relato de los sacerdotes de Tebas." },
     ],
@@ -166,8 +166,8 @@ const CONTEXTO = {
       ["Comerciantes y navegantes jonios", <>
         El εἰρωτᾶι de <Ref src="DVC" id="1881A" /> (principios del s. IV a.C.) y de <Ref src="Lhôte" id="100A" /> (primer cuarto del
         s. IV a.C.) remite al jónico minorasiático. Esquilino pregunta en esta última si le conviene navegar hacia el Adriático, en los
-        años en que Dionisio el Viejo refundaba el emporio de Adria, y unos navegantes dudan entre quedarse en Ambracia o partir hacia
-        Μεσσήνην en <Ref src="Lhôte" id="106A" /> (s. IV a.C.); siete de las trece consultas jonias se refieren al trabajo o al comercio.
+        años en que Dionisio el Viejo refundaba el emporio de Adria, y unos navegantes dudan entre quedarse en Ampracia o partir hacia
+        Μεσσήνην en <Ref src="Lhôte" id="106A" /> (s. IV a.C.); ocho de las quince consultas jonias se refieren al trabajo o al comercio.
       </>],
     ],
   },
@@ -189,9 +189,9 @@ const CONTEXTO = {
       { event: "Ciudadanía ateniense de Táripas", date: "ca. 428-424 a.C.", agent: "Táripas, Alcetas, Aribas",
         desc: "El rey moloso, educado en Atenas, recibió la ciudadanía, que se concedió después a su hijo Alcetas y se recordó en el 343/2 a.C. a su nieto Aribas, refugiado en Atenas tras ser expulsado por Filipo II (Iust. XVII, 3, 9-13; Plu. Pyrrh. 1, 4; Cabanes 2020: 147)." },
       { event: "Dedicatoria de una victoria naval", date: "s. V a.C.", agent: "los atenienses",
-        desc: "Ἀθεναῖοι ἀπὸ Πελοπον[ν]εσίον ναυμαχίᾳ νικέσαντες ἀ[νέθεσαν], en alfabeto ático anterior a la reforma (Carapanos 1878: 47, n.º 20 = I.Molossie 8). La batalla no puede precisarse: se han propuesto Cecrifalea (459-458 a.C.), la de Formión en Patras (429 a.C.) y la intervención en Síbota (433 a.C.) (Cabanes 2020: 209; Piccinini 2017: 144-145)." },
+        desc: "Ἀθεναῖοι ἀπὸ Πελοπον[ν]εσίον ναυμαχίᾳ νικέσαντες ἀ[νέθεσαν], en alfabeto ático anterior a la reforma (Carapanos 1878: 47, n.º 20 = I.Molossie 8). La batalla no puede precisarse: se han propuesto Cecrifalia (459-458 a.C.), la de Formión en Patras (429 a.C.) y la intervención en Síbota (433 a.C.) (Cabanes 2020: 209; Piccinini 2017: 144-145)." },
       { event: "Respuestas leídas por Demóstenes", date: "348/7 a.C.", agent: "el pueblo ateniense",
-        desc: "Dos respuestas del Zeus de Dodona ordenan enviar teoros, sacrificar tres bueyes a Zeus Naios y uno a Dione, dedicar una mesa de bronce junto a la ofrenda del pueblo ateniense y celebrar sacrificios públicos a Dioniso (D. XXI, 51-54)." },
+        desc: "Dos respuestas del Zeus de Dodona ordenan enviar teoros, sacrificar tres bueyes a Zeus Nayo y uno a Dione, dedicar una mesa de bronce junto a la ofrenda del pueblo ateniense y celebrar sacrificios públicos a Dioniso (D. XXI, 51-54)." },
       { event: "La estatua de Dione", date: "años de Olimpíade", agent: "Atenas, Olimpíade",
         desc: "Según Hipérides, el dios ordenó embellecer la estatua de Dione, y la ciudad le hizo un rostro nuevo, le preparó un rico adorno y envió una procesión con un sacrificio costoso, lo que provocó las quejas de Olimpíade, que reclamaba como suya Molosia (Hyp. Eux. 24-26)." },
       { event: "Trigo del Epiro", date: "ca. 330 a.C.", agent: "Leócrates, Cleopatra",
@@ -208,12 +208,12 @@ const CONTEXTO = {
     bloques: [
       ["El culto de Dodona en Atenas", <>
         Las cuentas del Erecteo del 409/8 y del 408/7 a.C. mencionan un altar de Dione, un sitial del teatro de Dioniso está dedicado a la
-        diosa en el s. IV a.C. y en el s. I a.C. se dedicaba todavía en la Acrópolis un altar a Zeus Naios; un decreto del 263/2 a.C.
+        diosa en el s. IV a.C. y en el s. I a.C. se dedicaba todavía en la Acrópolis un altar a Zeus Nayo; un decreto del 263/2 a.C.
         recuerda que el santuario de Bendis en el Pireo se fundó de acuerdo con una respuesta de Dodona (Piccinini 2017: 137-140).
       </>],
       ["Las ofrendas de los atenienses", <>
         Las ofrendas muestran la devoción privada: entre los bronces hallados en el santuario figura la placa de un cofrecillo con la
-        dedicatoria Διὶ Ναΐῳ Φιλῖνος Ἀθηναῖος (I.Molossie 25), y el atleta Μηνόδωρος Γναίου Ἀθηναῖος venció dos veces en los Naia de
+        dedicatoria Διὶ Ναΐῳ Φιλῖνος Ἀθηναῖος (I.Molossie 25), y el atleta Μηνόδωρος Γναίου Ἀθηναῖος venció dos veces en las Nayas de
         Dodona, según la base de su estatua en Delos (I.Molossie 257).
       </>],
       ["Atenienses seguros y posibles en las laminillas", <>
@@ -251,7 +251,7 @@ const CONTEXTO = {
       { event: "Congreso de Corinto", date: "338/7 a.C.", agent: "Filipo II, Atenas",
         desc: "El juramento de los atenienses como miembros de la liga, IG II² 236, con κατὰ [θ]άλασ[σαν], es el primer documento con la σσ de la koiné; Crespo (2010a: 142-145; 2010b: 132-134) atribuye su fijación a una elección consciente de la corte de Filipo II." },
       { event: "Alejandro el Moloso y Olimpíade", date: "342-331 a.C.", agent: "Filipo II, Alejandro, Olimpíade",
-        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopia y las ciudades eleas, y el reino moloso llega al golfo de Ambracia; tras su muerte en Italia, Olimpíade gobierna Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
+        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopea y las ciudades eleas, y el reino moloso llega al golfo de Ampracia; tras su muerte en Italia, Olimpíade gobierna Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
       { event: "La lengua común de los griegos", date: "desde finales del s. IV a.C.", agent: "Alejandro y sus sucesores",
         desc: "La koiné se convierte en la lengua oficial de un territorio inmenso; el término κοινὴ διάλεκτος procede probablemente de los gramáticos alejandrinos de los ss. III-II a.C. (Colvin 2007: 63; Bubenik 2014: 279-280)." },
     ],
@@ -352,10 +352,10 @@ export default function JonicoAtico({ switcher }) {
                 <Card>
                   <div style={{ fontFamily: "var(--fh)", fontSize: 15, color: C.heading, marginBottom: 6 }}>Selecciona un lugar</div>
                   <p style={PROSE}>
-                    Los lugares dibujan sobre todo rutas marítimas: Apolonia, Ambracia, Alicia, Siracusa y el Adriático son destinos de viajes
+                    Los lugares dibujan sobre todo rutas marítimas: Apolonia, Ampracia, Alicia, Siracusa y el Adriático son destinos de viajes
                     de consultantes que navegaban por el Jónico y el Adriático, por las mismas vías que los dóricos de las colonias. Fuera de
-                    esas rutas solo figuran los lugares de origen o de residencia de dos consultantes, Atenas y Cime, y quizá Escíone, en la
-                    Calcídica.
+                    esas rutas solo figuran los lugares de origen o de residencia de tres consultantes, Atenas y Cime; Escíone, en la
+                    Calcídica, si es un topónimo, es el objeto de una pregunta y no la patria del consultante.
                   </p>
                   <Stats style={{ marginTop: 12, marginBottom: 0 }}>
                     <Stat label="Seguras" value={String(SEG_JAK)} accent={COLOR} />
@@ -391,8 +391,9 @@ export default function JonicoAtico({ switcher }) {
       </>}
 
       {tab === "anexo" && (
-        <Sec title="Las inscripciones jónico-áticas y de koiné" sub="Texto de la edición, datación y subgrupo">
-          <Anexo rows={ANEXO_JAK} color={COLOR} />
+        <Sec title="Las inscripciones jónico-áticas y de koiné" sub="Agrupadas por dialecto, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+          <Anexo rows={ANEXO_JAK} color={COLOR} grupo={(r) => r[4][0].toUpperCase() + r[4].slice(1)}
+            orden={["Jónico", "Ático", "Koiné", "Jónico-ático sin precisar"]} />
         </Sec>
       )}
 
@@ -441,13 +442,13 @@ export default function JonicoAtico({ switcher }) {
           </Sec>
 
           <Sec title="Alfabeto"
-            note="Todas las inscripciones del grupo emplean el alfabeto jónico reformado o uno que no puede identificarse, salvo I.Dodone DVC 3708A, que los editores atribuyen a una colonia elea del Epiro pese a su γεο̅εργέο̅ y su ἔσσται. Varias conservan la notación ática anterior al 403/2 a.C., con Ε y Ο para las vocales largas.">
+            note="Todas las inscripciones del grupo emplean el alfabeto jónico reformado o uno que no puede identificarse, salvo I.Dodone DVC 3708A, que los editores atribuyen a una colonia elea del Epiro pese a su γεο̅εργέο̅ y su ἔσσται, y 1012A, con los valores de Ω y Ο invertidos, como en Paros y Tasos. Varias conservan la notación ática anterior al 403/2 a.C., con Ε y Ο para las vocales largas.">
             <DonutLegend data={ALF_JAK_PIE} height={220} valueColor={COLOR} />
           </Sec>
         </>}
         {sub === "rasgos" && <>
           <Sec title="Rasgos del jónico-ático y de la koiné en el corpus" sub="Formas que distinguen una consulta jónico-ática y su documentación en el capítulo"
-            note={`Cada fila es un rasgo que separa el jónico-ático de los demás dialectos del corpus, con el apartado del capítulo 9. En la última columna, las consultas con el rasgo visible de adscripción segura y, entre paréntesis, las dudosas. Una consulta puede tener varios rasgos, de modo que la suma supera las ${TOTAL_JAK} del capítulo.`}>
+            note={`Cada fila es un rasgo que separa el jónico-ático de los demás dialectos del corpus, con el apartado del capítulo 9. En la última columna, el total de consultas con el rasgo visible y, entre paréntesis, las de adscripción segura y las dudosas. Una consulta puede tener varios rasgos, de modo que la suma supera las ${TOTAL_JAK} del capítulo.`}>
             <TablaRasgos color={COLOR} cabeceras={["Forma\njónico-ática", "Forma de\nlos demás", "Otros dialectos\ncon el rasgo"]}
               filas={RASGOS_TABLA_JAK.map((r) => ({ sec: `§${r.sec}`, rasgo: r.rasgo, celdas: [r.jak, r.otros, r.comparten], seg: r.seguras, dud: r.dudosas }))} />
           </Sec>

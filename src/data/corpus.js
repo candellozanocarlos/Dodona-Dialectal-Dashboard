@@ -21,6 +21,8 @@ import { DIALECT_COLORS } from "../theme.js";
 // Filas 185-186, 3/11/2026: revisión de las no jónico-áticas dudosas (cap. 15): 109A al acayo (solo alfabeto), 257A y
 // 574A al dórico general, 304B sin clasificar (NO JON-ÁT 848 → 844; Otros 12; 1.455).
 // Fila 190, 6/11/2026: 9A a solo nombre, 1771B y 2638B a dudosas (NO JON-ÁT 765/77/2; global 1.121/307/27), sin cambio de los totales.
+// Fila 195, 10/11/2026: 98A y 1012A pasan de la mezcla al jónico (dudosas) y Lhôte 133A a NO JON-ÁT (dudosa): mezcla 95, jónico-ático-koiné 139, NO JON-ÁT 845; global sin cambios.
+// Fila 191, 9/11/2026: nueve consultas con εἰ como único rasgo a dudosas (JAK 76/59/2) y 35A a «FÓRMULA», dudosa (mezcla 33/54/11); global 1.112/317/26, sin cambio de los totales.
 export const TOTAL_CORPUS = 1455;
 
 // Inscripciones de cada capítulo.
@@ -39,11 +41,11 @@ export const TOTAL_DOR_NO = 75;
 // (Doris mitior 174 + Dórico Magna Grecia 2 = 176) y noroccidental (Dórico NO, 75).
 // Fuente única de los gráficos “… en contexto” de todos los capítulos; cada macrogrupo lleva su color de DIALECT_COLORS.
 export const MACROGRUPOS = [
-  { name: "No jónico-ático (sin precisar)", value: 844, color: DIALECT_COLORS.noJonAt },
+  { name: "No jónico-ático (sin precisar)", value: 845, color: DIALECT_COLORS.noJonAt },
   { name: "Dórico general", value: TOTAL_DOR, color: DIALECT_COLORS.dorico },
   { name: "Dórico noroccidental", value: TOTAL_DOR_NO, color: DIALECT_COLORS.doricoNO },
-  { name: "Jónico-ático-koiné", value: 137, color: DIALECT_COLORS.jonicoAtico },
-  { name: "Mezcla dialectal", value: 98, color: DIALECT_COLORS.mezcla },
+  { name: "Jónico-ático-koiné", value: 139, color: DIALECT_COLORS.jonicoAtico },
+  { name: "Mezcla dialectal", value: 95, color: DIALECT_COLORS.mezcla },
   { name: "Tesalio", value: TOTAL_TES, color: DIALECT_COLORS.tesalio },
   { name: "Beocio", value: TOTAL_BEOC, color: DIALECT_COLORS.beocio },
   { name: "Doris severior", value: TOTAL_SEV, color: DIALECT_COLORS.severior },

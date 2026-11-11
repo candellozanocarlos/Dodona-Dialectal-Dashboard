@@ -52,7 +52,7 @@ for k in ("jon", "ati", "koi"):
 
 alf = jak["ALFABETO_GRUPO_v2"].fillna("").astype(str).str.strip()
 otros = jak[alf != ""]
-assert len(otros) == 1 and str(otros.iloc[0]["No DVC"]).startswith("3708A"), otros["No DVC"].tolist()
+assert sorted(str(x).split()[0] for x in otros["No DVC"]) == ["1012A", "3708A"], otros["No DVC"].tolist()   # 1012A, jónico desde la fila 195
 SIGLO_IV = sum(d["n"] for d in crono(jak) if "IV" in d["period"] and "V–IV" not in d["period"] and "IV–III" not in d["period"])
 
 
@@ -74,9 +74,9 @@ LUGARES = [
     ("atenas", "Atenas", "Ἀθῆναι", 23.727, 37.984, (-0.10, -0.22), "Ática",
      [("Lhôte 23", "Ἀθηναῖος", E, True), ("Lhôte 52", "Ἀθήνησι", T, True)],
      "Lugar de origen o de residencia de Diógneto, que se presenta como ateniense, y de Isodemo, que pregunta por su residencia allí (cap. 11, §4.1; cap. 12, §4.2)."),
-    ("ambracia", "Ambracia", "Ἀμβρακία", 20.985, 39.160, (0.22, 0.05), "Colonias corintias",
+    ("ambracia", "Ampracia", "Ἀμβρακία", 20.985, 39.160, (0.22, 0.05), "Colonias corintias",
      [("Lhôte 106A", "ἐν Ἀμπρα[κίαι]", T, True), ("DVC 2265B", "Ἀπρα[κίαν]", T, False)],
-     "Unos navegantes dudan entre permanecer en Ambracia o partir hacia Μεσσήνην; en la segunda consulta el topónimo está restituido."),
+     "Unos navegantes dudan entre permanecer en Ampracia o partir hacia Μεσσήνην; en la segunda consulta el topónimo está restituido."),
     ("apolonia", "Apolonia", "Ἀπολλωνία", 19.470, 40.720, (-0.22, 0.05), "Iliria",
      [("DVC 366A", "[εἰς] Ἀπολλωνίαν", T, True)], "En la costa iliria, destino de un viaje por mar (= I.Dodone Lhôte 97)."),
     ("siracusa", "Siracusa", "Συράκουσαι", 15.287, 37.076, (0.22, -0.10), "Sicilia",
@@ -88,12 +88,13 @@ LUGARES = [
      [("Lhôte 100A", "ἐς Ἀδρίαν", T, True)],
      "El jonio Esquilino pregunta si le conviene navegar hacia el Adriático, en los años en que Dionisio el Viejo refundaba el emporio de Adria."),
     ("escione", "Escíone", "Σκιώνη", 23.445, 39.940, (0.10, 0.18), "Calcídica",
-     [("DVC 3156B", "Σκιώνην", T, False)], "Solo si Σκιώνην es un topónimo y no un antropónimo."),
+     [("DVC 3156B", "Σκιώνην", T, False)],
+     "Solo si Σκιώνην es un topónimo y no un antropónimo; en ese caso, es el objeto de la pregunta (para Lhôte y Carbon en CIOD, la de Cleón o un emisario suyo) y no la patria del consultante."),
     ("cime", "Cime", "Κύμη", 24.100, 38.630, (-0.12, 0.10), "Eubea o Italia (identificación discutida)",
      [("DVC 35A", "Κυμαῖος", E, False)],
      "Porino, el Κυμαῖος de una consulta con mezcla dialectal, procede según Méndez Dosuna (2018a: 266 n. 4, 279) de la Cime de Eubea o, con más probabilidad, de la colonia eubea de Italia; Lhôte (2017b: 43) la sitúa en Eolia."),
     ("mesene", "Mesene o Mesina", "Μεσσήνη", None, None, (0, 0), "Identificación discutida",
-     [("Lhôte 106A", "ἐς Μεσσήνην̣", T, False)], "Destino alternativo a Ambracia en la misma consulta; no se cartografía."),
+     [("Lhôte 106A", "ἐς Μεσσήνην̣", T, False)], "Destino alternativo a Ampracia en la misma consulta; no se cartografía."),
     ("tisates", "Tisates", "Τισατε͂ς", None, None, (0, 0), "Ubicación desconocida",
      [("Lhôte 100A", "ἐς Τισατε͂ς", E, False)], "Etnónimo de lectura discutida (Πισᾶτες, según Castiglioni 2016), junto al Adriático."),
     ("libia", "Libia", "Λιβύη", None, None, (0, 0), "Fuera del mapa, más al sur",

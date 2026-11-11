@@ -13,6 +13,8 @@ import { Ref, RefList } from "../components/Inscriptions.jsx";
 import ThessalyMap from "../components/maps/ThessalyMap.jsx";
 import { Card, ChapterLayout, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import CompartidosTesBeoc from "./CompartidosTesBeoc.jsx";
+import { Anexo } from "../components/Anexo.jsx";
+import { ANEXOS } from "../data/anexos/index.js";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_TES } from "../data/adscripcion.js";
 
@@ -21,7 +23,7 @@ const TABS = [
   { id: "map", l: "Mapa y regiones", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Θ" },
   { id: "vowels", l: "Vocalismo", i: "Ε" },
-  { id: "shared", l: "Compartidos con beocio", i: "🤝" },
+  { id: "anexo", l: "Las inscripciones", i: "Ψ" },
 ];
 const REGION_COLORS = { pelasgiotis: C.regions.pelasgiotis, histiaiotis: C.regions.histiaiotis, thessaliotis: C.regions.thessaliotis };
 
@@ -92,7 +94,7 @@ export default function Tesalio({ switcher, subnav }) {
               Entre las inscripciones no oraculares de Dodona figuran un decreto de proxenía del koinon de los molosos
               (anterior al 330 a.C.) en favor de Lagetas, tesalio de Feras, y un fragmentario decreto de epigamia
               concedido a un tesalio en época del koinon de los epirotas (232-167 a.C.). Se conservan además dos
-              etnónimos tesalios: el de un ciudadano de Fársalo en una copa de bronce del s. IV a.C. (Παναίτιος
+              etnónimos tesalios: el de un ciudadano de Farsalo en una copa de bronce del s. IV a.C. (Παναίτιος
               Φαρσάλιος) y el de Δόκιμος Λαρισαῖος, testigo en un decreto de manumisión. En la propia Larisa se halló
               un decreto del koinon de los molosos que corona al demo de Larisa y a sus jueces en Dodona
               (Cabanes y Hatzopoulos 2020: nº 21, 32, 58, 84 y 268).
@@ -216,7 +218,7 @@ export default function Tesalio({ switcher, subnav }) {
         })()}
 
         <Sec title="Cronología por tétrada" sub={`Composición de las ${nRegional} inscripciones con adscripción regional`}
-          note="Los testimonios de Histiótide y Tesaliótide se concentran en el s. IV a.C., mientras que Pelasgiótide reúne la mayor parte de los suyos en el s. V a.C. Las inscripciones datadas en la transición entre los ss. V y IV a.C. se cuentan aparte. El único testimonio posterior al s. IV es I.Dodone Lhôte 8B (ss. III-II a.C.), procedente de Mondaya, en Perrebia, pero en dialecto de Pelasgiótide.">
+          note="Los testimonios de Histiótide y Tesaliótide se concentran en el s. IV a.C., mientras que Pelasgiótide reúne la mayor parte de los suyos en el s. V a.C. Las inscripciones datadas en la transición entre los ss. V y IV a.C. se cuentan aparte. El único testimonio posterior al s. IV es I.Dodone Lhôte 8B (ss. III-II a.C.), procedente de Mondea, en Perrebia, pero en dialecto de Pelasgiótide.">
           <Bars data={REGIONS_TES} keys={["chronoV", "chronoVIV", "chronoIV", "chronoPost"]} height={260}
             colors={{ chronoV: SIGLO_COLORS.V, chronoVIV: SIGLO_COLORS["V-IV"], chronoIV: SIGLO_COLORS.IV, chronoPost: SIGLO_COLORS["III-II"] }}
             labels={{ chronoV: "s. V a.C.", chronoVIV: "Transición V–IV", chronoIV: "s. IV a.C.", chronoPost: "Posterior al s. IV a.C." }} />
@@ -227,6 +229,7 @@ export default function Tesalio({ switcher, subnav }) {
         <SubNav color={C.tesalio} value={sub} onChange={setSub} items={[
           ["cifras", "El dialecto tesalio en números", "inscripciones, cronología, temática y alfabeto"],
           ["rasgos", "Rasgos dialectales", `${RASGOS_TES.length} rasgos, en el orden del capítulo`],
+          ["compartidos", "Compartidos con el beocio", "rasgos eólicos comunes y dobles adscripciones"],
         ]} />
         {sub === "cifras" && <>
         <Sec title="El tesalio, dialecto “extranjero” más representado">
@@ -255,7 +258,7 @@ export default function Tesalio({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Distribución cronológica"
-          sub="El grueso del material se concentra entre finales del s. V y la primera mitad del s. IV a.C.; decrece de forma acusada en la segunda mitad del s. IV, y los únicos testimonios posteriores son los dos textos de I.Dodone Lhôte 8 (ss. III-II a.C.), entre ellos la consulta pública de Mondaya (8B)">
+          sub="El grueso del material se concentra entre finales del s. V y la primera mitad del s. IV a.C.; decrece de forma acusada en la segunda mitad del s. IV, y los únicos testimonios posteriores son los dos textos de I.Dodone Lhôte 8 (ss. III-II a.C.), entre ellos la consulta pública de Mondea (8B)">
           <Bars data={CHRONO_DETAIL_TES.map((d) => ({ ...d, color: colorSiglo(d.period) }))} indexBy="period" keys={["n"]} height={300} rotate={-35} />
         </Sec>
 
@@ -278,6 +281,7 @@ export default function Tesalio({ switcher, subnav }) {
           <RasgoExplorer rasgos={RASGOS_TES} texts={RASGO_TEXTS_TES} color={C.tesalio} />
         </Sec>
         </>}
+        {sub === "compartidos" && <CompartidosTesBeoc desde="tesalio" />}
       </>}
 
       {tab === "vowels" && <>
@@ -328,7 +332,11 @@ export default function Tesalio({ switcher, subnav }) {
           note="La norma gráfica dominante en las consultas tesalias es la de los dígrafos ⟨ΕΙ⟩ y ⟨ΟΥ⟩ (16 de 23 inscripciones), en coherencia con la epigrafía tesalia desde la adopción del alfabeto jónico reformado. La alternancia con ⟨Η⟩ y ⟨Ω⟩ no depende de la cronología (los tres grupos se concentran en el s. IV a.C.) ni de la región. La proporción de laminillas con ⟨Η⟩ o ⟨Ω⟩ (15 de 23, el 65 %) es muy superior a la de la epigrafía tesalia (en torno al 34 % de las inscripciones que discute Blümel 1982: 33-35), lo que se explica por el carácter informal y privado de las consultas, al margen de la koiné dialectal escrita que imponían los lapicidas oficiales (Helly 2018: 361-362), y quizá por la interferencia del dórico del santuario. Las laminillas reflejan así la práctica gráfica espontánea de los hablantes y, con ella, la ambigüedad fonológica que postula Scarborough (2014): unas vocales medias /e̞ː/ y /o̞ː/ que ninguna de las dos grafías jónicas representaba con exactitud." />
       </>}
 
-      {tab === "shared" && <CompartidosTesBeoc desde="tesalio" />}
+      {tab === "anexo" && (
+        <Sec title="Las inscripciones tesalias" sub="Agrupadas por región, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+          <Anexo load={ANEXOS.tesalio} color={C.tesalio} grupo={(r) => r[4]} orden={["Pelasgiótide", "Histiótide", "Tesaliótide", "Región sin precisar"]} />
+        </Sec>
+      )}
     </ChapterLayout>
   );
 }

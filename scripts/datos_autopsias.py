@@ -98,7 +98,7 @@ LAMINILLAS.append({"key": "150A", "siglum": None, "ami": None, "anio": None, "fe
           "(cf. cap. 7, §3.2.2).")]})
 
 n = {a: [lam for lam in LAMINILLAS if lam["anio"] == a] for a in (2024, 2025)}
-for a, esperado in ((2024, (45, 169, 127)), (2025, (26, 101, 92))):
+for a, esperado in ((2024, (45, 169, 127)), (2025, (26, 103, 92))):
     cifras = (len(n[a]), sum(len(x["items"]) for x in n[a]), sum(1 for x in n[a] for f in x["items"] if f["obs"]))
     assert cifras == esperado, (a, cifras, esperado)   # las cifras que da el propio anexo (§3.4.1 y §3.4.2)
 

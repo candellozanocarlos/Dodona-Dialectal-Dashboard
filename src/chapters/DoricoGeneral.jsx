@@ -13,6 +13,8 @@ import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
 
 import DoricMap from "../components/maps/DoricMap.jsx";
 import { Card, ChapterLayout, RasgoExplorer, Sec, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Anexo } from "../components/Anexo.jsx";
+import { ANEXOS } from "../data/anexos/index.js";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_DOR } from "../data/adscripcion.js";
 
@@ -22,6 +24,7 @@ const TABS = [
   { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "writing", l: "Escritura y notación", i: "Ε" },
+  { id: "anexo", l: "Las inscripciones", i: "Ψ" },
 ];
 
 const Btn = ({ active, onClick, children }) => (
@@ -117,7 +120,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
             <CardT title="Corcira">
               <P>Lhôte (2006: 22, 363) llegó a considerar Dodona una suerte de santuario oficial de la isla: los corcirenses consultan en solitario en I.Dodone Lhôte 1 y 3, quizá en 4, y junto con los oricios en I.Dodone Lhôte 2. Su variedad no se cuenta entre las noroccidentales, sino con el corintio y el megarense (Méndez Dosuna 1985: 378-379; 2018b: 45 n. 136), y sus consultas solo pasan al capítulo noroccidental si presentan un rasgo propio del noroeste.</P>
             </CardT>
-            <CardT title="Ambracia" accent={C.terra}>
+            <CardT title="Ampracia" accent={C.terra}>
               <P>La colonia corintia, fundada en el último cuarto del s. VII a.C., fue el nexo comercial entre Corinto, el Epiro y Acarnania, la primera escala de los peregrinos y, desde comienzos del s. III a.C., la capital de Pirro. Es la ciudad dórica más citada en las laminillas, desde el ἐν Ἀνπρακία[ι] de I.Dodone DVC 3549A (primera mitad del s. VI a.C.); su onomástica combina nombres comunes con otros noroccidentales (Katsadima 2018: 168-172).</P>
             </CardT>
             <CardT title="Epidamno, Apolonia y Faros" accent={C.blue}>
@@ -130,7 +133,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               <P>Se reconoce sobre todo por el vocalismo severior. Las grandes fundaciones de Sicilia, de origen corintio y megarense, eran mitior, de modo que un siracusano escribía como un corcirense; solo I.Dodone DVC 312B, por γάναν, y 2445, por el cambio λθ &gt; νθ de διεξένθει, se adscriben a Occidente por rasgos lingüísticos, y otras tres por el alfabeto.</P>
             </CardT>
             <CardT title="Las rutas de acceso" accent={C.green}>
-              <P>La ruta principal partía de Ambracia y remontaba el valle del Luros; otra salía del Glykys Limen y remontaba el Aqueronte (Chapinal-Heras 2021: 135-144). Las dos desembocaban en el ámbito de las colonias corintias, justo donde se concentran los topónimos dóricos de las laminillas, mientras que los pasos del Pindo servían sobre todo a tesalios y macedonios.</P>
+              <P>La ruta principal partía de Ampracia y remontaba el valle del Luros; otra salía del Glykys Limen y remontaba el Aqueronte (Chapinal-Heras 2021: 135-144). Las dos desembocaban en el ámbito de las colonias corintias, justo donde se concentran los topónimos dóricos de las laminillas, mientras que los pasos del Pindo servían sobre todo a tesalios y macedonios.</P>
             </CardT>
           </Grid>
         </Sec>
@@ -163,7 +166,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
               {!place && (
                 <Card>
                   <div style={{ fontFamily: "var(--fh)", fontSize: 15, color: C.heading, marginBottom: 6 }}>Selecciona un lugar</div>
-                  <P>Corcira y las colonias corintias, unidas al santuario por la ruta de Ambracia y por la navegación costera, reúnen veintinueve menciones (veintidós seguras), frente a las catorce del Peloponeso; Faros, colonia paria con consultantes dóricos, y Same completan la nómina.</P>
+                  <P>Corcira y las colonias corintias, unidas al santuario por la ruta de Ampracia y por la navegación costera, reúnen veintinueve menciones (veintidós seguras), frente a las catorce del Peloponeso; Faros, colonia paria con consultantes dóricos, y Same completan la nómina.</P>
                   <Stats style={{ marginTop: 12, marginBottom: 0 }}>
                     <Stat label="Seguras" value={String(segMenciones)} accent={DOR} />
                     <Stat label="Dudosas" value={String(totalMenciones - segMenciones)} accent={ORO} />
@@ -205,7 +208,7 @@ export default function DoricoGeneral({ switcher, subnav }) {
           <Bars horizontal data={TOPONYM_BARS_DOR} keys={["seguras", "dudosas"]} height={430} left={100} unit="menciones"
             colors={{ seguras: DOR, dudosas: ORO }} labels={{ seguras: "Mención segura", dudosas: "Mención restituida o dudosa" }} />
           <Card style={{ marginTop: 8 }}>
-            <P>Ambracia encabeza la lista con doce menciones, tres de ellas posibles, seguida de Faros, Corcira y Epidamno. Las dudosas dependen de una restitución o de una identificación discutida, como el ἐν Πάρω[ι] de I.Dodone DVC 3146A, que puede designar la colonia o la isla del Egeo, o el [ἐ]ν Σε̣λ&lt;λ&gt;ασί[αι] de 2416A, que descansa en una corrección editorial.</P>
+            <P>Ampracia encabeza la lista con doce menciones, tres de ellas posibles, seguida de Faros, Corcira y Epidamno. Las dudosas dependen de una restitución o de una identificación discutida, como el ἐν Πάρω[ι] de I.Dodone DVC 3146A, que puede designar la colonia o la isla del Egeo, o el [ἐ]ν Σε̣λ&lt;λ&gt;ασί[αι] de 2416A, que descansa en una corrección editorial.</P>
           </Card>
         </Sec>
 
@@ -371,6 +374,11 @@ export default function DoricoGeneral({ switcher, subnav }) {
           </Card>
         </Sec>
       </>}
+      {tab === "anexo" && (
+        <Sec title="Las inscripciones del dórico general" sub="Texto de la edición, datación y certeza; las dos de la Magna Grecia llevan la etiqueta">
+          <Anexo load={ANEXOS.doricoGeneral} color={DOR} />
+        </Sec>
+      )}
     </ChapterLayout>
   );
 }

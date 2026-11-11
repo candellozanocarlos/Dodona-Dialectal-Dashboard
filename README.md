@@ -1,110 +1,108 @@
-# Atlas dialectal de las laminillas oraculares de Dodona
+# Dialect Atlas of the Oracular Lamellae of Dodona
 
-*Interactive atlas of the Greek dialects attested in the oracular lamellae of Dodona, complementary material of Carlos Candel Lozano's PhD thesis (Universidad de Valladolid).*
+**[Leer esto en castellano](./README.es.md)**
 
-Publicado en <https://atlasdialectaldodona.netlify.app>. Cada parte de la tesis tiene su vista:
+*Atlas dialectal de las laminillas oraculares de Dodona* is an interactive atlas of the Greek dialects attested in the lead lamellae on which visitors to the oracle of Zeus at Dodona inscribed their questions. It is the digital companion to the PhD thesis *Las variedades dialectales de las laminillas oraculares de Dodona* (Carlos Candel Lozano, Universidad de Valladolid, in preparation), and it presents the classification, figures, maps, linguistic features and inscription lists of the thesis in a form that can be explored and searched.
 
-| Parte | Contenido |
+**Website:** <https://atlasdialectaldodona.netlify.app>
+
+The interface is in Spanish, the language of the thesis. Greek texts are given in polytonic script.
+
+## How to cite
+
+> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* [Interactive atlas and source code]. https://atlasdialectaldodona.netlify.app
+
+Full metadata are in [`CITATION.cff`](./CITATION.cff), which GitHub turns into the **Cite this repository** button. Each release is archived in Zenodo with its own DOI; cite the version you consulted, since the figures follow the state of the thesis on the date of that release.
+
+## What the atlas contains
+
+The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopoulou and Christidis 2013) and the 202 of *I.Dodone Lhôte* (Lhôte 2006) that are not in it. Of these, 1,455 carry at least one dialect feature and receive a dialect attribution; the rest are too short, too fragmentary or written in a form common to all dialects.
+
+| Part | Content |
 |---|---|
-| **Introducción** | Presentación y objetivos, el santuario, las laminillas (excavaciones, ediciones, características, autoría e investigación, con el texto del cap. 2), la metodología y los criterios de adscripción, y el corpus en cifras (rasgos dialectales, grupos y certeza, cronología y alfabetos) |
-| **Dialectos dóricos** | El dórico general, el noroccidental y la *Doris severior*: contexto, mapa de topónimos y etnónimos, perfil dialectal con los rasgos del capítulo y su valor diagnóstico, escritura y vocalismo |
-| **Dialectos eólicos** | El tesalio y el beocio: contexto, mapa, perfil dialectal, vocalismo y rasgos compartidos |
-| **Jónico-ático y koiné** | Contexto por variedades, mapa, perfil dialectal con los rasgos del cap. 9, el jónico, el ático y la koiné con sus apartados, y las 137 inscripciones |
-| **Mezcla dialectal** | Concepto y criterio (con las mezclas de Crespo y Giannakis), perfil, tipología, explicaciones y las 98 inscripciones |
-| **Minoritarios y no jónico-áticas** | Los dialectos minoritarios (perfil, apartados y las doce inscripciones) y las no jónico-áticas (perfil, rasgos, dialectos compatibles y anexo con las 844 inscripciones) |
-| **Autopsias** | Las 71 laminillas examinadas en la Eforía de Antigüedades de Ioánina (anexo §3.4 de la introducción) |
+| **Introducción** | The sanctuary, the lamellae (excavations, editions, physical features, authorship of the questions), the method and the attribution criteria, and the corpus in figures: dialect groups, degree of certainty, chronology and local alphabets |
+| **Dialectos dóricos** | General Doric, North-West Greek and *Doris severior*: historical context, map of place names and ethnics, dialect profile with the features of each chapter and their diagnostic value, script and vowel system |
+| **Dialectos eólicos** | Thessalian and Boeotian: context, map, dialect profile, vowel system and shared features |
+| **Jónico-ático y koiné** | Ionic, Attic and koine: context, map, dialect profile and the list of inscriptions |
+| **Mezcla dialectal** | Texts that combine features of incompatible dialects: definition and criterion, comparison with earlier lists, apparent mixtures, typology and explanations |
+| **Minoritarios y no jónico-áticas** | Dialects with few texts (Macedonian, Elean, Achaean, Laconian, Rhodian, non-Greek texts) and the texts that can only be shown not to be Ionic-Attic |
+| **Autopsias** | Notes from the author's examination of 71 lamellae at the Ephorate of Antiquities of Ioannina (2024 and 2025), with facsimiles |
 
-Las citas de inscripciones (*I.Dodone DVC* 123A, *I.Dodone Lhôte* 8B) muestran su texto al pasar el cursor y lo fijan al pulsar.
-Cada parte tiene su propia URL: `#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`, `#autopsias`.
+Each part has its own address (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`, `#autopsias`), so a link can open the atlas at the relevant section.
 
-## Uso
+## How to read it
 
-Requiere Node.js 22 o posterior.
+- **Inscription references.** *I.Dodone DVC* 123A is text 123 of the DVC edition, side A of the lamella; *I.Dodone Lhôte* 8B is number 8 of Lhôte's edition, side B. A lamella can carry several texts, so the counts refer to inscriptions, not to lamellae. Hovering over a reference shows the text, its date and its attribution; clicking it keeps the card open.
+- **Dialect groups.** Every attribution rests on features visible on the lamella, not on restorations. *No jónico-ático (sin precisar)* is the largest group: it gathers the texts with a feature that excludes Ionic-Attic (for instance long *a* where Ionic-Attic has *ē*) but does not identify a single dialect. *Mezcla dialectal* is a descriptive label for texts with features of two dialects that cannot coexist in one variety; it does not presuppose an explanation.
+- **Degree of certainty.** *Segura* (secure): the feature is visible, admits no other reasonable interpretation and does not depend on a disputed reading. *Dudosa* (doubtful): it rests on an uncertain letter, an alternative reading or a form without context. *Solo nombre o alfabeto*: the only evidence is a personal name, an ethnic or the script. Charts show the three degrees with different shades (full colour, gold and grey).
+- **Alphabets.** The local alphabet points to the writing tradition of whoever engraved the lamella. On its own it does not determine the dialect, but it can support a visible feature.
+- **Dates** are those of the editions, grouped by century (*s.* V a.C. = fifth century BC) with transitional periods (V-IV) when the edition places a text between two centuries.
+- **Section numbers (§)** refer to the chapters of the thesis. Some sections reproduce or summarise its text; the full argument, the bibliography and the discussion of each case are in the thesis.
+- **Versions.** The thesis is still in preparation. The figures of each release match the thesis and its database on the date of that release and may change before the defence.
+
+## How it was built
+
+The atlas is derived from the thesis, not written separately from it. Three sources feed it:
+
+1. **The thesis chapters** (Word documents), from which the generators take paragraphs, tables, lists of features and section numbers.
+2. **The research database of the thesis**, an annotated spreadsheet with one row per inscription (dialect attribution and its certainty, date, subject of the question, local alphabet, autopsy notes). It is the author's unpublished working tool and is not distributed here.
+3. **The scripts that draw the figures of the thesis** (Python, with Seaborn and Altair), so that every chart of the atlas uses the same counts as the corresponding figure.
+
+The Python generators in `scripts/` (`datos_*.py`) read the current version of each chapter and the database, check that the figures of the text match the counts of the database, and write the files in `src/data/`. A few data files (`corpus.js`, `tesalio.js`, `beocio.js`, `dorico.js`, `lecturas.js`) were prepared by hand from the same sources. The interface (React, Vite and Nivo) only displays those data: it does not compute attributions.
+
+Before each publication, `npm run check` verifies that the totals of every part add up to the corpus, that the chronology and subject counts match each group, that every cited inscription exists in the index of texts, and that no working notes remain in the visible text. The public build then verifies that no autopsy photograph has entered `dist/`.
+
+The repository therefore contains the derived data and the code, but not the thesis sources. The generators document how each figure was obtained, but running them requires the thesis files.
+
+## Licences
+
+| Material | Licence |
+|---|---|
+| Content: texts written for the atlas, tables, charts, derived data (`src/data`, the texts in `src/chapters`) and the author's facsimiles | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) |
+| Code: components, utilities, scripts and configuration | MIT |
+
+The following material keeps its own terms and is not covered by these licences:
+
+- The texts of the inscriptions, from *I.Dodone DVC* and *I.Dodone Lhôte*.
+- Coastlines: Natural Earth (public domain); Boeotia, © OpenStreetMap contributors (ODbL).
+- Typefaces: the Greek font, derived from Cardo (`src/assets/fonts/OFL.txt`), DM Sans and Playfair Display, under the SIL Open Font License 1.1.
+- The dependencies listed in `package.json`, each under its own licence.
+
+The autopsy photographs are kept outside the repository (`.gitignore`) and are not published: their publication depends on the authorisation of the Ephorate of Antiquities of Ioannina. The facsimiles, drawn by the author, are published.
+
+The full text of both licences is in [`LICENSE`](./LICENSE).
+
+## Running it locally
+
+Requires Node.js 22 or later.
 
 ```bash
 npm install
-npm run dev            # versión local, con las fotografías de autopsia, en http://localhost:5173
-npm run check          # totales, citas y textos visibles
-npm run lint
-npm run build:public   # versión pública en dist/ (solo facsímiles); falla si algo no cuadra
+npm run dev            # local version at http://localhost:5173
+npm run check          # totals, citations and visible texts
+npm run build:public   # public version in dist/; fails if any check fails
 ```
 
-## Publicación
+`dist/` is a static website with relative paths, no server, no cookies and no third-party requests (the fonts are bundled). It can be copied as it is to any web server or institutional page, or embedded with an `<iframe>`; the `#` part of the address selects the part that opens.
 
-`dist/` es una web estática, sin servidor, sin cookies y sin peticiones a terceros (las fuentes van incluidas), con rutas relativas.
-`npm run build:public` nunca copia las fotografías de autopsia (`vite.config.js`) y comprueba después que no hay ninguna en `dist/`.
-
-- **Netlify:** `npx netlify-cli deploy --prod --dir dist` tras compilar; las cabeceras de seguridad están en `netlify.toml`.
-- **En una subcarpeta de la web institucional:** copiar el contenido de `dist/` a la carpeta (por ejemplo `/proyectos/atlas-dodona/`). No hay que configurar nada.
-- **Insertado en una página institucional:**
-
-  ```html
-  <iframe src="https://atlasdialectaldodona.netlify.app/#introduccion" title="Atlas dialectal de las laminillas oraculares de Dodona"
-    style="width: 100%; height: 85vh; border: 1px solid #d8cfb8" loading="lazy"></iframe>
-  ```
-
-  El sitio no prohíbe el marco. El `#` de la dirección elige la parte que se abre.
-
-La autoría, el título y la cita que se muestran en el pie están en `src/sitio.js`.
-
-## Estructura
+### Structure
 
 ```
 src/
-  App.jsx                 raíz: parte activa (#hash), errores de carga y capa de citas emergentes
-  chapters.js             registro de las partes (orden, color, componente)
-  sitio.js                autoría, título y cita
-  theme.js                paleta, colores de categorías y estilos compartidos
-  data/                   generados con scripts/ salvo corpus.js, tesalio.js, beocio.js, dorico.js y lecturas.js, que se editan a mano
-  chapters/               una vista por parte y capítulo
-  components/
-    ui.jsx                cabecera, pestañas, pie, tarjetas, tablas, explorador de rasgos y apartados desplegables
-    charts.jsx            gráficos de barras, anillos y radar (Nivo)
-    Inscriptions.jsx      citas enlazadas y tarjeta con el texto de la inscripción
-    Anexo.jsx             lista de inscripciones con buscador
-    maps/                 mapas de Tesalia, Beocia, Magna Grecia, el dórico y el jónico-ático sobre una base común
-  lib/text.jsx            griego politónico y enlace automático de citas
+  App.jsx            active part (#address), loading errors and inscription cards
+  chapters.js        list of parts (order, colour, view)
+  sitio.js           authorship, title, citation and licence shown in the footer
+  data/              data derived from the thesis (see "How it was built")
+  chapters/          one view per part and chapter
+  components/        charts, maps, feature explorer, inscription lists and cards
+  lib/text.jsx       polytonic Greek and automatic linking of inscription references
 scripts/
-  comun.py                rutas de la tesis, Excel y lectura de los capítulos .docx
-  datos_*.py              generan src/data desde el Excel, los capítulos vigentes y los scripts de gráficos de la tesis
-  fotos_autopsias.json    fotografías y facsímiles de cada inscripción
-  completar_fuente.py     añade a DodonaCardo los glifos que falten, desde Cardo
-  coastline.py            costa y áreas de un mapa nuevo
-  comprobar.mjs           comprobaciones de npm run check y de la compilación pública
+  comun.py           paths of the thesis sources and reading of the chapters
+  datos_*.py         generators of src/data
+  comprobar.mjs      checks run by npm run check and by the public build
+  coastline.py       coastlines and areas of the maps
 ```
 
-## Actualizar los datos
+## Author
 
-Los generadores toman la versión de número más alto de cada capítulo y comprueban que sus cifras cuadran con el Excel:
-
-```bash
-py scripts/datos_dorico_general.py
-py scripts/datos_dorico_noroccidental.py
-py scripts/datos_adscripcion.py
-py scripts/datos_introduccion.py
-py scripts/datos_jonico_atico.py
-py scripts/datos_frontera.py
-py scripts/datos_autopsias.py
-```
-
-Después de editar `tesalio.js` o `beocio.js`, hay que ejecutar `node exportar_datos_dashboard.mjs` en `PYTHON/SEABORN-ALTAIR`, que alimenta los gráficos de la tesis.
-
-### Convenciones de los datos
-
-- Rasgos: `{ id, cat, name, short, desc, dvcs }`, con `cat` ∈ Fonología, Morfología, Sintaxis, Vocabulario y `dvcs` como `"123A"` (DVC) o `"LOD 8B"` (Lhôte).
-- En los textos, `I.Dodone DVC 123A` se convierte automáticamente en una cita enlazada si la inscripción está en `inscriptions.json`.
-- Los números de sección (§) remiten a la numeración vigente de cada capítulo.
-
-## Fotografías de autopsia
-
-Las fotografías (`public/assets/autopsias/`) se conservan en local y están excluidas del repositorio: su publicación depende de la autorización de la Eforía de Antigüedades de Ioánina. Los facsímiles, de elaboración propia, sí se publican.
-
-## Licencia
-
-Contenidos (textos, tablas, gráficos, datos elaborados y facsímiles): [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es). Código: MIT. El detalle y el material excluido están en `LICENSE`, y lo que muestra el pie, en `src/sitio.js` y en `Pie` (`src/components/ui.jsx`).
-
-## Fuentes y licencias de terceros
-
-- Corpus: Dakaris, Vokotopoulou y Christidis (2013), *I.Dodone DVC*; Lhôte (2006), *I.Dodone Lhôte*.
-- Tipografía griega: derivada de Cardo (SIL Open Font License 1.1, `src/assets/fonts/OFL.txt`); DM Sans y Playfair Display (OFL 1.1), autoalojadas con Fontsource.
-- Costas: Natural Earth (dominio público); Beocia, © OpenStreetMap contributors (ODbL).
+Carlos Candel Lozano, Universidad de Valladolid (ORCID [0009-0005-0448-9856](https://orcid.org/0009-0005-0448-9856)). PhD thesis supervised by Elena Martín González, Doctoral School of the Universidad de Valladolid (EsDUVa).

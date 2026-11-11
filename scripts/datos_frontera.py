@@ -98,20 +98,73 @@ def clave(r):
 # ── Cap. 13: la mezcla dialectal ──────────────────────────────────
 alf_mez = G["mez"]["ALFABETO_GRUPO_v2"].fillna("").astype(str).str.strip()
 otros = G["mez"][alf_mez != ""]
-assert len(otros) == 1 and str(otros.iloc[0]["No DVC"]).startswith("1012A"), otros["No DVC"].tolist()
+assert len(otros) == 0, otros["No DVC"].tolist()   # fila 195: 1012A pasa al jónico
 DOC_MEZ = ultima("MEZCLA DIALECTAL", "MEZCLA_1_Redaccion_v*.docx")
 # Anexo 6.1: la clasificación de cada mezcla con la terminología del capítulo (la certeza, del Excel).
-CLAS_MEZ = {clave_cap(a): re.sub(r"\s*\((dudosa|solo por un nombre)\)$", "", d) for a, _, _, d in tabla(DOC_MEZ, 0)}
+# Las tablas del texto (§4-§5) van antes de las del anexo: se busca la primera de cabecera «Inscripción | Texto».
+A_MEZ = next(i for i, t in enumerate(docx.Document(DOC_MEZ).tables) if [c.text.strip() for c in t.rows[0].cells][:2] == ["Inscripción", "Texto"])
+CLAS_MEZ = {clave_cap(a): re.sub(r"\s*\((dudosa|solo por un nombre)\)$", "", d) for a, _, _, d in tabla(DOC_MEZ, A_MEZ)}
 ANEXO_MEZ = []
 for _, r in G["mez"].iterrows():
     k = clave(r)
     ANEXO_MEZ.append([k, DA.fecha(r["Date"]), r["Text"] if pd.notna(r["Text"]) else "", CERT[r["DIALECTO_CERTEZA"]], CLAS_MEZ[k]])
 assert len(CLAS_MEZ) == len(ANEXO_MEZ) == MEZ.N["total"]
 # Anexo 6.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a) y su clasificación en la tesis.
-BIBLIO_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": e} for a, b, c, d, e in tabla(DOC_MEZ, 2)]
+BIBLIO_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": e} for a, b, c, d, e in tabla(DOC_MEZ, A_MEZ + 2)]
 assert len(BIBLIO_MEZ) == 113, len(BIBLIO_MEZ)
 TIPOS = [{"sec": s, "tipo": L(t), "noja": L(a), "ja": L(b), "expl": L(e), "seguras": n1, "dudosas": n2}
          for s, t, a, b, e, n1, n2 in MEZ.TIPOS]
+
+
+def indice_tabla(doc, cabecera):
+    return next(i for i, t in enumerate(docx.Document(doc).tables) if [c.text.strip() for c in t.rows[0].cells] == cabecera)
+
+
+def claves_celda(t):
+    """«I.Dodone DVC 556A, 2024A y 3113A; I.Dodone Lhôte 80A» → ["556A", "2024A", "3113A", "LOD 80A"]."""
+    out = []
+    for trozo in t.split(";"):
+        m = re.search(r"I\.Dodone (DVC|Lhôte) (.*)", trozo)
+        for n in re.findall(r"\b\d+[A-Za-z]*(?:[+-][A-Z])?", m.group(2)):
+            out.append(n if m.group(1) == "DVC" else "LOD " + n)
+    return out
+
+
+# Tabla 1 (§4): las mezclas aparentes, agrupadas por el motivo que las deshace (los apartados del §4).
+MOTIVOS_APARENTES = [
+    ("La autopsia corrige la lectura", r"^La autopsia"),
+    ("Manos o caras distintas", r"Manos distintas|Caras distintas"),
+    ("Alternancia de alfabetos", r"Alternancia de alfabetos"),
+    ("Vacilación gráfica", r"Vacilación gráfica|Subjuntivo"),
+    ("Otra lectura de la forma o del alfabeto", r"Preposición|Participio|valores invertidos|Texto quizá"),
+    ("Rasgos que no son exclusivos de un dialecto", r"comunes|Genitivo de Corcira"),
+]
+APARENTES_MEZ = []
+for ins, sup, mot, clas in tabla(DOC_MEZ, indice_tabla(DOC_MEZ, ["Inscripción", "Mezcla supuesta", "Motivo", "Clasificación en esta tesis"])):
+    g = [n for n, rx in MOTIVOS_APARENTES if re.search(rx, mot)]
+    assert len(g) == 1, (ins, mot, g)
+    APARENTES_MEZ.append({"grupo": g[0], "ref": ins, "dvcs": claves_celda(ins), "supuesta": sup, "motivo": mot, "tesis": clas})
+assert all(any(a["grupo"] == n for a in APARENTES_MEZ) for n, _ in MOTIVOS_APARENTES)
+
+# Tabla 9 (§7.3): las divergencias con Crespo y Giannakis. Bloque A, las 52 mezclas de los autores que la tesis
+# clasifica de otro modo, por motivo, con los recuentos del §2.3 (12, 7, 2, 3, 10 y 18); bloque B, las 34 que no recogen.
+DIV = tabla(DOC_MEZ, indice_tabla(DOC_MEZ, ["Inscripción", "Cronología", "Crespo y Giannakis", "Esta tesis", "Motivo"]))
+iB = next(i for i, f in enumerate(DIV) if f[0].startswith("B."))
+assert DIV[0][0].startswith("A.")
+MOTIVOS_DIV = {"tes": "Vacilación gráfica en consultas tesalias o beocias", "par": "Pregunta y respuesta, o caras, que se clasifican por separado",
+               "aut": "La autopsia deshace la mezcla", "lec": "La revisión de la lectura o del alfabeto",
+               "no": "Rasgos del noroccidental que comparte con la koiné", "sin": "Sin ninguna forma del otro grupo"}
+DIVERGENCIAS_MEZ = []
+for i, (ins, fecha_, cyg, tes, mot) in enumerate(DIV[1:iB]):
+    k = clave_cap(ins)
+    g = ("tes" if i < 12 else "par" if i < 19 else "aut" if k in ("2160", "2225A") else "lec" if k in ("98A", "1012A", "LOD 133A")
+         else "no" if i < 28 or k == "262B" else "sin")
+    DIVERGENCIAS_MEZ.append({"grupo": MOTIVOS_DIV[g], "ref": ins, "date": fecha_, "autores": cyg, "tesis": tes, "motivo": mot})
+_n = {v: sum(d["grupo"] == v for d in DIVERGENCIAS_MEZ) for v in MOTIVOS_DIV.values()}
+assert list(_n.values()) == [12, 7, 2, 3, 10, 18], _n
+NO_RECOGIDAS_MEZ = [{"ref": a, "date": b, "autores": c, "tesis": d, "motivo": e} for a, b, c, d, e in DIV[iB + 1:]]
+assert len(NO_RECOGIDAS_MEZ) == 34 and len(DIVERGENCIAS_MEZ) == 52
+assert {clave_cap(d["ref"]) for d in DIVERGENCIAS_MEZ} == {clave_cap(b["ref"]) for b in BIBLIO_MEZ if not b["tesis"].startswith("Mezcla")}
 
 # ── Cap. 14: los dialectos minoritarios ───────────────────────────
 INSC_MIN = []
@@ -168,15 +221,15 @@ ANEXO.write_text(json.dumps(anexo, ensure_ascii=False, separators=(",", ":")), e
 
 # ── Texto de los capítulos: apartados que la vista muestra desplegables ──
 def tramo(docx, inicio, fin):
-    pars = parrafos(docx)
+    pars = parrafos(docx, tablas=False)
     i0 = indices(pars, inicio)
     i1 = next(i for i, (st, t) in enumerate(pars) if i > i0 and es_titulo(st) and t.startswith(fin))
     return apartados(secciones(pars, i0, i1))
 
 
 DOC_MIN = ultima("DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
-TIPOLOGIA_MEZ = tramo(DOC_MEZ, "4. TIPOLOG", "5. EXPLICACIONES")
-EXPLICACIONES_MEZ = [x for x in tramo(DOC_MEZ, "5. EXPLICACIONES", "6. ANEXOS") if x["sec"] != "§5.6"]
+TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. EXPLICACIONES") + tramo(DOC_MEZ, "4. LAS MEZCLAS APARENTES", "5. TIPOLOG")
+EXPLICACIONES_MEZ = [x for x in tramo(DOC_MEZ, "6. EXPLICACIONES", "7. ANEXOS") if x["sec"] != "§6.6"]
 APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "7. ANEXOS")
 RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
 COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
@@ -188,7 +241,7 @@ partes = [
     "// Generado por scripts/datos_frontera.py: no editar a mano.",
     "// Capítulos 13-15 de la tesis (zonas de frontera): la mezcla dialectal, los dialectos minoritarios y las inscripciones",
     "// no jónico-áticas. Fuentes: DVC_v5_FINAL.xlsx, hoja Datos (DIALECTO_MACRO, DIALECTO_SUB, DIALECTO_CLEAN, DIALECTO_CERTEZA,",
-    "// Date, TEMA_MACRO, ALFABETO_GRUPO_v2; Resúmenes, fila 186), y las tablas de graficos_mezcla.py, graficos_minoritarios.py",
+    "// Date, TEMA_MACRO, ALFABETO_GRUPO_v2; Resúmenes, fila 193), y las tablas de graficos_mezcla.py, graficos_minoritarios.py",
     "// y graficos_no_jonico_aticas.py. Certeza: seguras, dudosas y de solo nombre (o alfabeto).",
     'import { ALFABETO_COLORS, C } from "../theme.js";',
     "",
@@ -204,14 +257,20 @@ partes = [
     f'  {{ id: "milesio", label: "Reformado o no identificado", value: {len(G["mez"]) - 1}, color: C.milesio }},',
     '  { id: "otros", label: "Sin precisar por los editores (1012A)", value: 1, color: ALFABETO_COLORS.otros },',
     "];",
-    "// Tipos de mezcla (§4, mez_9): seguras y, aparte, dudosas y de solo nombre.",
+    "// Tipos de mezcla (§5, mez_9): seguras y, aparte, dudosas y de solo nombre.",
     f"export const TIPOS_MEZ = {J(TIPOS)};",
     f"export const ADSCRIPCION_MEZ = {J(ADS_MEZ)};",
-    "// Anexo 6.1: [clave, datación, texto, certeza (s, d, n), clasificación del capítulo].",
+    "// Anexo 7.1: [clave, datación, texto, certeza (s, d, n), clasificación del capítulo].",
     f"export const ANEXO_MEZ = {J(ANEXO_MEZ)};",
-    "// Anexo 6.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con su clasificación en la tesis.",
+    "// Anexo 7.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con su clasificación en la tesis.",
     f"export const BIBLIO_MEZ = {J(BIBLIO_MEZ)};",
-    f"// Texto de {DOC_MEZ.stem}: §4 (tipología) y §5.1-§5.5 (explicaciones).",
+    "// Tabla 9: las 52 de los autores que la tesis clasifica de otro modo (bloque A), con el motivo agrupado como en el §2.3,",
+    "// y las 34 mezclas de la tesis que no recogen (bloque B).",
+    f"export const DIVERGENCIAS_MEZ = {J(DIVERGENCIAS_MEZ)};",
+    f"export const NO_RECOGIDAS_MEZ = {J(NO_RECOGIDAS_MEZ)};",
+    "// Tabla 1 (§4): las mezclas aparentes, agrupadas por el motivo que las deshace.",
+    f"export const APARENTES_MEZ = {J(APARENTES_MEZ)};",
+    f"// Texto de {DOC_MEZ.stem}: §5 (tipología), §4 (mezclas aparentes) y §6.1-§6.5 (explicaciones).",
     f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
     f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",
     "",

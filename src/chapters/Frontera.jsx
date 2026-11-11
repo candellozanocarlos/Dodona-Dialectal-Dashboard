@@ -5,9 +5,9 @@ import { useState } from "react";
 import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
 import {
-  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
-  CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, EXPLICACIONES_MEZ,
-  INSCRIPCIONES_MIN, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ,
+  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
+  CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, DIVERGENCIAS_MEZ, EXPLICACIONES_MEZ,
+  INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ,
   TOTAL_MIN, TOTAL_NJA,
 } from "../data/frontera.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
@@ -18,7 +18,8 @@ import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo, InscripcionCard } from "../components/Anexo.jsx";
 
 const MEZ = DIALECT_COLORS.mezcla, MEZ_INK = DIALECT_INK.mezcla;
-const MIN = DIALECT_COLORS.otros, MIN_INK = "#6f6656";
+// Minoritarios: gris pizarra, color propio de la interfaz (los gráficos de la tesis usan el gris de “otros”).
+const MIN = "#7d8a99", MIN_INK = "#56677a";
 const NJA = DIALECT_COLORS.noJonAt, NJA_INK = DIALECT_INK.noJonAt;
 const NOMBRE = "#cbbf9f";   // solo nombre o alfabeto (CERTEZA_COLORES de los gráficos de la tesis)
 
@@ -48,6 +49,157 @@ const Cifras = ({ total, cert, color, nombre = "solo nombre" }) => (
 );
 
 // ══ Cap. 13: la mezcla dialectal ═══════════════════════════════════
+const sinCerteza = (t) => t.replace(/\s*\((dudosa|solo por un nombre|fórmula)\)/g, "");
+const certezaDe = (t) => /\(dudosa\)/.test(t) ? "dudosa" : /solo por un nombre/.test(t) ? "solo por un nombre" : null;
+const Muted = ({ children }) => <span style={{ color: C.muted }}>{children}</span>;
+const Clasificacion = ({ t, color = C.heading }) => (
+  <span style={{ color }}>{renderGreekText(sinCerteza(t))}
+    {certezaDe(t) && <span style={{ color: "#a0761c", fontSize: 10.5, marginLeft: 6 }}>{certezaDe(t)}</span>}</span>
+);
+const contar = (xs, f) => xs.reduce((m, x) => ({ ...m, [f(x)]: (m[f(x)] ?? 0) + 1 }), {});
+
+// Ficha de una inscripción en una lista agrupada: referencia y fecha, dos clasificaciones enfrentadas y el motivo.
+const FichaComparada = ({ refTxt, date, antes, despues, motivo, extra = null }) => (
+  <div style={{ padding: "9px 12px", borderRadius: 8, background: "rgba(255,252,245,0.75)", border: `1px solid ${C.border}` }}>
+    <div style={{ display: "flex", justifyContent: "space-between", gap: 8, flexWrap: "wrap", alignItems: "baseline" }}>
+      <span style={{ fontFamily: "var(--fh)", fontSize: 13, fontWeight: 700, color: C.heading }}>{renderDesc(refTxt)}</span>
+      {date && <span style={{ fontSize: 11, color: C.dim }}>{date}</span>}
+    </div>
+    <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", columnGap: 8, rowGap: 2, fontSize: 12, marginTop: 5 }}>
+      <span style={{ color: C.dim, fontSize: 11 }}>{antes[0]}</span><span>{renderGreekText(antes[1])}</span>
+      <span style={{ color: C.dim, fontSize: 11 }}>{despues[0]}</span><Clasificacion t={despues[1]} color={MEZ_INK} />
+    </div>
+    {motivo && <p style={{ ...PROSE, fontSize: 12, marginTop: 6, color: C.muted }}>{renderDesc(motivo)}</p>}
+    {extra}
+  </div>
+);
+const REJILLA = { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 330px), 1fr))", gap: 8 };
+
+// Grupo de fichas con título, recuento y rejilla.
+const Grupo = ({ titulo, n, unidad = "inscripciones", children }) => (
+  <Card accent={MEZ} style={{ marginBottom: 12 }}>
+    <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
+      <span style={{ fontFamily: "var(--fh)", fontSize: 15, fontWeight: 700, color: MEZ_INK }}>{titulo}</span>
+      <span style={{ fontSize: 12, color: C.dim }}>{n} {n === 1 ? unidad.replace(/es$/, "").replace(/s$/, "") : unidad}</span>
+    </div>
+    <div style={REJILLA}>{children}</div>
+  </Card>
+);
+
+// Contexto: la comparación con Crespo y Giannakis (2019) y Giannakis (2024a), tabla 9 del capítulo.
+function ComparacionBiblio() {
+  const coinciden = BIBLIO_MEZ.filter((b) => b.tesis.startsWith("Mezcla"));
+  const pags = Object.fromEntries(BIBLIO_MEZ.map((b) => [b.ref, b.pags]));
+  const motivos = [...new Set(DIVERGENCIAS_MEZ.map((d) => d.grupo))];
+  return <>
+    <Sec title="Las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a)"
+      sub="Las inscripciones que presentan como mezclas, incluidas las que solo mencionan en nota, frente a la clasificación de la tesis">
+      <Stats>
+        <Stat label="En sus listas" value={String(BIBLIO_MEZ.length)} sub="mezclas según los autores" accent={C.muted} />
+        <Stat label="Coinciden" value={String(coinciden.length)} sub="también son mezclas en la tesis" accent={MEZ_INK} />
+        <Stat label="Otra clasificación" value={String(DIVERGENCIAS_MEZ.length)} sub="la tesis no ve mezcla" accent={C.terra} />
+        <Stat label="No recogidas" value={String(NO_RECOGIDAS_MEZ.length)} sub="mezclas de la tesis fuera de sus listas" accent={C.blue} />
+      </Stats>
+    </Sec>
+    <Sec title="Las mezclas en que coinciden" sub={`${coinciden.length} inscripciones que la tesis también cuenta como mezclas, con la combinación que les atribuyen los autores y la de la tesis`}
+      note="El componente que los autores llaman koiné se denomina jónico-ático en la tesis salvo que la koiné pueda demostrarse.">
+      <Table color={MEZ_INK} sticky maxHeight={520} fontSize={12} rowHeader={0}
+        head={["Inscripción", "Cronología", "Según los autores", "Según la tesis", "Páginas"]}
+        rows={coinciden.map((b) => [renderDesc(b.ref), <Muted>{b.date}</Muted>, b.autores, <Clasificacion t={b.tesis.replace(/^Mezcla de /, "")} color={MEZ_INK} />,
+          <Muted>{b.pags}</Muted>])} />
+    </Sec>
+    <Sec title="Las que la tesis clasifica de otro modo" sub={`${DIVERGENCIAS_MEZ.length} inscripciones, agrupadas por el motivo por el que no se cuentan como mezclas`}>
+      <Bars horizontal data={motivos.map((m) => ({ name: m, value: DIVERGENCIAS_MEZ.filter((d) => d.grupo === m).length, color: C.terra }))}
+        height={60 + 38 * motivos.length} left={330} unit="inscripciones" />
+      <div style={{ marginTop: 14 }}>
+        {motivos.map((m) => {
+          const xs = DIVERGENCIAS_MEZ.filter((d) => d.grupo === m);
+          return (
+            <Grupo key={m} titulo={m} n={xs.length}>
+              {xs.map((d) => <FichaComparada key={d.ref} refTxt={d.ref} date={d.date} antes={["Autores", d.autores]} despues={["Tesis", d.tesis]}
+                motivo={d.motivo} extra={pags[d.ref] && <div style={{ fontSize: 10.5, color: C.dim, marginTop: 4 }}>Crespo y Giannakis {pags[d.ref]}</div>} />)}
+            </Grupo>
+          );
+        })}
+      </div>
+    </Sec>
+    <Sec title="Las mezclas de la tesis que no recogen" sub={`${NO_RECOGIDAS_MEZ.length} inscripciones, en su mayoría consultas breves en que la oposición se reduce a dos formas`}>
+      <Table color={MEZ_INK} sticky maxHeight={460} fontSize={12} rowHeader={0}
+        head={["Inscripción", "Cronología", "Clasificación en la tesis", "Rasgos que se combinan", "Según los autores"]}
+        rows={NO_RECOGIDAS_MEZ.map((d) => [renderDesc(d.ref), <Muted>{d.date}</Muted>, <Clasificacion t={d.tesis.replace(/^Mezcla de /, "")} color={MEZ_INK} />,
+          <span style={{ fontSize: 12.5 }}>{renderGreekText(d.motivo)}</span>, <Muted>{d.autores}</Muted>])} />
+    </Sec>
+  </>;
+}
+
+// Perfil: las mezclas aparentes (§4 y tabla 1 del capítulo).
+const familia = (t) => /^(jónico|ático|koiné)/i.test(t) ? "Jónico-ático y koiné" : /^no jónico/i.test(t) ? "No jónico-ática"
+  : /^dórico general|^dórico$/i.test(t) ? "Dórico general" : t[0].toUpperCase() + t.slice(1);
+function MezclasAparentes() {
+  const motivos = [...new Set(APARENTES_MEZ.map((a) => a.grupo))];
+  const n = APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0);
+  // Clasificación de cada inscripción: la celda de la tabla lleva una por inscripción («Jónico-ático; no jónico-ática») o una común.
+  const clases = APARENTES_MEZ.flatMap((a) => {
+    const t = a.tesis.split(/;\s*/).map((x) => familia(sinCerteza(x).trim()));
+    return a.dvcs.map((_, i) => t.length === a.dvcs.length ? t[i] : t[0]);
+  });
+  const porClase = Object.entries(contar(clases, (x) => x)).sort((a, b) => b[1] - a[1]);
+  const s4 = TIPOLOGIA_MEZ.find((x) => x.sec === "§4");
+  return <>
+    <Sec title="Mezclas que solo lo son en apariencia" sub={`${n} inscripciones que la bibliografía cuenta como mezclas y que la tesis clasifica en un solo dialecto (tabla 1 del capítulo)`}>
+      <Card>
+        <p style={PROSE}>
+          Muchas proceden de inscripciones fragmentarias o de palimpsestos, y la mayoría se limita a un solo rasgo incompatible con el resto
+          del texto, a veces en un antropónimo. La autopsia, que permite comprobar la forma de cada letra, la relación entre las
+          inscripciones de una misma laminilla y la mano que las grabó, resulta decisiva, aunque una misma letra no siempre se traza igual
+          dentro de un mismo texto, como muestran las dos rho de <Ref src="DVC" id="5A" /> (mediados del s. V a.C.).
+        </p>
+      </Card>
+    </Sec>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))", gap: 18 }}>
+      <Sec title="Por qué no son mezclas" sub="Inscripciones por motivo">
+        <Bars horizontal data={motivos.map((m) => ({ name: m, value: APARENTES_MEZ.filter((a) => a.grupo === m).reduce((s, a) => s + a.dvcs.length, 0), color: MEZ }))}
+          height={60 + 38 * motivos.length} left={250} unit="inscripciones" />
+      </Sec>
+      <Sec title="Cómo se clasifican en la tesis" sub="Inscripciones por grupo dialectal">
+        <Bars horizontal data={porClase.map(([k, v]) => ({ name: k, value: v, color: C.blue }))} height={60 + 38 * porClase.length} left={170} unit="inscripciones" />
+      </Sec>
+    </div>
+    <Sec title="Las mezclas aparentes, motivo a motivo">
+      {motivos.map((m) => {
+        const xs = APARENTES_MEZ.filter((a) => a.grupo === m);
+        return (
+          <Grupo key={m} titulo={m} n={xs.reduce((s, a) => s + a.dvcs.length, 0)}>
+            {xs.map((a) => <FichaComparada key={a.ref} refTxt={a.ref} antes={["Mezcla supuesta", a.supuesta]} despues={["Tesis", a.tesis]} motivo={a.motivo} />)}
+          </Grupo>
+        );
+      })}
+    </Sec>
+    <Sec title="Lo que mostró la autopsia" sub="Las 26 mezclas examinadas en Ioánina: la autopsia confirmó la lectura en la mayoría">
+      <div style={REJILLA}>
+        {[
+          ["Corrigió el facsímil o la lectura", ["95A", "2018A", "2470A", "2506", "2609A"]],
+          ["Mostró la reutilización del plomo o manos distintas", ["2169A", "2261A", "2982A", "3022A", "3316A"]],
+          ["Eliminó la mezcla", ["2160", "2225A", "2430A", "2432B"]],
+          ["Mostró una alternancia de alfabetos", ["135A"]],
+        ].map(([t, ids]) => (
+          <Card key={t} accent={MEZ}>
+            <div style={{ fontFamily: "var(--fh)", fontSize: 13.5, fontWeight: 700, color: MEZ_INK, marginBottom: 6 }}>{t}</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>{ids.map((id) => <Ref key={id} src="DVC" id={id} />)}</div>
+          </Card>
+        ))}
+      </div>
+      <p style={{ ...PROSE, fontSize: 12, marginTop: 10, color: C.muted }}>
+        Ejemplos del §4 del capítulo, no la lista completa. La muestra no es aleatoria, porque la presencia de una mezcla aparente fue uno de
+        los criterios de selección, y la proporción de lecturas confirmadas no puede extrapolarse a las demás.
+      </p>
+    </Sec>
+    {s4 && <Sec title="El apartado del capítulo" sub="Pulsa para desplegar el texto completo">
+      <Secciones items={[{ ...s4, name: "Las mezclas aparentes (texto completo)" }]} color={MEZ_INK} />
+    </Sec>}
+  </>;
+}
+
 export function Mezcla({ switcher, subnav = null }) {
   const [tab, setTab] = useState("context");
   const [sub, setSub] = useState("cifras");
@@ -99,9 +251,10 @@ export function Mezcla({ switcher, subnav = null }) {
             <p style={{ ...PROSE, marginTop: 10 }}>
               La koiné solo se reconoce con una prueba positiva (un rasgo propio o una fecha desde finales del s. IV a.C.), de modo que el
               componente que la bibliografía llama koiné es, en la mayoría de las mezclas, jónico-ático: de las 75 que combinan el dórico con
-              rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y once pertenecen al s. V a.C. De las 113
-              mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), 64 lo son también aquí y 49 reciben otra clasificación, mientras que
-              34 de las de la tesis no figuran en sus listas. La autopsia de 27 de las laminillas ha corregido facsímiles, ha mostrado manos
+              rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y once pertenecen al s. V a.C. De las{" "}
+              {BIBLIO_MEZ.length} mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), {BIBLIO_MEZ.length - DIVERGENCIAS_MEZ.length} lo
+              son también aquí y {DIVERGENCIAS_MEZ.length} reciben otra clasificación, mientras que {NO_RECOGIDAS_MEZ.length} de las de la
+              tesis no figuran en sus listas. La autopsia de 26 de las mezclas ha corregido facsímiles, ha mostrado manos
               distintas y plomos reutilizados y ha eliminado la mezcla en consultas como <Ref src="DVC" id="2160" /> (segunda mitad del
               s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.).
             </p>
@@ -109,21 +262,13 @@ export function Mezcla({ switcher, subnav = null }) {
         </Sec>
       </>}
 
-      {tab === "context" && (
-        <Sec title="Las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a)"
-          sub={`Las ${BIBLIO_MEZ.length} inscripciones que presentan como mezclas, incluidas las que solo mencionan en nota, y su clasificación en la tesis`}>
-          <Table color={MEZ_INK} sticky maxHeight={520} fontSize={12} rowHeader={0}
-            head={["Inscripción", "Cronología", "Mezcla según los autores", "Páginas", "Clasificación en la tesis"]}
-            rows={BIBLIO_MEZ.map((b) => [renderDesc(b.ref), <span style={{ color: C.muted }}>{b.date}</span>, b.autores,
-              <span style={{ color: C.muted }}>{b.pags}</span>,
-              <span style={{ color: b.tesis.startsWith("Mezcla") ? MEZ_INK : C.heading, fontWeight: b.tesis.startsWith("Mezcla") ? 600 : 400 }}>{b.tesis}</span>])} />
-        </Sec>
-      )}
+      {tab === "context" && <ComparacionBiblio />}
 
       {tab === "profile" && <>
         <SubNav color={MEZ_INK} value={sub} onChange={setSub} items={[
           ["cifras", "La mezcla dialectal en números", "adscripción, combinaciones, cronología, temática y alfabeto"],
           ["tipos", "Tipos de mezcla", `${TIPOS_MEZ.length} tipos según el lugar del elemento ajeno`],
+          ["aparentes", "Mezclas aparentes", `${APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0)} inscripciones de la bibliografía que no lo son`],
         ]} />
         {sub === "cifras" && <>
           <Sec title="La mezcla dialectal en el corpus de Dodona">
@@ -167,23 +312,25 @@ export function Mezcla({ switcher, subnav = null }) {
         </>}
         {sub === "tipos" && <>
           <Sec title="Tipos de mezcla dialectal en el corpus" sub="Dónde se encuentra el elemento ajeno al dialecto del texto"
-            note={`Cada fila es un tipo de mezcla según el lugar del texto en que se encuentra el elemento ajeno, con el apartado del capítulo. En la última columna, las consultas seguras y, entre paréntesis, las dudosas y las que descansan en un nombre propio. Cada consulta se cuenta en un solo tipo, el de su elemento más característico; la suma da las ${TOTAL_MEZ} del capítulo.`}>
-            <TablaRasgos color={MEZ} cabeceras={["Elemento\nno jónico-ático", "Elemento\njónico-ático", "Explicación\nmás probable (§5)"]}
+            note={`Cada fila es un tipo de mezcla según el lugar del texto en que se encuentra el elemento ajeno, con el apartado del capítulo. En la última columna, el total de consultas y, entre paréntesis, las seguras y las dudosas o que descansan en un nombre propio. Cada consulta se cuenta en un solo tipo, el de su elemento más característico; la suma da las ${TOTAL_MEZ} del capítulo.`}>
+            <TablaRasgos color={MEZ} cabeceras={["Elemento\nno jónico-ático", "Elemento\njónico-ático", "Explicaciones\nposibles (§6)"]}
               filas={TIPOS_MEZ.map((t) => ({ sec: `§${t.sec}`, rasgo: t.tipo, celdas: [t.noja, t.ja, t.expl], seg: t.seguras, dud: t.dudosas }))} />
           </Sec>
           <Sec title="Las mezclas según su tipo">
             <Bars horizontal data={TIPOS_MEZ.map((t) => ({ name: t.tipo, segura: t.seguras, dudosa: t.dudosas }))} keys={["segura", "dudosa"]}
               colors={{ segura: MEZ_INK, dudosa: ORO }} labels={{ segura: "segura", dudosa: "dudosa o de solo nombre" }} height={300} left={260} />
           </Sec>
-          <Sec title="Las mezclas, tipo a tipo" sub="Los apartados de §4 del capítulo, con sus inscripciones: pulsa para desplegar cada uno">
-            <Secciones items={TIPOLOGIA_MEZ} color={MEZ_INK} />
+          <Sec title="Las mezclas, tipo a tipo" sub="Los apartados de §5 del capítulo, con sus inscripciones: pulsa para desplegar cada uno">
+            <Secciones items={TIPOLOGIA_MEZ.filter((x) => x.sec !== "§4")} color={MEZ_INK} />
           </Sec>
         </>}
+        {sub === "aparentes" && <MezclasAparentes />}
       </>}
 
       {tab === "anexo" && <>
-        <Sec title="Las inscripciones con mezcla dialectal" sub="Texto de la edición, datación y clasificación de la tesis">
-          <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} />
+        <Sec title="Las inscripciones con mezcla dialectal"
+          sub="Agrupadas por los dialectos que se combinan, como en Crespo y Giannakis (2019) y Giannakis (2024a), con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+          <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => r[4].replace(/ \(fórmula\)$/, "")} />
         </Sec>
       </>}
 
@@ -211,7 +358,7 @@ export function Mezcla({ switcher, subnav = null }) {
             </Card>
           ))}
         </Sec>
-        <Sec title="Las explicaciones, una a una" sub="Los apartados de §5 del capítulo: pulsa para desplegar cada uno">
+        <Sec title="Las explicaciones, una a una" sub="Los apartados de §6 del capítulo: pulsa para desplegar cada uno">
           <Secciones items={EXPLICACIONES_MEZ} color={MEZ_INK} />
         </Sec>
       </>}
@@ -361,7 +508,7 @@ function Minoritarios({ switcher, subnav }) {
 }
 
 // ══ Cap. 15: las inscripciones no jónico-áticas ════════════════════
-// El anexo (844 textos, unos 150 kB) solo se carga al abrir la pestaña.
+// El anexo (845 textos, unos 150 kB) solo se carga al abrir la pestaña.
 const cargarAnexoNJA = () => import("../data/anexoNoJonAt.json");
 
 function NoJonAt({ switcher, subnav }) {

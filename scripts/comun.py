@@ -132,11 +132,14 @@ def ptext(p, cursiva=False):
     return unicodedata.normalize("NFC", TRABAJO.sub("", t).translate(PUA))
 
 
-def parrafos(docx):
-    """[(estilo, texto)] del cuerpo de un .docx, sin el índice ni los pies de figura; fuera de los títulos, con las cursivas como <i>."""
+def parrafos(docx, tablas=True):
+    """[(estilo, texto)] del cuerpo de un .docx, sin el índice ni los pies de figura; fuera de los títulos, con las cursivas como <i>.
+    Con tablas=False se omiten los párrafos de las tablas de Word (las del texto se ven en el documento, no en el dashboard)."""
     doc = etree.fromstring(zipfile.ZipFile(docx).read("word/document.xml"))
     out = []
     for p in doc.find(W + "body").iter(W + "p"):
+        if not tablas and any(a.tag == W + "tc" for a in p.iterancestors()):
+            continue
         st = p.find(f"{W}pPr/{W}pStyle")
         st = st.get(W + "val") if st is not None else ""
         if st.startswith("TDC"):

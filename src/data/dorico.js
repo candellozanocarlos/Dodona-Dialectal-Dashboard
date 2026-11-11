@@ -59,7 +59,7 @@ export const INSCRIPCIONES_SEV = [
     crit: { voc: "s", media: false, dor: false, alf: true, proc: "etnónimo" },
     forms: ["τὰ χη̣ρῶι"],
     text: "Θεό[ς]. Τύχαι ἀγαθᾶι. [Ἐπερωτῆι] \nhα πόλις - hα τῶν Ταραν[τίνων] \nτὸν Δία τὸν Ναῖον καὶ τ[ὰν Διώναν] \nπερὶ παντυχίας καὶ π[ερὶ χωρίων ?] \nτὰ χη̣ρῶι καὶ περὶ τῶν [---]",
-    note: "Consulta pública de Tarento, que se identifica a sí misma ({{hα πόλις - hα τῶν Ταραν[τίνων]}}) e interroga a Zeus Naio y a Dione sobre su prosperidad y, si la restitución es correcta, sobre sus territorios. Presenta la forma {{τὰ χη̣ρῶι}} (át. χειροῖ), reveladora del mismo vocalismo, si bien conviene advertir que procede del primer alargamiento compensatorio y que, por sí sola, no bastaría para descartar la variedad intermedia (§4.1.3). La aspiración se nota también con Ͱ y la pi presenta el segundo trazo vertical acortado, característico de Laconia y de las colonias dorias del sur de Italia, en particular de Tarento. Vokotopoulou (1992: 78) la sitúa en el último cuarto del s. IV a.C.",
+    note: "Consulta pública de Tarento, que se identifica a sí misma ({{hα πόλις - hα τῶν Ταραν[τίνων]}}) e interroga a Zeus Nayo y a Dione sobre su prosperidad y, si la restitución es correcta, sobre sus territorios. Presenta la forma {{τὰ χη̣ρῶι}} (át. χειροῖ), reveladora del mismo vocalismo, si bien conviene advertir que procede del primer alargamiento compensatorio y que, por sí sola, no bastaría para descartar la variedad intermedia (§4.1.3). La aspiración se nota también con Ͱ y la pi presenta el segundo trazo vertical acortado, característico de Laconia y de las colonias dorias del sur de Italia, en particular de Tarento. Vokotopoulou (1992: 78) la sitúa en el último cuarto del s. IV a.C.",
     refs: "Giannakis (2024b: 117); Vokotopoulou (1992: 78)" },
   // ── b) ──
   { id: "2367", group: "b", date: "segunda mitad del s. IV a.C.", period: "2ª mit. s. IV",
@@ -196,7 +196,7 @@ export const LITERARY_SOURCES_SEV = [
   { author: "Dionisio de Halicarnaso (Ant. Rom. I, 19, 2-3)", type: "Historiografía, s. I a.C.",
     desc: "Un oráculo en verso atribuido a Dodona ordena a los pelasgos partir en busca de la tierra saturnia de los sículos y de la Cótila de los aborígenes, “donde flota una isla”. Un tal Lucio Malio afirmaba haber visto el texto grabado en caracteres antiguos sobre uno de los trípodes del recinto de Zeus. Se trata de una construcción etiológica al servicio de la prehistoria griega de Roma, cuyo destino es la Sabina y el Lacio: documenta la vinculación de Dodona con Italia en general, no con la Magna Grecia en sentido estricto." },
   { author: "Dionisio de Halicarnaso (Ant. Rom. I, 50, 4; 51, 1)", type: "Historiografía, s. I a.C.",
-    desc: "Eneas remonta con los suyos desde el golfo de Ambracia hasta Dodona para consultar el oráculo antes de pasar a Italia, en un trayecto de dos jornadas que se ajusta con notable precisión a los cerca de 80 km que separan ambos puntos (Chapinal-Heras 2021: 136 y 165-166)." },
+    desc: "Eneas remonta con los suyos desde el golfo de Ampracia hasta Dodona para consultar el oráculo antes de pasar a Italia, en un trayecto de dos jornadas que se ajusta con notable precisión a los cerca de 80 km que separan ambos puntos (Chapinal-Heras 2021: 136 y 165-166)." },
   { author: "Estrabón (VI, 1, 5); Livio (VIII, 24, 1)", type: "Geografía e historiografía",
     desc: "Antes de su campaña itálica, Alejandro I el Moloso recibe en Dodona la advertencia de guardarse de Pandosia y del río Aqueronte. El rey entiende que se trata de los homónimos epirotas y halla la muerte junto a la Pandosia y el Aqueronte de la península itálica." },
   { author: "Pausanias (I, 12, 5)", type: "Periégesis, s. II d.C.",
@@ -211,7 +211,7 @@ export const POLITICAL_LINKS_SEV = [
   { event: "Expediciones de Pirro I", date: "280 y 278 a.C.", agent: "Eácidas · Tarento",
     desc: "Expedición itálica en el 280 a.C. y desastrosa campaña siciliana en el 278 a.C." },
   { event: "Escudo de I.Molossie 48", date: "280 a.C. (prob.)", agent: "Pirro, epirotas y tarentinos",
-    desc: "Escudo romano de bronce dedicado a Zeus Naio con la inscripción [Βασιλεὺ]ς Πύρρο[ς καὶ] Ἠπειρ[ῶ]ται καὶ Τ[αραντῖνοι] ἀπὸ Ῥωμαίων καὶ [τῶν] συμμάχων, botín que con probabilidad procede de la batalla de Heraclea (Lévêque 1957: 331). Se desconoce su lugar exacto de hallazgo (Chapinal-Heras 2021: 82)." },
+    desc: "Escudo romano de bronce dedicado a Zeus Nayo con la inscripción [Βασιλεὺ]ς Πύρρο[ς καὶ] Ἠπειρ[ῶ]ται καὶ Τ[αραντῖνοι] ἀπὸ Ῥωμαίων καὶ [τῶν] συμμάχων, botín que con probabilidad procede de la batalla de Heraclea (Lévêque 1957: 331). Se desconoce su lugar exacto de hallazgo (Chapinal-Heras 2021: 82)." },
   { event: "Proxenía a los acragantinos", date: "ss. IV-III a.C.", agent: "Molosos · Acragas",
     desc: "Copia de un documento (I.Molossie 37) por el que, tras la llegada de tres habitantes de Acragas, los molosos conceden la proxenía a todos los acragantinos. El vínculo con el Occidente dórico se formaliza también en el plano diplomático." },
 ];
@@ -265,7 +265,7 @@ export const TOPONYMS_SEV = [
     ] },
   { id: "mesina", metro: "calcidica", name: "Mesina", greek: "Μεσσήνη", lon: 15.554, lat: 38.194, off: [-0.24, 0.18],
     filiacion: "Colonia calcídica, repoblada con mesenios",
-    note: "D'Ercole (2019: 15, 16 n. 65) interpreta la {{Μεσσήνην̣}} de I.Dodone Lhôte 106 como la Mesenia peloponesia, en una consulta colectiva de ambraciotas sobre un traslado por motivos de trabajo; Chapinal-Heras (2021: 183) la relaciona con I.Dodone DVC 3496 y la identifica con Mesina.",
+    note: "D'Ercole (2019: 15, 16 n. 65) interpreta la {{Μεσσήνην̣}} de I.Dodone Lhôte 106 como la Mesenia peloponesia, en una consulta colectiva de ampraciotas sobre un traslado por motivos de trabajo; Chapinal-Heras (2021: 183) la relaciona con I.Dodone DVC 3496 y la identifica con Mesina.",
     mentions: [
       { ref: "LOD 106", form: "ἐς Μεσσήνην̣", date: "s. IV a.C.", type: "topónimo", certain: false },
       { ref: "3496", form: "ἐν Μ[- - -]", date: "mediados del s. IV a.C.", type: "topónimo", certain: false },

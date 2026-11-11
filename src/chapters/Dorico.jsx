@@ -15,6 +15,8 @@ import MagnaGraeciaMap from "../components/maps/MagnaGraeciaMap.jsx";
 import DoricoGeneral from "./DoricoGeneral.jsx";
 import DoricoNO from "./DoricoNO.jsx";
 import { Card, ChapterLayout, EventTable, GreekBlock, Sec, SectionNav, Select, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
+import { Anexo } from "../components/Anexo.jsx";
+import { ANEXOS } from "../data/anexos/index.js";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_SEV } from "../data/adscripcion.js";
 
@@ -23,6 +25,7 @@ const TABS = [
   { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Δ" },
   { id: "vowels", l: "Vocalismo", i: "Ω" },
+  { id: "anexo", l: "Las inscripciones", i: "Ψ" },
 ];
 
 // Formas del corpus citadas de manera aislada (marcadas {{…}} en los textos):
@@ -123,7 +126,7 @@ export default function Dorico({ switcher }) {
               mercancías entre la Grecia continental y las colonias de la Italia meridional y de Sicilia (Lombardo 2017: 113;
               Giannakis 2024b: 97-98). La imagen de un Epiro aislado y periférico ha sido revisada (Castiglioni 2016: 113-114;
               Chapinal-Heras 2021: 24-25): el territorio estuvo en contacto continuado primero con las <i>poleis</i> del noroeste, como
-              Acarnania, Ambracia o Corfú, y con las colonias del norte, como Apolonia y Epidamno, y después, a través de esas escalas,
+              Acarnania, Ampracia o Corfú, y con las colonias del norte, como Apolonia y Epidamno, y después, a través de esas escalas,
               con Occidente. Las tumbas de Liatovouni, con ajuares de procedencia macedonia e itálica, y la cerámica de estilos
               diversos de Mavromandilia, muy cerca del santuario, confirman ese cuadro para época arcaica.
             </p>
@@ -622,6 +625,11 @@ export default function Dorico({ switcher }) {
           </div>
         </Sec>
       </>}
+      {tab === "anexo" && (
+        <Sec title={<>Las inscripciones en <i>Doris severior</i></>} sub="Texto de la edición, datación y certeza">
+          <Anexo load={ANEXOS.severior} color={C.severior} />
+        </Sec>
+      )}
     </ChapterLayout>
   );
 }

@@ -112,7 +112,7 @@ DIAGNOSTICO = [{"sec": "§" + s, "rasgo": n, "vals": v, "otros": o, "cat": "Fono
 
 # ── Topónimos (§2 y nn. 16-18, 23) ─────────────────────────────────────────────
 LUGARES = [  # id, nombre, griego, lon, lat, desplazamiento del rótulo, ámbito, raíz de búsqueda, menciones [(clave, segura)], nota
-    ("ambracia", "Ambracia", "Ἀμβρακία", 20.985, 39.160, (0.22, -0.05), "Colonias corintias", r"[Ἀἀ][μν]?[πβ]ρα|πρακ|Ἀμβρα",
+    ("ambracia", "Ampracia", "Ἀμβρακία", 20.985, 39.160, (0.22, -0.05), "Colonias corintias", r"[Ἀἀ][μν]?[πβ]ρα|πρακ|Ἀμβρα",
      [("Lhôte 65A", 1), ("DVC 3549A", 1), ("DVC 1473A", 1), ("DVC 891B", 1), ("DVC 618A", 1), ("DVC 814A", 1), ("DVC 2089A", 1),
       ("DVC 3979B", 1), ("Lhôte 106A", 1), ("DVC 2265B", 0), ("DVC 1066B", 0), ("DVC 2295A", 0)],
      "Colonia corintia del último cuarto del s. VII a.C., capital de Pirro desde comienzos del s. III a.C. y primera escala de los "
@@ -150,7 +150,7 @@ LUGARES = [  # id, nombre, griego, lon, lat, desplazamiento del rótulo, ámbito
     ("anactorio", "Anactorio", "Ἀνακτόριον", 20.930, 38.930, (0.22, -0.12), "Colonias corintias", r"Ἀνακτορ",
      [("Lhôte 46Bb", 1)], "Solo en la alternativa entre Elina y Anactorio de I.Dodone Lhôte 46Bb, consulta del dórico noroccidental."),
     ("corinto", "Corinto", "Κόρινθος", 22.880, 37.905, (-0.20, 0.14), "Peloponeso", r"Κόρινθ",
-     [("DVC 3220A", 1)], "Destino de quien vende sus tierras antes de las Acciacas (εἰς Κόρινθον ἀποδαμῶ), en una consulta de rasgos noroccidentales."),
+     [("DVC 3220A", 1)], "Destino de quien vende sus tierras antes de las Accias (εἰς Κόρινθον ἀποδαμῶ), en una consulta de rasgos noroccidentales."),
     ("hermione", "Hermíone", "Ἑρμιόνη", 23.250, 37.385, (-0.20, 0.02), "Peloponeso", r"Ἑρμιόν|Ερμιον",
      [("Lhôte 68B", 1)], "Εἰς Ἑρμιόνα de I.Dodone Lhôte 68B."),
     ("same", "Same", "Σάμη", 20.650, 38.250, (-0.22, -0.10), "Islas del Jónico", r"Σάμ",
