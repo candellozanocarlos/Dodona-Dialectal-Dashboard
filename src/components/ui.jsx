@@ -1,6 +1,6 @@
 // Piezas de interfaz compartidas por todos los capítulos.
 import { useState } from "react";
-import { C, CAT_COLORS, CATS, PROSE, fade } from "../theme.js";
+import { C, CAT_COLORS, CATS, ORO, PROSE, fade } from "../theme.js";
 import { asRef, fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { DvcLabel, Ref } from "./Inscriptions.jsx";
 import { AUTOR, CITA, INSTITUCION, LICENCIA, TESIS, URL_SITIO, VERSION } from "../sitio.js";
@@ -91,39 +91,27 @@ export const Table = ({ head, rows, color = C.gold, sticky = false, maxHeight = 
   </div>
 );
 
-// Tabla de rasgos o de tipos con la disposición y los colores de las figuras del capítulo (jak_9, dno_9, mez_9: tabla() de
-// graficos_dorico_noroccidental_rasgos.py). filas: [{ sec, rasgo, celdas: [tres textos], seg, dud }]; cabeceras: las de esas tres columnas.
-// Una sola letra, Cardo, como en la figura; el sitio no sirve su negrita (index.css), de ahí el trazo.
-const NEGRITA = { WebkitTextStroke: "0.45px" };
-const CELDA_RASGO = { padding: "8px 6px", height: 62, borderRadius: 3, textAlign: "center", verticalAlign: "middle", whiteSpace: "pre-line", textWrap: "balance" };
-// Espacios duros: ni "y" ni "en" al final de línea, ni una palabra suelta en la última (salvo un paréntesis, como "(jónico)").
-const etiquetaRasgo = (t) => t.replace(/ (y|en) /g, " $1\u00a0").replace(/ ([^\s(]\S*)$/, "\u00a0$1");
+// Tabla de rasgos o de tipos (jónico-ático, noroccidental, mezcla), con el formato de Table: apartado, rasgo, tres columnas
+// de formas y las consultas del capítulo (seguras y dudosas, con su barra). filas: [{ sec, rasgo, celdas: [tres textos], seg, dud }];
+// cabeceras: las de esas tres columnas.
 export const TablaRasgos = ({ filas, cabeceras, color }) => {
   const max = Math.max(...filas.map((f) => f.seg + f.dud));
   return (
-    <div style={{ overflowX: "auto", background: "#fffdf8", border: `1px solid ${C.border}`, borderRadius: 10, padding: "10px 12px" }}>
-      <table style={{ width: "100%", minWidth: 800, borderCollapse: "separate", borderSpacing: 4, fontFamily: "var(--fg)", fontSize: 15, lineHeight: 1.3, color: C.heading }}>
-        <colgroup>{["6%", "21%", "21%", "20%", "19%", "13%"].map((w, i) => <col key={i} style={{ width: w }} />)}</colgroup>
-        <thead><tr>
-          <td colSpan={2} />
-          {[...cabeceras, "Consultas\ndel capítulo"].map((h) => (
-            <th key={h} scope="col" style={{ ...NEGRITA, padding: "2px 6px 8px", whiteSpace: "pre-line" }}>{h}</th>
-          ))}
-        </tr></thead>
-        <tbody>{filas.map((f, i) => {
-          const peso = (f.seg + f.dud) / max;
-          return <tr key={f.rasgo}>
-            <td style={{ color: C.muted, fontSize: 12.5, whiteSpace: "nowrap", verticalAlign: "middle" }}>{f.sec}</td>
-            <th scope="row" style={{ ...NEGRITA, padding: "0 8px 0 0", textAlign: "right", fontSize: 15.5, verticalAlign: "middle" }}>{renderGreekText(etiquetaRasgo(f.rasgo))}</th>
-            {f.celdas.map((t, j) => (
-              <td key={j} style={{ ...CELDA_RASGO, background: i % 2 ? "#efe7d2" : "#f6f0e1" }}>{renderGreekText(t)}</td>
-            ))}
-            <td style={{ ...CELDA_RASGO, ...NEGRITA, background: fade(color, 0.18 + 0.72 * peso), color: peso > 0.45 ? "#fff" : C.heading, fontSize: 19 }}>
-              {f.seg}{f.dud ? ` (${f.dud})` : ""}</td>
-          </tr>;
-        })}</tbody>
-      </table>
-    </div>
+    <Table color={color} rowHeader={1} valign="middle"
+      head={["§", "Rasgo", ...cabeceras.map((h) => h.replace(/\n/g, " ")), "Consultas"]}
+      rows={filas.map((f) => [
+        <span style={{ color: C.muted, whiteSpace: "nowrap" }}>{f.sec}</span>,
+        <span style={{ fontFamily: "var(--fh)", fontSize: 13 }}>{renderGreekText(f.rasgo)}</span>,
+        ...f.celdas.map((t) => <span style={{ fontSize: 13.5 }}>{t === "—" ? <span style={{ color: C.dim }}>—</span> : renderGreekText(t)}</span>),
+        <span style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 110 }}>
+          <span><b style={{ color, fontSize: 14 }}>{f.seg + f.dud}</b>{" "}
+            <span style={{ color: C.dim, fontSize: 11 }}>({f.seg} seg.{f.dud ? `, ${f.dud} dud.` : ""})</span></span>
+          <span style={{ display: "flex", height: 6, width: `${(f.seg + f.dud) / max * 100}%`, minWidth: 4, borderRadius: 3, overflow: "hidden" }}>
+            <span style={{ flex: f.seg, background: color }} />
+            <span style={{ flex: f.dud, background: ORO }} />
+          </span>
+        </span>,
+      ])} />
   );
 };
 
@@ -430,18 +418,19 @@ export const PlaceCard = ({ place, kinds, color, onClose, empty }) => {
 
 // Capítulos de una parte de la tesis (dórico, eólico, zonas de frontera): items = [{ id, label, color }].
 export const SectionNav = ({ label, items, value, onChange, tint = C.gold }) => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap",
-    padding: "10px 20px", background: fade(tint, 0.05), borderBottom: `1px solid ${C.border}` }}>
-    <span style={{ fontSize: 11.5, color: C.muted, fontFamily: "var(--fh)", fontStyle: "italic" }}>{label}:</span>
+  <nav aria-label={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap",
+    padding: "14px 20px", background: fade(tint, 0.06), borderBottom: `1px solid ${C.border}` }}>
+    <span style={{ fontSize: 14, color: C.muted, fontFamily: "var(--fh)", fontStyle: "italic" }}>{label}:</span>
     {items.map((s) => {
       const act = value === s.id;
       return (
-        <button key={s.id} onClick={() => onChange(s.id)} aria-pressed={act} style={{ background: act ? s.color : "transparent",
-          color: act ? "#fff" : C.muted, border: `1px solid ${act ? s.color : C.border}`, borderRadius: 20,
-          padding: "4px 14px", fontFamily: "var(--fh)", fontSize: 12.5, fontWeight: act ? 700 : 500 }}>{s.label}</button>
+        <button key={s.id} onClick={() => onChange(s.id)} aria-pressed={act} style={{ background: act ? s.color : "rgba(255,252,245,0.85)",
+          color: act ? "#fff" : s.color, border: `1.5px solid ${act ? s.color : fade(s.color, 0.45)}`, borderRadius: 24,
+          padding: "9px 24px", fontFamily: "var(--fh)", fontSize: 16, fontWeight: 700, cursor: "pointer",
+          boxShadow: act ? `0 2px 6px ${fade(s.color, 0.3)}` : "none" }}>{s.label}</button>
       );
     })}
-  </div>
+  </nav>
 );
 
 // Subpestañas de una pestaña larga: items = [[id, título, descripción breve], …].

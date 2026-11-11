@@ -248,7 +248,7 @@ export const BO_PLACES = [
   { id: "oropo", kind: "mencion", certain: false, name: "Oropo", greek: "Ὠρωπός",
     lon: 23.770, lat: 38.322, dx: 10, dy: 4, anchor: "start",
     mentions: [{ ref: "296A", form: "Ὀρο̅πόνδε", date: "segunda mitad del s. V a.C.", type: "topónimo (adverbio de dirección)" }],
-    note: "Polis situada en el límite entre el Ática y Beocia, bajo control ateniense ca. 338-322 a.C. y después del koinon beocio; Papazarkadas (2016: 122) y Papakonstantinou (2024: 384-385) la cuentan entre las ciudades beocias más destacadas. La mención de Oropo junto con νι[κ]ῆν parece aludir a los juegos de las Anfiaraeas, de los que sería la referencia más antigua.",
+    note: "Polis situada en el límite entre el Ática y Beocia, bajo control ateniense ca. 338-322 a.C. y después del koinon beocio; Papazarkadas (2016: 122) y Papakonstantinou (2024: 384-385) la cuentan entre las ciudades beocias más destacadas. La mención de Oropo junto con νι[κ]ῆν parece aludir a los juegos de las Anfiareas, de los que sería la referencia más antigua.",
     fuera: "Fuera de las laminillas, Oropo concedió la proxenía a Daípo, un epirota." },
   { id: "tespias", kind: "procedencia", certain: false, name: "Tespias", greek: "Θεσπιαί",
     lon: 23.155, lat: 38.300, dx: 0, dy: 17, anchor: "middle",

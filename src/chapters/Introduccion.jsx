@@ -137,7 +137,7 @@ export default function Introduccion({ switcher }) {
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
               Desde mediados del s. VI a.C. hasta el s. II a.C., miles de consultantes grabaron en finas hojas de plomo las preguntas que
-              dirigían a Zeus Naios y a Dione, en los dialectos y en los alfabetos de quienes las formulaban. La publicación en 2013 de las
+              dirigían a Zeus Nayo y a Dione, en los dialectos y en los alfabetos de quienes las formulaban. La publicación en 2013 de las
               laminillas de las excavaciones de Evangelidis, que multiplicó por veinte el material conocido, ha hecho del santuario un lugar
               privilegiado para estudiar la variación dialectal: en un mismo espacio y en unos mismos siglos conviven el dórico del Noroeste, el
               de las colonias corintias y el de la Magna Grecia, el tesalio, el beocio, el jónico, el ático y la koiné. Las consultas son, sin
@@ -169,12 +169,12 @@ export default function Introduccion({ switcher }) {
               sagrado rodeado de calderos sobre trípodes (Chapinal-Heras 2021: 24-27).
             </Bloque>
             <Bloque t="Época helenística y romana">
-              El reinado de Pirro (297-272 a.C.) marcó su apogeo, con el bouleuterion, el pritaneo, el gran teatro y los Naia, que a comienzos
+              El reinado de Pirro (297-272 a.C.) marcó su apogeo, con el bouleuterion, el pritaneo, el gran teatro y las Nayas, que a comienzos
               del s. II a.C. alcanzaron la categoría de juegos estefanitas. Los etolios lo saquearon en el 219 a.C., y en el 167 a.C. las tropas
               de Emilio Paulo arrasaron el Epiro (Plb. 4.67.3; 30.15).
             </Bloque>
             <Bloque t="El oráculo y su ámbito">
-              El dios era Zeus Naios, al que acompañaba Dione como σύνναος (Str. 7.7.12). Las fuentes atribuyen al oráculo procedimientos muy
+              El dios era Zeus Nayo, al que acompañaba Dione como σύνναος (Str. 7.7.12). Las fuentes atribuyen al oráculo procedimientos muy
               diversos (el roble, las palomas, los calderos, el sorteo), y el sorteo es el único que una parte de la bibliografía reconoce en las
               propias laminillas (Parker 2015: 111-112).
             </Bloque>

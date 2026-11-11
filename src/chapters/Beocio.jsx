@@ -12,6 +12,8 @@ import { Ref, RefList } from "../components/Inscriptions.jsx";
 import BoeotiaMap from "../components/maps/BoeotiaMap.jsx";
 import { Card, CatLegend, ChapterLayout, EventTable, PlaceCard, RasgoExplorer, Sec, SourceList, Stat, Stats, SubNav, Table } from "../components/ui.jsx";
 import CompartidosTesBeoc from "./CompartidosTesBeoc.jsx";
+import { Anexo } from "../components/Anexo.jsx";
+import { ANEXOS } from "../data/anexos/index.js";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { ADSCRIPCION_BEOC } from "../data/adscripcion.js";
 
@@ -20,7 +22,7 @@ const TABS = [
   { id: "map", l: "Mapa y topónimos", i: "🗺️" },
   { id: "profile", l: "Perfil dialectal", i: "Β" },
   { id: "vowels", l: "Vocalismo", i: "Ε" },
-  { id: "shared", l: "Compartidos con tesalio", i: "🤝" },
+  { id: "anexo", l: "Las inscripciones", i: "Ψ" },
 ];
 
 // Evoluciones vocálicas del beocio (§3.1).
@@ -132,6 +134,7 @@ export default function Beocio({ switcher, subnav }) {
         <SubNav color={C.beocio} value={sub} onChange={setSub} items={[
           ["cifras", "El dialecto beocio en números", "inscripciones, cronología, temática y alfabeto"],
           ["rasgos", "Rasgos dialectales", `${RASGOS_BEOC.length} rasgos y la matriz inscripción × rasgo`],
+          ["compartidos", "Compartidos con el tesalio", "rasgos eólicos comunes y dobles adscripciones"],
         ]} />
         {sub === "cifras" && <>
         <Sec title="El beocio en el corpus de Dodona">
@@ -223,6 +226,7 @@ export default function Beocio({ switcher, subnav }) {
           <CatLegend />
         </Sec>
         </>}
+        {sub === "compartidos" && <CompartidosTesBeoc desde="beocio" />}
       </>}
 
       {tab === "vowels" && <>
@@ -324,7 +328,11 @@ export default function Beocio({ switcher, subnav }) {
           note="El vocalismo beocio está representado en el corpus por tres fenómenos seguros: la monoptongación /ai̯/ > /ɛː/ notada ⟨Η⟩ (κή y Πολυμνάστη en I.Dodone DVC 313A; ἀ[ρ]κε͂τη en 4157A), el paso /e/ > /i/ ante vocal (θιός, γενιά, ἰόντων en 313A; γενιᾶς en 4157A) y el cierre de la /ɛː/ heredada con notación ⟨ΕΙ⟩ (εἴει en 4157A; ΕὐϜέτειρος en 1344A). La presunta monoptongación /oi̯/ > /yː/ en γίνυτο (1060A, 1676A), γένυτο (1649A) y κυνόν (I.Dodone Lhôte 10) no cuenta con evidencia robusta: la cronología es demasiado alta, casi todos los ejemplos pertenecen a un solo paradigma y la inscripción más beocia del corpus (313A) muestra el optativo γινύο[ι]το con el diptongo conservado. El corpus confirma los rasgos conocidos por la epigrafía beocia; su aportación es modesta, pero valiosa como complemento del registro epigráfico formal." />
       </>}
 
-      {tab === "shared" && <CompartidosTesBeoc desde="beocio" />}
+      {tab === "anexo" && (
+        <Sec title="Las inscripciones beocias" sub="Texto de la edición, datación y certeza">
+          <Anexo load={ANEXOS.beocio} color={C.beocio} />
+        </Sec>
+      )}
     </ChapterLayout>
   );
 }
