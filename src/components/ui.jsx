@@ -3,7 +3,7 @@ import { useState } from "react";
 import { C, CAT_COLORS, CATS, ORO, PROSE, fade } from "../theme.js";
 import { asRef, fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { DvcLabel, Ref } from "./Inscriptions.jsx";
-import { AUTOR, CITA, INSTITUCION, LICENCIA, TESIS, URL_SITIO, VERSION } from "../sitio.js";
+import { AUTOR, CITA, DOI, INSTITUCION, LICENCIA, TESIS, VERSION } from "../sitio.js";
 
 export const Stat = ({ label, value, sub = "", accent = C.gold, noCase = false }) => (
   <div style={{ background: "linear-gradient(180deg, rgba(255,252,245,0.85) 0%, rgba(255,252,245,0.55) 100%)",
@@ -304,7 +304,7 @@ export const Pie = ({ color = C.gold }) => {
         {AUTOR}, {INSTITUCION}. Material complementario de la tesis doctoral <i>{TESIS}</i>, en preparación. Versión de {VERSION}.
       </p>
       <div style={rot}>Cómo citar</div>
-      <p style={txt}>{CITA.antes}<i>{CITA.titulo}</i>{CITA.despues} <a href={URL_SITIO} style={{ color }}>{URL_SITIO.replace("https://", "")}</a></p>
+      <p style={txt}>{CITA.antes}<i>{CITA.titulo}</i>{CITA.despues} <a href={`https://doi.org/${DOI}`} style={{ color }}>https://doi.org/{DOI}</a></p>
       <div style={rot}>Licencia</div>
       <p style={txt}>
         © 2026 {AUTOR}. Textos, tablas, gráficos y facsímiles: <a href={LICENCIA.url} rel="license noreferrer" target="_blank" style={{ color }}>{LICENCIA.nombre}</a>.

@@ -1,5 +1,7 @@
 # Atlas dialectal de las laminillas oraculares de Dodona
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24130445.svg)](https://doi.org/10.5281/zenodo.24130445)
+
 **[Read this in English](./README.md)**
 
 El *Atlas dialectal de las laminillas oraculares de Dodona* es un atlas interactivo de los dialectos griegos atestiguados en las laminillas de plomo en que los consultantes del oráculo de Zeus en Dodona grababan sus preguntas. Es el complemento digital de la tesis doctoral *Las variedades dialectales de las laminillas oraculares de Dodona* (Carlos Candel Lozano, Universidad de Valladolid, en preparación) y presenta la clasificación, las cifras, los mapas, los rasgos lingüísticos y las listas de inscripciones de la tesis de forma que puedan explorarse y consultarse.
@@ -10,9 +12,23 @@ La interfaz está en español, la lengua de la tesis. Los textos griegos se dan 
 
 ## Cómo citar
 
-> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* [Atlas interactivo y código fuente]. https://atlasdialectaldodona.netlify.app
+> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* (v2.0.0) [Atlas interactivo y código fuente]. Zenodo. https://doi.org/10.5281/zenodo.24130446
 
-Los metadatos completos están en [`CITATION.cff`](./CITATION.cff), que GitHub muestra con el botón **Cite this repository**. Cada versión se archiva en Zenodo con su propio DOI; conviene citar la versión consultada, porque las cifras siguen el estado de la tesis en la fecha de esa versión.
+En formato BibTeX:
+
+```bibtex
+@software{candel_lozano_2026_atlas_dodona,
+  author    = {Candel Lozano, Carlos},
+  title     = {{Atlas dialectal de las laminillas oraculares de Dodona}},
+  year      = 2026,
+  publisher = {Zenodo},
+  version   = {v2.0.0},
+  doi       = {10.5281/zenodo.24130446},
+  url       = {https://doi.org/10.5281/zenodo.24130446}
+}
+```
+
+Cada versión se archiva en Zenodo con su propio DOI. Conviene citar la versión consultada, porque las cifras siguen el estado de la tesis en la fecha de esa versión; el DOI [10.5281/zenodo.24130445](https://doi.org/10.5281/zenodo.24130445) agrupa todas las versiones y lleva siempre a la última. Los metadatos completos están en [`CITATION.cff`](./CITATION.cff), que GitHub muestra con el botón **Cite this repository**.
 
 ## Qué contiene
 
