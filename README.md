@@ -1,6 +1,6 @@
 # Dialectos en las laminillas oraculares de Dodona
 
-*Interactive dashboard of the dialects attested in the Dodona oracular lamellae based on Carlos Candel Lozano PhD thesis.*
+*Interactive atlas of the Greek dialects attested in the oracular lamellae of Dodona, companion to the PhD thesis of Carlos Candel Lozano (Universidad de Valladolid).*
 
 Dashboard interactivo que acompaña a los capítulos dialectales de la tesis doctoral
 sobre las laminillas oraculares de Dodona. Cada capítulo de la tesis tiene su vista:
