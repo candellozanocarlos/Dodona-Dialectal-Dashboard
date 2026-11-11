@@ -14,6 +14,10 @@ license:
   - MIT
 version: 2.0.0
 date-released: 2026-11-11
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24130445"
+    description: "Zenodo concept DOI (all versions; resolves to the latest)"
 keywords:
   - "Ancient Greek dialects"
   - Dodona

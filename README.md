@@ -1,5 +1,7 @@
 # Dialect Atlas of the Oracular Lamellae of Dodona
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24130445.svg)](https://doi.org/10.5281/zenodo.24130445)
+
 **[Leer esto en castellano](./README.es.md)**
 
 *Atlas dialectal de las laminillas oraculares de Dodona* is an interactive atlas of the Greek dialects attested in the lead lamellae on which visitors to the oracle of Zeus at Dodona inscribed their questions. It is the digital companion to the PhD thesis *Las variedades dialectales de las laminillas oraculares de Dodona* (Carlos Candel Lozano, Universidad de Valladolid, in preparation), and it presents the classification, figures, maps, linguistic features and inscription lists of the thesis in a form that can be explored and searched.
@@ -10,9 +12,23 @@ The interface is in Spanish, the language of the thesis. Greek texts are given i
 
 ## How to cite
 
-> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* [Interactive atlas and source code]. https://atlasdialectaldodona.netlify.app
+> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* (v2.0.0) [Interactive atlas and source code]. Zenodo. https://doi.org/10.5281/zenodo.24130446
 
-Full metadata are in [`CITATION.cff`](./CITATION.cff), which GitHub turns into the **Cite this repository** button. Each release is archived in Zenodo with its own DOI; cite the version you consulted, since the figures follow the state of the thesis on the date of that release.
+In BibTeX format:
+
+```bibtex
+@software{candel_lozano_2026_atlas_dodona,
+  author    = {Candel Lozano, Carlos},
+  title     = {{Atlas dialectal de las laminillas oraculares de Dodona}},
+  year      = 2026,
+  publisher = {Zenodo},
+  version   = {v2.0.0},
+  doi       = {10.5281/zenodo.24130446},
+  url       = {https://doi.org/10.5281/zenodo.24130446}
+}
+```
+
+Each release is archived in Zenodo with its own DOI. Cite the version you consulted, since the figures follow the state of the thesis on the date of that release; the DOI [10.5281/zenodo.24130445](https://doi.org/10.5281/zenodo.24130445) groups all versions and always leads to the latest. Full metadata are in [`CITATION.cff`](./CITATION.cff), which GitHub turns into the **Cite this repository** button.
 
 ## What the atlas contains
 
