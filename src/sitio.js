@@ -9,3 +9,6 @@ export const VERSION = new Intl.DateTimeFormat("es-ES", { month: "long", year: "
 export const DOI = "10.5281/zenodo.24130445";
 export const CITA = { antes: "Candel Lozano, C. (2026). ", titulo: TITULO_SITIO, despues: " [Atlas interactivo]. Zenodo." };
 export const LICENCIA = { nombre: "CC BY-NC-ND 4.0", url: "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es" };
+// Las autopsias no se muestran por ahora, tampoco en la versión local; con true vuelven a verse en local (la versión
+// pública nunca las incluye).
+export const MOSTRAR_AUTOPSIAS = false;

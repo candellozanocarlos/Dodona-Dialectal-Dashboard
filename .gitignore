@@ -9,12 +9,13 @@ logs
 *.log
 npm-debug.log*
 
-# Fotografías de autopsia (Eforía de Antigüedades de Ioánina): se conservan en
-# local y no se publican sin autorización. La app muestra un aviso si faltan.
-public/assets/autopsias/**
-!public/assets/autopsias/**/
-# Los facsímiles, de elaboración propia, sí se publican.
-!public/assets/autopsias/**/facsimil-*
+# Autopsias (Eforía de Antigüedades de Ioánina): notas, fotografías y facsímiles se conservan
+# en local y no se publican. La versión local del atlas los muestra si existen.
+public/assets/autopsias/
+src/data/autopsias.js
+src/data/autopsiasFotos.js
+src/data/autopsiasMezcla.js
+scripts/fotos_autopsias.json
 
 # Editores y herramientas locales
 .vscode/*

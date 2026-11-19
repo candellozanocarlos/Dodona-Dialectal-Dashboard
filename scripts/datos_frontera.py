@@ -183,6 +183,10 @@ assert {clave_cap(d["ref"]) for d in DIVERGENCIAS_MEZ} <= {a["dvcs"][0] for a in
 AUTOPSIAS_MEZ = [{"grupo": r, "items": [{"id": "LOD " + s_.split()[1] if s_.startswith("Lhôte") else s_,
                                         "obs": unicodedata.normalize("NFC", o), "anio": a} for s_, o, a in filas]} for r, filas in MEZ.T_AUT]
 assert sum(len(g["items"]) for g in AUTOPSIAS_MEZ) == 24
+# Las autopsias no se publican: van a un archivo aparte, fuera del repositorio (.gitignore), que solo usa la versión local.
+(SALIDA.parent / "autopsiasMezcla.js").write_text(
+    "// Tabla 6 (§4.6): las mezclas examinadas en autopsia, por resultado. Solo para la versión local del atlas.\n"
+    f"export const AUTOPSIAS_MEZ = {J(AUTOPSIAS_MEZ)};\n", encoding="utf-8")
 
 # ── Cap. 14: los dialectos minoritarios ───────────────────────────
 INSC_MIN = []
@@ -291,8 +295,6 @@ partes = [
     f"export const NO_RECOGIDAS_MEZ = {J(NO_RECOGIDAS_MEZ)};",
     "// Tablas 1-5 (§4): las mezclas aparentes, una por inscripción, agrupadas por el motivo que las deshace.",
     f"export const APARENTES_MEZ = {J(APARENTES_MEZ)};",
-    "// Tabla 6 (§4.6): las mezclas examinadas en autopsia, por resultado.",
-    f"export const AUTOPSIAS_MEZ = {J(AUTOPSIAS_MEZ)};",
     f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (mezclas aparentes) y §6.1 (escritura y fecha).",
     f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
     f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",

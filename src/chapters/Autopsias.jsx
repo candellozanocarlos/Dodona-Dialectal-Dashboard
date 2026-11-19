@@ -1,9 +1,13 @@
 // Autopsias de las laminillas en la Eforía de Antigüedades de Ioánina: una ficha por laminilla (anexo §3.4 de la introducción).
 import { useEffect, useState } from "react";
 import { C, DIALECT_COLORS, DIALECT_INK, fade } from "../theme.js";
-import { CAMPANAS_AUTOPSIAS, INTRO_AUTOPSIAS, LAMINILLAS_AUTOPSIA as LAMINILLAS } from "../data/autopsias.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Pie, Stat, Tag } from "../components/ui.jsx";
+
+// Los datos de las autopsias no están en el repositorio: sin ellos, chapters.js no registra esta parte.
+const { CAMPANAS_AUTOPSIAS = {}, INTRO_AUTOPSIAS = [""], LAMINILLAS_AUTOPSIA: LAMINILLAS = [] } =
+  Object.values(import.meta.glob("../data/autopsias.js", { eager: true }))[0] ?? {};
+const FOTOS = import.meta.glob("../data/autopsiasFotos.js");
 
 // Grupos por la clasificación vigente, con el dórico dividido en general y noroccidental como en los gráficos; `color` para
 // filetes y fondos, `ink` para el texto.
@@ -53,7 +57,10 @@ export default function Autopsias({ switcher }) {
   const [tab, setTab] = useState("todas");
   const [selectedKey, setSelectedKey] = useState(LAMINILLAS[0].key);
   const [fotos, setFotos] = useState({});
-  useEffect(() => { if (!SIN_FOTOS) import("../data/autopsiasFotos.js").then((m) => setFotos(m.default)); }, []);
+  useEffect(() => {
+    const cargar = Object.values(FOTOS)[0];
+    if (!SIN_FOTOS && cargar) cargar().then((m) => setFotos(m.default));
+  }, []);
 
   const filtered = tab === "todas" ? LAMINILLAS : LAMINILLAS.filter((l) => l.items.some((a) => a.dialect === tab));
   const selected = filtered.find((l) => l.key === selectedKey) || filtered[0];

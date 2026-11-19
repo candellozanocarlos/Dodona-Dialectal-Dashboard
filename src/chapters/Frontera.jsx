@@ -4,14 +4,20 @@
 import { useState } from "react";
 import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
+import { MOSTRAR_AUTOPSIAS } from "../sitio.js";
 import {
-  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, AUTOPSIAS_MEZ, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
+  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
   CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, DIVERGENCIAS_MEZ, EXPLICACIONES_MEZ,
   INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ,
   TOTAL_MIN, TOTAL_NJA,
 } from "../data/frontera.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
+
+// Las autopsias no se publican: su resultado en la mezcla solo se carga en la versión local (MOSTRAR_AUTOPSIAS en
+// sitio.js), si existen sus datos.
+const AUTOPSIAS_MEZ = import.meta.env.MODE === "publico" || !MOSTRAR_AUTOPSIAS ? []
+  : Object.values(import.meta.glob("../data/autopsiasMezcla.js", { eager: true }))[0]?.AUTOPSIAS_MEZ ?? [];
 import { Ref } from "../components/Inscriptions.jsx";
 import { Card, ChapterLayout, Sec, Secciones, SectionNav, Stat, Stats, SubNav, Table, TablaRasgos } from "../components/ui.jsx";
 import { AdscripcionTable } from "../components/Adscripcion.jsx";
@@ -175,7 +181,7 @@ function MezclasAparentes() {
         );
       })}
     </Sec>
-    <Sec title="Lo que mostró la autopsia"
+    {import.meta.env.MODE !== "publico" && AUTOPSIAS_MEZ.length > 0 && <Sec title="Lo que mostró la autopsia"
       sub={`Las ${nAut} mezclas del capítulo examinadas en Ioánina, por el resultado principal de la autopsia (tabla 6 del capítulo)`}>
       <Bars horizontal data={AUTOPSIAS_MEZ.map((g) => ({ name: g.grupo, value: g.items.length, color: MEZ }))}
         height={60 + 38 * AUTOPSIAS_MEZ.length} left={330} unit="inscripciones" />
@@ -209,7 +215,7 @@ function MezclasAparentes() {
         La muestra no es aleatoria, porque la presencia de una mezcla aparente fue uno de los criterios de selección, y la proporción de
         lecturas confirmadas no puede extrapolarse a las demás.
       </p>
-    </Sec>
+    </Sec>}
     {s4.length > 0 && <Sec title="El apartado del capítulo" sub="Pulsa para desplegar el texto completo">
       <Secciones items={s4} color={MEZ_INK} />
     </Sec>}
@@ -270,9 +276,10 @@ export function Mezcla({ switcher, subnav = null }) {
               rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y siete pertenecen al s. V a.C. De las{" "}
               {BIBLIO_MEZ.length} mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), {BIBLIO_MEZ.length - DIVERGENCIAS_MEZ.length} lo
               son también aquí y {DIVERGENCIAS_MEZ.length} reciben otra clasificación, mientras que {NO_RECOGIDAS_MEZ.length} de las de la
-              tesis no figuran en sus listas. La autopsia de {AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0)} de las mezclas ha corregido facsímiles, ha mostrado posibles
+              tesis no figuran en sus listas.{import.meta.env.MODE !== "publico" && AUTOPSIAS_MEZ.length > 0 && <> La autopsia de{" "}
+              {AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0)} de las mezclas ha corregido facsímiles, ha mostrado posibles
               cambios de mano y ha eliminado la mezcla en consultas como <Ref src="DVC" id="2160" /> (segunda mitad del
-              s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.).
+              s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.).</>}
             </p>
           </Card>
         </Sec>

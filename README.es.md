@@ -12,7 +12,7 @@ La interfaz está en español, la lengua de la tesis. Los textos griegos se dan 
 
 ## Cómo citar
 
-> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* (v2.1.0) [Atlas interactivo y código fuente]. Zenodo. https://doi.org/10.5281/zenodo.24130445
+> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* (v2.1.1) [Atlas interactivo y código fuente]. Zenodo. https://doi.org/10.5281/zenodo.24130445
 
 En formato BibTeX:
 
@@ -22,7 +22,7 @@ En formato BibTeX:
   title     = {{Atlas dialectal de las laminillas oraculares de Dodona}},
   year      = 2026,
   publisher = {Zenodo},
-  version   = {v2.1.0},
+  version   = {v2.1.1},
   doi       = {10.5281/zenodo.24130445},
   url       = {https://doi.org/10.5281/zenodo.24130445}
 }
@@ -42,11 +42,10 @@ El corpus reúne 4.418 textos: los 4.216 de *I.Dodone DVC* (Dakaris, Vokotopoulo
 | **Jónico-ático y koiné** | El jónico, el ático y la koiné: contexto, mapa, perfil dialectal y lista de inscripciones |
 | **Mezcla dialectal** | Textos que combinan rasgos de dialectos incompatibles: concepto y criterio, comparación con las listas anteriores, mezclas aparentes, tipología y explicaciones |
 | **Minoritarios y no jónico-áticas** | Los dialectos con pocos textos (macedonio, eleo, acayo, laconio, rodio y textos no griegos) y los textos de los que solo puede demostrarse que no son jónico-áticos |
-| **Autopsias** | Las notas de la autopsia de 71 laminillas en la Eforía de Antigüedades de Ioánina (2024 y 2025), con facsímiles |
 
-Cada parte tiene su propia dirección (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`, `#autopsias`), de modo que un enlace puede abrir el atlas en la parte que interese.
+Cada parte tiene su propia dirección (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`), de modo que un enlace puede abrir el atlas en la parte que interese.
 
-Las listas completas de las inscripciones de cada grupo y el registro de las autopsias están también, en CSV, en la carpeta [`listas/`](./listas/), que se archiva en Zenodo con cada versión y permite comprobar los recuentos de la tesis.
+Las listas completas de las inscripciones de cada grupo están también, en CSV, en la carpeta [`listas/`](./listas/), que se archiva en Zenodo con cada versión y permite comprobar los recuentos de la tesis.
 
 ## Cómo leerlo
 
@@ -68,7 +67,7 @@ El atlas se deriva de la tesis, no se ha redactado aparte. Lo alimentan tres fue
 
 Los generadores de Python de `scripts/` (`datos_*.py`) leen la versión vigente de cada capítulo y la base de datos, comprueban que las cifras del texto coinciden con los recuentos de la base de datos y escriben los archivos de `src/data/`. Unos pocos archivos de datos (`corpus.js`, `tesalio.js`, `beocio.js`, `dorico.js`, `lecturas.js`) se prepararon a mano a partir de las mismas fuentes. La interfaz (React, Vite y Nivo) solo muestra esos datos: no calcula adscripciones.
 
-Antes de cada publicación, `npm run check` comprueba que los totales de cada parte suman el corpus, que los recuentos de cronología y temática cuadran con cada grupo, que todas las inscripciones citadas existen en el índice de textos y que no quedan notas de trabajo en el texto visible. La compilación pública comprueba después que ninguna fotografía de autopsia ha entrado en `dist/`.
+Antes de cada publicación, `npm run check` comprueba que los totales de cada parte suman el corpus, que los recuentos de cronología y temática cuadran con cada grupo, que todas las inscripciones citadas existen en el índice de textos y que no quedan notas de trabajo en el texto visible. La compilación pública comprueba después que nada de las autopsias ha entrado en `dist/`.
 
 Por tanto, el repositorio contiene los datos derivados y el código, pero no las fuentes de la tesis. Los generadores documentan cómo se obtuvo cada cifra, aunque para ejecutarlos hacen falta los archivos de la tesis.
 
@@ -76,7 +75,7 @@ Por tanto, el repositorio contiene los datos derivados y el código, pero no las
 
 | Material | Licencia |
 |---|---|
-| Contenidos: textos escritos para el atlas, tablas, gráficos, datos elaborados (`src/data`, `listas/`, los textos de `src/chapters`) y facsímiles del autor | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es) |
+| Contenidos: textos escritos para el atlas, tablas, gráficos, datos elaborados (`src/data`, `listas/`, los textos de `src/chapters`) | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es) |
 | Código: componentes, utilidades, scripts y configuración | MIT |
 
 El siguiente material conserva sus propias condiciones y no está cubierto por estas licencias:
@@ -86,7 +85,7 @@ El siguiente material conserva sus propias condiciones y no está cubierto por e
 - Las tipografías: la griega, derivada de Cardo (`src/assets/fonts/OFL.txt`), DM Sans y Playfair Display, bajo la SIL Open Font License 1.1.
 - Las dependencias de `package.json`, cada una con su licencia.
 
-Las fotografías de autopsia se conservan fuera del repositorio (`.gitignore`) y no se publican: su publicación depende de la autorización de la Eforía de Antigüedades de Ioánina. Los facsímiles, de elaboración propia, sí se publican.
+Las autopsias realizadas en la Eforía de Antigüedades de Ioánina (notas, fotografías y facsímiles) se conservan fuera del repositorio (`.gitignore`) y no se publican; solo las muestra la versión local del atlas.
 
 El texto completo de ambas licencias está en [`LICENSE`](./LICENSE).
 
@@ -120,7 +119,7 @@ scripts/
   listas_zenodo.py   listas de listas/ a partir de src/data
   comprobar.mjs      comprobaciones de npm run check y de la compilación pública
   coastline.py       costas y áreas de los mapas
-listas/              inscripciones de cada grupo y autopsias, en CSV
+listas/              inscripciones de cada grupo, en CSV
 ```
 
 ## Autor

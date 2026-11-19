@@ -1,5 +1,5 @@
 // Comprobaciones antes de publicar (npm run check; con --dist, también el resultado de la compilación pública):
-// totales que suman, citas que existen, textos visibles sin marcas de trabajo y ninguna fotografía de autopsia en dist.
+// totales que suman, citas que existen, textos visibles sin marcas de trabajo y nada de las autopsias en dist.
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -7,13 +7,15 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const datos = (f) => import(pathToFileURL(path.join(RAIZ, "src/data", f)).href);
 const json = (f) => JSON.parse(readFileSync(path.join(RAIZ, "src/data", f), "utf8"));
+// Los datos de las autopsias solo existen en local (.gitignore).
+const local = async (f) => (existsSync(path.join(RAIZ, "src/data", f)) ? datos(f) : {});
 const errores = [];
 const igual = (etq, a, b) => { if (a !== b) errores.push(`${etq}: ${a} ≠ ${b}`); };
 const suma = (xs, k = "n") => xs.reduce((a, x) => a + x[k], 0);
 
 const c = await datos("corpus.js"), I = await datos("introduccion.js"), T = await datos("tesalio.js"), B = await datos("beocio.js"),
   S = await datos("dorico.js"), G = await datos("doricoGeneral.js"), N = await datos("doricoNO.js"), J = await datos("jonicoAtico.js"),
-  F = await datos("frontera.js"), A = await datos("autopsias.js");
+  F = await datos("frontera.js"), A = await local("autopsias.js"), M = await local("autopsiasMezcla.js");
 const INS = json("inscriptions.json"), NJA = json("anexoNoJonAt.json");
 
 // ── Totales ──
@@ -74,15 +76,24 @@ for (const f of JSXS) {
 }
 
 // ── Autopsias: toda imagen citada existe; las cifras del anexo cuadran ──
-for (const l of A.LAMINILLAS_AUTOPSIA) for (const p of l.facsimiles) if (!existsSync(path.join(RAIZ, "public", p))) errores.push(`facsímil inexistente: ${p}`);
+for (const l of A.LAMINILLAS_AUTOPSIA ?? []) for (const p of l.facsimiles) if (!existsSync(path.join(RAIZ, "public", p))) errores.push(`facsímil inexistente: ${p}`);
 
 // ── Compilación pública ──
 if (process.argv.includes("--dist")) {
   const dist = path.join(RAIZ, "dist");
   const archivos = readdirSync(dist, { recursive: true, withFileTypes: true }).filter((e) => e.isFile()).map((e) => path.join(e.parentPath, e.name));
+  // Las autopsias no se publican: ni imágenes, ni su pestaña, ni sus textos (los de los datos locales, si existen).
+  const privado = ["Autopsias en la Eforía", "Lo que mostró la autopsia",
+    ...(A.LAMINILLAS_AUTOPSIA ?? []).flatMap((l) => [l.nota, ...l.items.map((x) => x.obs)]),
+    ...(M.AUTOPSIAS_MEZ ?? []).flatMap((g) => g.items.map((x) => x.obs))]
+    .filter((s) => s && s.length >= 20).map((s) => s.slice(0, 40));
   for (const a of archivos) {
-    if (/\.(jpe?g|png|tiff?|heic|webp)$/i.test(a) && !path.basename(a).startsWith("facsimil-")) errores.push(`fotografía en dist: ${path.relative(dist, a)}`);
-    if (/autopsiasFotos/.test(path.basename(a))) errores.push(`rutas de fotografías en dist: ${path.basename(a)}`);
+    if (/\.(jpe?g|png|tiff?|heic|webp)$/i.test(a)) errores.push(`imagen en dist: ${path.relative(dist, a)}`);
+    if (/autopsias/i.test(path.basename(a))) errores.push(`archivo de autopsias en dist: ${path.basename(a)}`);
+    if (/\.(js|html)$/.test(a)) {
+      const t = readFileSync(a, "utf8"), s = privado.find((x) => t.includes(x));
+      if (s) errores.push(`texto de las autopsias en dist (${path.basename(a)}): ${s}`);
+    }
     if (/\.(js|css|html)$/.test(a) && /fonts\.(googleapis|gstatic)\.com/.test(readFileSync(a, "utf8"))) errores.push(`petición a Google Fonts en ${path.basename(a)}`);
   }
   console.log(`dist: ${archivos.length} archivos, ${(archivos.reduce((s, a) => s + readFileSync(a).length, 0) / 1e6).toFixed(1)} MB`);

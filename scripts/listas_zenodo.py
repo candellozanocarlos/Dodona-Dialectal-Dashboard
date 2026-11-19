@@ -1,4 +1,4 @@
-"""Escribe en listas/ las inscripciones de cada grupo dialectal y el registro de las autopsias, en CSV,
+"""Escribe en listas/ las inscripciones de cada grupo dialectal, en CSV,
 a partir de los datos del atlas (src/data), para depositarlas en Zenodo con cada versión.
 
 Uso:  py scripts/listas_zenodo.py
@@ -55,10 +55,4 @@ total += escribir("no_jonico_aticas", CAB + ["motivo_de_la_duda", "rasgos"],
 esperado = int(re.search(r"export const TOTAL_CORPUS = (\d+)", (DATOS / "corpus.js").read_text(encoding="utf-8")).group(1))
 assert total == esperado, f"Las listas suman {total} y el corpus clasificado tiene {esperado}"
 
-# Autopsias: una fila por inscripción examinada; la nota es de la laminilla y se repite en sus inscripciones.
-sin_marcas = lambda s: re.sub(r"</?i>", "", s or "")
-filas = [[l["siglum"], l["ami"], l["anio"], l["fecha"], sin_marcas(l["nota"]), ref(it["id"]), it["date"], it["text"],
-          sin_marcas(it["obs"])] for l in constante("autopsias.js", "LAMINILLAS_AUTOPSIA") for it in l["items"]]
-escribir("autopsias", ["laminilla", "inventario_ami", "campana", "fecha_autopsia", "nota_laminilla",
-                       "inscripcion", "datacion_edicion", "texto_edicion", "observaciones"], filas)
 print(f"Total clasificado: {total} (= TOTAL_CORPUS)")

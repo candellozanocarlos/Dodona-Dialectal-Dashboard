@@ -4,6 +4,7 @@
 //   3. añade aquí su entrada. El orden es el del selector superior.
 import { lazy } from "react";
 import { C, DIALECT_COLORS } from "./theme.js";
+import { MOSTRAR_AUTOPSIAS } from "./sitio.js";
 
 // Etiquetas y orden de las partes de la tesis (CONTENIDO_v13), sin el número de parte.
 export const CHAPTERS = [
@@ -14,5 +15,9 @@ export const CHAPTERS = [
   { id: "mezcla", label: "Mezcla dialectal", color: DIALECT_COLORS.mezcla,
     Component: lazy(() => import("./chapters/Frontera.jsx").then((m) => ({ default: m.Mezcla }))) },
   { id: "minoritarios", label: "Minoritarios y no jónico-áticas", color: "#56677a", Component: lazy(() => import("./chapters/Frontera.jsx")) },
-  { id: "autopsias", label: "Autopsias", color: C.terra, Component: lazy(() => import("./chapters/Autopsias.jsx")) },
+  // Las autopsias no se publican: su parte solo puede aparecer en la versión local (MOSTRAR_AUTOPSIAS en sitio.js) y si
+  // existen sus datos, fuera del repositorio.
+  ...(import.meta.env.MODE !== "publico" && MOSTRAR_AUTOPSIAS && Object.keys(import.meta.glob("./data/autopsias.js")).length > 0
+    ? [{ id: "autopsias", label: "Autopsias", color: C.terra, Component: lazy(() => import("./chapters/Autopsias.jsx")) }]
+    : []),
 ];

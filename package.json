@@ -1,7 +1,7 @@
 {
   "name": "dodona-dialectos",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Atlas dialectal de las laminillas oraculares de Dodona: dashboard interactivo de la tesis doctoral de Carlos Candel Lozano (Universidad de Valladolid).",
   "type": "module",
   "scripts": {
