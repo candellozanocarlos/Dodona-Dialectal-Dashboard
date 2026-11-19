@@ -1,8 +1,8 @@
 """Genera src/data/autopsias.js (vista de las autopsias) y src/data/autopsiasFotos.js (fotografías, solo para la versión local).
 
 Fuentes:
-  · INTRODUCCIÓN_v<n>.docx (la de número más alto), anexo §3.4: un párrafo por laminilla, con sus fragmentos, la fecha y las
-    observaciones de cada inscripción.
+  · CONCLUSIONES_v<n>.docx (la de número más alto), anexo §16.5 (hasta INTRODUCCIÓN_v56, anexo §3.4 de la introducción): un
+    párrafo por laminilla, con sus fragmentos, la fecha y las observaciones de cada inscripción.
   · DVC_v5_FINAL.xlsx, hoja Datos: lectura, datación y clasificación vigente de cada inscripción.
   · scripts/fotos_autopsias.json: rutas de las fotografías y los facsímiles (dentro de public/) por inscripción. Solo los
     facsímiles se publican; las fotografías dependen de la autorización de la Eforía de Antigüedades de Ioánina.
@@ -15,11 +15,11 @@ from pathlib import Path
 
 from comun import DATOS, Excel, clave_js, es_titulo, fecha, parrafos, ultima
 
-DOCX = ultima("INTRODUCCIÓN", "INTRODUCCIÓN_v*.docx")
+DOCX = ultima("CONCLUSIONES", "CONCLUSIONES_v*.docx")
 FOTOS = json.loads((Path(__file__).parent / "fotos_autopsias.json").read_text(encoding="utf-8"))
 ex = Excel()
 pars = parrafos(DOCX)
-i0 = next(i for i, (s, t) in enumerate(pars) if es_titulo(s) and t.startswith("3.4. ANEXO"))
+i0 = next(i for i, (s, t) in enumerate(pars) if es_titulo(s) and t.startswith("16.5. ANEXO"))
 i1 = next(i for i, (s, t) in enumerate(pars) if i > i0 and es_titulo(s) and t.startswith("REFERENCIAS"))
 
 CAB = re.compile(r"^(M\d+(?: \+ M\d+)*) \(AMI ([^)]*)\): ")
@@ -90,22 +90,15 @@ for st, t in pars[i0 + 1:i1]:
                        "fecha": fm.group(1) if fm else str(anio), "nota": (nota + ".") if nota else "", "items": fichas,
                        "facsimiles": sorted({p for p in fotos if "facsimil" in p})})
 
-# 150A: autopsia citada en el capítulo del tesalio (§3.2.2) que el anexo §3.4 no recoge.
-LAMINILLAS.append({"key": "150A", "siglum": None, "ami": None, "anio": None, "fecha": None, "nota": "", "facsimiles": [], "items": [
-    ficha("DVC 150A", "La autopsia en la Eforía de Antigüedades de Ioánina confirmó que la forma de las letras se corresponde con el alfabeto "
-          "epicórico tesalio, como proponen los editores de I.Dodone DVC frente a la atribución de Jeffery (1990: 233, n.º 17) a un alfabeto "
-          "arcaico de Dodona. El dato respalda la adscripción tesalia de la consulta y convierte a ἔννεκα en su testimonio tesalio más antiguo "
-          "(cf. cap. 7, §3.2.2).")]})
-
 n = {a: [lam for lam in LAMINILLAS if lam["anio"] == a] for a in (2024, 2025)}
-for a, esperado in ((2024, (45, 169, 127)), (2025, (26, 103, 92))):
+for a, esperado in ((2024, (45, 168, 131)), (2025, (26, 101, 92))):
     cifras = (len(n[a]), sum(len(x["items"]) for x in n[a]), sum(1 for x in n[a] for f in x["items"] if f["obs"]))
-    assert cifras == esperado, (a, cifras, esperado)   # las cifras que da el propio anexo (§3.4.1 y §3.4.2)
+    assert cifras == esperado, (a, cifras, esperado)   # las cifras que da el propio anexo (§16.5.1 y §16.5.2)
 
 J = lambda x: json.dumps(x, ensure_ascii=False)
 (DATOS / "autopsias.js").write_text("\n".join([
     "// Generado por scripts/datos_autopsias.py: no editar a mano.",
-    f"// Texto: {DOCX.stem}, anexo §3.4; lectura, datación y clasificación: DVC_v5_FINAL.xlsx (hoja Datos).",
+    f"// Texto: {DOCX.stem}, anexo §16.5; lectura, datación y clasificación: DVC_v5_FINAL.xlsx (hoja Datos).",
     f"export const INTRO_AUTOPSIAS = {J(INTRO)};",
     f"export const CAMPANAS_AUTOPSIAS = {J(CAMPANAS)};",
     "// Una entrada por laminilla; obs = null: inscripción sin observaciones propias.",

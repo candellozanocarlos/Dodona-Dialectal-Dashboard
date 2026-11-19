@@ -5,7 +5,7 @@ import { useState } from "react";
 import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
 import {
-  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
+  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, AUTOPSIAS_MEZ, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
   CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, DIVERGENCIAS_MEZ, EXPLICACIONES_MEZ,
   INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ,
   TOTAL_MIN, TOTAL_NJA,
@@ -86,10 +86,9 @@ const Grupo = ({ titulo, n, unidad = "inscripciones", children }) => (
   </Card>
 );
 
-// Contexto: la comparación con Crespo y Giannakis (2019) y Giannakis (2024a), tabla 9 del capítulo.
+// Contexto: la comparación con Crespo y Giannakis (2019) y Giannakis (2024a), tablas 13 y 14 del capítulo.
 function ComparacionBiblio() {
   const coinciden = BIBLIO_MEZ.filter((b) => b.tesis.startsWith("Mezcla"));
-  const pags = Object.fromEntries(BIBLIO_MEZ.map((b) => [b.ref, b.pags]));
   const motivos = [...new Set(DIVERGENCIAS_MEZ.map((d) => d.grupo))];
   return <>
     <Sec title="Las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a)"
@@ -117,7 +116,7 @@ function ComparacionBiblio() {
           return (
             <Grupo key={m} titulo={m} n={xs.length}>
               {xs.map((d) => <FichaComparada key={d.ref} refTxt={d.ref} date={d.date} antes={["Autores", d.autores]} despues={["Tesis", d.tesis]}
-                motivo={d.motivo} extra={pags[d.ref] && <div style={{ fontSize: 10.5, color: C.dim, marginTop: 4 }}>Crespo y Giannakis {pags[d.ref]}</div>} />)}
+                motivo={d.motivo} extra={d.pags && <div style={{ fontSize: 10.5, color: C.dim, marginTop: 4 }}>Crespo y Giannakis {d.pags}</div>} />)}
             </Grupo>
           );
         })}
@@ -132,21 +131,22 @@ function ComparacionBiblio() {
   </>;
 }
 
-// Perfil: las mezclas aparentes (§4 y tabla 1 del capítulo).
+// Perfil: las mezclas aparentes (§4 y tablas 1-6 del capítulo).
 const familia = (t) => /^(jónico|ático|koiné)/i.test(t) ? "Jónico-ático y koiné" : /^no jónico/i.test(t) ? "No jónico-ática"
   : /^dórico general|^dórico$/i.test(t) ? "Dórico general" : t[0].toUpperCase() + t.slice(1);
 function MezclasAparentes() {
   const motivos = [...new Set(APARENTES_MEZ.map((a) => a.grupo))];
   const n = APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0);
+  const nAut = AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0);
   // Clasificación de cada inscripción: la celda de la tabla lleva una por inscripción («Jónico-ático; no jónico-ática») o una común.
   const clases = APARENTES_MEZ.flatMap((a) => {
     const t = a.tesis.split(/;\s*/).map((x) => familia(sinCerteza(x).trim()));
     return a.dvcs.map((_, i) => t.length === a.dvcs.length ? t[i] : t[0]);
   });
   const porClase = Object.entries(contar(clases, (x) => x)).sort((a, b) => b[1] - a[1]);
-  const s4 = TIPOLOGIA_MEZ.find((x) => x.sec === "§4");
+  const s4 = TIPOLOGIA_MEZ.filter((x) => x.sec.startsWith("§4"));
   return <>
-    <Sec title="Mezclas que solo lo son en apariencia" sub={`${n} inscripciones que la bibliografía cuenta como mezclas y que la tesis clasifica en un solo dialecto (tabla 1 del capítulo)`}>
+    <Sec title="Mezclas que solo lo son en apariencia" sub={`${n} inscripciones que la bibliografía o los editores presentan como mezclas y que la tesis clasifica de otro modo (tablas 1-5 del capítulo)`}>
       <Card>
         <p style={PROSE}>
           Muchas proceden de inscripciones fragmentarias o de palimpsestos, y la mayoría se limita a un solo rasgo incompatible con el resto
@@ -175,12 +175,28 @@ function MezclasAparentes() {
         );
       })}
     </Sec>
-    <Sec title="Lo que mostró la autopsia" sub="Las 26 mezclas examinadas en Ioánina: la autopsia confirmó la lectura en la mayoría">
+    <Sec title="Lo que mostró la autopsia"
+      sub={`Las ${nAut} mezclas del capítulo examinadas en Ioánina, por el resultado principal de la autopsia (tabla 6 del capítulo)`}>
+      <Bars horizontal data={AUTOPSIAS_MEZ.map((g) => ({ name: g.grupo, value: g.items.length, color: MEZ }))}
+        height={60 + 38 * AUTOPSIAS_MEZ.length} left={330} unit="inscripciones" />
+      <div style={{ marginTop: 14 }}>
+        {AUTOPSIAS_MEZ.map((g) => (
+          <Grupo key={g.grupo} titulo={g.grupo} n={g.items.length}>
+            {g.items.map((x) => (
+              <div key={x.id} style={{ padding: "9px 12px", borderRadius: 8, background: "rgba(255,252,245,0.75)", border: `1px solid ${C.border}` }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "baseline" }}>
+                  <Ref src={x.id.startsWith("LOD ") ? "LOD" : "DVC"} id={x.id.replace(/^LOD /, "")} />
+                  <span style={{ fontSize: 11, color: C.dim }}>autopsia de {x.anio}</span>
+                </div>
+                <p style={{ ...PROSE, fontSize: 12, marginTop: 6, color: C.muted }}>{renderGreekText(x.obs)}</p>
+              </div>
+            ))}
+          </Grupo>
+        ))}
+      </div>
       <div style={REJILLA}>
         {[
-          ["Corrigió el facsímil o la lectura", ["95A", "2018A", "2470A", "2506", "2609A"]],
-          ["Mostró la reutilización del plomo o manos distintas", ["2169A", "2261A", "2982A", "3022A", "3316A"]],
-          ["Eliminó la mezcla", ["2160", "2225A", "2430A", "2432B"]],
+          ["Fuera de ellas, eliminó la mezcla", ["2160", "2225A", "2430A", "2432B"]],
           ["Mostró una alternancia de alfabetos", ["135A"]],
         ].map(([t, ids]) => (
           <Card key={t} accent={MEZ}>
@@ -190,12 +206,12 @@ function MezclasAparentes() {
         ))}
       </div>
       <p style={{ ...PROSE, fontSize: 12, marginTop: 10, color: C.muted }}>
-        Ejemplos del §4 del capítulo, no la lista completa. La muestra no es aleatoria, porque la presencia de una mezcla aparente fue uno de
-        los criterios de selección, y la proporción de lecturas confirmadas no puede extrapolarse a las demás.
+        La muestra no es aleatoria, porque la presencia de una mezcla aparente fue uno de los criterios de selección, y la proporción de
+        lecturas confirmadas no puede extrapolarse a las demás.
       </p>
     </Sec>
-    {s4 && <Sec title="El apartado del capítulo" sub="Pulsa para desplegar el texto completo">
-      <Secciones items={[{ ...s4, name: "Las mezclas aparentes (texto completo)" }]} color={MEZ_INK} />
+    {s4.length > 0 && <Sec title="El apartado del capítulo" sub="Pulsa para desplegar el texto completo">
+      <Secciones items={s4} color={MEZ_INK} />
     </Sec>}
   </>;
 }
@@ -250,12 +266,12 @@ export function Mezcla({ switcher, subnav = null }) {
             </p>
             <p style={{ ...PROSE, marginTop: 10 }}>
               La koiné solo se reconoce con una prueba positiva (un rasgo propio o una fecha desde finales del s. IV a.C.), de modo que el
-              componente que la bibliografía llama koiné es, en la mayoría de las mezclas, jónico-ático: de las 75 que combinan el dórico con
-              rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y once pertenecen al s. V a.C. De las{" "}
+              componente que la bibliografía llama koiné es, en la mayoría de las mezclas, jónico-ático: de las 74 que combinan el dórico con
+              rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y siete pertenecen al s. V a.C. De las{" "}
               {BIBLIO_MEZ.length} mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), {BIBLIO_MEZ.length - DIVERGENCIAS_MEZ.length} lo
               son también aquí y {DIVERGENCIAS_MEZ.length} reciben otra clasificación, mientras que {NO_RECOGIDAS_MEZ.length} de las de la
-              tesis no figuran en sus listas. La autopsia de 26 de las mezclas ha corregido facsímiles, ha mostrado manos
-              distintas y plomos reutilizados y ha eliminado la mezcla en consultas como <Ref src="DVC" id="2160" /> (segunda mitad del
+              tesis no figuran en sus listas. La autopsia de {AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0)} de las mezclas ha corregido facsímiles, ha mostrado posibles
+              cambios de mano y ha eliminado la mezcla en consultas como <Ref src="DVC" id="2160" /> (segunda mitad del
               s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.).
             </p>
           </Card>
@@ -268,7 +284,7 @@ export function Mezcla({ switcher, subnav = null }) {
         <SubNav color={MEZ_INK} value={sub} onChange={setSub} items={[
           ["cifras", "La mezcla dialectal en números", "adscripción, combinaciones, cronología, temática y alfabeto"],
           ["tipos", "Tipos de mezcla", `${TIPOS_MEZ.length} tipos según el lugar del elemento ajeno`],
-          ["aparentes", "Mezclas aparentes", `${APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0)} inscripciones de la bibliografía que no lo son`],
+          ["aparentes", "Mezclas aparentes", `${APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0)} inscripciones presentadas como mezclas que no lo son`],
         ]} />
         {sub === "cifras" && <>
           <Sec title="La mezcla dialectal en el corpus de Dodona">
@@ -313,15 +329,15 @@ export function Mezcla({ switcher, subnav = null }) {
         {sub === "tipos" && <>
           <Sec title="Tipos de mezcla dialectal en el corpus" sub="Dónde se encuentra el elemento ajeno al dialecto del texto"
             note={`Cada fila es un tipo de mezcla según el lugar del texto en que se encuentra el elemento ajeno, con el apartado del capítulo. En la última columna, el total de consultas y, entre paréntesis, las seguras y las dudosas o que descansan en un nombre propio. Cada consulta se cuenta en un solo tipo, el de su elemento más característico; la suma da las ${TOTAL_MEZ} del capítulo.`}>
-            <TablaRasgos color={MEZ} cabeceras={["Elemento\nno jónico-ático", "Elemento\njónico-ático", "Explicaciones\nposibles (§6)"]}
+            <TablaRasgos color={MEZ} cabeceras={["Elemento\nno jónico-ático", "Elemento\njónico-ático", "Explicaciones\nposibles (§5)"]}
               filas={TIPOS_MEZ.map((t) => ({ sec: `§${t.sec}`, rasgo: t.tipo, celdas: [t.noja, t.ja, t.expl], seg: t.seguras, dud: t.dudosas }))} />
           </Sec>
           <Sec title="Las mezclas según su tipo">
             <Bars horizontal data={TIPOS_MEZ.map((t) => ({ name: t.tipo, segura: t.seguras, dudosa: t.dudosas }))} keys={["segura", "dudosa"]}
               colors={{ segura: MEZ_INK, dudosa: ORO }} labels={{ segura: "segura", dudosa: "dudosa o de solo nombre" }} height={300} left={260} />
           </Sec>
-          <Sec title="Las mezclas, tipo a tipo" sub="Los apartados de §5 del capítulo, con sus inscripciones: pulsa para desplegar cada uno">
-            <Secciones items={TIPOLOGIA_MEZ.filter((x) => x.sec !== "§4")} color={MEZ_INK} />
+          <Sec title="Las mezclas, tipo a tipo" sub="Los apartados de §5 del capítulo, con sus inscripciones y la explicación de cada tipo: pulsa para desplegar cada uno">
+            <Secciones items={TIPOLOGIA_MEZ.filter((x) => !x.sec.startsWith("§4"))} color={MEZ_INK} />
           </Sec>
         </>}
         {sub === "aparentes" && <MezclasAparentes />}
@@ -358,7 +374,7 @@ export function Mezcla({ switcher, subnav = null }) {
             </Card>
           ))}
         </Sec>
-        <Sec title="Las explicaciones, una a una" sub="Los apartados de §6 del capítulo: pulsa para desplegar cada uno">
+        <Sec title="La escritura y la fecha de las mezclas" sub="El §6.1 del capítulo; la explicación de cada tipo se lee en Perfil dialectal, Tipos de mezcla (§5)">
           <Secciones items={EXPLICACIONES_MEZ} color={MEZ_INK} />
         </Sec>
       </>}
@@ -508,7 +524,7 @@ function Minoritarios({ switcher, subnav }) {
 }
 
 // ══ Cap. 15: las inscripciones no jónico-áticas ════════════════════
-// El anexo (845 textos, unos 150 kB) solo se carga al abrir la pestaña.
+// El anexo (843 textos, unos 150 kB) solo se carga al abrir la pestaña.
 const cargarAnexoNJA = () => import("../data/anexoNoJonAt.json");
 
 function NoJonAt({ switcher, subnav }) {
@@ -523,7 +539,7 @@ function NoJonAt({ switcher, subnav }) {
         <Stat label="Inscripciones" value={String(TOTAL_NJA)} sub="ss. VI–II a.C." accent={NJA_INK} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_NJA)} %`} sub={`${TOTAL_NJA} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Seguras" value={`${pct(CERTEZA_NJA.seguras, TOTAL_NJA)} %`} sub="excluyen el jónico-ático" accent={C.blue} />
-        <Stat label="Dórico probable" value="328-494" sub="con el dórico demostrado (267)" accent={DIALECT_COLORS.dorico} />
+        <Stat label="Dórico probable" value="334-500" sub="con el dórico demostrado (267)" accent={DIALECT_COLORS.dorico} />
       </>}
       tabs={[
         { id: "context", l: "Por qué hay tantas", i: "📜" },
@@ -548,7 +564,7 @@ function NoJonAt({ switcher, subnav }) {
           {[
             ["El método", <>El criterio de los rasgos que excluyen el eolio trasladó a este grupo 243 consultas que la clasificación de partida atribuía al dórico, y la revisión de las inscripciones sin clasificar añadió más de cuatrocientas: 585 de las {TOTAL_NJA} carecían de clasificación al comienzo del trabajo. El criterio de la apócope πέρ retiró, en cambio, treinta consultas en que πέρ precede a una laguna.</>],
             ["El estado de los textos", <>Con una media de 3,6 palabras legibles por inscripción y una mediana de dos, quedan por debajo del jónico-ático y la koiné (4,6), del tesalio (4,7) y del dórico general (5,2), y muy lejos de la mezcla (7,5). Una invocación como Ζεῦ Νᾶε καὶ Διώνα (<Ref src="DVC" id="81B" />, mediados del s. IV a.C.) o una pregunta reducida a κα [- - -] (<Ref src="DVC" id="2888B" />, segunda mitad del s. V a.C.) excluyen el jónico-ático, pero no ofrecen ningún otro dato.</>],
-            ["La naturaleza de los rasgos", <>Los más frecuentes son conservaciones que el jónico-ático perdió y que comparten los demás dialectos: 606 inscripciones (el 71,8 %) presentan un único tipo de rasgo, y las fórmulas aportan buena parte de ellos, pues en 130 (el 15,4 %) τύχα, ἀγαθά o Διώνα son los únicos rasgos visibles.</>],
+            ["La naturaleza de los rasgos", <>Los más frecuentes son conservaciones que el jónico-ático perdió y que comparten los demás dialectos: 636 inscripciones (el 75,4 %) presentan un único tipo de rasgo, y las fórmulas aportan buena parte de ellos, pues en 123 (el 14,6 %) τύχα, ἀγαθά o Διώνα son los únicos rasgos visibles.</>],
           ].map(([t, d]) => (
             <Card key={t} accent={NJA}>
               <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: 700, color: NJA_INK, marginBottom: 6 }}>{t}</div>
@@ -617,9 +633,9 @@ function NoJonAt({ switcher, subnav }) {
             <Card style={{ marginTop: 14 }}>
               <p style={PROSE}>
                 La mayor parte del grupo procede con toda verosimilitud de consultantes dóricos, pero solo una parte puede delimitarse con
-                argumentos lingüísticos: 61 inscripciones excluyen todo el tesalio y el lesbio y apuntan al dórico o al beocio, y otras 166, con
+                argumentos lingüísticos: 67 inscripciones excluyen todo el tesalio y el lesbio y apuntan al dórico o al beocio, y otras 166, con
                 κα, solo dejan abierta además la Histiótide. Por eso el dórico probable no admite una cifra única: a las 267 del dórico demostrado
-                pueden sumarse esas 61 y, con más reservas, las 166, de modo que se sitúa entre 328 y 494 inscripciones. Las cuatro en que πέρ
+                pueden sumarse esas 67 y, con más reservas, las 166, de modo que se sitúa entre 334 y 500 inscripciones. Las cuatro en que πέρ
                 aparece junto a κα, como <Ref src="DVC" id="315A" /> (s. V a.C.) o <Ref src="DVC" id="2667A" /> (mediados del s. V a.C.), son
                 compatibles con el dórico, pero también con el tesalio de Histiótide.
               </p>

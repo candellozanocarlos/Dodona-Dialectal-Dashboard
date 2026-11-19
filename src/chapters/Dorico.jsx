@@ -126,7 +126,7 @@ export default function Dorico({ switcher }) {
               mercancías entre la Grecia continental y las colonias de la Italia meridional y de Sicilia (Lombardo 2017: 113;
               Giannakis 2024b: 97-98). La imagen de un Epiro aislado y periférico ha sido revisada (Castiglioni 2016: 113-114;
               Chapinal-Heras 2021: 24-25): el territorio estuvo en contacto continuado primero con las <i>poleis</i> del noroeste, como
-              Acarnania, Ampracia o Corfú, y con las colonias del norte, como Apolonia y Epidamno, y después, a través de esas escalas,
+              Acarnania, Ambracia o Corfú, y con las colonias del norte, como Apolonia y Epidamno, y después, a través de esas escalas,
               con Occidente. Las tumbas de Liatovouni, con ajuares de procedencia macedonia e itálica, y la cerámica de estilos
               diversos de Mavromandilia, muy cerca del santuario, confirman ese cuadro para época arcaica.
             </p>

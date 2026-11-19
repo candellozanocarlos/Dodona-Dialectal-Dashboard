@@ -117,7 +117,7 @@ export const LITERARY_SOURCES_TES = [
 
 export const POLITICAL_LINKS_TES = [
   { event: "Peán pindárico", date: "s. V a.C.", agent: "Alévadas", desc: "Encargo de los gobernantes tesalios que explotaban la conexión mítica Neoptólemo–Aquiles–Zeus Dodoneo." },
-  { event: "Moneda de Larisa", date: "400-340 a.C.", agent: "Larisa", desc: "Anverso: Alevas con leyenda ΑΛΕ. Reverso: águila con rayo (símbolos de Molosia/Dodona) y leyenda ΕΛΛΑ (¿Helloi/Selloi?). Cf. Aston (2024: 333-334)." },
+  { event: "Moneda de Larisa", date: "400-340 a.C.", agent: "Larisa", desc: "Anverso: Alevas con leyenda ΑΛΕ. Reverso: águila con rayo (símbolos de Molosia/Dodona) y leyenda ΕΛΛΑ (¿<i>helloi</i>/<i>selloi</i>?). Cf. Aston (2024: 333-334)." },
   { event: "Dedicación tras victoria", date: "274 a.C.", agent: "Pirro I", desc: "Tras vencer a Antígono Gónatas, Pirro consagra los escudos gálatas en el santuario de Atenea Itonia, en Tesalia, y los macedonios en Dodona (Plu. Pyrrh. 26, 9-10; Paus. I, 13, 2-3); las diferencias entre ambos epigramas responden a la voluntad de ganarse a los tesalios (Raynor 2019: 312-318)." },
 ];
 

@@ -152,7 +152,7 @@ export default function DoricoNO({ switcher, subnav }) {
       {tab === "map" && <>
         <Sec title="Comunidades y lugares del Noroeste en el corpus"
           sub={`${TOPONYMS_NO.length} nombres en ${totalMenciones} menciones, ${segMenciones} de ellas seguras`}
-          note="Ampracia, Anactorio, Apolonia y Epidamno, aunque se sitúan en la costa del Epiro, de Acarnania y de Iliria, son colonias corintias: se examinan con Corcira en el dórico general, y sus menciones no se cuentan aquí.">
+          note="Ambracia, Anactorio, Apolonia y Epidamno, aunque se sitúan en la costa del Epiro, de Acarnania y de Iliria, son colonias corintias: se examinan con Corcira en el dórico general, y sus menciones no se cuentan aquí.">
           <div style={{ display: "flex", justifyContent: "flex-end", gap: 6, marginBottom: 8 }}>
             <Btn active={!anillo} onClick={() => setAnillo(false)}>Total de menciones</Btn>
             <Btn active={anillo} onClick={() => setAnillo(true)}>Seguras frente a dudosas</Btn>
@@ -272,7 +272,7 @@ export default function DoricoNO({ switcher, subnav }) {
         </Sec>
 
         <Sec title="Alfabeto"
-          note="Recuento según la autopsia y la revisión de los alfabetos; las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ampracia.">
+          note="Recuento según la autopsia y la revisión de los alfabetos; las del alfabeto local de Dodona son I.Dodone DVC 1015A y 1368A (Lhôte 2006: 367). El alfabeto no se ha tomado como criterio de adscripción noroccidental, porque podría proceder tanto del Epiro como de Corcira o de Ambracia.">
           <DonutLegend data={ALF_PIE} height={210} valueColor={INK} />
         </Sec>
 

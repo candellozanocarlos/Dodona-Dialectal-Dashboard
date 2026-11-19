@@ -69,21 +69,21 @@ ROTULO_ALF = {"Dodona": "Local de Dodona", "Magna Grecia / Sicilia": "Magna Grec
               "Tesalio / Beocio": "Tesalio o beocio", "Mégara / Sición": "Mégara o Sición", "Eubea": "Euboico", "Otros": "Otros"}
 ALFABETOS = [{"name": ROTULO_ALF.get(k, k), "value": int(v), "clave": COLOR_ALF.get(k, "otros")} for k, v in s.items()]
 
-# int_4: cronología por siglos y transiciones (§2.3.4)
+# int_4: cronología por siglos y transiciones (§2.3.3)
 serie = df["Date"].map(lambda x: siglo_macro(parse_fecha(x))).value_counts()
 assert int(serie.sum()) == I.N["total"]
 CRONO = [{"period": ROTULO_SIGLO[k], "n": int(serie[k]), "siglo": k} for k in ROTULO_SIGLO if k in serie.index]
 
-# Capítulo 2, las laminillas: los apartados con su texto; el de la cronología (§2.3.4) va aparte, con sus cifras.
-DOCX = ultima("INTRODUCCIÓN", "INTRODUCCIÓN_v*.docx")
+# Capítulo 2, las laminillas: los apartados con su texto; el de la cronología (§2.3.3) va aparte, con sus cifras.
+DOCX = ultima("PARTE I. INTRODUCCIÓN", "INTRODUCCIÓN_v*.docx")
 pars = parrafos(DOCX)
 i0 = indices(pars, "2.1.")
 secs = secciones(pars, i0, next(i for i in range(i0, len(pars)) if pars[i][1].startswith("CAPÍTULO 3")))
-CRONO_TXT = next(ps for n, _, ps in secs if n == "2.3.4")
-for d in CRONO:   # las cifras de §2.3.4 han de ser las del Excel
+CRONO_TXT = next(ps for n, _, ps in secs if n == "2.3.3")
+for d in CRONO:   # las cifras de §2.3.3 han de ser las del Excel
     assert f"{d['n']:,}".replace(",", ".") in CRONO_TXT[0], d
 LAMINILLAS = [{**a, "name": a["name"].replace("carapanos", "Carapanos").replace("i.dodone dvc", "I.Dodone DVC")}
-              for a in apartados([x for x in secs if x[0] != "2.3.4"])]
+              for a in apartados([x for x in secs if x[0] != "2.3.3"])]
 # Al índice, las citas que renderDesc enlaza: “I.Dodone DVC 194A y 195B”.
 REF = re.compile(r"I\.Dodone (DVC|Lhôte) (\d+\w*)((?:(?:,\s*|\s+[ye]\s+)\d+\w*)*)")
 NUEVAS = anadir_a_indice({f"{c} {x}" for _, _, ps in secs for p in ps for c, a, b in REF.findall(p)
@@ -105,7 +105,7 @@ partes = [
     f"export const ALFABETOS_INT = {J(ALFABETOS)};",
     "// int_4: cronología por siglos y transiciones; siglo: clave de SIGLO_COLORS.",
     f"export const CHRONO_INT = {J(CRONO)};",
-    f"// Capítulo 2 ({DOCX.name}): apartados de las laminillas y texto de la cronología (§2.3.4).",
+    f"// Capítulo 2 ({DOCX.name}): apartados de las laminillas y texto de la cronología (§2.3.3).",
     f"export const SECCIONES_LAM = {J(LAMINILLAS)};",
     f"export const CRONOLOGIA_TXT = {J(CRONO_TXT)};",
     "",

@@ -12,7 +12,7 @@ The interface is in Spanish, the language of the thesis. Greek texts are given i
 
 ## How to cite
 
-> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* (v2.0.0) [Interactive atlas and source code]. Zenodo. https://doi.org/10.5281/zenodo.24130446
+> Candel Lozano, C. (2026). *Atlas dialectal de las laminillas oraculares de Dodona* (v2.1.0) [Interactive atlas and source code]. Zenodo. https://doi.org/10.5281/zenodo.24130445
 
 In BibTeX format:
 
@@ -22,9 +22,9 @@ In BibTeX format:
   title     = {{Atlas dialectal de las laminillas oraculares de Dodona}},
   year      = 2026,
   publisher = {Zenodo},
-  version   = {v2.0.0},
-  doi       = {10.5281/zenodo.24130446},
-  url       = {https://doi.org/10.5281/zenodo.24130446}
+  version   = {v2.1.0},
+  doi       = {10.5281/zenodo.24130445},
+  url       = {https://doi.org/10.5281/zenodo.24130445}
 }
 ```
 
@@ -32,7 +32,7 @@ Each release is archived in Zenodo with its own DOI. Cite the version you consul
 
 ## What the atlas contains
 
-The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopoulou and Christidis 2013) and the 202 of *I.Dodone Lhôte* (Lhôte 2006) that are not in it. Of these, 1,455 carry at least one dialect feature and receive a dialect attribution; the rest are too short, too fragmentary or written in a form common to all dialects.
+The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopoulou and Christidis 2013) and the 202 of *I.Dodone Lhôte* (Lhôte 2006) that are not in it. Of these, 1,453 carry at least one dialect feature and receive a dialect attribution; the rest are too short, too fragmentary or written in a form common to all dialects.
 
 | Part | Content |
 |---|---|
@@ -45,6 +45,8 @@ The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopo
 | **Autopsias** | Notes from the author's examination of 71 lamellae at the Ephorate of Antiquities of Ioannina (2024 and 2025), with facsimiles |
 
 Each part has its own address (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`, `#autopsias`), so a link can open the atlas at the relevant section.
+
+The complete lists of the inscriptions of each group and the record of the autopsies are also available as CSV files in the [`listas/`](./listas/) folder, which is archived in Zenodo with every version and allows the figures of the thesis to be checked.
 
 ## How to read it
 
@@ -74,7 +76,7 @@ The repository therefore contains the derived data and the code, but not the the
 
 | Material | Licence |
 |---|---|
-| Content: texts written for the atlas, tables, charts, derived data (`src/data`, the texts in `src/chapters`) and the author's facsimiles | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) |
+| Content: texts written for the atlas, tables, charts, derived data (`src/data`, `listas/`, the texts in `src/chapters`) and the author's facsimiles | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) |
 | Code: components, utilities, scripts and configuration | MIT |
 
 The following material keeps its own terms and is not covered by these licences:
@@ -115,8 +117,10 @@ src/
 scripts/
   comun.py           paths of the thesis sources and reading of the chapters
   datos_*.py         generators of src/data
+  listas_zenodo.py   writes listas/ from src/data
   comprobar.mjs      checks run by npm run check and by the public build
   coastline.py       coastlines and areas of the maps
+listas/              inscriptions of each group and autopsies, as CSV
 ```
 
 ## Author

@@ -31,6 +31,7 @@ EXCEL = UVA / "CAPÍTULOS TESIS" / "DVC_v5_FINAL.xlsx"
 SALIDA = RAIZ / "src" / "data" / "frontera.js"
 ANEXO = RAIZ / "src" / "data" / "anexoNoJonAt.json"
 CAPS = UVA / "CAPÍTULOS TESIS"
+PARTE5 = "PARTE V. MEZCLA, MINORITARIOS Y NO JON-ÁT/"   # desde el 16 nov. 2026, los caps. 13-15 están en esta carpeta
 
 
 def ultima(carpeta, patron):
@@ -99,7 +100,7 @@ def clave(r):
 alf_mez = G["mez"]["ALFABETO_GRUPO_v2"].fillna("").astype(str).str.strip()
 otros = G["mez"][alf_mez != ""]
 assert len(otros) == 0, otros["No DVC"].tolist()   # fila 195: 1012A pasa al jónico
-DOC_MEZ = ultima("MEZCLA DIALECTAL", "MEZCLA_1_Redaccion_v*.docx")
+DOC_MEZ = ultima(PARTE5 + "MEZCLA DIALECTAL", "MEZCLA_1_Redaccion_v*.docx")
 # Anexo 6.1: la clasificación de cada mezcla con la terminología del capítulo (la certeza, del Excel).
 # Las tablas del texto (§4-§5) van antes de las del anexo: se busca la primera de cabecera «Inscripción | Texto».
 A_MEZ = next(i for i, t in enumerate(docx.Document(DOC_MEZ).tables) if [c.text.strip() for c in t.rows[0].cells][:2] == ["Inscripción", "Texto"])
@@ -109,9 +110,9 @@ for _, r in G["mez"].iterrows():
     k = clave(r)
     ANEXO_MEZ.append([k, DA.fecha(r["Date"]), r["Text"] if pd.notna(r["Text"]) else "", CERT[r["DIALECTO_CERTEZA"]], CLAS_MEZ[k]])
 assert len(CLAS_MEZ) == len(ANEXO_MEZ) == MEZ.N["total"]
-# Anexo 6.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a) y su clasificación en la tesis.
-BIBLIO_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": e} for a, b, c, d, e in tabla(DOC_MEZ, A_MEZ + 2)]
-assert len(BIBLIO_MEZ) == 113, len(BIBLIO_MEZ)
+# Anexo 7.3, tabla 13: las 61 inscripciones que son mezclas para Crespo y Giannakis (2019), Giannakis (2024a) y la tesis.
+COINCIDEN_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": e} for a, b, c, d, e in tabla(DOC_MEZ, A_MEZ + 2)]
+assert len(COINCIDEN_MEZ) == 61 and all(b["tesis"].startswith("Mezcla") for b in COINCIDEN_MEZ), len(COINCIDEN_MEZ)
 TIPOS = [{"sec": s, "tipo": L(t), "noja": L(a), "ja": L(b), "expl": L(e), "seguras": n1, "dudosas": n2}
          for s, t, a, b, e, n1, n2 in MEZ.TIPOS]
 
@@ -130,41 +131,58 @@ def claves_celda(t):
     return out
 
 
-# Tabla 1 (§4): las mezclas aparentes, agrupadas por el motivo que las deshace (los apartados del §4).
-MOTIVOS_APARENTES = [
-    ("La autopsia corrige la lectura", r"^La autopsia"),
-    ("Manos o caras distintas", r"Manos distintas|Caras distintas"),
-    ("Alternancia de alfabetos", r"Alternancia de alfabetos"),
-    ("Vacilación gráfica", r"Vacilación gráfica|Subjuntivo"),
-    ("Otra lectura de la forma o del alfabeto", r"Preposición|Participio|valores invertidos|Texto quizá"),
-    ("Rasgos que no son exclusivos de un dialecto", r"comunes|Genitivo de Corcira"),
-]
-APARENTES_MEZ = []
-for ins, sup, mot, clas in tabla(DOC_MEZ, indice_tabla(DOC_MEZ, ["Inscripción", "Mezcla supuesta", "Motivo", "Clasificación en esta tesis"])):
-    g = [n for n, rx in MOTIVOS_APARENTES if re.search(rx, mot)]
-    assert len(g) == 1, (ins, mot, g)
-    APARENTES_MEZ.append({"grupo": g[0], "ref": ins, "dvcs": claves_celda(ins), "supuesta": sup, "motivo": mot, "tesis": clas})
-assert all(any(a["grupo"] == n for a in APARENTES_MEZ) for n, _ in MOTIVOS_APARENTES)
+# Tablas 1-5 (§4, figuras mez_10 a mez_14 de graficos_mezcla.py): las mezclas aparentes, una ficha por inscripción,
+# agrupadas por el motivo que las deshace (los apartados §4.1-§4.5); la clasificación, del Excel.
+SUFIJO = {"**": " (solo por un nombre)", "*": " (dudosa)"}
 
-# Tabla 9 (§7.3): las divergencias con Crespo y Giannakis. Bloque A, las 52 mezclas de los autores que la tesis
-# clasifica de otro modo, por motivo, con los recuentos del §2.3 (12, 7, 2, 3, 10 y 18); bloque B, las 34 que no recogen.
+
+def con_certeza(t):
+    for a, b in SUFIJO.items():
+        if t.endswith(a):
+            return t[:-len(a)] + b
+    return t
+
+
+APARENTES_MEZ = []
+for nombre, grupos in MEZ.T4.items():
+    titulo = MEZ.TITULOS_T[nombre].replace("Mezclas aparentes: ", "")
+    titulo = titulo[0].upper() + titulo[1:]
+    for rotulo, filas in grupos:
+        for sigla, atribuida, formas in filas:
+            lhote = sigla.startswith("Lhôte")
+            APARENTES_MEZ.append({"grupo": titulo, "subgrupo": rotulo, "ref": ("I.Dodone " if lhote else "I.Dodone DVC ") + sigla,
+                                  "dvcs": ["LOD " + sigla.split()[1] if lhote else sigla], "supuesta": atribuida,
+                                  "motivo": unicodedata.normalize("NFC", formas), "tesis": con_certeza(MEZ.clasificacion(df, sigla))})
+assert len(APARENTES_MEZ) == 52 + 3, len(APARENTES_MEZ)   # las 52 de la bibliografía y tres que solo comentan los editores
+
+# Tabla 14 (§7.3): las divergencias con Crespo y Giannakis. Bloque A, las 52 mezclas de los autores que la tesis
+# clasifica de otro modo, bajo una fila de banda por motivo (§4.1-§4.5: 12, 7, 5, 10 y 18); bloque B, las 34 que no recogen.
 DIV = tabla(DOC_MEZ, indice_tabla(DOC_MEZ, ["Inscripción", "Cronología", "Crespo y Giannakis", "Esta tesis", "Motivo"]))
 iB = next(i for i, f in enumerate(DIV) if f[0].startswith("B."))
 assert DIV[0][0].startswith("A.")
-MOTIVOS_DIV = {"tes": "Vacilación gráfica en consultas tesalias o beocias", "par": "Pregunta y respuesta, o caras, que se clasifican por separado",
-               "aut": "La autopsia deshace la mezcla", "lec": "La revisión de la lectura o del alfabeto",
-               "no": "Rasgos del noroccidental que comparte con la koiné", "sin": "Sin ninguna forma del otro grupo"}
-DIVERGENCIAS_MEZ = []
-for i, (ins, fecha_, cyg, tes, mot) in enumerate(DIV[1:iB]):
-    k = clave_cap(ins)
-    g = ("tes" if i < 12 else "par" if i < 19 else "aut" if k in ("2160", "2225A") else "lec" if k in ("98A", "1012A", "LOD 133A")
-         else "no" if i < 28 or k == "262B" else "sin")
-    DIVERGENCIAS_MEZ.append({"grupo": MOTIVOS_DIV[g], "ref": ins, "date": fecha_, "autores": cyg, "tesis": tes, "motivo": mot})
-_n = {v: sum(d["grupo"] == v for d in DIVERGENCIAS_MEZ) for v in MOTIVOS_DIV.values()}
-assert list(_n.values()) == [12, 7, 2, 3, 10, 18], _n
+DIVERGENCIAS_MEZ, grupo = [], None
+for ins, fecha_, cyg, tes, mot in DIV[1:iB]:
+    if ins == fecha_ == cyg:   # fila de banda: «Lecturas corregidas (§4.3): 5»
+        grupo = re.sub(r"\s*\(§[\d.]+\): \d+$", "", ins)
+        continue
+    pm = re.fullmatch(r"(.*?) \((20\d\d.*)\)", cyg)
+    DIVERGENCIAS_MEZ.append({"grupo": grupo, "ref": ins, "date": fecha_, "autores": pm.group(1) if pm else cyg,
+                             "pags": pm.group(2) if pm else "", "tesis": tes, "motivo": mot})
+_n = {}
+for d in DIVERGENCIAS_MEZ:
+    _n[d["grupo"]] = _n.get(d["grupo"], 0) + 1
+assert list(_n.values()) == [12, 7, 5, 10, 18], _n
 NO_RECOGIDAS_MEZ = [{"ref": a, "date": b, "autores": c, "tesis": d, "motivo": e} for a, b, c, d, e in DIV[iB + 1:]]
 assert len(NO_RECOGIDAS_MEZ) == 34 and len(DIVERGENCIAS_MEZ) == 52
-assert {clave_cap(d["ref"]) for d in DIVERGENCIAS_MEZ} == {clave_cap(b["ref"]) for b in BIBLIO_MEZ if not b["tesis"].startswith("Mezcla")}
+# Las 113 de la bibliografía: las 61 coincidencias y las 52 divergencias.
+BIBLIO_MEZ = COINCIDEN_MEZ + [{k_: d[k_] for k_ in ("ref", "date", "autores", "pags", "tesis")} for d in DIVERGENCIAS_MEZ]
+assert len(BIBLIO_MEZ) == 113 and not any(d["tesis"].startswith("Mezcla de") for d in DIVERGENCIAS_MEZ)
+assert {clave_cap(d["ref"]) for d in DIVERGENCIAS_MEZ} <= {a["dvcs"][0] for a in APARENTES_MEZ}
+
+# Tabla 6 (§4.6, figuras mez_14b): las 24 mezclas examinadas en autopsia, por su resultado principal.
+AUTOPSIAS_MEZ = [{"grupo": r, "items": [{"id": "LOD " + s_.split()[1] if s_.startswith("Lhôte") else s_,
+                                        "obs": unicodedata.normalize("NFC", o), "anio": a} for s_, o, a in filas]} for r, filas in MEZ.T_AUT]
+assert sum(len(g["items"]) for g in AUTOPSIAS_MEZ) == 24
 
 # ── Cap. 14: los dialectos minoritarios ───────────────────────────
 INSC_MIN = []
@@ -204,7 +222,7 @@ for f in ADS_MEZ:
         f["nota"] = f["nota"].replace("véase la tabla de tipos", "véase “Tipos de mezcla”")
 
 # Anexo (§6 del cap. 15): las 844, con la base de la adscripción de las dudosas y la de solo nombre.
-DOC_NJA = ultima("NO JON-ÁT", "NO_JON_AT_1_Redaccion_v*.docx")
+DOC_NJA = ultima(PARTE5 + "NO JON-ÁT", "NO_JON_AT_1_Redaccion_v*.docx")
 RASGOS_ANEXO = {clave_cap(a): c for a, _, c, _ in tabla(DOC_NJA, 0)}
 motivo = {k: f["base"] for f in ADS_NJA if f["tipo"] in ("dud", "nom") for k in f.get("dvcs", [])}
 anexo = []
@@ -227,9 +245,12 @@ def tramo(docx, inicio, fin):
     return apartados(secciones(pars, i0, i1))
 
 
-DOC_MIN = ultima("DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
-TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. EXPLICACIONES") + tramo(DOC_MEZ, "4. LAS MEZCLAS APARENTES", "5. TIPOLOG")
-EXPLICACIONES_MEZ = [x for x in tramo(DOC_MEZ, "6. EXPLICACIONES", "7. ANEXOS") if x["sec"] != "§6.6"]
+DOC_MIN = ultima(PARTE5 + "DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
+TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. ESCRITURA") + tramo(DOC_MEZ, "4. LAS MEZCLAS APARENTES", "5. TIPOLOG")
+for x in TIPOLOGIA_MEZ:   # sin los rótulos de las tablas-imagen («Tabla 6»)
+    x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
+# Desde la v36 la explicación de cada tipo cierra su apartado del §5; el §6 conserva la escritura y la fecha (§6.1) y la recapitulación (§6.2).
+EXPLICACIONES_MEZ = [x for x in tramo(DOC_MEZ, "6. ESCRITURA", "7. ANEXOS") if x["sec"] != "§6.2"]
 APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "7. ANEXOS")
 RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
 COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
@@ -241,7 +262,7 @@ partes = [
     "// Generado por scripts/datos_frontera.py: no editar a mano.",
     "// Capítulos 13-15 de la tesis (zonas de frontera): la mezcla dialectal, los dialectos minoritarios y las inscripciones",
     "// no jónico-áticas. Fuentes: DVC_v5_FINAL.xlsx, hoja Datos (DIALECTO_MACRO, DIALECTO_SUB, DIALECTO_CLEAN, DIALECTO_CERTEZA,",
-    "// Date, TEMA_MACRO, ALFABETO_GRUPO_v2; Resúmenes, fila 193), y las tablas de graficos_mezcla.py, graficos_minoritarios.py",
+    "// Date, TEMA_MACRO, ALFABETO_GRUPO_v2; Resúmenes, fila 195), y las tablas de graficos_mezcla.py, graficos_minoritarios.py",
     "// y graficos_no_jonico_aticas.py. Certeza: seguras, dudosas y de solo nombre (o alfabeto).",
     'import { ALFABETO_COLORS, C } from "../theme.js";',
     "",
@@ -264,13 +285,15 @@ partes = [
     f"export const ANEXO_MEZ = {J(ANEXO_MEZ)};",
     "// Anexo 7.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con su clasificación en la tesis.",
     f"export const BIBLIO_MEZ = {J(BIBLIO_MEZ)};",
-    "// Tabla 9: las 52 de los autores que la tesis clasifica de otro modo (bloque A), con el motivo agrupado como en el §2.3,",
+    "// Tabla 14: las 52 de los autores que la tesis clasifica de otro modo (bloque A), agrupadas por el motivo (§4.1-§4.5),",
     "// y las 34 mezclas de la tesis que no recogen (bloque B).",
     f"export const DIVERGENCIAS_MEZ = {J(DIVERGENCIAS_MEZ)};",
     f"export const NO_RECOGIDAS_MEZ = {J(NO_RECOGIDAS_MEZ)};",
-    "// Tabla 1 (§4): las mezclas aparentes, agrupadas por el motivo que las deshace.",
+    "// Tablas 1-5 (§4): las mezclas aparentes, una por inscripción, agrupadas por el motivo que las deshace.",
     f"export const APARENTES_MEZ = {J(APARENTES_MEZ)};",
-    f"// Texto de {DOC_MEZ.stem}: §5 (tipología), §4 (mezclas aparentes) y §6.1-§6.5 (explicaciones).",
+    "// Tabla 6 (§4.6): las mezclas examinadas en autopsia, por resultado.",
+    f"export const AUTOPSIAS_MEZ = {J(AUTOPSIAS_MEZ)};",
+    f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (mezclas aparentes) y §6.1 (escritura y fecha).",
     f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
     f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",
     "",
@@ -308,7 +331,7 @@ print(f"frontera.js: mezcla {len(G['mez'])}, minoritarios {len(G['min'])}, no j�
 
 # ── inscriptions.json: las inscripciones de las tablas y las citadas en Frontera.jsx ──
 citadas = {"DVC 81B", "DVC 2888B", "DVC 315A", "DVC 987B", "DVC 2667A", "DVC 2176", "DVC 1630A", "DVC 1562A", "DVC 257A",
-            "DVC 304B", "DVC 2098A", "DVC 2481A", "DVC 1613A", "DVC 2848A", "DVC 3869B", "DVC 33B", "DVC 2383A",
+            "DVC 304B", "DVC 2098A", "DVC 2481A", "DVC 1613A", "DVC 1131B", "DVC 2848A", "DVC 3869B", "DVC 33B", "DVC 2383A",
             "DVC 1376A", "DVC 3523B", "DVC 1025A+B", "Lhôte 133A", "DVC 729A", "DVC 1410", "Lhôte 11", "Lhôte 6A",
             "DVC 1012A", "DVC 2160", "DVC 2225A", "DVC 480B", "DVC 3977A", "DVC 2217A", "DVC 172A", "DVC 1993A", "DVC 2496B"}
 for t in ("mez", "min", "nja"):

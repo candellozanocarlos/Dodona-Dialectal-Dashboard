@@ -77,7 +77,7 @@ const EDICIONES = [
   { event: <i>I.Dodone Lhôte</i>, date: "2006", agent: "É. Lhôte",
     desc: "<i>Les lamelles oraculaires de Dodone</i> reúne todas las laminillas publicadas hasta entonces: 167 números, más tres <i>bis</i>, con unos doscientos textos. Es una edición crítica que revisa las lecturas, en muchos casos sobre los originales, ordena el corpus por temas y lo completa con estudios de conjunto (Lhôte 2006: 6-7, 22-25, 327-422; Méndez Dosuna 2008: 54-55)." },
   { event: <i>I.Dodone DVC</i>, date: "2013", agent: "S. Dakaris, I. Vokotopoulou y A.-Ph. Christidis; la completó S. Tselikas",
-    desc: "Las laminillas de las campañas de Evangelidis de 1929-1932 y 1935, con números de inventario hasta el 1380: unas 1.250 laminillas que contienen 4.216 textos, y cada texto recibe un número y la letra de la cara en que se encuentra (Tselikas 2017: 35; 2018: 249-250). Multiplicó por veinte el material conocido (Parker 2016: 71-72; Frank 2026: 6-7). Carece de la introducción que debían haber escrito los editores y de fotografías (Tselikas 2017: 36; 2018: 249 n. 2), y sus fechas no se justifican y tienden a ser demasiado altas (Méndez Dosuna 2016: 119; Lhôte 2017b: 41; Méndez Dosuna 2024, §3)." },
+    desc: "Sobre todo, las laminillas de las campañas de Evangelidis de 1929-1932 y 1935, con números de inventario hasta el 1380, y unas pocas de las excavaciones de los años cincuenta, como 15A-17B, 19A y 192A (I.Dodone Lhôte 36, 40 y 141, halladas en 1952): unas 1.250 laminillas que contienen 4.216 textos, y cada texto recibe un número y la letra de la cara en que se encuentra (Tselikas 2017: 35; 2018: 249-250). Multiplicó por veinte el material conocido (Parker 2016: 71-72; Frank 2026: 6-7). Carece de la introducción que debían haber escrito los editores y de fotografías (Tselikas 2017: 36; 2018: 249 n. 2), y sus fechas no se justifican y tienden a ser demasiado altas (Méndez Dosuna 2016: 119; Lhôte 2017b: 41; Méndez Dosuna 2024, §3)." },
   { event: "Dodona Online", date: "en curso", agent: "P. Bonnechere y un equipo internacional",
     desc: "Una reedición crítica de las laminillas, que se divide hoy en una selección comentada de textos, CIOD, y una reedición completa, <i>I.Dodone Online</i> (Méndez Dosuna 2016: 119 n. 4; Frank 2026: 7 n. 13)." },
 ];
@@ -136,13 +136,49 @@ export default function Introduccion({ switcher }) {
         <Sec title="Presentación" sub="Un corpus epigráfico singular para estudiar la variación dialectal del griego antiguo">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
-              Desde mediados del s. VI a.C. hasta el s. II a.C., miles de consultantes grabaron en finas hojas de plomo las preguntas que
-              dirigían a Zeus Nayo y a Dione, en los dialectos y en los alfabetos de quienes las formulaban. La publicación en 2013 de las
-              laminillas de las excavaciones de Evangelidis, que multiplicó por veinte el material conocido, ha hecho del santuario un lugar
-              privilegiado para estudiar la variación dialectal: en un mismo espacio y en unos mismos siglos conviven el dórico del Noroeste, el
-              de las colonias corintias y el de la Magna Grecia, el tesalio, el beocio, el jónico, el ático y la koiné. Las consultas son, sin
-              embargo, breves, fragmentarias y formulares, y la tesis las clasifica con criterios explícitos que distinguen lo que el texto
-              demuestra de lo que solo hace probable, con una calificación de certeza para cada adscripción.
+              El santuario de Zeus en Dodona, en el Epiro, al noroeste de Grecia, albergaba el oráculo que los griegos tenían por el más
+              antiguo, conocido ya por los poemas homéricos. En él se veneraba a Zeus Naio junto a Dione, y su posición, en el principal cruce
+              de caminos del interior de la región, le atrajo durante siglos consultantes de muchos y variados lugares. Las fuentes literarias
+              atribuyen al oráculo procedimientos muy diversos, del roble sagrado y las palomas a los calderos de bronce o el sorteo, pero
+              ninguna menciona que las preguntas se escribieran sobre plomo. Fueron las excavaciones las que sacaron a la luz esa práctica:
+              desde mediados del s. VI a.C. hasta el s. II a.C., miles de consultas se grabaron en finas hojas de ese metal, las laminillas
+              oraculares, que forman hoy uno de los corpus epigráficos más singulares del mundo griego. Sus textos, que dan testimonio de las
+              preocupaciones cotidianas de quienes consultaban el oráculo, están redactados en dialectos muy diversos, lo que los
+              convierte en una fuente excepcional para la dialectología griega.
+            </p>
+            <p style={{ ...BIG, margin: "12px 0 0" }}>
+              Las primeras laminillas aparecieron en las excavaciones que Carapanos llevó a cabo entre 1875 y 1877, pero el grueso del material
+              procede de las campañas que Evangelidis dirigió para la Sociedad Arqueológica de Atenas entre 1929 y 1959. Durante decenios, de
+              esas laminillas solo se publicó una selección, y cuando Lhôte reunió en 2006 todas las conocidas hasta entonces, su edición
+              crítica (I.Dodone Lhôte) no pasaba de unas doscientas inscripciones. En 2013 vio la luz, por fin, la edición que Dakaris,
+              Vokotopoulou y Christidis habían emprendido en los años setenta y que, tras la muerte de los tres, completó Tselikas: unas 1.250
+              laminillas, casi todas de las campañas de 1929-1932 y 1935, con 4.216 inscripciones. Esa edición (I.Dodone DVC), que multiplicó por veinte
+              el material conocido, ha convertido el santuario en un lugar privilegiado para estudiar la variación dialectal del griego
+              antiguo: en un mismo espacio y en unos mismos siglos conviven el dórico del Noroeste, el de las colonias corintias y el de la
+              Magna Grecia, el tesalio, el beocio, el jónico, el ático y la koiné, junto a textos de dialecto mixto y de hablantes cuya lengua
+              materna no era el griego.
+            </p>
+            <p style={{ ...BIG, margin: "12px 0 0" }}>
+              Este material plantea, sin embargo, dificultades considerables. La mayoría de las consultas son breves, fragmentarias y
+              formulares, no declaran la procedencia de quien pregunta y conservan pocos rasgos que permitan atribuirlas a un dialecto
+              concreto. Quizá por ello, y pese al número de trabajos que se han ocupado de la lengua de las laminillas, nadie ha emprendido
+              hasta ahora el estudio dialectal del corpus completo. Las monografías más recientes sobre el santuario y sobre las consultas
+              remiten todavía, para la distribución dialectal de las laminillas, al análisis que Lhôte (2006: 363-380) hizo de las 167 de su
+              corpus en 2006 (Chapinal-Heras 2021: 183-184; Frank 2026: 9 n. 21). La bibliografía ha examinado dialectos, rasgos y textos
+              concretos y coincide en el predominio del dórico, pero no ha ofrecido una clasificación de todas las inscripciones basada en
+              criterios explícitos, ni una descripción de conjunto de las variedades que documentan, ni una medida de lo que cada una
+              representa. Esta tesis se propone llenar ese vacío con el estudio dialectal de todas las inscripciones de las dos ediciones de
+              referencia, I.Dodone DVC e I.Dodone Lhôte, que reúnen {miles(TOTAL_INSCRIPCIONES)} inscripciones, de las que {miles(CLAS)}{" "}
+              conservan algún rasgo dialectal visible.
+            </p>
+            <p style={{ ...BIG, margin: "12px 0 0" }}>
+              El presente trabajo adopta, de forma deliberada, el método clásico de la dialectología griega, el que Méndez Dosuna (1985: 9-10)
+              formuló en su gramática de los dialectos del Noroeste: recoger y sistematizar los hechos de interés lingüístico de las
+              inscripciones y contrastarlos con la documentación epigráfica de cada región y con las gramáticas de referencia, desde una
+              perspectiva ante todo descriptiva, que no rehúye la explicación histórica cuando los datos la piden. A los ámbitos más habituales
+              del estudio dialectal, la fonética y la morfología, se unen otros que han recibido menos atención, como la sintaxis, el léxico y
+              la onomástica. Las inscripciones se han clasificado con unos mismos criterios, y cada adscripción se califica como segura o
+              dudosa, salvo las que solo se apoyan en un nombre o en el alfabeto, que forman una tercera categoría.
             </p>
           </Card>
         </Sec>
@@ -169,12 +205,12 @@ export default function Introduccion({ switcher }) {
               sagrado rodeado de calderos sobre trípodes (Chapinal-Heras 2021: 24-27).
             </Bloque>
             <Bloque t="Época helenística y romana">
-              El reinado de Pirro (297-272 a.C.) marcó su apogeo, con el bouleuterion, el pritaneo, el gran teatro y las Nayas, que a comienzos
+              El reinado de Pirro (297-272 a.C.) marcó su apogeo, con el bouleuterion, el pritaneo, el gran teatro y las Naia, que a comienzos
               del s. II a.C. alcanzaron la categoría de juegos estefanitas. Los etolios lo saquearon en el 219 a.C., y en el 167 a.C. las tropas
               de Emilio Paulo arrasaron el Epiro (Plb. 4.67.3; 30.15).
             </Bloque>
             <Bloque t="El oráculo y su ámbito">
-              El dios era Zeus Nayo, al que acompañaba Dione como σύνναος (Str. 7.7.12). Las fuentes atribuyen al oráculo procedimientos muy
+              El dios era Zeus Naio, al que acompañaba Dione como σύνναος (Str. 7.7.12). Las fuentes atribuyen al oráculo procedimientos muy
               diversos (el roble, las palomas, los calderos, el sorteo), y el sorteo es el único que una parte de la bibliografía reconoce en las
               propias laminillas (Parker 2015: 111-112).
             </Bloque>
@@ -278,14 +314,14 @@ export default function Introduccion({ switcher }) {
               <Stat label="Seguras" value={miles(CERTEZA_INT.seguras)} sub={`el ${pct(CERTEZA_INT.seguras, CLAS)} %`} accent={C.blue} />
               <Stat label="Dudosas" value={String(CERTEZA_INT.dudosas)} sub={`el ${pct(CERTEZA_INT.dudosas, CLAS)} %`} accent={ORO} />
               <Stat label="De solo nombre o alfabeto" value={String(CERTEZA_INT.nombre)} sub={`el ${pct(CERTEZA_INT.nombre, CLAS)} %`} accent={C.muted} />
-              <Stat label="Dórico demostrado" value={String(DEMOSTRADO)} sub={`el ${pct(DEMOSTRADO, CLAS)} %; probable, 328-494`} accent={C.terra} />
+              <Stat label="Dórico demostrado" value={String(DEMOSTRADO)} sub={`el ${pct(DEMOSTRADO, CLAS)} %; probable, 334-500`} accent={C.terra} />
             </Stats>
             <Card>
               <p style={PROSE}>
                 Las no jónico-áticas reúnen casi seis de cada diez inscripciones clasificadas: no son un dialecto, sino el reflejo de las
                 condiciones del corpus. El dórico demostrado, con rasgos que excluyen los dialectos eólicos o con un rasgo no jónico-ático apoyado
-                por el alfabeto, suma {DEMOSTRADO} inscripciones, y el probable, que añade una parte de las no jónico-áticas, se sitúa entre 328 y
-                494. El tesalio, con {nDialecto(["Tesalio"])}, es el tercer dialecto mejor representado, muy por encima del beocio
+                por el alfabeto, suma {DEMOSTRADO} inscripciones, y el probable, que añade una parte de las no jónico-áticas, se sitúa entre 334 y
+                500. El tesalio, con {nDialecto(["Tesalio"])}, es el tercer dialecto mejor representado, muy por encima del beocio
                 ({nDialecto(["Beocio"])}), pese a que la tradición literaria vincula a Beocia con el santuario con más fuerza. La proporción de
                 dudosas crece con la precisión de la adscripción: cuanto más precisa es, menor es la base textual que la sostiene.
               </p>

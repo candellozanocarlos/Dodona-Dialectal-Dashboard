@@ -33,7 +33,7 @@ const REGIONES_JAK = [{ t: "EPIRO", lon: 20.9, lat: 39.95 }, { t: "PELOPONESO", 
   { t: "ITALIA", lon: 16.2, lat: 40.7 }, { t: "SICILIA", lon: 14.75, lat: 37.4 }];
 const NOTAS_JAK = ["Lugares citados en las inscripciones del capítulo, no territorios de habla jónico-ática.",
   "El tamaño del símbolo es proporcional al número de menciones.",
-  "Sin cartografiar: Mesene o Mesina, el etnónimo Τισατε͂ς y Libia, que queda más al sur."];
+  "Sin cartografiar: Mesene o Mesina y el etnónimo Τισατε͂ς."];
 const MENCIONES_JAK = TOPONYMS_JAK.flatMap((t) => t.mentions.map((m) => ({ ...m, place: t.name })));
 const SEG_JAK = MENCIONES_JAK.filter((m) => m.certain).length;
 
@@ -166,7 +166,7 @@ const CONTEXTO = {
       ["Comerciantes y navegantes jonios", <>
         El εἰρωτᾶι de <Ref src="DVC" id="1881A" /> (principios del s. IV a.C.) y de <Ref src="Lhôte" id="100A" /> (primer cuarto del
         s. IV a.C.) remite al jónico minorasiático. Esquilino pregunta en esta última si le conviene navegar hacia el Adriático, en los
-        años en que Dionisio el Viejo refundaba el emporio de Adria, y unos navegantes dudan entre quedarse en Ampracia o partir hacia
+        años en que Dionisio el Viejo refundaba el emporio de Adria, y unos navegantes dudan entre quedarse en Ambracia o partir hacia
         Μεσσήνην en <Ref src="Lhôte" id="106A" /> (s. IV a.C.); ocho de las quince consultas jonias se refieren al trabajo o al comercio.
       </>],
     ],
@@ -191,7 +191,7 @@ const CONTEXTO = {
       { event: "Dedicatoria de una victoria naval", date: "s. V a.C.", agent: "los atenienses",
         desc: "Ἀθεναῖοι ἀπὸ Πελοπον[ν]εσίον ναυμαχίᾳ νικέσαντες ἀ[νέθεσαν], en alfabeto ático anterior a la reforma (Carapanos 1878: 47, n.º 20 = I.Molossie 8). La batalla no puede precisarse: se han propuesto Cecrifalia (459-458 a.C.), la de Formión en Patras (429 a.C.) y la intervención en Síbota (433 a.C.) (Cabanes 2020: 209; Piccinini 2017: 144-145)." },
       { event: "Respuestas leídas por Demóstenes", date: "348/7 a.C.", agent: "el pueblo ateniense",
-        desc: "Dos respuestas del Zeus de Dodona ordenan enviar teoros, sacrificar tres bueyes a Zeus Nayo y uno a Dione, dedicar una mesa de bronce junto a la ofrenda del pueblo ateniense y celebrar sacrificios públicos a Dioniso (D. XXI, 51-54)." },
+        desc: "Dos respuestas del Zeus de Dodona ordenan enviar teoros, sacrificar tres bueyes a Zeus Naio y uno a Dione, dedicar una mesa de bronce junto a la ofrenda del pueblo ateniense y celebrar sacrificios públicos a Dioniso (D. XXI, 51-54)." },
       { event: "La estatua de Dione", date: "años de Olimpíade", agent: "Atenas, Olimpíade",
         desc: "Según Hipérides, el dios ordenó embellecer la estatua de Dione, y la ciudad le hizo un rostro nuevo, le preparó un rico adorno y envió una procesión con un sacrificio costoso, lo que provocó las quejas de Olimpíade, que reclamaba como suya Molosia (Hyp. Eux. 24-26)." },
       { event: "Trigo del Epiro", date: "ca. 330 a.C.", agent: "Leócrates, Cleopatra",
@@ -199,7 +199,7 @@ const CONTEXTO = {
     ],
     fuentes: [
       { author: "Esquilo, Sófocles y Eurípides", type: "Tragedia, s. V a.C.",
-        desc: "Dodona es un hito geográfico en las Suplicantes (A. Supp. 256-259), interviene en la historia de Ío en el Prometeo encadenado (A. Pr. 659-661, 829-835) y desempeña un papel decisivo en las Traquinias, que conocen la encina, las peleíades y los Selloi (S. Tr. 171-172, 1166-1168); la Andrómaca de Eurípides presupone un público familiarizado con la Molosia (Piccinini 2017: 142-144)." },
+        desc: "Dodona es un hito geográfico en las Suplicantes (A. Supp. 256-259), interviene en la historia de Ío en el Prometeo encadenado (A. Pr. 659-661, 829-835) y desempeña un papel decisivo en las Traquinias, que conocen el roble, las peleíades y los <i>selloi</i> (S. Tr. 171-172, 1166-1168); la Andrómaca de Eurípides presupone un público familiarizado con la Molosia (Piccinini 2017: 142-144)." },
       { author: "Demóstenes, Dinarco y Jenofonte", type: "Oratoria y tratados, s. IV a.C.",
         desc: "Demóstenes alude a los oráculos de Dodona favorables a la ciudad (D. XVIII, 253; XIX, 299) y Dinarco hace leer uno que advertía contra sus dirigentes (Din. I, 78); Jenofonte aconseja consultar a Dodona y a Delfos antes de su reforma financiera con la misma fórmula de las laminillas, εἰ λῷον καὶ ἄμεινον εἴη ἂν τῇ πόλει (X. Vect. 6, 2-3)." },
       { author: "Plutarco y Pausanias", type: "Biografía y periégesis",
@@ -208,12 +208,12 @@ const CONTEXTO = {
     bloques: [
       ["El culto de Dodona en Atenas", <>
         Las cuentas del Erecteo del 409/8 y del 408/7 a.C. mencionan un altar de Dione, un sitial del teatro de Dioniso está dedicado a la
-        diosa en el s. IV a.C. y en el s. I a.C. se dedicaba todavía en la Acrópolis un altar a Zeus Nayo; un decreto del 263/2 a.C.
+        diosa en el s. IV a.C. y en el s. I a.C. se dedicaba todavía en la Acrópolis un altar a Zeus Naio; un decreto del 263/2 a.C.
         recuerda que el santuario de Bendis en el Pireo se fundó de acuerdo con una respuesta de Dodona (Piccinini 2017: 137-140).
       </>],
       ["Las ofrendas de los atenienses", <>
         Las ofrendas muestran la devoción privada: entre los bronces hallados en el santuario figura la placa de un cofrecillo con la
-        dedicatoria Διὶ Ναΐῳ Φιλῖνος Ἀθηναῖος (I.Molossie 25), y el atleta Μηνόδωρος Γναίου Ἀθηναῖος venció dos veces en las Nayas de
+        dedicatoria Διὶ Ναΐῳ Φιλῖνος Ἀθηναῖος (I.Molossie 25), y el atleta Μηνόδωρος Γναίου Ἀθηναῖος venció dos veces en las Naia de
         Dodona, según la base de su estatua en Delos (I.Molossie 257).
       </>],
       ["Atenienses seguros y posibles en las laminillas", <>
@@ -251,7 +251,7 @@ const CONTEXTO = {
       { event: "Congreso de Corinto", date: "338/7 a.C.", agent: "Filipo II, Atenas",
         desc: "El juramento de los atenienses como miembros de la liga, IG II² 236, con κατὰ [θ]άλασ[σαν], es el primer documento con la σσ de la koiné; Crespo (2010a: 142-145; 2010b: 132-134) atribuye su fijación a una elección consciente de la corte de Filipo II." },
       { event: "Alejandro el Moloso y Olimpíade", date: "342-331 a.C.", agent: "Filipo II, Alejandro, Olimpíade",
-        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopea y las ciudades eleas, y el reino moloso llega al golfo de Ampracia; tras su muerte en Italia, Olimpíade gobierna Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
+        desc: "Filipo entrega a Alejandro, criado en Pela, la Casopea y las ciudades eleas, y el reino moloso llega al golfo de Ambracia; tras su muerte en Italia, Olimpíade gobierna Molosia, que queda en estrecha dependencia de Macedonia (Cabanes 2020: 147, 149)." },
       { event: "La lengua común de los griegos", date: "desde finales del s. IV a.C.", agent: "Alejandro y sus sucesores",
         desc: "La koiné se convierte en la lengua oficial de un territorio inmenso; el término κοινὴ διάλεκτος procede probablemente de los gramáticos alejandrinos de los ss. III-II a.C. (Colvin 2007: 63; Bubenik 2014: 279-280)." },
     ],
@@ -352,7 +352,7 @@ export default function JonicoAtico({ switcher }) {
                 <Card>
                   <div style={{ fontFamily: "var(--fh)", fontSize: 15, color: C.heading, marginBottom: 6 }}>Selecciona un lugar</div>
                   <p style={PROSE}>
-                    Los lugares dibujan sobre todo rutas marítimas: Apolonia, Ampracia, Alicia, Siracusa y el Adriático son destinos de viajes
+                    Los lugares dibujan sobre todo rutas marítimas: Apolonia, Ambracia, Alicia, Siracusa y el Adriático son destinos de viajes
                     de consultantes que navegaban por el Jónico y el Adriático, por las mismas vías que los dóricos de las colonias. Fuera de
                     esas rutas solo figuran los lugares de origen o de residencia de tres consultantes, Atenas y Cime; Escíone, en la
                     Calcídica, si es un topónimo, es el objeto de una pregunta y no la patria del consultante.
