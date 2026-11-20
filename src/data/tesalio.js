@@ -276,7 +276,7 @@ export const VOWEL_EXAMPLES_TES = [
   { src: "DVC", id: "2204A", cat: 2, date: "finales del s. V a.C.", region: "Histiót.?", form: "Δουδωναίει ἦ" },
   { src: "DVC", id: "3002B", cat: 2, date: "primera mitad del s. IV a.C.", region: "—", form: "ἦ γαοργέουμ̣[εν]"  },
   { src: "DVC", id: "3055A", cat: 2, date: "mediados del s. IV a.C.", region: "—", form: "Διώνα, ἐκ Κούας" },
-  { src: "DVC", id: "3113A", cat: 2, date: "finales del s. IV a.C.", region: "Pelasg.", form: "εἶ, σούσεται, [Δι]ώνη<ι>" },
+  { src: "DVC", id: "3113A", cat: 2, date: "finales del s. IV a.C.", region: "Pelasg.", form: "εἶ, σούσεται, [Δι]ώνη{ι}" },
   { src: "Lhôte", id: "80A", cat: 2, date: "primera mitad del s. IV a.C.", region: "—", form: "Ἐρουτᾶι, Διώναν, ὠφέλιμον" },
   { src: "DVC", id: "556A", cat: 3, date: "finales del s. IV a.C.", region: "Pelasg.", form: "ἀρρωστήσαεν, ὀφθαλμῶν" },
   { src: "DVC", id: "992A", cat: 3, date: "segunda mitad del s. IV a.C.", region: "Tesaliót.", form: "Μέννη, θεῶν" },
