@@ -41,7 +41,7 @@ El corpus reúne 4.418 textos: los 4.216 de *I.Dodone DVC* (Dakaris, Vokotopoulo
 | **Dialectos eólicos** | El tesalio y el beocio: contexto, mapa, perfil dialectal, vocalismo y rasgos compartidos |
 | **Jónico-ático y koiné** | El jónico, el ático y la koiné: contexto, mapa, perfil dialectal y lista de inscripciones |
 | **Mezcla dialectal** | Textos que combinan rasgos de dialectos incompatibles: concepto y criterio, comparación con las listas anteriores, mezclas aparentes, tipología y explicaciones |
-| **Minoritarios y no jónico-áticas** | Los dialectos con pocos textos (macedonio, eleo, acayo, laconio, rodio y textos no griegos) y los textos de los que solo puede demostrarse que no son jónico-áticos |
+| **Otros dialectos y no jónico-áticas** | Los dialectos con pocos textos (macedonio, eleo, acayo, laconio, rodio y textos no griegos) y los textos de los que solo puede demostrarse que no son jónico-áticos |
 
 Cada parte tiene su propia dirección (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`), de modo que un enlace puede abrir el atlas en la parte que interese.
 

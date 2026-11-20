@@ -41,7 +41,7 @@ The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopo
 | **Dialectos eólicos** | Thessalian and Boeotian: context, map, dialect profile, vowel system and shared features |
 | **Jónico-ático y koiné** | Ionic, Attic and koine: context, map, dialect profile and the list of inscriptions |
 | **Mezcla dialectal** | Texts that combine features of incompatible dialects: definition and criterion, comparison with earlier lists, apparent mixtures, typology and explanations |
-| **Minoritarios y no jónico-áticas** | Dialects with few texts (Macedonian, Elean, Achaean, Laconian, Rhodian, non-Greek texts) and the texts that can only be shown not to be Ionic-Attic |
+| **Other dialects and non-Ionic-Attic** | Dialects with few texts (Macedonian, Elean, Achaean, Laconian, Rhodian, non-Greek texts) and the texts that can only be shown not to be Ionic-Attic |
 
 Each part has its own address (`#introduccion`, `#dorico`, `#eolicos`, `#jonico-atico`, `#mezcla`, `#minoritarios`), so a link can open the atlas at the relevant section.
 

@@ -24,13 +24,13 @@ import { AdscripcionTable } from "../components/Adscripcion.jsx";
 import { Anexo, InscripcionCard } from "../components/Anexo.jsx";
 
 const MEZ = DIALECT_COLORS.mezcla, MEZ_INK = DIALECT_INK.mezcla;
-// Minoritarios: gris pizarra, color propio de la interfaz (los gráficos de la tesis usan el gris de “otros”).
+// Otros dialectos: gris pizarra, color propio de la interfaz (los gráficos de la tesis usan el gris de “otros”).
 const MIN = "#7d8a99", MIN_INK = "#56677a";
 const NJA = DIALECT_COLORS.noJonAt, NJA_INK = DIALECT_INK.noJonAt;
 const NOMBRE = "#cbbf9f";   // solo nombre o alfabeto (CERTEZA_COLORES de los gráficos de la tesis)
 
 const SUBSECCIONES = [
-  { id: "minoritarios", label: "Dialectos minoritarios", color: MIN },
+  { id: "minoritarios", label: "Otros dialectos", color: MIN },
   { id: "nja", label: "Las inscripciones no jónico-áticas", color: NJA_INK },
 ];
 
@@ -298,8 +298,8 @@ export function Mezcla({ switcher, subnav = null }) {
             <Cifras total={TOTAL_MEZ} cert={CERTEZA_MEZ} color={MEZ_INK} />
             <Card>
               <p style={PROSE}>
-                Dos de cada tres mezclas son dudosas o descansan en un nombre, la proporción más alta del corpus después de la de los dialectos
-                minoritarios: una mezcla exige dos rasgos y no uno, y basta con que cualquiera de ellos dependa de una letra insegura, de una
+                Dos de cada tres mezclas son dudosas o descansan en un nombre, la proporción más alta del corpus después de la de los otros
+                dialectos: una mezcla exige dos rasgos y no uno, y basta con que cualquiera de ellos dependa de una letra insegura, de una
                 restitución o de una forma de doble lectura, como [ἐπερ]ωτᾶι en <Ref src="DVC" id="3869B" /> (primera mitad del
                 s. IV a.C.) o Χ̣ιόνη en <Ref src="DVC" id="33B" /> (ss. V-IV a.C.). En las de solo nombre, como la esclava Ἀριστοβούλαν
                 en <Ref src="DVC" id="2383A" /> (ss. V-IV a.C.), la mezcla informa sobre la circulación de los nombres y no sobre la lengua
@@ -437,7 +437,7 @@ function Minoritarios({ switcher, subnav }) {
   const ant = CHRONO_MIN.filter((d) => /s\. V\b|s\. VI|VI–V/.test(d.period) && !d.period.includes("V–IV")).reduce((a, d) => a + d.n, 0);
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={MIN_INK} accent={[C.terra, MIN, C.blue, C.green]}
-      title={<>Los <em style={{ fontWeight: 700, color: MIN_INK }}>dialectos minoritarios</em> en las laminillas oraculares de Dodona</>}
+      title={<><em style={{ fontWeight: 700, color: MIN_INK }}>Otros dialectos</em> en las laminillas oraculares de Dodona</>}
       subtitle="Macedonio, eleo, acayo, rodio y textos no griegos · El alcance del oráculo más allá del Epiro"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_MIN)} sub="ss. VI–IV a.C." accent={MIN_INK} />
@@ -446,7 +446,7 @@ function Minoritarios({ switcher, subnav }) {
         <Stat label="Anteriores al 400 a.C." value={String(ant)} sub={`de ${TOTAL_MIN}`} accent={C.blue} />
       </>}
       tabs={[
-        { id: "context", l: "Los dialectos minoritarios", i: "📜" },
+        { id: "context", l: "Otros dialectos", i: "📜" },
         { id: "profile", l: "Perfil dialectal", i: "Α" },
         { id: "grupos", l: "Dialectos y consultas", i: "Ω" },
         { id: "anexo", l: "Las inscripciones", i: "Ψ" },
@@ -488,7 +488,7 @@ function Minoritarios({ switcher, subnav }) {
       </>}
 
       {tab === "profile" && <>
-        <Sec title="Los dialectos minoritarios en el corpus de Dodona">
+        <Sec title="Otros dialectos en el corpus de Dodona">
           <Cifras total={TOTAL_MIN} cert={CERTEZA_MIN} color={MIN_INK} nombre="solo nombre o alfabeto" />
           <Card>
             <p style={PROSE}>
@@ -505,7 +505,7 @@ function Minoritarios({ switcher, subnav }) {
         <Sec title="Dialectos del grupo">
           <PorCerteza data={DIALECTOS_MIN} color={MIN} left={150} />
         </Sec>
-        <Sec title="Los dialectos minoritarios en contexto" sub="Macrogrupos dialectales del corpus de Dodona; los dialectos minoritarios figuran como “Otros”">
+        <Sec title="Otros dialectos en contexto" sub="Macrogrupos dialectales del corpus de Dodona; estos dialectos figuran como “Otros”">
           <Bars horizontal data={MACROGRUPOS} highlight="Otros" height={300} left={200} />
         </Sec>
         <Sec title="Distribución cronológica" sub="Las que se identifican por el alfabeto son anteriores al 400 a.C.; las del s. IV a.C., por formas o antropónimos">
@@ -533,7 +533,7 @@ function Minoritarios({ switcher, subnav }) {
       </>}
 
       {tab === "anexo" && (
-        <Sec title="Las inscripciones de los dialectos minoritarios" sub="Agrupadas por dialecto, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+        <Sec title="Las inscripciones de otros dialectos" sub="Agrupadas por dialecto, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
           <Anexo rows={ANEXO_MIN} color={MIN_INK} tint={MIN} grupo={(r) => r[4]} orden={ORDEN_MIN} />
         </Sec>
       )}
@@ -674,7 +674,7 @@ function NoJonAt({ switcher, subnav }) {
 
 export default function Frontera({ switcher }) {
   const [sub, setSub] = useState("minoritarios");
-  const subnav = <SectionNav label="Dialectos minoritarios e inscripciones no jónico-áticas" items={SUBSECCIONES} value={sub}
+  const subnav = <SectionNav label="Otros dialectos e inscripciones no jónico-áticas" items={SUBSECCIONES} value={sub}
     onChange={setSub} tint={NJA} />;
   const View = sub === "nja" ? NoJonAt : Minoritarios;
   return <View switcher={switcher} subnav={subnav} />;

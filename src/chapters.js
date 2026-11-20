@@ -14,7 +14,7 @@ export const CHAPTERS = [
   { id: "jonico-atico", label: "Jónico-ático y koiné", color: DIALECT_COLORS.jonicoAtico, Component: lazy(() => import("./chapters/JonicoAtico.jsx")) },
   { id: "mezcla", label: "Mezcla dialectal", color: DIALECT_COLORS.mezcla,
     Component: lazy(() => import("./chapters/Frontera.jsx").then((m) => ({ default: m.Mezcla }))) },
-  { id: "minoritarios", label: "Minoritarios y no jónico-áticas", color: "#56677a", Component: lazy(() => import("./chapters/Frontera.jsx")) },
+  { id: "minoritarios", label: "Otros dialectos y no jónico-áticas", color: "#56677a", Component: lazy(() => import("./chapters/Frontera.jsx")) },
   // Las autopsias no se publican: su parte solo puede aparecer en la versión local (MOSTRAR_AUTOPSIAS en sitio.js) y si
   // existen sus datos, fuera del repositorio.
   ...(import.meta.env.MODE !== "publico" && MOSTRAR_AUTOPSIAS && Object.keys(import.meta.glob("./data/autopsias.js")).length > 0

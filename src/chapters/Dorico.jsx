@@ -151,7 +151,7 @@ export default function Dorico({ switcher }) {
                 2006: 20); el dórico de Sicilia, en cambio, es <i>mitior</i>. Basta, por tanto, para reconocer a un consultante dórico
                 foráneo, pero solo un dato adicional (topónimo, antropónimo, alfabeto epicórico o léxico regional) permite afinar su
                 procedencia. De esas áreas, solo la Magna Grecia está documentada con seguridad en Dodona y forma un bloque coherente;
-                Laconia y la Élide se tratan entre los dialectos minoritarios.
+                Laconia y la Élide se tratan entre los otros dialectos.
               </p>
             </Card>
             <Card accent={C.blue}>
