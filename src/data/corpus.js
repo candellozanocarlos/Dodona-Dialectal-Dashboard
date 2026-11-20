@@ -24,7 +24,9 @@ import { DIALECT_COLORS } from "../theme.js";
 // Fila 195, 10/11/2026: 98A y 1012A pasan de la mezcla al jónico (dudosas) y Lhôte 133A a NO JON-ÁT (dudosa): mezcla 95, jónico-ático-koiné 139, NO JON-ÁT 845; global sin cambios.
 // Fila 191, 9/11/2026: nueve consultas con εἰ como único rasgo a dudosas (JAK 76/59/2) y 35A a «FÓRMULA», dudosa (mezcla 33/54/11); global 1.112/317/26, sin cambio de los totales.
 // Fila 204, 16/11/2026: 443A y 3347A (πέρ ante laguna) pasan de NO JON-ÁT a sin clasificar: NO JON-ÁT 843 (763/78/2); global 1.453 (1.110/317/26).
-export const TOTAL_CORPUS = 1453;
+// Fila 205, 20/11/2026: diez inscripciones con la raíz πᾱσ- de παμπασία visible pasan al dórico general (dudosas): 324B, 716A, 1104A, 1986A,
+// 3119B, 3334B, 3394A y 3791A (sin clasificar) y 1428A y Lhôte 58B (NO JON-ÁT): dórico general 186, NO JON-ÁT 841 (761/78/2); global 1.461 (1.108/327/26).
+export const TOTAL_CORPUS = 1461;
 
 // Inscripciones de cada capítulo.
 export const TOTAL_TES = 80; // 75 hasta el 23/10; entran como dudosas 1158B (23/10) y 1352A, 3034B y 995A (24/10, fila 164); 4162B, doble con el jónico (28/10, fila 176)
@@ -34,15 +36,16 @@ export const TOTAL_SEV = 16;
 // Fila 173, 27/10/2026: 1673B, 3612B y 3871 pasan de Doris mitior a NO JON-ÁT (dórico general 176 → 173; no jónico-áticas 839 → 842).
 // Fila 182, 2/11/2026: entra 1993A (-μες; antes eleo): Doris mitior 172 + Dórico Magna Grecia 2 = 174.
 // Fila 186, 3/11/2026: entran 257A y 574A: Doris mitior 174 + Dórico Magna Grecia 2 = 176.
-export const TOTAL_DOR = 176;
+// Fila 205, 20/11/2026: entran diez con παμπασία legible: Doris mitior 184 + Dórico Magna Grecia 2 = 186.
+export const TOTAL_DOR = 186;
 export const TOTAL_DOR_NO = 75;
 
-// Macrogrupos dialectales del corpus (suman TOTAL_CORPUS), de mayor a menor; DIALECTO_MACRO del Excel (3/11/2026, fila 186).
-// Como en los gráficos de la tesis, el macrogrupo Dórico (251) se divide según DIALECTO_SUB en dórico general
-// (Doris mitior 174 + Dórico Magna Grecia 2 = 176) y noroccidental (Dórico NO, 75).
+// Macrogrupos dialectales del corpus (suman TOTAL_CORPUS), de mayor a menor; DIALECTO_MACRO del Excel (20/11/2026, fila 205).
+// Como en los gráficos de la tesis, el macrogrupo Dórico (261) se divide según DIALECTO_SUB en dórico general
+// (Doris mitior 184 + Dórico Magna Grecia 2 = 186) y noroccidental (Dórico NO, 75).
 // Fuente única de los gráficos “… en contexto” de todos los capítulos; cada macrogrupo lleva su color de DIALECT_COLORS.
 export const MACROGRUPOS = [
-  { name: "No jónico-ático (sin precisar)", value: 843, color: DIALECT_COLORS.noJonAt },
+  { name: "No jónico-ático (sin precisar)", value: 841, color: DIALECT_COLORS.noJonAt },
   { name: "Dórico general", value: TOTAL_DOR, color: DIALECT_COLORS.dorico },
   { name: "Dórico noroccidental", value: TOTAL_DOR_NO, color: DIALECT_COLORS.doricoNO },
   { name: "Jónico-ático-koiné", value: 139, color: DIALECT_COLORS.jonicoAtico },

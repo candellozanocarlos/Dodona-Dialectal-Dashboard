@@ -24,7 +24,7 @@ INSC = Path(os.environ.get("INSC_DOR", DATOS / "inscriptions.json"))
 ex = Excel()
 EX, LH2DVC, col = ex.filas, ex.lh2dvc, ex.col
 CAP = {k: r for k, r in EX.items() if col(r, "DIALECTO_SUB") in ("Doris mitior", "Dórico Magna Grecia")}
-assert len(CAP) == 176, len(CAP)   # 176 desde el 3/11/2026 (fila 186: entran 257A y 574A); 176 hasta el 27/10/2026 (fila 173: 1673B, 3612B y 3871 pasan a no jónico-áticas); 174 desde el 2/11/2026 (fila 182: entra 1993A)
+assert len(CAP) == 186, len(CAP)   # 186 desde el 20/11/2026 (fila 205: entran diez con παμπασία legible); 176 desde el 3/11/2026 (fila 186: entran 257A y 574A); 176 hasta el 27/10/2026 (fila 173: 1673B, 3612B y 3871 pasan a no jónico-áticas); 174 desde el 2/11/2026 (fila 182: entra 1993A)
 
 
 def etiqueta(r):
@@ -219,7 +219,7 @@ INSCRIPCIONES = [{"ref": clave_js(k), "date": fecha(col(r, "Date")), "tema": col
 J = lambda x: json.dumps(x, ensure_ascii=False, indent=1)
 partes = [
     "// Generado por scripts/datos_dorico_general.py: no editar a mano.",
-    "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”, 176 inscripciones,",
+    "// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”, 186 inscripciones,",
     f"// Resúmenes fila 188), {DOCX.stem} (cap. 4, §2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).",
     "",
     f"export const INTRO_FON_DOR = {J(INTRO['4'])};",

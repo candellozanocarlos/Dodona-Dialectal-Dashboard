@@ -131,7 +131,7 @@ def claves_celda(t):
     return out
 
 
-# Tablas 1-5 (§4, figuras mez_10 a mez_14 de graficos_mezcla.py): las mezclas aparentes, una ficha por inscripción,
+# Tablas 1-5 (§4, figuras mez_10 a mez_14 de graficos_mezcla.py): las inscripciones que no muestran mezcla dialectal, una ficha por inscripción,
 # agrupadas por el motivo que las deshace (los apartados §4.1-§4.5); la clasificación, del Excel.
 SUFIJO = {"**": " (solo por un nombre)", "*": " (dudosa)"}
 
@@ -145,7 +145,7 @@ def con_certeza(t):
 
 APARENTES_MEZ = []
 for nombre, grupos in MEZ.T4.items():
-    titulo = MEZ.TITULOS_T[nombre].replace("Mezclas aparentes: ", "")
+    titulo = MEZ.TITULOS_T[nombre].replace("Sin mezcla dialectal: ", "")
     titulo = titulo[0].upper() + titulo[1:]
     for rotulo, filas in grupos:
         for sigla, atribuida, formas in filas:
@@ -250,7 +250,7 @@ def tramo(docx, inicio, fin):
 
 
 DOC_MIN = ultima(PARTE5 + "DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
-TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. ESCRITURA") + tramo(DOC_MEZ, "4. LAS MEZCLAS APARENTES", "5. TIPOLOG")
+TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. ESCRITURA") + tramo(DOC_MEZ, "4. INSCRIPCIONES QUE NO MUESTRAN", "5. TIPOLOG")
 for x in TIPOLOGIA_MEZ:   # sin los rótulos de las tablas-imagen («Tabla 6»)
     x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
 # Desde la v36 la explicación de cada tipo cierra su apartado del §5; el §6 conserva la escritura y la fecha (§6.1) y la recapitulación (§6.2).
@@ -293,9 +293,9 @@ partes = [
     "// y las 34 mezclas de la tesis que no recogen (bloque B).",
     f"export const DIVERGENCIAS_MEZ = {J(DIVERGENCIAS_MEZ)};",
     f"export const NO_RECOGIDAS_MEZ = {J(NO_RECOGIDAS_MEZ)};",
-    "// Tablas 1-5 (§4): las mezclas aparentes, una por inscripción, agrupadas por el motivo que las deshace.",
+    "// Tablas 1-5 (§4): las inscripciones que no muestran mezcla dialectal, una por inscripción, agrupadas por el motivo que las deshace.",
     f"export const APARENTES_MEZ = {J(APARENTES_MEZ)};",
-    f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (mezclas aparentes) y §6.1 (escritura y fecha).",
+    f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (inscripciones que no muestran mezcla dialectal) y §6.1 (escritura y fecha).",
     f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
     f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",
     "",

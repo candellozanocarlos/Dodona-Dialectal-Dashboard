@@ -314,14 +314,14 @@ export default function Introduccion({ switcher }) {
               <Stat label="Seguras" value={miles(CERTEZA_INT.seguras)} sub={`el ${pct(CERTEZA_INT.seguras, CLAS)} %`} accent={C.blue} />
               <Stat label="Dudosas" value={String(CERTEZA_INT.dudosas)} sub={`el ${pct(CERTEZA_INT.dudosas, CLAS)} %`} accent={ORO} />
               <Stat label="De solo nombre o alfabeto" value={String(CERTEZA_INT.nombre)} sub={`el ${pct(CERTEZA_INT.nombre, CLAS)} %`} accent={C.muted} />
-              <Stat label="Dórico demostrado" value={String(DEMOSTRADO)} sub={`el ${pct(DEMOSTRADO, CLAS)} %; probable, 334-500`} accent={C.terra} />
+              <Stat label="Dórico demostrado" value={String(DEMOSTRADO)} sub={`el ${pct(DEMOSTRADO, CLAS)} %; probable, 344-510`} accent={C.terra} />
             </Stats>
             <Card>
               <p style={PROSE}>
                 Las no jónico-áticas reúnen casi seis de cada diez inscripciones clasificadas: no son un dialecto, sino el reflejo de las
                 condiciones del corpus. El dórico demostrado, con rasgos que excluyen los dialectos eólicos o con un rasgo no jónico-ático apoyado
-                por el alfabeto, suma {DEMOSTRADO} inscripciones, y el probable, que añade una parte de las no jónico-áticas, se sitúa entre 334 y
-                500. El tesalio, con {nDialecto(["Tesalio"])}, es el tercer dialecto mejor representado, muy por encima del beocio
+                por el alfabeto, suma {DEMOSTRADO} inscripciones, y el probable, que añade una parte de las no jónico-áticas, se sitúa entre 344 y
+                510. El tesalio, con {nDialecto(["Tesalio"])}, es el tercer dialecto mejor representado, muy por encima del beocio
                 ({nDialecto(["Beocio"])}), pese a que la tradición literaria vincula a Beocia con el santuario con más fuerza. La proporción de
                 dudosas crece con la precisión de la adscripción: cuanto más precisa es, menor es la base textual que la sostiene.
               </p>

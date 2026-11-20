@@ -1,6 +1,6 @@
 // Generado por scripts/datos_dorico_general.py: no editar a mano.
-// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”, 176 inscripciones,
-// Resúmenes fila 188), PARTE II. LOS DIALECTOS DÓRICOS REVISADO 41 (cap. 4, §2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).
+// Fuentes: DVC_v5_FINAL.xlsx (hoja Datos; DIALECTO_SUB “Doris mitior” y “Dórico Magna Grecia”, 186 inscripciones,
+// Resúmenes fila 188), PARTE II. LOS DIALECTOS DÓRICOS REVISADO 43 (cap. 4, §2-§7) y graficos_dorico_fonetica.py (matrices y listas de §4).
 
 export const INTRO_FON_DOR = "Los rasgos fonéticos que el dórico comparte con el resto del griego occidental están bien representados en las laminillas, pero, en la línea de lo expuesto en el apartado anterior, rara vez bastan para atribuir una consulta al grupo. La mayoría son arcaísmos que el dórico conserva junto con otros dialectos no jónico-áticos, como la conservación de ᾱ heredada o de /t/ ante /i/, de modo que solo excluyen el jónico-ático; otros, como la contracción de α + ε en η, separan el dórico del tesalio y del lesbio, pero no del beocio. Entre ellos, solo la desinencia -ντι de tercera persona del plural, que se examina aquí junto con el resto de los casos de /t/ conservada ante /i/, excluye todo el grupo eólico, y por esa razón los criterios de adscripción expuestos en §3 descansan sobre todo en rasgos morfológicos y léxicos. Su interés reside, ante todo, en lo que revelan sobre la cronología de la escritura y la diversidad de las manos. Los tratamientos propios del griego noroccidental, como la contracción de εο en ου, la grafía ἰς por εἰς, στ por σθ o la abreviación de -ωι en -οι, y el vocalismo <i>severior</i> se estudian en sus respectivos capítulos.";
 export const INTRO_MORF_DOR = "Como en la fonética, la mayor parte de los rasgos morfológicos del dórico son arcaísmos heredados o selecciones que comparte con otros dialectos, y entre los que sirven para identificar las consultas solo el futuro dórico es una innovación exclusiva del griego occidental. Su valor para la clasificación depende, en consecuencia, de los dialectos con los que se compartan: la desinencia -μες separa el dórico del jónico-ático y del eolio, mientras que el infinitivo atemático en -μεν, el artículo τοί o la partícula κα solo lo separan del jónico-ático. La desinencia -ντι de tercera persona del plural y la flexión contracta de ἐπερωτάω y κοινάομαι se han examinado con la fonética (cf. §4.2.1 y §4.1.2.1).";
@@ -112,7 +112,7 @@ export const RASGOS_DOR = [
   "name": "Las vocales medias largas y su notación",
   "short": "Las vocales medias largas y su notación",
   "cat": "Fonología",
-  "desc": "Los dialectos dóricos del entorno de Dodona, el epirota y los demás noroccidentales, el corintio y el de sus colonias, pertenecen a la <i>Doris mitior</i> (cf. §1), que distingue las vocales medias largas cerradas /eː/ y /oː/, surgidas de los alargamientos compensatorios y de las contracciones isovocálicas, de las abiertas /ɛː/ y /ɔː/ heredadas del griego común. Una vez adoptado el alfabeto jónico, las primeras se notan con los dígrafos ΕΙ y ΟΥ y las segundas con Η y Ω. Antes de esa adopción, la mayoría de los alfabetos epicóricos emplean Ε y Ο para todas las vocales medias, breves y largas, mientras que el corintio dispone de dos signos para las anteriores: la llamada <i>épsilon</i> corintia (Β) nota /e/ y /ɛː/, y Ε nota la /eː/ de cualquier origen, incluida la procedente del antiguo diptongo /ei/; en Corcira y en Anactorio esta última se escribe, en cambio, ΒΙ. El corpus documenta las tres situaciones. En alfabeto corintio, I.Dodone DVC 2977B (segunda mitad del s. V a.C.) y 3325A (finales del s. V a.C.) reservan la <i>épsilon</i> corintia para la /e/ breve y emplean Ε para la /eː/ en ὀφε̄́λε̄ν (= ὀφείλειν) de la primera inscripción y en ἄμε̄νον (= ἄμεινον) de la segunda, una notación que, para Kostopoulos (2023: 125), es prueba del vocalismo <i>mitior</i> del corintio. La segunda inscripción está escrita en la variante corcirense de ese alfabeto. I.Dodone Lhôte 66A (último cuarto del s. V a.C.) muestra, en cambio, la introducción de la notación jónica en un alfabeto corintio, que se reconoce por la <i>épsilon</i> corintia, la <i>sigma</i> de cuatro trazos, la <i>theta</i> cruzada, la <i>ípsilon</i> arcaica y la <i>ji</i> en forma de X, aunque la <i>gamma</i> recuerda más a la del alfabeto argivo. Escribe con Η la /ɛː/ de ὑγιής y con ΕΙ el diptongo antiguo de εἴη, y Lhôte (2006: 153, 370) atribuye esa Η a una influencia temprana del alfabeto jónico, como la que se conoce en Atenas y en Delfos antes del 403/2 a.C. Varias consultas escritas en alfabetos arcaicos distinguen, por otra parte, la /oː/ secundaria, que notan con ΟΥ, de la /ɔː/ heredada, que notan con la grafía Ο: I.Dodone DVC 414A (finales del s. VI a.C.) escribe αὐτοῦ, de contracción, frente a hο̄ς y οὔπο̄; I.Dodone DVC 1426A (primera mitad del s. V a.C.) contiene ἐπάγουσα frente a [θυ]γ̣άτε̄ρ, y I.Dodone Lhôte 51 (primera mitad del s. V a.C.), a pesar de estar escrita por entero en alfabeto corintio arcaico (<i>épsilon</i> corintia, <i>gamma</i> lunada y <i>san</i>), contiene [κ]υούσα<ς>. Es un uso temprano que comparten la ley colonial de los locrios occidentales de Caleo (<i>IG</i> IX1²(3) 718; ca. 500-475 a.C.), que escribe ΕΙ para la /eː/ secundaria y ΟΥ para la /oː/ de alargamiento compensatorio, como en εἶμεν y τοὺς, frente a Ε y Ο para las vocales primarias y para la /oː/ de la contracción ο + ο (δαμο͂), y el epigrama del <i>polyandrion</i> de Ambracia (<i>SEG</i> 41:540A; ca. 550 a.C.), con ΟΥ en τοὺσδε y ἐσλούς. Entre las 176 inscripciones de adscripción dórica, 67 notan con Ε u Ο alguna vocal media larga, primaria, como en ἐ͂ (= ἦ), λο̄́ϊον o ἀγομένο̄[ι] de I.Dodone DVC 4161B (finales del s. V a.C.), o secundaria, como en ἐσσ̣ε͂ται de I.Dodone DVC 264A (mediados del s. V a.C.) o en el genitivo θἠματίο̄ de I.Dodone DVC 4. La mayoría son del s. V a.C., pero no faltan textos del s. IV a.C. que combinan las letras del alfabeto jónico con la notación antigua de las vocales secundarias. I.Dodone DVC 3473A (primera mitad del s. IV a.C.) escribe con Η y Ω ἐπερωτῆι y Διώναν, pero con Ε el futuro ἐσε͂ται; 1244 (segunda mitad del s. IV a.C.), ἦ con Η, pero οἰκε͂ν con Ε; e I.Dodone Lhôte 94 emplea Ω y Η en Ὦ, Ἀρχεφῶν, ἐναυπαγήσατο y σωτηρία, pero Ο en el genitivo κελομένο̄ το͂ Ἀπόλλωνος, frente a la Ω del mismo Ἀπόλλωνος, y Ε en ἐσσε͂ται. La notación con Ε del antiguo diptongo /ei/ es, en cambio, rara: Kostopoulos (2023: 142 n. 73) solo cuenta diez casos en el corpus, entre ellos σο̄θε͂μες de I.Dodone DVC 419A (primera mitad del s. V a.C.), αὐτε͂ de 1246A (finales del s. V a.C.) y 3315A (ss. V-IV a.C.) y ἐπε̄́γον[τι] de 4079A (finales del s. V a.C.), y advierte que palabras tan frecuentes como ἔπειτα o εἰ no se escriben nunca de ese modo. Estos datos tienen algunas consecuencias. La primera es que, en la mayoría de esas inscripciones, que no emplean Η ni Ω, la escritura no permite determinar el vocalismo, de modo que su adscripción a la <i>Doris mitior</i> descansa en otros rasgos, como el léxico, y no en la fonética; en las de transición, en cambio, la Ε y la Ο de las vocales secundarias, frente a la Η y la Ω de las heredadas, excluyen el vocalismo <i>severior</i>. La segunda es que las inscripciones de transición reproducen una secuencia conocida en jónico, donde ΕΙ era la grafía habitual de /eː/ desde finales del s. V a.C., mientras que ΟΥ no se impuso en el genitivo temático hasta finales del s. IV a.C. La coexistencia de Η y Ε en un mismo texto puede responder, por tanto, a una convención gráfica de transición y no a una diferencia fonológica. La notación antigua plantea, además, un problema de interpretación, porque la Ε puede corresponder a /e/, a /eː/ o a /ɛː/. Como advierte Méndez Dosuna (2018b: 37 n. 48), en las consultas que no emplean signos específicos para las vocales medias largas una grafía como ΕΣ(Σ)ΕΤΑΙ es ambigua, porque admite tanto el futuro dórico contracto ἐσ(σ)εῖται como un futuro no contracto ἔσ(σ)εται. El alcance de esta ambigüedad para la identificación del futuro dórico se examina en la morfología verbal (§5.2.3). El tercer alargamiento compensatorio, por último, no se esperaba en estos dialectos, que mantuvieron sin cambios la vocal ante los grupos de <i>sigma</i>, líquida o nasal con <i>digamma</i>, y el capítulo no lo documenta: el hόρο̄ de I.Dodone DVC 135A, por ejemplo, conserva la ο breve de ὅρος (< *ὅρϝος), frente al jónico οὖρος.",
+  "desc": "Los dialectos dóricos del entorno de Dodona, el epirota y los demás noroccidentales, el corintio y el de sus colonias, pertenecen a la <i>Doris mitior</i> (cf. §1), que distingue las vocales medias largas cerradas /eː/ y /oː/, surgidas de los alargamientos compensatorios y de las contracciones isovocálicas, de las abiertas /ɛː/ y /ɔː/ heredadas del griego común. Una vez adoptado el alfabeto jónico, las primeras se notan con los dígrafos ΕΙ y ΟΥ y las segundas con Η y Ω. Antes de esa adopción, la mayoría de los alfabetos epicóricos emplean Ε y Ο para todas las vocales medias, breves y largas, mientras que el corintio dispone de dos signos para las anteriores: la llamada <i>épsilon</i> corintia (Β) nota /e/ y /ɛː/, y Ε nota la /eː/ de cualquier origen, incluida la procedente del antiguo diptongo /ei/; en Corcira y en Anactorio esta última se escribe, en cambio, ΒΙ. El corpus documenta las tres situaciones. En alfabeto corintio, I.Dodone DVC 2977B (segunda mitad del s. V a.C.) y 3325A (finales del s. V a.C.) reservan la <i>épsilon</i> corintia para la /e/ breve y emplean Ε para la /eː/ en ὀφε̄́λε̄ν (= ὀφείλειν) de la primera inscripción y en ἄμε̄νον (= ἄμεινον) de la segunda, una notación que, para Kostopoulos (2023: 125), es prueba del vocalismo <i>mitior</i> del corintio. La segunda inscripción está escrita en la variante corcirense de ese alfabeto. I.Dodone Lhôte 66A (último cuarto del s. V a.C.) muestra, en cambio, la introducción de la notación jónica en un alfabeto corintio, que se reconoce por la <i>épsilon</i> corintia, la <i>sigma</i> de cuatro trazos, la <i>theta</i> cruzada, la <i>ípsilon</i> arcaica y la <i>ji</i> en forma de X, aunque la <i>gamma</i> recuerda más a la del alfabeto argivo. Escribe con Η la /ɛː/ de ὑγιής y con ΕΙ el diptongo antiguo de εἴη, y Lhôte (2006: 153, 370) atribuye esa Η a una influencia temprana del alfabeto jónico, como la que se conoce en Atenas y en Delfos antes del 403/2 a.C. Varias consultas escritas en alfabetos arcaicos distinguen, por otra parte, la /oː/ secundaria, que notan con ΟΥ, de la /ɔː/ heredada, que notan con la grafía Ο: I.Dodone DVC 414A (finales del s. VI a.C.) escribe αὐτοῦ, de contracción, frente a hο̄ς y οὔπο̄; I.Dodone DVC 1426A (primera mitad del s. V a.C.) contiene ἐπάγουσα frente a [θυ]γ̣άτε̄ρ, y I.Dodone Lhôte 51 (primera mitad del s. V a.C.), a pesar de estar escrita por entero en alfabeto corintio arcaico (<i>épsilon</i> corintia, <i>gamma</i> lunada y <i>san</i>), contiene [κ]υούσα<ς>. Es un uso temprano que comparten la ley colonial de los locrios occidentales de Caleo (<i>IG</i> IX1²(3) 718; ca. 500-475 a.C.), que escribe ΕΙ para la /eː/ secundaria y ΟΥ para la /oː/ de alargamiento compensatorio, como en εἶμεν y τοὺς, frente a Ε y Ο para las vocales primarias y para la /oː/ de la contracción ο + ο (δαμο͂), y el epigrama del <i>polyandrion</i> de Ambracia (<i>SEG</i> 41:540A; ca. 550 a.C.), con ΟΥ en τοὺσδε y ἐσλούς. Entre las 186 inscripciones de adscripción dórica, 68 notan con Ε u Ο alguna vocal media larga, primaria, como en ἐ͂ (= ἦ), λο̄́ϊον o ἀγομένο̄[ι] de I.Dodone DVC 4161B (finales del s. V a.C.), o secundaria, como en ἐσσ̣ε͂ται de I.Dodone DVC 264A (mediados del s. V a.C.) o en el genitivo θἠματίο̄ de I.Dodone DVC 4. La mayoría son del s. V a.C., pero no faltan textos del s. IV a.C. que combinan las letras del alfabeto jónico con la notación antigua de las vocales secundarias. I.Dodone DVC 3473A (primera mitad del s. IV a.C.) escribe con Η y Ω ἐπερωτῆι y Διώναν, pero con Ε el futuro ἐσε͂ται; 1244 (segunda mitad del s. IV a.C.), ἦ con Η, pero οἰκε͂ν con Ε; e I.Dodone Lhôte 94 emplea Ω y Η en Ὦ, Ἀρχεφῶν, ἐναυπαγήσατο y σωτηρία, pero Ο en el genitivo κελομένο̄ το͂ Ἀπόλλωνος, frente a la Ω del mismo Ἀπόλλωνος, y Ε en ἐσσε͂ται. La notación con Ε del antiguo diptongo /ei/ es, en cambio, rara: Kostopoulos (2023: 142 n. 73) solo cuenta diez casos en el corpus, entre ellos σο̄θε͂μες de I.Dodone DVC 419A (primera mitad del s. V a.C.), αὐτε͂ de 1246A (finales del s. V a.C.) y 3315A (ss. V-IV a.C.) y ἐπε̄́γον[τι] de 4079A (finales del s. V a.C.), y advierte que palabras tan frecuentes como ἔπειτα o εἰ no se escriben nunca de ese modo. Estos datos tienen algunas consecuencias. La primera es que, en la mayoría de esas inscripciones, que no emplean Η ni Ω, la escritura no permite determinar el vocalismo, de modo que su adscripción a la <i>Doris mitior</i> descansa en otros rasgos, como el léxico, y no en la fonética; en las de transición, en cambio, la Ε y la Ο de las vocales secundarias, frente a la Η y la Ω de las heredadas, excluyen el vocalismo <i>severior</i>. La segunda es que las inscripciones de transición reproducen una secuencia conocida en jónico, donde ΕΙ era la grafía habitual de /eː/ desde finales del s. V a.C., mientras que ΟΥ no se impuso en el genitivo temático hasta finales del s. IV a.C. La coexistencia de Η y Ε en un mismo texto puede responder, por tanto, a una convención gráfica de transición y no a una diferencia fonológica. La notación antigua plantea, además, un problema de interpretación, porque la Ε puede corresponder a /e/, a /eː/ o a /ɛː/. Como advierte Méndez Dosuna (2018b: 37 n. 48), en las consultas que no emplean signos específicos para las vocales medias largas una grafía como ΕΣ(Σ)ΕΤΑΙ es ambigua, porque admite tanto el futuro dórico contracto ἐσ(σ)εῖται como un futuro no contracto ἔσ(σ)εται. El alcance de esta ambigüedad para la identificación del futuro dórico se examina en la morfología verbal (§5.2.3). El tercer alargamiento compensatorio, por último, no se esperaba en estos dialectos, que mantuvieron sin cambios la vocal ante los grupos de <i>sigma</i>, líquida o nasal con <i>digamma</i>, y el capítulo no lo documenta: el hόρο̄ de I.Dodone DVC 135A, por ejemplo, conserva la ο breve de ὅρος (< *ὅρϝος), frente al jónico οὖρος.",
   "dvcs": [
    "2977B",
    "3325A",
@@ -331,10 +331,11 @@ export const RASGOS_DOR = [
   "name": "Apócope de περί > πέρ",
   "short": "Apócope de περί > πέρ",
   "cat": "Morfología",
-  "desc": "La apócope de περί tiene una distribución mucho más restringida. Fuera del tesalio, que la emplea con regularidad, πέρ solo se documenta en lesbio literario, délfico y en eleo, y en unos pocos antropónimos de Lócride, Creta y Laconia. Lhôte (2006: 380) la contaba entre los rasgos del Epiro a partir de cuatro consultas de su corpus, pero Méndez Dosuna (2018b: 36 n. 36) advierte que las consultas que él considera epirotas o dóricas podrían ser tesalias. Cinco inscripciones del capítulo presentan la forma apocopada: [πὲ]ρ̣ πανπασίας de I.Dodone DVC 1297A (primera mitad del s. IV a.C.), πὲρ {παν}πανπασίου de 2514 (principios del s. IV a.C.), πὲρ γενεᾶς de 4161B (finales del s. V a.C.), πὲρ ΜΥΔΡΑΣΠΙΤΑ de I.Dodone Lhôte 140 (ss. V-IV a.C.) y, en I.Dodone DVC 2173A (primera mitad del s. IV a.C.), πὲρ γενε[ᾶς πὲρ] παμάτω̣ν, que alterna en el mismo texto con περὶ καρπο̣[ῦ] y περὶ ἐπ[ι]βωλῶν. Estos testimonios no bastan para resolver la cuestión. Cuatro de las cinco inscripciones no combinan πέρ con ningún rasgo que excluya el tesalio: I.Dodone DVC 1297A, 2173A y 2514 se cuentan como dóricas por la familia de πάομαι, que es de carácter dórico, aunque se documenta, de forma aislada, en los dialectos eólicos, y que aparece junto a πέρ en el Ἀετίναι πὲρ πανπασία<ς> γίνυτο de I.Dodone DVC 1060A (mediados del s. V a.C.), con el mismo sintagma que I.Dodone DVC 1297A. Por su parte, I.Dodone Lhôte 140 se cuenta por un futuro dórico ΕΣΣΕΤΑΙ que admite también la lectura eólica ἔσσεται (cf. §5.2.3). Solo en I.Dodone DVC 4161B el presente γίνεται, frente al γίνυμαι del tesalio y del beocio, apunta contra ambos dialectos. La forma no era, con todo, ajena a las consultas dóricas: la emplean dos consultas noroccidentales, una de ellas en alfabeto corintio, y una escrita en <i>Doris severior</i>, en textos con rasgos que excluyen el tesalio, y la alternancia con περί de I.Dodone DVC 2173A recuerda la que se observa en la consulta tesalia I.Dodone DVC 3113A (finales del s. IV a.C.), en la que conviven la forma dialectal y la de la <i>koiné</i> (cf. §4.1.1 del capítulo tesalio). Por esa razón, las cinco inscripciones se mantienen en este capítulo, pero solo I.Dodone DVC 4161B se cuenta como segura: en las otras cuatro la adscripción dórica descansa en un indicio que no excluye por sí solo el tesalio, de modo que se consideran dudosas.",
+  "desc": "La apócope de περί tiene una distribución mucho más restringida. Fuera del tesalio, que la emplea con regularidad, πέρ solo se documenta en lesbio literario, délfico y en eleo, y en unos pocos antropónimos de Lócride, Creta y Laconia. Lhôte (2006: 380) la contaba entre los rasgos del Epiro a partir de cuatro consultas de su corpus, pero Méndez Dosuna (2018b: 36 n. 36) advierte que las consultas que él considera epirotas o dóricas podrían ser tesalias. Seis inscripciones del capítulo presentan la forma apocopada: [πὲ]ρ̣ πανπασίας de I.Dodone DVC 1297A (primera mitad del s. IV a.C.), πὲρ {παν}πανπασίου de 2514 (principios del s. IV a.C.), πὲρ [παμ]πασ[ίας] de 3791A (segunda mitad del s. V a.C.), πὲρ γενεᾶς de 4161B (finales del s. V a.C.), πὲρ ΜΥΔΡΑΣΠΙΤΑ de I.Dodone Lhôte 140 (ss. V-IV a.C.) y, en I.Dodone DVC 2173A (primera mitad del s. IV a.C.), πὲρ γενε[ᾶς πὲρ] παμάτω̣ν, que alterna en el mismo texto con περὶ καρπο̣[ῦ] y περὶ ἐπ[ι]βωλῶν. Estos testimonios no bastan para resolver la cuestión. Cinco de las seis inscripciones no combinan πέρ con ningún rasgo que excluya el tesalio: I.Dodone DVC 1297A, 2173A, 2514 y 3791A se cuentan como dóricas por la familia de πάομαι, que es de carácter dórico, aunque se documenta, de forma aislada, en los dialectos eólicos, y que aparece junto a πέρ en el Ἀετίναι πὲρ πανπασία<ς> γίνυτο de I.Dodone DVC 1060A (mediados del s. V a.C.), con el mismo sintagma que I.Dodone DVC 1297A. Por su parte, I.Dodone Lhôte 140 se cuenta por un futuro dórico ΕΣΣΕΤΑΙ que admite también la lectura eólica ἔσσεται (cf. §5.2.3). Solo en I.Dodone DVC 4161B el presente γίνεται, frente al γίνυμαι del tesalio y del beocio, apunta contra ambos dialectos. La forma no era, con todo, ajena a las consultas dóricas: la emplean dos consultas noroccidentales, una de ellas en alfabeto corintio, y una escrita en <i>Doris severior</i>, en textos con rasgos que excluyen el tesalio, y la alternancia con περί de I.Dodone DVC 2173A recuerda la que se observa en la consulta tesalia I.Dodone DVC 3113A (finales del s. IV a.C.), en la que conviven la forma dialectal y la de la <i>koiné</i> (cf. §4.1.1 del capítulo tesalio). Por esa razón, las cinco inscripciones se mantienen en este capítulo, pero solo I.Dodone DVC 4161B se cuenta como segura: en las otras cuatro la adscripción dórica descansa en un indicio que no excluye por sí solo el tesalio, de modo que se consideran dudosas.",
   "dvcs": [
    "1297A",
    "2514",
+   "3791A",
    "4161B",
    "LOD 140",
    "2173A",
@@ -608,7 +609,7 @@ export const RASGOS_DOR = [
   "name": "ἦ y αἰ en las interrogativas totales",
   "short": "ἦ y αἰ en las interrogativas totales",
   "cat": "Sintaxis",
-  "desc": "En la prosa ática, la interrogativa total directa se introduce con ἦ o con ἆρα, y la indirecta, con εἰ. La interpretación tradicional de las laminillas suponía que ese reparto se había neutralizado: Lhôte (2006: 339, §74) enumera πότερον, πότερα, αἰ y εἰ como variantes de la partícula ἦ de la fórmula y considera αἰ la forma más común de la conjunción interrogativa, el equivalente del ático εἰ. Nieto Izquierdo (2019) ha mostrado, en cambio, que la neutralización es solo aparente. Ni εἰ ni αἰ introducen interrogativas directas, puesto que los ejemplos aducidos son interrogativas indirectas cuyo verbo introductor se ha omitido porque la situación de la consulta lo hace evidente. En el dominio dórico, además, la única partícula de las interrogativas totales indirectas es ἦ, mientras que αἰ, cuando no depende de un verbo de pregunta, introduce la prótasis de una condicional cuya apódosis se omite; solo en las consultas tesalias introduce αἰ interrogativas indirectas (cf. §5.3 del capítulo tesalio). Los datos del capítulo confirman el uso regular de ἦ, que se lee en 52 inscripciones y se restituye en otras ocho. En las consultas de los ss. VI y V a.C. se escribe con Ε, de acuerdo con la notación antigua de las vocales medias largas (cf. §4.1.3), como en ἐ͂ τύχοιμ̣ί κα de I.Dodone DVC 1148A (mediados del s. V a.C.) o en ἐ͂ τυνχάνοι κα de 1182A (primera mitad del s. V a.C.), y con Η desde finales del s. V a.C., como en ἦ Μιλήϊός τις ἐναν̣τίος de I.Dodone DVC 135A (segunda mitad del s. V a.C.) o en ἦ τέθνακε Ἀριστώνυμος de 2980 (primera mitad del s. IV a.C.). La mayoría de esas preguntas carecen de verbo introductor y adoptan la forma de una interrogativa directa, a menudo en primera persona, como Ἦ ἀφέρπῃ ϝοίκαδε πὸτ τὸν ἀδελφεόν de I.Dodone Lhôte 56 (s. IV a.C.) o Ἦ ἀπιοῦσα ἄλλ[ο] τί μοι ἀγαθὸν ἐσσεῖται de I.Dodone Lhôte 62 (s. IV a.C.). En otras, en cambio, ἦ sigue a un verbo de consulta: ἐπ[ικ]οινῆται en I.Dodone DVC 228B (principios del s. IV a.C.), ἐπερωτῶντ[ι] en 2425A (primera mitad del s. IV a.C.), ἐρω̣[τ]ῆι en 2648A (finales del s. IV a.C.) y ἐπερωτῆι en 3473A (primera mitad del s. IV a.C.), así como ἐπερωτῶντι en I.Dodone Lhôte 14 (ss. IV-III a.C.), Ἰστορεῖ en 73A (ss. IV-III a.C.), ἐπιστορεῖ en 115 (s. IV a.C.) y Ἐπερωτεῖ en 121A (ss. IV-III a.C.). Además, en I.Dodone DVC 2049B (mediados del s. IV a.C.), 3109A (mediados del s. IV a.C.) y 3946B (segunda mitad del s. IV a.C.) el verbo o la partícula están restituidos. El carácter subordinado de esas preguntas no siempre puede demostrarse, porque las consultas alternan con libertad la tercera persona del estilo indirecto y la primera del consultante, como hace I.Dodone DVC 1369B (segunda mitad del s. IV a.C.), que tras ἐπικοινῆται Κερδύλλας pregunta ἐσσεῖταί μοι λώϊον. El único indicio seguro es el reflexivo indirecto, que remite al sujeto de la oración principal. Nieto Izquierdo (2019: 111) lo reconoce en el αὐτοῖς de la consulta de los dodoneos I.Dodone DVC 2425A, ἐπερωτῶντ[ι] Δωδωναῖοι τὸν θεὸν ἦ ἀσφαλέω[ς] ἐστὶ μένειν [αὐτ]εῖ καὶ αὐτοῖς [κ]αὶ χρήμασι, aunque admite que el pronombre puede deberse también a una pregunta directa reformulada en tercera persona, y lo considera seguro en la consulta noroccidental de I.Dodone Lhôte 9 (primera mitad del s. II a.C.), en la que el pronombre reflexivo de ἦ α[ὐ]τ<ο>ιαυτοῖς συμπολειτεύουσι concuerda con el plural del verbo ἐπερωτῶντι y no con su sujeto gramatical, τὸ κοινόν. La conjunción αἰ es mucho más rara y solo se lee en diez inscripciones del capítulo (cf. §5.5), de las cuales tres, I.Dodone DVC 474A (primera mitad del s. V a.C.), 1234 (segunda mitad del s. III a.C.) y 3325A (finales del s. V a.C.), no permiten analizar la construcción, porque la partícula o su contexto están restituidos. En las demás, αἰ admite siempre la interpretación condicional. En I.Dodone Lhôte 94 (primera mitad del s. IV a.C.), αἴ κα ⟦- - -⟧ καὶ τὰ χρέα ἀποδ<ώ>σω es la prótasis de una condicional cuya apódosis es la propia pregunta, σωτηρία μοι ἐσσε͂ται καὶ ἐμὶν καὶ τᾶι ναῒ, y en I.Dodone DVC 2401 (principios del s. V a.C.), ἄνελ<ε> τὸν κλᾶρον αἰ καρ[π]ο̄́σατο depende de un imperativo, en la instrucción para extraer una suerte, con la misma estructura que el αἰ δὲ μηδεὶς τούτων κέκλοβε, τουτονί de I.Dodone DVC 2222A (ss. V-IV a.C.). Otras tres consultas consisten solo en una prótasis, cuya apódosis el consultante deja implícita: αἴ τις σύνhοδος de I.Dodone DVC 411A (finales del s. VI a.C.), que Nieto Izquierdo (2019: 114 n. 2) interpreta como una prótasis de este tipo, αἰ νικασέω τὰν δίκ[αν] de 2521A (primera mitad del s. IV a.C.) y αἰ με̄̀ [ἄγο̄]μες … ε̄̓̀ ἀφέ{σ}ντες de 2488A (segunda mitad del s. V a.C.). Solo dos inscripciones parecen apartarse de este reparto, y en ninguna de las dos de forma concluyente. En I.Dodone DVC 4 (s. IV a.C.), αἰ sigue al verbo de consulta, ἐπερωτο͂ντι τὸν θεὸν αἰ τὰ δίκαια μαστεύοντι ταύταν νικῆν, y los editores la interpretan como una interrogativa indirecta; Nieto Izquierdo (2019: 113 n. 3) entiende, en cambio, que la cláusula con αἰ es la prótasis de una condicional y que la pregunta en sentido estricto es el infinitivo, sin partícula, con la corrección ταῦτα{ν} νικῆν. En I.Dodone DVC 73 (finales del s. V a.C.), Ῥαζία ἐπέθετο αἰ διαλλαγὰ μέλλει γενέσθαι, αἰ con indicativo sigue a un verbo finito, y Eidinow (2007: 102) la traduce como una interrogativa indirecta dependiente de ἐπέθετο; pero ἐπιτίθημι no tiene paralelos en el corpus como verbo de consulta, y el sentido de “depositar” la laminilla, no menos posible, deja la cláusula con αἰ como una prótasis independiente. Además, la adscripción de esta consulta al dórico descansa solo en el participio ζο̄́οντος (cf. §5.2.6), y Giannakis (2024a: 40) la cuenta entre las de mezcla dialectal. Ninguna inscripción del capítulo emplea εἰ, ni como conjunción condicional ni como partícula interrogativa. Los datos se ajustan, por tanto, a la distribución propuesta por Nieto Izquierdo: ἦ introduce tanto las interrogativas directas como las indirectas, y αἰ, que nunca introduce con seguridad una interrogativa indirecta, conserva el valor condicional del dórico. En ese aspecto, las consultas dóricas se distinguen de las tesalias, en las que αἰ sí introduce interrogativas indirectas, de modo que la sintaxis de la partícula, y no solo su forma, separa los dos dialectos.",
+  "desc": "En la prosa ática, la interrogativa total directa se introduce con ἦ o con ἆρα, y la indirecta, con εἰ. La interpretación tradicional de las laminillas suponía que ese reparto se había neutralizado: Lhôte (2006: 339, §74) enumera πότερον, πότερα, αἰ y εἰ como variantes de la partícula ἦ de la fórmula y considera αἰ la forma más común de la conjunción interrogativa, el equivalente del ático εἰ. Nieto Izquierdo (2019) ha mostrado, en cambio, que la neutralización es solo aparente. Ni εἰ ni αἰ introducen interrogativas directas, puesto que los ejemplos aducidos son interrogativas indirectas cuyo verbo introductor se ha omitido porque la situación de la consulta lo hace evidente. En el dominio dórico, además, la única partícula de las interrogativas totales indirectas es ἦ, mientras que αἰ, cuando no depende de un verbo de pregunta, introduce la prótasis de una condicional cuya apódosis se omite; solo en las consultas tesalias introduce αἰ interrogativas indirectas (cf. §5.3 del capítulo tesalio). Los datos del capítulo confirman el uso regular de ἦ, que se lee en 52 inscripciones y se restituye en otras nueve. En las consultas de los ss. VI y V a.C. se escribe con Ε, de acuerdo con la notación antigua de las vocales medias largas (cf. §4.1.3), como en ἐ͂ τύχοιμ̣ί κα de I.Dodone DVC 1148A (mediados del s. V a.C.) o en ἐ͂ τυνχάνοι κα de 1182A (primera mitad del s. V a.C.), y con Η desde finales del s. V a.C., como en ἦ Μιλήϊός τις ἐναν̣τίος de I.Dodone DVC 135A (segunda mitad del s. V a.C.) o en ἦ τέθνακε Ἀριστώνυμος de 2980 (primera mitad del s. IV a.C.). La mayoría de esas preguntas carecen de verbo introductor y adoptan la forma de una interrogativa directa, a menudo en primera persona, como Ἦ ἀφέρπῃ ϝοίκαδε πὸτ τὸν ἀδελφεόν de I.Dodone Lhôte 56 (s. IV a.C.) o Ἦ ἀπιοῦσα ἄλλ[ο] τί μοι ἀγαθὸν ἐσσεῖται de I.Dodone Lhôte 62 (s. IV a.C.). En otras, en cambio, ἦ sigue a un verbo de consulta: ἐπ[ικ]οινῆται en I.Dodone DVC 228B (principios del s. IV a.C.), ἐπερωτῶντ[ι] en 2425A (primera mitad del s. IV a.C.), ἐρω̣[τ]ῆι en 2648A (finales del s. IV a.C.) y ἐπερωτῆι en 3473A (primera mitad del s. IV a.C.), así como ἐπερωτῶντι en I.Dodone Lhôte 14 (ss. IV-III a.C.), Ἰστορεῖ en 73A (ss. IV-III a.C.), ἐπιστορεῖ en 115 (s. IV a.C.) y Ἐπερωτεῖ en 121A (ss. IV-III a.C.). Además, en I.Dodone DVC 324B (primera mitad del s. IV a.C.), 2049B (mediados del s. IV a.C.), 3109A (mediados del s. IV a.C.) y 3946B (segunda mitad del s. IV a.C.) el verbo o la partícula están restituidos. El carácter subordinado de esas preguntas no siempre puede demostrarse, porque las consultas alternan con libertad la tercera persona del estilo indirecto y la primera del consultante, como hace I.Dodone DVC 1369B (segunda mitad del s. IV a.C.), que tras ἐπικοινῆται Κερδύλλας pregunta ἐσσεῖταί μοι λώϊον. El único indicio seguro es el reflexivo indirecto, que remite al sujeto de la oración principal. Nieto Izquierdo (2019: 111) lo reconoce en el αὐτοῖς de la consulta de los dodoneos I.Dodone DVC 2425A, ἐπερωτῶντ[ι] Δωδωναῖοι τὸν θεὸν ἦ ἀσφαλέω[ς] ἐστὶ μένειν [αὐτ]εῖ καὶ αὐτοῖς [κ]αὶ χρήμασι, aunque admite que el pronombre puede deberse también a una pregunta directa reformulada en tercera persona, y lo considera seguro en la consulta noroccidental de I.Dodone Lhôte 9 (primera mitad del s. II a.C.), en la que el pronombre reflexivo de ἦ α[ὐ]τ<ο>ιαυτοῖς συμπολειτεύουσι concuerda con el plural del verbo ἐπερωτῶντι y no con su sujeto gramatical, τὸ κοινόν. La conjunción αἰ es mucho más rara y solo se lee en diez inscripciones del capítulo (cf. §5.5), de las cuales tres, I.Dodone DVC 474A (primera mitad del s. V a.C.), 1234 (segunda mitad del s. III a.C.) y 3325A (finales del s. V a.C.), no permiten analizar la construcción, porque la partícula o su contexto están restituidos. En las demás, αἰ admite siempre la interpretación condicional. En I.Dodone Lhôte 94 (primera mitad del s. IV a.C.), αἴ κα ⟦- - -⟧ καὶ τὰ χρέα ἀποδ<ώ>σω es la prótasis de una condicional cuya apódosis es la propia pregunta, σωτηρία μοι ἐσσε͂ται καὶ ἐμὶν καὶ τᾶι ναῒ, y en I.Dodone DVC 2401 (principios del s. V a.C.), ἄνελ<ε> τὸν κλᾶρον αἰ καρ[π]ο̄́σατο depende de un imperativo, en la instrucción para extraer una suerte, con la misma estructura que el αἰ δὲ μηδεὶς τούτων κέκλοβε, τουτονί de I.Dodone DVC 2222A (ss. V-IV a.C.). Otras tres consultas consisten solo en una prótasis, cuya apódosis el consultante deja implícita: αἴ τις σύνhοδος de I.Dodone DVC 411A (finales del s. VI a.C.), que Nieto Izquierdo (2019: 114 n. 2) interpreta como una prótasis de este tipo, αἰ νικασέω τὰν δίκ[αν] de 2521A (primera mitad del s. IV a.C.) y αἰ με̄̀ [ἄγο̄]μες … ε̄̓̀ ἀφέ{σ}ντες de 2488A (segunda mitad del s. V a.C.). Solo dos inscripciones parecen apartarse de este reparto, y en ninguna de las dos de forma concluyente. En I.Dodone DVC 4 (s. IV a.C.), αἰ sigue al verbo de consulta, ἐπερωτο͂ντι τὸν θεὸν αἰ τὰ δίκαια μαστεύοντι ταύταν νικῆν, y los editores la interpretan como una interrogativa indirecta; Nieto Izquierdo (2019: 113 n. 3) entiende, en cambio, que la cláusula con αἰ es la prótasis de una condicional y que la pregunta en sentido estricto es el infinitivo, sin partícula, con la corrección ταῦτα{ν} νικῆν. En I.Dodone DVC 73 (finales del s. V a.C.), Ῥαζία ἐπέθετο αἰ διαλλαγὰ μέλλει γενέσθαι, αἰ con indicativo sigue a un verbo finito, y Eidinow (2007: 102) la traduce como una interrogativa indirecta dependiente de ἐπέθετο; pero ἐπιτίθημι no tiene paralelos en el corpus como verbo de consulta, y el sentido de “depositar” la laminilla, no menos posible, deja la cláusula con αἰ como una prótasis independiente. Además, la adscripción de esta consulta al dórico descansa solo en el participio ζο̄́οντος (cf. §5.2.6), y Giannakis (2024a: 40) la cuenta entre las de mezcla dialectal. Ninguna inscripción del capítulo emplea εἰ, ni como conjunción condicional ni como partícula interrogativa. Los datos se ajustan, por tanto, a la distribución propuesta por Nieto Izquierdo: ἦ introduce tanto las interrogativas directas como las indirectas, y αἰ, que nunca introduce con seguridad una interrogativa indirecta, conserva el valor condicional del dórico. En ese aspecto, las consultas dóricas se distinguen de las tesalias, en las que αἰ sí introduce interrogativas indirectas, de modo que la sintaxis de la partícula, y no solo su forma, separa los dos dialectos.",
   "dvcs": [
    "1148A",
    "1182A",
@@ -624,6 +625,7 @@ export const RASGOS_DOR = [
    "LOD 73A",
    "LOD 115",
    "LOD 121A",
+   "324B",
    "2049B",
    "3109A",
    "3946B",
@@ -677,7 +679,7 @@ export const RASGOS_DOR = [
   "name": "La familia de πάομαι",
   "short": "La familia de πάομαι",
   "cat": "Vocabulario",
-  "desc": "El verbo πάομαι, “adquirir”, cuyo perfecto πέπαμαι se utiliza con el sentido de “poseer”, corresponde al jónico-ático κτάομαι, κέκτημαι, y forma una familia de derivados con el mismo radical πᾱ-, como el sustantivo πᾶμα, equivalente del ático κτῆμα, el abstracto παμπασία, “conjunto de los bienes”, y el compuesto ἐπίπασις, equivalente del ático ἐπίκτησις. Según Buck (1955: §49.5a), estas formas, frecuentes en el dórico literario, se empleaban en lugar de κτῆμα y sus afines en la mayoría de los dialectos, quizá en todos, salvo el jónico-ático. Lhôte (2006: 402) considera dórica esta familia, que tiene por rara fuera de ese dialecto y que se documenta con especial abundancia en las laminillas, y Méndez Dosuna (2018b: 45) la cuenta entre los rasgos léxicos típicos del dórico (cf. §3). Es el término dórico mejor representado del capítulo, en el que se documenta en treinta y siete inscripciones. El verbo aparece en el perfecto πέπατα<ι> de I.Dodone DVC 6A (mediados del s. V a.C.) y en su participio πεπαμένος, que se lee en la misma inscripción y en 22A (primera mitad del s. IV a.C.), 146A (ss. V-IV a.C.), 1366B (primera mitad del s. V a.C.), 2418B (segunda mitad del s. IV a.C.), 3677A (segunda mitad del s. V a.C.) y 4092A (segunda mitad del s. V a.C.), así como en I.Dodone Lhôte 117A y 118B (ambas del s. IV a.C.); en el pluscuamperfecto 'πέπατο de I.Dodone DVC 2027B (s. IV a.C.), quizá también en [ἐ]πέπατο de 2238A (mediados del s. V a.C.); en la primera persona πέπαμ[αι] de 3261B (finales del s. V a.C.); en el presente 'πίπαμαι de 2028A (primera mitad del s. IV a.C.) y en el tema πιπάσκομαι de πιπασκομένωι, en 19A (ss. V-IV a.C.), y de πιπασκόμε<νος>, en 1591A (primera mitad del s. IV a.C.). También aparece en los aoristos de subjuntivo πάσομαι de I.Dodone DVC 608A (s. V a.C.) y πάσωμαι de 3330A (ss. V-IV a.C.). Entre los sustantivos predomina παμπασία, también escrito πανπασία, sobre todo en la fórmula περὶ παμπασίας de I.Dodone DVC 428B (principios del s. IV a.C.), 1381B (primera mitad del s. V a.C.) o 2815A (segunda mitad del s. V a.C.), entre otras, que se restituye en [περὶ] πα<μ>πασί[ας] de 2876B (segunda mitad del s. IV a.C.), y aparece también en acusativo, como en <παμ>πασίαν de 2286A (finales del s. V a.C.), y en la forma masculina o neutra πανπασίο̄ de I.Dodone Lhôte 116 (último cuarto del s. V a.C.); le siguen el genitivo plural παμάτων de I.Dodone DVC 2173A (primera mitad del s. IV a.C.), ἐπίπασι[ς] de 430 (primera mitad del s. IV a.C.), ἐπιπασίου de 4141A (primera mitad del s. IV a.C.) y el antropónimo Φιλοπάμονι de 3336A (finales del s. V a.C.), equivalente del ático Φιλοκτήμων. La frecuencia de esta familia guarda relación con la temática del capítulo, en el que las consultas sobre asuntos económicos o patrimoniales son las más numerosas (cf. §3), y con la estructura de las fórmulas, en las que el participio πεπαμένος expresa la condición del consultante, como en πράσ<σ>οιμι πεπαμένος τὰν οἰκίαν de I.Dodone DVC 2418B o en Ἦ αὐτὸς πεπαμένος τὰν ἐ<μ> πόλι οἰκίαν καὶ τὸ χωρίον de I.Dodone Lhôte 117A. Según la tipología de García Ramón (2018: 58-60), se trata de un término compartido con otros dialectos y ausente del ático, y su valor como criterio de adscripción, discutido en §3, depende de su concentración en las consultas dóricas, puesto que fuera de ellas solo se documenta en la consulta tesalia o beocia I.Dodone DVC 1060A (mediados del s. V a.C.), con πὲρ πανπασία<ς> (cf. §5.1.2), en la consulta en <i>koiné</i> 4054B (ss. V-IV a.C.) y en dos de mezcla dialectal, 2110A (primera mitad del s. V a.C.) y 3316A (ss. V-IV a.C.). Fuera del dórico, la familia tiene un paralelo claro en Beocia, donde designa el derecho a adquirir bienes raíces. Los decretos de proxenía beocios de los ss. IV-II a.C. conceden a los próxenos ese derecho con la fórmula εἶμεν αὐτοῖ γᾶς κὴ ϝοικίας ἔππασιν, o ἔμπασιν. Se explicaba ἔππασις como variante fonética de ἔμπασις (= ático ἔγκτησις), pero las laminillas de Dodona, con ἐπίπασις, su derivado ἐπιπάσιον y un subjuntivo de ἐπιπᾶσθαι (equivalente del ático ἐπικτῆσθαι), llevaron a Méndez Dosuna (2007f: 295-296) a reconocer en ella la forma apocopada de ἐπίπασις (= ático ἐπίκτησις), el mismo sustantivo que se lee en ἐπίπασι[ς] de I.Dodone DVC 430 y en ἐπιπασίου de 4141A (ambas de la primera mitad del s. IV a.C.). El paralelo beocio confirma que la familia no es exclusiva del dórico, como ya señalaba Buck (1955: §49.5a). Lo que sí parece propio del beocio es la formación concreta ἔππασις, con apócope de la preposición. Las dos formas del capítulo, ἐπίπασι[ς] y su derivado ἐπιπασίου, conservan la preposición plena y no plantean ese problema, pero la lectura ἐπίππᾱσις de I.Dodone DVC 313A, que se examina en el capítulo dedicado al beocio (§4.1.1), sería, de aceptarse, un testimonio de esa formación beocia.",
+  "desc": "El verbo πάομαι, “adquirir”, cuyo perfecto πέπαμαι se utiliza con el sentido de “poseer”, corresponde al jónico-ático κτάομαι, κέκτημαι, y forma una familia de derivados con el mismo radical πᾱ-, como el sustantivo πᾶμα, equivalente del ático κτῆμα, el abstracto παμπασία, “conjunto de los bienes”, y el compuesto ἐπίπασις, equivalente del ático ἐπίκτησις. Según Buck (1955: §49.5a), estas formas, frecuentes en el dórico literario, se empleaban en lugar de κτῆμα y sus afines en la mayoría de los dialectos, quizá en todos, salvo el jónico-ático. Lhôte (2006: 402) considera dórica esta familia, que tiene por rara fuera de ese dialecto y que se documenta con especial abundancia en las laminillas, y Méndez Dosuna (2018b: 45) la cuenta entre los rasgos léxicos típicos del dórico (cf. §3). Es el término dórico mejor representado del capítulo, en el que se documenta en cuarenta y siete inscripciones. El verbo aparece en el perfecto πέπατα<ι> de I.Dodone DVC 6A (mediados del s. V a.C.) y en su participio πεπαμένος, que se lee en la misma inscripción y en 22A (primera mitad del s. IV a.C.), 146A (ss. V-IV a.C.), 1366B (primera mitad del s. V a.C.), 2418B (segunda mitad del s. IV a.C.), 3677A (segunda mitad del s. V a.C.) y 4092A (segunda mitad del s. V a.C.), así como en I.Dodone Lhôte 117A y 118B (ambas del s. IV a.C.); en el pluscuamperfecto 'πέπατο de I.Dodone DVC 2027B (s. IV a.C.), quizá también en [ἐ]πέπατο de 2238A (mediados del s. V a.C.); en la primera persona πέπαμ[αι] de 3261B (finales del s. V a.C.); en el presente 'πίπαμαι de 2028A (primera mitad del s. IV a.C.) y en el tema πιπάσκομαι de πιπασκομένωι, en 19A (ss. V-IV a.C.), y de πιπασκόμε<νος>, en 1591A (primera mitad del s. IV a.C.). También aparece en los aoristos de subjuntivo πάσομαι de I.Dodone DVC 608A (s. V a.C.) y πάσωμαι de 3330A (ss. V-IV a.C.). Entre los sustantivos predomina παμπασία, también escrito πανπασία, sobre todo en la fórmula περὶ παμπασίας de I.Dodone DVC 428B (principios del s. IV a.C.), 1381B (primera mitad del s. V a.C.) o 2815A (segunda mitad del s. V a.C.), entre otras, que se restituye en [περὶ] πα<μ>πασί[ας] de 2876B (segunda mitad del s. IV a.C.), y aparece también en acusativo, como en <παμ>πασίαν de 2286A (finales del s. V a.C.), y en la forma masculina o neutra πανπασίο̄ de I.Dodone Lhôte 116 (último cuarto del s. V a.C.); le siguen el genitivo plural παμάτων de I.Dodone DVC 2173A (primera mitad del s. IV a.C.), ἐπίπασι[ς] de 430 (primera mitad del s. IV a.C.), ἐπιπασίου de 4141A (primera mitad del s. IV a.C.) y el antropónimo Φιλοπάμονι de 3336A (finales del s. V a.C.), equivalente del ático Φιλοκτήμων. La frecuencia de esta familia guarda relación con la temática del capítulo, en el que las consultas sobre asuntos económicos o patrimoniales son las más numerosas (cf. §3), y con la estructura de las fórmulas, en las que el participio πεπαμένος expresa la condición del consultante, como en πράσ<σ>οιμι πεπαμένος τὰν οἰκίαν de I.Dodone DVC 2418B o en Ἦ αὐτὸς πεπαμένος τὰν ἐ<μ> πόλι οἰκίαν καὶ τὸ χωρίον de I.Dodone Lhôte 117A. Según la tipología de García Ramón (2018: 58-60), se trata de un término compartido con otros dialectos y ausente del ático, y su valor como criterio de adscripción, discutido en §3, depende de su concentración en las consultas dóricas, puesto que fuera de ellas solo se documenta en la consulta tesalia o beocia I.Dodone DVC 1060A (mediados del s. V a.C.), con πὲρ πανπασία<ς> (cf. §5.1.2), en la consulta en <i>koiné</i> 4054B (ss. V-IV a.C.) y en dos de mezcla dialectal, 2110A (primera mitad del s. V a.C.) y 3316A (ss. V-IV a.C.). Fuera del dórico, la familia tiene un paralelo claro en Beocia, donde designa el derecho a adquirir bienes raíces. Los decretos de proxenía beocios de los ss. IV-II a.C. conceden a los próxenos ese derecho con la fórmula εἶμεν αὐτοῖ γᾶς κὴ ϝοικίας ἔππασιν, o ἔμπασιν. Se explicaba ἔππασις como variante fonética de ἔμπασις (= ático ἔγκτησις), pero las laminillas de Dodona, con ἐπίπασις, su derivado ἐπιπάσιον y un subjuntivo de ἐπιπᾶσθαι (equivalente del ático ἐπικτῆσθαι), llevaron a Méndez Dosuna (2007f: 295-296) a reconocer en ella la forma apocopada de ἐπίπασις (= ático ἐπίκτησις), el mismo sustantivo que se lee en ἐπίπασι[ς] de I.Dodone DVC 430 y en ἐπιπασίου de 4141A (ambas de la primera mitad del s. IV a.C.). El paralelo beocio confirma que la familia no es exclusiva del dórico, como ya señalaba Buck (1955: §49.5a). Lo que sí parece propio del beocio es la formación concreta ἔππασις, con apócope de la preposición. Las dos formas del capítulo, ἐπίπασι[ς] y su derivado ἐπιπασίου, conservan la preposición plena y no plantean ese problema, pero la lectura ἐπίππᾱσις de I.Dodone DVC 313A, que se examina en el capítulo dedicado al beocio (§4.1.1), sería, de aceptarse, un testimonio de esa formación beocia.",
   "dvcs": [
    "6A",
    "22A",
@@ -799,6 +801,7 @@ export const RASGO_TEXTS_DOR = {
  "1066B": "Ἀμπ(ρακία)",
  "1088A": "θεὸς τύχα· ἐπικοιν[ῆται] Φείδης ὁ Κορ-\nκυραῖος τῶι Δ̣ιὶ τῶι Να[ΐωι καὶ τ]ᾶι Διώναι \nπερὶ τᾶς δια̣λυτήα[ς . . . .]ΟΤΑΠΑΛΕΑΝ \nἀντεγράψ[α]το ἦ τυχ[αῖον] ΥΝ[. . .]ΗΥΝ[.] \nκαὶ λώϊον [πρ]άσσοι",
  "1089B": "θεὸς τ̣ύχα̣• Δωδω[ναῖοι ἱ]στορεῦ[ν]-\nτ̣ι Δία Νάϊον καὶ Διώ[ναν αἰ] τὸ σαμῆόν \nἐστι παιδὶ κλάριο[ν . . . .]Ν",
+ "1104A": "[περὶ παμ]πασίο̅",
  "1148A": "ἐ͂ τύχοιμ̣ί κα \nτὰν hοδὸ(ν) τ̣ούταν;",
  "1153A": "ἦ καὶ ζαμία τις ἐσσεῖται \nτουθἤνεκα;",
  "1154A": "αὐτεῖ",
@@ -933,6 +936,7 @@ export const RASGO_TEXTS_DOR = {
  "3185": "[περὶ ἐμπορί]α̣ς ἐς Ἐπίδα[μνον]",
  "320A": "θεὸς τύχα· [ὁ δεῖνα ἐπερωτῆι - - -]",
  "3220A": "ἦ λοῖόν μο̣[ί] κ̣α καὶ ἄμειν[ον] \nΝΕΙΑ αἴ κ[α] τὰ χωρία πωλ(έ)-\nων εἰς Κόρινθον ἀποδαμῶ \nἐν τοῖ ἕρποντι ἐνιαυτοῖ πρὸ \nἈκτίων κα[ὶ] ἦ ἀσφάλεια \nΩΝ ἐσσε[ῖ]ται ἀποδαμοῦν-\n[τ]ι αὐτο(ῖ);",
+ "324B": "ἐπε[ρωτῆι ὁ δεῖνα - - - περὶ παν]-\nπασία[ς - - - ἦ λώϊον καὶ] \nἄμεινον̣ [- - -]",
  "3261B": "[θ]εόν· [- - -] \nπέπαμ[αι - - -] \nΠΕ[. .]Ο[.][- - -]",
  "3274A": "ΑΜΟΙΓΑΣ ἇι μα[στε]-\nύουμεν",
  "3280A": "ἐ͂ οὐδὲν Φάρ̣ος;",
@@ -960,6 +964,7 @@ export const RASGO_TEXTS_DOR = {
  "3677A": "ἐ͂ μὲ̅ πεπαμέ̣νος \nτ' ἔπακρ̣α;",
  "3732A": "[- - -]σ̣ιππος Ϝισ̣[τορεῖ - - -]\n[- - -]Ε[.]ΑΣΑΕΘΕ[- - -]\n[- - -] καὶ τὸν ΝΟ̣[- - -]",
  "3777": "[οἱ δεῖνες ἐπ]ερωτέο̣ντι [Δία] τὸν [Νάϊον - - -] \n[- - -]ΤΟΤ[- - -]",
+ "3791A": "πὲρ [παμ]-\nπασ[ίας]",
  "3828A": "[τίνι κα θε]ο͂ν ἒ̅ hε̅ρ[ό̅ο̅ν εὐχόμενος] \n[γενεὰ]μ πάρμον[ον ἔχοι];",
  "3946B": "θεὸς [τ]ύχα• [ἐπερωτῆι ὁ δεῖνα τὸν Δία] \nτὸν Νάϊον καὶ [τὰν Διώναν] \nἦ πλέοντι ἐν [- - -]\nτὰ πὰρ Γογγύλ̣[ου - - -] \nκαὶ σωσεῖτα[ι - - -]",
  "3965A": "ἦ τις Ἐπιδ̣[άμνιος - - -] \nἢ οἴκαδι ἀ[- - -];",
@@ -1424,15 +1429,15 @@ export const CHRONO_DETAIL_DOR = [
  },
  {
   "period": "Med. s. V",
-  "n": 8
+  "n": 9
  },
  {
   "period": "2ª mit. s. V",
-  "n": 14
+  "n": 16
  },
  {
   "period": "Finales s. V",
-  "n": 21
+  "n": 22
  },
  {
   "period": "s. V (gen.)",
@@ -1440,7 +1445,7 @@ export const CHRONO_DETAIL_DOR = [
  },
  {
   "period": "Transición V–IV",
-  "n": 11
+  "n": 12
  },
  {
   "period": "Princ. s. IV",
@@ -1448,11 +1453,11 @@ export const CHRONO_DETAIL_DOR = [
  },
  {
   "period": "1ª mit. s. IV",
-  "n": 25
+  "n": 26
  },
  {
   "period": "Med. s. IV",
-  "n": 9
+  "n": 10
  },
  {
   "period": "2ª mit. s. IV",
@@ -1464,7 +1469,7 @@ export const CHRONO_DETAIL_DOR = [
  },
  {
   "period": "s. IV (gen.)",
-  "n": 19
+  "n": 22
  },
  {
   "period": "Transición IV–III",
@@ -1486,7 +1491,7 @@ export const CHRONO_DETAIL_DOR = [
 export const THEMES_DOR = [
  {
   "name": "Dinero / Patrimonio",
-  "value": 38
+  "value": 47
  },
  {
   "name": "Viaje / Migración",
@@ -1502,7 +1507,7 @@ export const THEMES_DOR = [
  },
  {
   "name": "Vida / Salud",
-  "value": 17
+  "value": 18
  },
  {
   "name": "Oficio / Comercio",
@@ -1551,6 +1556,7 @@ export const ALF_DOR = {
   "264A",
   "295B",
   "312B",
+  "324B",
   "413B",
   "419A",
   "428B",
@@ -1563,6 +1569,7 @@ export const ALF_DOR = {
   "574A",
   "608A",
   "634A",
+  "716A",
   "730B",
   "731B",
   "792B",
@@ -1571,6 +1578,7 @@ export const ALF_DOR = {
   "1022A",
   "1028A",
   "1088A",
+  "1104A",
   "1121A",
   "1153A",
   "1154A",
@@ -1583,11 +1591,13 @@ export const ALF_DOR = {
   "1369B",
   "1375B",
   "1377B",
+  "1428A",
   "1459B",
   "1569B",
   "1591A",
   "1866B",
   "1921A",
+  "1986A",
   "2027B",
   "2028A",
   "2033B",
@@ -1624,14 +1634,17 @@ export const ALF_DOR = {
   "3064A",
   "3103A",
   "3109A",
+  "3119B",
   "3183B",
   "3222B",
   "3261B",
   "3297A",
   "3315A",
   "3330A",
+  "3334B",
   "3336A",
   "3363B",
+  "3394A",
   "3405B",
   "3431A",
   "3473A",
@@ -1639,6 +1652,7 @@ export const ALF_DOR = {
   "3661A",
   "3677A",
   "3777",
+  "3791A",
   "3946B",
   "4079A",
   "4092A",
@@ -1661,6 +1675,7 @@ export const ALF_DOR = {
   "LOD 140",
   "LOD 2",
   "LOD 3",
+  "LOD 58B",
   "LOD 62",
   "LOD 73A",
   "LOD 89B",
@@ -1729,7 +1744,7 @@ export const ALF_DOR = {
 };
 export const CERTEZA_DOR = {
  "Seguro": 132,
- "Dudoso": 41,
+ "Dudoso": 51,
  "Solo nombre o alfabeto": 3
 };
 export const INSCRIPCIONES_DOR = [
@@ -1902,6 +1917,14 @@ export const INSCRIPCIONES_DOR = [
   "sub": "Dórico Magna Grecia"
  },
  {
+  "ref": "324B",
+  "date": "primera mitad del s. IV a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
   "ref": "411A",
   "date": "finales del s. VI a.C.",
   "tema": "Amor / Familia / Matrimonio",
@@ -2046,6 +2069,14 @@ export const INSCRIPCIONES_DOR = [
   "sub": "Doris mitior"
  },
  {
+  "ref": "716A",
+  "date": "finales del s. V a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
   "ref": "730B",
   "date": "finales del s. V a.C.",
   "tema": "Vida / Salud",
@@ -2131,6 +2162,14 @@ export const INSCRIPCIONES_DOR = [
   "tema": "Amigos / Enemigos",
   "alf": "Reformado / Desconocido",
   "cert": "Seguro",
+  "sub": "Doris mitior"
+ },
+ {
+  "ref": "1104A",
+  "date": "s. IV a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
   "sub": "Doris mitior"
  },
  {
@@ -2286,6 +2325,14 @@ export const INSCRIPCIONES_DOR = [
   "sub": "Doris mitior"
  },
  {
+  "ref": "1428A",
+  "date": "segunda mitad del s. V a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
   "ref": "1459B",
   "date": "principios del s. V a.C.",
   "tema": "Vida / Salud",
@@ -2329,6 +2376,14 @@ export const INSCRIPCIONES_DOR = [
   "ref": "1921A",
   "date": "segunda mitad del s. V a.C.",
   "tema": "Vida / Salud",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
+  "ref": "1986A",
+  "date": "s. IV a.C.",
+  "tema": "Dinero / Patrimonio",
   "alf": "Reformado / Desconocido",
   "cert": "Dudoso",
   "sub": "Doris mitior"
@@ -2694,6 +2749,14 @@ export const INSCRIPCIONES_DOR = [
   "sub": "Doris mitior"
  },
  {
+  "ref": "3119B",
+  "date": "mediados del s. IV a.C.",
+  "tema": "Vida / Salud",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
   "ref": "3183B",
   "date": "ss. V-IV a.C.",
   "tema": "Viaje / Migración",
@@ -2750,6 +2813,14 @@ export const INSCRIPCIONES_DOR = [
   "sub": "Doris mitior"
  },
  {
+  "ref": "3334B",
+  "date": "s. IV a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
   "ref": "3336A",
   "date": "finales del s. V a.C.",
   "tema": "Dinero / Patrimonio",
@@ -2761,6 +2832,14 @@ export const INSCRIPCIONES_DOR = [
   "ref": "3363B",
   "date": "primera mitad del s. IV a.C.",
   "tema": "Vida / Salud",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
+  "sub": "Doris mitior"
+ },
+ {
+  "ref": "3394A",
+  "date": "mediados del s. V a.C.",
+  "tema": "Dinero / Patrimonio",
   "alf": "Reformado / Desconocido",
   "cert": "Dudoso",
   "sub": "Doris mitior"
@@ -2835,6 +2914,14 @@ export const INSCRIPCIONES_DOR = [
   "tema": "Desconocido",
   "alf": "Reformado / Desconocido",
   "cert": "Seguro",
+  "sub": "Doris mitior"
+ },
+ {
+  "ref": "3791A",
+  "date": "segunda mitad del s. V a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
   "sub": "Doris mitior"
  },
  {
@@ -2995,6 +3082,14 @@ export const INSCRIPCIONES_DOR = [
   "tema": "Viaje / Migración",
   "alf": "Magna Grecia / Sicilia",
   "cert": "Seguro",
+  "sub": "Doris mitior"
+ },
+ {
+  "ref": "LOD 58B",
+  "date": "ss. V-IV a.C.",
+  "tema": "Dinero / Patrimonio",
+  "alf": "Reformado / Desconocido",
+  "cert": "Dudoso",
   "sub": "Doris mitior"
  },
  {
@@ -3167,7 +3262,7 @@ export const NOTACION_DOR = [
  {
   "period": "s. V",
   "con": 48,
-  "resto": 22,
+  "resto": 26,
   "dvcs": [
    "6A",
    "73",
@@ -3222,7 +3317,7 @@ export const NOTACION_DOR = [
  {
   "period": "Transición V–IV",
   "con": 3,
-  "resto": 8,
+  "resto": 9,
   "dvcs": [
    "1377B",
    "3315A",
@@ -3231,8 +3326,8 @@ export const NOTACION_DOR = [
  },
  {
   "period": "s. IV",
-  "con": 10,
-  "resto": 68,
+  "con": 11,
+  "resto": 72,
   "dvcs": [
    "4",
    "90",
@@ -3243,7 +3338,8 @@ export const NOTACION_DOR = [
    "3064A",
    "3297A",
    "3473A",
-   "LOD 94"
+   "LOD 94",
+   "1104A"
   ]
  },
  {
@@ -3366,7 +3462,7 @@ export const ARCAISMOS_DOR = [
  },
  {
   "period": "s. V",
-  "total": 70,
+  "total": 74,
   "digIni": 5,
   "digInter": 5,
   "aspEta": 9,
@@ -3374,7 +3470,7 @@ export const ARCAISMOS_DOR = [
  },
  {
   "period": "Transición V–IV",
-  "total": 11,
+  "total": 12,
   "digIni": 1,
   "digInter": 0,
   "aspEta": 1,
@@ -3382,7 +3478,7 @@ export const ARCAISMOS_DOR = [
  },
  {
   "period": "s. IV",
-  "total": 78,
+  "total": 83,
   "digIni": 3,
   "digInter": 0,
   "aspEta": 0,

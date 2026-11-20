@@ -137,7 +137,7 @@ function ComparacionBiblio() {
   </>;
 }
 
-// Perfil: las mezclas aparentes (§4 y tablas 1-6 del capítulo).
+// Perfil: las inscripciones que no muestran mezcla dialectal (§4 y tablas 1-6 del capítulo).
 const familia = (t) => /^(jónico|ático|koiné)/i.test(t) ? "Jónico-ático y koiné" : /^no jónico/i.test(t) ? "No jónico-ática"
   : /^dórico general|^dórico$/i.test(t) ? "Dórico general" : t[0].toUpperCase() + t.slice(1);
 function MezclasAparentes() {
@@ -171,7 +171,7 @@ function MezclasAparentes() {
         <Bars horizontal data={porClase.map(([k, v]) => ({ name: k, value: v, color: C.blue }))} height={60 + 38 * porClase.length} left={170} unit="inscripciones" />
       </Sec>
     </div>
-    <Sec title="Las mezclas aparentes, motivo a motivo">
+    <Sec title="Inscripciones que no muestran mezcla dialectal, motivo a motivo">
       {motivos.map((m) => {
         const xs = APARENTES_MEZ.filter((a) => a.grupo === m);
         return (
@@ -229,7 +229,7 @@ export function Mezcla({ switcher, subnav = null }) {
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={MEZ_INK} accent={[C.terra, MEZ, C.blue, C.green]}
       title={<>La <em style={{ fontWeight: 700, color: MEZ_INK }}>mezcla dialectal</em> en las laminillas oraculares de Dodona</>}
-      subtitle="Rasgos de dos grupos dialectales que no pueden convivir en uno solo · Tipología, explicaciones y mezclas aparentes"
+      subtitle="Rasgos de dos grupos dialectales que no pueden convivir en uno solo · Tipología, explicaciones e inscripciones sin mezcla"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_MEZ)} sub="ss. V–II a.C." accent={MEZ_INK} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_MEZ)} %`} sub={`${TOTAL_MEZ} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
@@ -291,7 +291,7 @@ export function Mezcla({ switcher, subnav = null }) {
         <SubNav color={MEZ_INK} value={sub} onChange={setSub} items={[
           ["cifras", "La mezcla dialectal en números", "adscripción, combinaciones, cronología, temática y alfabeto"],
           ["tipos", "Tipos de mezcla", `${TIPOS_MEZ.length} tipos según el lugar del elemento ajeno`],
-          ["aparentes", "Mezclas aparentes", `${APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0)} inscripciones presentadas como mezclas que no lo son`],
+          ["aparentes", "Sin mezcla dialectal", `${APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0)} inscripciones presentadas como mezclas que no la muestran`],
         ]} />
         {sub === "cifras" && <>
           <Sec title="La mezcla dialectal en el corpus de Dodona">
@@ -546,7 +546,7 @@ function NoJonAt({ switcher, subnav }) {
         <Stat label="Inscripciones" value={String(TOTAL_NJA)} sub="ss. VI–II a.C." accent={NJA_INK} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_NJA)} %`} sub={`${TOTAL_NJA} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Seguras" value={`${pct(CERTEZA_NJA.seguras, TOTAL_NJA)} %`} sub="excluyen el jónico-ático" accent={C.blue} />
-        <Stat label="Dórico probable" value="334-500" sub="con el dórico demostrado (267)" accent={DIALECT_COLORS.dorico} />
+        <Stat label="Dórico probable" value="344-510" sub="con el dórico demostrado (277)" accent={DIALECT_COLORS.dorico} />
       </>}
       tabs={[
         { id: "context", l: "Por qué hay tantas", i: "📜" },
@@ -569,9 +569,9 @@ function NoJonAt({ switcher, subnav }) {
         </Sec>
         <Sec title="Por qué hay tantas inscripciones no jónico-áticas">
           {[
-            ["El método", <>El criterio de los rasgos que excluyen el eolio trasladó a este grupo 243 consultas que la clasificación de partida atribuía al dórico, y la revisión de las inscripciones sin clasificar añadió más de cuatrocientas: 585 de las {TOTAL_NJA} carecían de clasificación al comienzo del trabajo. El criterio de la apócope πέρ retiró, en cambio, treinta consultas en que πέρ precede a una laguna.</>],
-            ["El estado de los textos", <>Con una media de 3,6 palabras legibles por inscripción y una mediana de dos, quedan por debajo del jónico-ático y la koiné (4,6), del tesalio (4,7) y del dórico general (5,2), y muy lejos de la mezcla (7,5). Una invocación como Ζεῦ Νᾶε καὶ Διώνα (<Ref src="DVC" id="81B" />, mediados del s. IV a.C.) o una pregunta reducida a κα [- - -] (<Ref src="DVC" id="2888B" />, segunda mitad del s. V a.C.) excluyen el jónico-ático, pero no ofrecen ningún otro dato.</>],
-            ["La naturaleza de los rasgos", <>Los más frecuentes son conservaciones que el jónico-ático perdió y que comparten los demás dialectos: 636 inscripciones (el 75,4 %) presentan un único tipo de rasgo, y las fórmulas aportan buena parte de ellos, pues en 123 (el 14,6 %) τύχα, ἀγαθά o Διώνα son los únicos rasgos visibles.</>],
+            ["El método", <>El criterio de los rasgos que excluyen el eolio trasladó a este grupo 242 consultas que la clasificación de partida atribuía al dórico, y la revisión de las inscripciones sin clasificar añadió más de cuatrocientas: 582 de las {TOTAL_NJA} carecían de clasificación al comienzo del trabajo. El criterio de la apócope πέρ retiró, en cambio, treinta y una consultas en que πέρ precede a una laguna.</>],
+            ["El estado de los textos", <>Con una media de 3,6 palabras legibles por inscripción y una mediana de dos, quedan por debajo del jónico-ático y la koiné (4,6), del tesalio (4,7) y del dórico general (5,1), y muy lejos de la mezcla (7,5). Una invocación como Ζεῦ Νᾶε καὶ Διώνα (<Ref src="DVC" id="81B" />, mediados del s. IV a.C.) o una pregunta reducida a κα [- - -] (<Ref src="DVC" id="2888B" />, segunda mitad del s. V a.C.) excluyen el jónico-ático, pero no ofrecen ningún otro dato.</>],
+            ["La naturaleza de los rasgos", <>Los más frecuentes son conservaciones que el jónico-ático perdió y que comparten los demás dialectos: 634 inscripciones (el 75,4 %) presentan un único tipo de rasgo, y las fórmulas aportan buena parte de ellos, pues en 122 (el 14,5 %) τύχα, ἀγαθά o Διώνα son los únicos rasgos visibles.</>],
           ].map(([t, d]) => (
             <Card key={t} accent={NJA}>
               <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: 700, color: NJA_INK, marginBottom: 6 }}>{t}</div>
@@ -641,8 +641,8 @@ function NoJonAt({ switcher, subnav }) {
               <p style={PROSE}>
                 La mayor parte del grupo procede con toda verosimilitud de consultantes dóricos, pero solo una parte puede delimitarse con
                 argumentos lingüísticos: 67 inscripciones excluyen todo el tesalio y el lesbio y apuntan al dórico o al beocio, y otras 166, con
-                κα, solo dejan abierta además la Histiótide. Por eso el dórico probable no admite una cifra única: a las 267 del dórico demostrado
-                pueden sumarse esas 67 y, con más reservas, las 166, de modo que se sitúa entre 334 y 500 inscripciones. Las cuatro en que πέρ
+                κα, solo dejan abierta además la Histiótide. Por eso el dórico probable no admite una cifra única: a las 277 del dórico demostrado
+                pueden sumarse esas 67 y, con más reservas, las 166, de modo que se sitúa entre 344 y 510 inscripciones. Las cuatro en que πέρ
                 aparece junto a κα, como <Ref src="DVC" id="315A" /> (s. V a.C.) o <Ref src="DVC" id="2667A" /> (mediados del s. V a.C.), son
                 compatibles con el dórico, pero también con el tesalio de Histiótide.
               </p>
