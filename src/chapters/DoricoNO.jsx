@@ -348,8 +348,8 @@ export default function DoricoNO({ switcher, subnav }) {
         </Sec>
       </>}
       {tab === "anexo" && (
-        <Sec title="Las inscripciones del dórico noroccidental" sub="Texto de la edición, datación y certeza">
-          <Anexo load={ANEXOS.doricoNO} color={INK} tint={NO} />
+        <Sec title="Las inscripciones del dórico noroccidental" sub="Agrupadas por siglos, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+          <Anexo load={ANEXOS.doricoNO} color={INK} tint={NO} comun="Dórico noroccidental" />
         </Sec>
       )}
     </ChapterLayout>

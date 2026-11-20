@@ -375,8 +375,8 @@ export default function DoricoGeneral({ switcher, subnav }) {
         </Sec>
       </>}
       {tab === "anexo" && (
-        <Sec title="Las inscripciones del dórico general" sub="Texto de la edición, datación y certeza; las dos de la Magna Grecia llevan la etiqueta">
-          <Anexo load={ANEXOS.doricoGeneral} color={DOR} />
+        <Sec title="Las inscripciones del dórico general" sub="Agrupadas por siglos, con el texto de la edición, la datación y la certeza (las dos de la Magna Grecia llevan la etiqueta); pulsa en cada grupo para desplegarlo">
+          <Anexo load={ANEXOS.doricoGeneral} color={DOR} comun="Dórico general" />
         </Sec>
       )}
     </ChapterLayout>

@@ -326,9 +326,16 @@ export const Pie = ({ color = C.gold }) => {
 };
 
 // ── Estructura de un capítulo ────────────────────────────────────
-export const ChapterSwitcher = ({ chapters, current, onChange }) => (
+export const ChapterSwitcher = ({ chapters, current, onChange, onHome = null }) => (
   <nav aria-label="Capítulos" style={{ display: "flex", justifyContent: "center", gap: 4, padding: "12px 8px 0",
     flexWrap: "wrap", background: "rgba(255,252,245,0.5)", borderBottom: `1px solid ${C.border}` }}>
+    {onHome && (
+      <button onClick={onHome} title="Volver a la pantalla de inicio" style={{ background: "transparent", color: C.gold,
+        border: `1px solid ${C.border}`, borderBottom: "none", borderRadius: "10px 10px 0 0", padding: "10px 16px",
+        fontFamily: "var(--fh)", fontSize: 13.5, fontWeight: 600, letterSpacing: 0.5 }}>
+        <span aria-hidden="true" style={{ marginRight: 6 }}>Δ</span>Inicio
+      </button>
+    )}
     {chapters.map((o) => {
       const active = current === o.id;
       return (

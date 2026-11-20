@@ -1,9 +1,9 @@
-"""Genera src/data/introduccion.js (introducción de la tesis, caps. 1-3): el corpus por edición, los grupos dialectales con
+"""Genera src/data/introduccion.js (Introducción y Parte I de la tesis): el corpus por edición, los grupos dialectales con
 su certeza, los alfabetos epicóricos y la cronología, con las mismas funciones y cifras que las figuras int_1 a int_4,
-y el texto del capítulo 2 (las laminillas), que añade a inscriptions.json las inscripciones que cita.
+y el texto de la Introducción y de los capítulos 1-4 de la Parte I, que añade a inscriptions.json las inscripciones que cita.
 
 Fuentes: DVC_v5_FINAL.xlsx, hoja Datos (DIALECTO_MACRO, DIALECTO_SUB, DIALECTO_CERTEZA, ALFABETO_GRUPO_v2, Date),
-PYTHON/SEABORN-ALTAIR/graficos_introduccion.py (GRUPOS, N, grupo_de) y la INTRODUCCIÓN vigente (§2.1-§2.4).
+PYTHON/SEABORN-ALTAIR/graficos_introduccion.py (GRUPOS, N, grupo_de) e INTRODUCCIÓN Y PARTE I vigente (Introducción y caps. 1-4).
 
 Uso:  py scripts/datos_introduccion.py
 """
@@ -30,7 +30,7 @@ sys.path.insert(0, str(GRAF))
 import graficos_dialecto_altair as al  # noqa: E402
 import graficos_introduccion as I  # noqa: E402
 from graficos_dialecto_pandas import ROTULO_SIGLO, parse_fecha, siglo_macro  # noqa: E402
-from comun import Excel, anadir_a_indice, apartados, indices, parrafos, secciones, ultima  # noqa: E402
+from comun import Excel, anadir_a_indice, indices, parrafos, secciones, titulo, ultima  # noqa: E402
 
 J = lambda x: json.dumps(x, ensure_ascii=False)
 df = pd.read_excel(EXCEL, sheet_name="Datos")
@@ -74,25 +74,45 @@ serie = df["Date"].map(lambda x: siglo_macro(parse_fecha(x))).value_counts()
 assert int(serie.sum()) == I.N["total"]
 CRONO = [{"period": ROTULO_SIGLO[k], "n": int(serie[k]), "siglo": k} for k in ROTULO_SIGLO if k in serie.index]
 
-# Capítulo 2, las laminillas: los apartados con su texto; el de la cronología (§2.3.3) va aparte, con sus cifras.
-DOCX = ultima("PARTE I. INTRODUCCIÓN", "INTRODUCCIÓN_v*.docx")
+# Introducción y Parte I (nueva estructura de la tesis, 19-20 nov. 2026): el texto de la Introducción, un solo texto sin
+# apartados, y los capítulos 1-4 de la Parte I con sus apartados; el arco del corpus (§1.4, último párrafo) acompaña la
+# cronología. La discusión de las fechas y la autoría van en la Parte III, 2.3 y 2.4, que el dashboard no recoge aún.
+DOCX = ultima("PARTE I. INTRODUCCIÓN", "INTRODUCCIÓN Y PARTE I_v*.docx")
 pars = parrafos(DOCX)
-i0 = indices(pars, "2.1.")
-secs = secciones(pars, i0, next(i for i in range(i0, len(pars)) if pars[i][1].startswith("CAPÍTULO 3")))
-CRONO_TXT = next(ps for n, _, ps in secs if n == "2.3.3")
-for d in CRONO:   # las cifras de §2.3.3 han de ser las del Excel
-    assert f"{d['n']:,}".replace(",", ".") in CRONO_TXT[0], d
-LAMINILLAS = [{**a, "name": a["name"].replace("carapanos", "Carapanos").replace("i.dodone dvc", "I.Dodone DVC")}
-              for a in apartados([x for x in secs if x[0] != "2.3.3"])]
+cuerpo = [t for _, t in pars]
+i_int = indices(pars, "INTRODUCCIÓN")
+i_conv = indices(pars, "CONVENCIONES")
+INTRO = [t for st, t in pars[i_int + 1:i_conv] if t]
+CAPS = [i for i, t in enumerate(cuerpo) if re.match(r"CAPÍTULO \d\. ", t)]
+i_bib = indices(pars, "REFERENCIAS")
+assert len(CAPS) == 4 and INTRO, (CAPS, len(INTRO))
+ARREGLOS = {"carapanos": "Carapanos", "sammlung": "<i>Sammlung</i>", "hoffmann": "Hoffmann", "s. xx": "s. XX", "estado moloso": "Estado moloso",
+            "I.dodone lhôte": "I.Dodone Lhôte", "I.dodone dvc": "I.Dodone DVC", "Dodona online": "<i>Dodona Online</i>"}
+def nombre(t):
+    t = titulo(t)
+    for a, b in ARREGLOS.items():
+        t = t.replace(a, b)
+    return t
+PARTE1 = []
+for k, i0 in enumerate(CAPS):
+    i1 = CAPS[k + 1] if k + 1 < len(CAPS) else i_bib
+    secs = secciones(pars, i0 + 1, i1)
+    PARTE1.append({"cap": k + 1, "titulo": nombre(re.sub(r"^CAPÍTULO \d\. ", "", cuerpo[i0])),
+                   "secs": [{"sec": n, "name": nombre(t), "paras": ps} for n, t, ps in secs if ps]})
+ARCO = next(p for c in PARTE1 for s_ in c["secs"] if s_["sec"] == "1.4" for p in s_["paras"] if p.startswith("En ese recorrido"))
+# “más de nueve de cada diez inscripciones pertenecen a los ss. V y IV a.C. o a la transición entre ambos siglos”
+n_v_iv = sum(d["n"] for d in CRONO if d["siglo"] in ("V", "V-IV", "IV"))
+assert "nueve de cada diez" in ARCO and n_v_iv / I.N["total"] > 0.9, n_v_iv
 # Al índice, las citas que renderDesc enlaza: “I.Dodone DVC 194A y 195B”.
 REF = re.compile(r"I\.Dodone (DVC|Lhôte) (\d+\w*)((?:(?:,\s*|\s+[ye]\s+)\d+\w*)*)")
-NUEVAS = anadir_a_indice({f"{c} {x}" for _, _, ps in secs for p in ps for c, a, b in REF.findall(p)
+textos = INTRO + [p for c in PARTE1 for s_ in c["secs"] for p in s_["paras"]]
+NUEVAS = anadir_a_indice({f"{c} {x}" for p in textos for c, a, b in REF.findall(p)
                           for x in [a, *re.findall(r"\d+\w*", b)]}, Excel())
 
 partes = [
     "// Generado por scripts/datos_introduccion.py: no editar a mano.",
-    "// Introducción de la tesis (caps. 1-3): las cifras de las figuras int_1 a int_4 (graficos_introduccion.py), con los datos de",
-    "// DVC_v5_FINAL.xlsx (hoja Datos), y el texto del capítulo 2.",
+    "// Introducción y Parte I de la tesis: las cifras de las figuras int_1 a int_4 (graficos_introduccion.py), con los datos de",
+    "// DVC_v5_FINAL.xlsx (hoja Datos), y el texto de la Introducción y de la Parte I.",
     "",
     f"export const TOTAL_INSCRIPCIONES = {I.N['total']};",
     f"export const TOTAL_EPICORICAS = {I.N['epicoricos']};",
@@ -105,13 +125,15 @@ partes = [
     f"export const ALFABETOS_INT = {J(ALFABETOS)};",
     "// int_4: cronología por siglos y transiciones; siglo: clave de SIGLO_COLORS.",
     f"export const CHRONO_INT = {J(CRONO)};",
-    f"// Capítulo 2 ({DOCX.name}): apartados de las laminillas y texto de la cronología (§2.3.3).",
-    f"export const SECCIONES_LAM = {J(LAMINILLAS)};",
-    f"export const CRONOLOGIA_TXT = {J(CRONO_TXT)};",
+    f"// Introducción y Parte I ({DOCX.name}): el texto de la Introducción, los capítulos 1-4 con sus apartados y el arco del",
+    "// corpus (último párrafo de §1.4).",
+    f"export const INTRO_TXT = {J(INTRO)};",
+    f"export const PARTE1_INT = {J(PARTE1)};",
+    f"export const ARCO_TXT = {J(ARCO)};",
     "",
 ]
 SALIDA.write_text("\n".join(partes), encoding="utf-8")
 print("introduccion.js:", CORPUS[0], CERTEZA, len(ALFABETOS), "alfabetos,", len(CRONO), "periodos")
 print(J(ALFABETOS)); print(J(CRONO))
-print("capítulo 2:", DOCX.name, [a["sec"] + " " + a["name"] for a in LAMINILLAS])
+print("Parte I:", DOCX.name, [s_["sec"] + " " + s_["name"] for c in PARTE1 for s_ in c["secs"]])
 print("inscripciones añadidas al índice:", NUEVAS)

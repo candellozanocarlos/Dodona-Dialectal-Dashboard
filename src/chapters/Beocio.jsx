@@ -329,8 +329,8 @@ export default function Beocio({ switcher, subnav }) {
       </>}
 
       {tab === "anexo" && (
-        <Sec title="Las inscripciones beocias" sub="Texto de la edición, datación y certeza">
-          <Anexo load={ANEXOS.beocio} color={C.beocio} />
+        <Sec title="Las inscripciones beocias" sub="Agrupadas por siglos, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+          <Anexo load={ANEXOS.beocio} color={C.beocio} comun="Beocio" />
         </Sec>
       )}
     </ChapterLayout>

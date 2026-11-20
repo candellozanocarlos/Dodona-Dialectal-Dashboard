@@ -1,8 +1,10 @@
-// Introducción de la tesis (caps. 1-3): el santuario, las laminillas, la metodología y las cifras del corpus.
+// Introducción de la tesis y Parte I (nueva estructura, 19-20 nov. 2026): la Introducción, el santuario y el oráculo
+// (Parte I, caps. 1-2), las laminillas y sus ediciones (caps. 3-4), la metodología (Parte II, 2) y las cifras del corpus.
+// La autoría de las consultas y la discusión de las fechas pertenecen a la Parte III, 2.3 y 2.4, y no se tratan aquí.
 import { useState } from "react";
-import { ALFABETO_COLORS, C, DIALECT_COLORS, ORO, PROSE, SIGLO_COLORS } from "../theme.js";
+import { ALFABETO_COLORS, C, DIALECT_COLORS, ORO, PROSE, SIGLO_COLORS, fade } from "../theme.js";
 import { MACROGRUPOS, miles, pct } from "../data/corpus.js";
-import { ALFABETOS_INT, CERTEZA_INT, CHRONO_INT, CORPUS_INT, CRONOLOGIA_TXT, GRUPOS_INT, SECCIONES_LAM, TOTAL_EPICORICAS, TOTAL_INSCRIPCIONES } from "../data/introduccion.js";
+import { ALFABETOS_INT, ARCO_TXT, CERTEZA_INT, CHRONO_INT, CORPUS_INT, GRUPOS_INT, INTRO_TXT, PARTE1_INT, TOTAL_EPICORICAS, TOTAL_INSCRIPCIONES } from "../data/introduccion.js";
 import { renderDesc } from "../lib/text.jsx";
 import { Bars } from "../components/charts.jsx";
 import { Ref } from "../components/Inscriptions.jsx";
@@ -17,8 +19,9 @@ const nDialecto = (s) => MACROGRUPOS.filter((m) => s.includes(m.name)).reduce((a
 const DEMOSTRADO = nDialecto(["Dórico general", "Dórico noroccidental", "Doris severior"]);
 
 const TABS = [
-  { id: "santuario", l: "El santuario", i: "📜" },
-  { id: "laminillas", l: "Las laminillas", i: "Λ" },
+  { id: "introduccion", l: "Introducción", i: "📜" },
+  { id: "santuario", l: "El santuario y el oráculo", i: "Ζ" },
+  { id: "laminillas", l: "Las laminillas y sus ediciones", i: "Λ" },
   { id: "metodo", l: "Metodología", i: "Μ" },
   { id: "cifras", l: "El corpus en cifras", i: "Σ" },
 ];
@@ -32,8 +35,62 @@ const Bloque = ({ t, children, accent = COLOR }) => (
 const Rejilla = ({ children }) => (
   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 12 }}>{children}</div>
 );
+const Fichas = ({ items }) => <Rejilla>{items.map(([t, d]) => <Bloque key={t} t={renderDesc(t)}>{renderDesc(d)}</Bloque>)}</Rejilla>;
 
-// §3.2.4: el rasgo que justifica la adscripción en cada grupo.
+// Apartados de un capítulo de la Parte I con su texto íntegro (INTRODUCCIÓN Y PARTE I vigente).
+const cap = (n) => PARTE1_INT.find((c) => c.cap === n);
+const Apartados = ({ caps }) => (
+  <Secciones color={COLOR} items={caps.flatMap((n) => cap(n).secs).map((x) => ({ ...x, name: renderDesc(x.name) }))} />
+);
+
+// ── La estructura de la tesis (Introducción, §8 del texto; CONTENIDO_v24) ──
+// Las secciones de la Parte II, 3 enlazan con la parte del atlas que las recoge. Numeración provisional (decisión pendiente).
+const ESTRUCTURA = [
+  { parte: "Parte I", t: "Las laminillas oraculares de Dodona", caps: [
+    ["1", "El santuario de Dodona"], ["2", "El oráculo de Dodona"], ["3", "Características de las laminillas"], ["4", "Ediciones y córpora"]] },
+  { parte: "Parte II", t: "Estudio dialectal", caps: [
+    ["1", "Estado de la cuestión"], ["2", "Metodología y criterios de adscripción"], ["3", "Grupos dialectales"]],
+    grupos: [
+      ["3.1", "Los dialectos dóricos", DIALECT_COLORS.dorico, "dorico"],
+      ["3.2", "Los dialectos eólicos", DIALECT_COLORS.tesalio, "eolicos"],
+      ["3.3", "El jónico-ático y la koiné", DIALECT_COLORS.jonicoAtico, "jonico-atico"],
+      ["3.4", "Otros dialectos", "#56677a", "minoritarios"],
+      ["3.5", "La mezcla dialectal", DIALECT_COLORS.mezcla, "mezcla"],
+      ["3.6", "Las inscripciones no jónico-áticas", DIALECT_COLORS.noJonAt, "minoritarios"],
+    ] },
+  { parte: "Parte III", t: "Síntesis y conclusiones", caps: [
+    ["1", "Panorama y aportaciones"], ["2", "Implicaciones para la historia del santuario"], ["3", "Líneas abiertas"]] },
+];
+
+const Estructura = () => (
+  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
+    {ESTRUCTURA.map((p) => (
+      <Card key={p.parte} accent={COLOR} style={{ padding: "14px 18px" }}>
+        <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: COLOR, fontWeight: 700 }}>{p.parte}</div>
+        <div style={{ fontFamily: "var(--fh)", fontSize: 16, fontWeight: 700, color: C.heading, margin: "2px 0 10px" }}>{p.t}</div>
+        <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 5 }}>
+          {p.caps.map(([n, t]) => (
+            <li key={n} style={{ fontSize: 12.5, color: C.text, display: "flex", gap: 8 }}>
+              <span style={{ color: C.dim, minWidth: 14 }}>{n}.</span>{t}
+            </li>
+          ))}
+        </ol>
+        {p.grupos && (
+          <div style={{ display: "grid", gap: 4, marginTop: 8, paddingLeft: 22 }}>
+            {p.grupos.map(([n, t, col, id]) => (
+              <a key={n} href={`#${id}`} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 12, color: C.muted, textDecoration: "none" }}>
+                <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: "50%", background: col, flexShrink: 0 }} />
+                <span style={{ color: C.dim }}>{n}</span><span style={{ borderBottom: `1px dotted ${fade(col, 0.6)}` }}>{t}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </Card>
+    ))}
+  </div>
+);
+
+// §3.2.4 de la introducción (Parte II, 2.5): el rasgo que justifica la adscripción en cada grupo.
 const CRITERIOS = [
   ["El dórico", "dorico", <>Solo se cuenta como dórica la inscripción con un rasgo que excluya los dialectos eólicos, porque la ᾱ, la /t/ ante /i/, κα, αἰ o la apócope son compartidos por el beocio o el tesalio: el futuro dórico, -μες, -ντι o ἕρπω, y además la familia de πάομαι, el artículo τοί, los adverbios en -ει y en -κα, ὀπτίλλος y ζώω. Las consultas en alfabeto corintio con un rasgo no jónico-ático visible se cuentan en el dórico general.</>],
   ["El tesalio y el beocio", "tesalio", <>Se reconocen por una constelación de rasgos propios: en el tesalio, ΕΙ y ΟΥ por las vocales medias largas, -νν-, κε y κίς, los infinitivos temáticos en -μεν y un léxico característico; en el beocio, /ai̯/ &gt; /ɛː/, /e/ &gt; /i/ ante vocal y δ(δ) de *dj. Algunos rasgos sitúan la consulta en una región (κε y κίς, la Pelasgiótide; κα o μά, la Histiótide).</>],
@@ -43,15 +100,21 @@ const CRITERIOS = [
   ["Los dialectos minoritarios", "otros", <>El macedonio, el eleo, el acayo o el rodio, con un rasgo propio, un antropónimo o un alfabeto bien identificado de la región junto a un rasgo no jónico-ático visible; se cuenta también la única inscripción que no parece escrita en griego, <Ref src="DVC" id="27A" /> (principios del s. V a.C.).</>],
 ];
 
-const OBJETIVOS = [
-  ["Criterios de adscripción", "Establecer unos criterios explícitos y homogéneos, adaptados a textos breves, fragmentarios y formulares, que distingan lo que una inscripción demuestra de lo que solo hace probable y midan el grado de certeza de cada adscripción."],
-  ["Clasificación del corpus", "Clasificar con esos criterios todas las inscripciones que conservan algún rasgo dialectal visible y cuantificar la presencia de cada dialecto, también por siglos y, cuando el texto lo permite, por regiones."],
-  ["Descripción de las variedades", "Describir los rasgos de cada variedad y contrastarlos con la documentación epigráfica de su región y con la bibliografía, con especial atención a las peor conocidas, como el griego del Epiro o el tesalio de Histiótide."],
-  ["Alfabeto y autopsia", "Examinar la relación entre alfabeto y dialecto y revisar, mediante la autopsia de las laminillas, las lecturas que deciden la adscripción de un texto."],
-  ["Mezcla y koiné", "Estudiar la mezcla dialectal y la difusión de la koiné, así como el peso de las fórmulas y del propio santuario, para valorar en qué medida el dialecto de una consulta permite reconocer el de quien la formuló."],
+// Parte I, caps. 1 y 2: síntesis de cada apartado, con las palabras y las citas del texto; el texto íntegro va en PARTE1_INT.
+const SANTUARIO = [
+  ["1.1. El Epiro y el valle de Dodona", "Una región montañosa que cierran el Pindo al este, frente a Macedonia y Tesalia, los montes Acroceraunios al norte, el mar Jónico al oeste y el golfo de Ambracia al sur. El santuario ocupa el valle de Tcharacovitsa, al pie del monte Tómaro, en el principal cruce de caminos del interior del Epiro, lo que explica que el oráculo atrajera tanto a los habitantes del interior como a los de las colonias de la costa (Piccinini 2017: 31; Frank 2026: 20)."],
+  ["1.2. Los pueblos del Epiro y las colonias de la costa", "Salvo en las colonias, la población no se organizó en <i>poleis</i> hasta la transición a la época helenística, sino en <i>ethne</i>: la tradición distingue a tesprotos, caones y molosos, junto a otros grupos como los casopeos, los atamanes o los paraveos. Desde los textos más antiguos, las laminillas entre ellos, el Epiro escribe en griego, en una variedad del dórico del Noroeste. En la costa, Corinto fundó Corcira y, con ella o en solitario, Apolonia, Epidamno, Anactorio, Léucade y Ambracia."],
+  ["1.3. Del santuario tesproto al centro del Estado moloso", "La actividad religiosa es segura desde finales del s. VIII a.C., y durante toda la época arcaica Dodona fue un santuario al aire libre, con el roble sagrado rodeado de calderos sobre trípodes; de mediados del s. VI a.C. datan las laminillas más antiguas (Lhôte 2006: 11-15). Perteneció en origen a los tesprotos y pasó a los molosos a finales del s. V o a comienzos del s. IV a.C., cuando empezó su monumentalización."],
+  ["1.4. Dodona en época helenística y romana", "El reinado de Pirro (297-272 a.C.) marcó su apogeo, con el <i>bouleuterion</i>, el pritaneo, el gran teatro y las Naia. Los etolios lo saquearon en el 219 a.C. (Plb. 4.67.3), y con la destrucción del 167 a.C. terminó, según Lhôte (2006: 11-15), la costumbre de escribir las consultas en plomo; el culto cesó con la prohibición de Teodosio en el 391 d.C."],
+];
+const ORACULO = [
+  ["2.1. La antigüedad y el prestigio del oráculo", "Homero se refiere ya al oráculo en sus dos poemas, y en momentos clave del relato (Il. 16.233-235; Od. 14.327-330), y Heródoto (2.52.2) dice que se lo tenía por el más antiguo de los oráculos griegos. El mismo Heródoto (2.54-57) recoge dos relatos sobre su fundación, y Éforo (citado por Str. 7.7.10) lo consideraba una fundación de los pelasgos."],
+  ["2.2. Los dioses y el personal del santuario", "El dios era Zeus Naio, al que acompañaba Dione como σύνναος y, en algunas consultas, Temis. Los sacerdotes eran los <i>selloi</i>, y junto a ellos actuaban las sacerdotisas llamadas πελειάδες, “palomas”. I.Dodone DVC 984A (principios del s. IV a.C.) registra una ofrenda μάντει καὶ ἱερομνάμονι, referencia a miembros concretos del personal del oráculo (Gartziou-Tatti 2017: 147-149)."],
+  ["2.3. Los procedimientos oraculares", "Las fuentes literarias hablan del roble, las palomas, los calderos de bronce, el exvoto de los corcirenses o el sorteo, el único que una parte de la bibliografía reconoce en las laminillas, como I.Dodone DVC 1170A (mediados del s. IV a.C.), que termina con τοῦτον ἀνελέτω (Parker 2015: 111-112). La mayoría de los estudios recientes admite que en Dodona coexistieron varios métodos."],
+  ["2.4. Consultas públicas y privadas", "Las consultas públicas, formuladas por ciudades, <i>koina</i> o <i>ethne</i>, son escasas: solo 32 de los 4.216 textos de la edición de 2013 se consideran, con reservas, públicos. La inmensa mayoría son consultas privadas sobre el matrimonio y la descendencia, los negocios y el trabajo, los viajes, la salud, la esclavitud o la religión privada."],
 ];
 
-// Capítulo 2: síntesis de cada apartado, con las palabras y las citas del capítulo; el texto íntegro va en SECCIONES_LAM.
+// Parte I, cap. 3.
 const EXCAVACIONES = [
   { event: "Identificación del yacimiento", date: "s. XIX", agent: "T. L. Donaldson, C. Wordsworth",
     desc: "El emplazamiento exacto de Dodona se desconocía hasta el s. XIX. Donaldson identificó las ruinas a partir de su gran teatro, y Wordsworth, que visitó el lugar en 1832, defendió poco después la misma propuesta." },
@@ -66,56 +129,50 @@ const EXCAVACIONES = [
   { event: "Memoria del Mundo", date: "2023", agent: "UNESCO",
     desc: "El conjunto se incorporó al registro “Memoria del Mundo”. La mayor parte de las laminillas se conserva en el Museo Arqueológico de Ioánina (Papadopoulou y Vasileiou 2021: 226; Frank 2026: 6 n. 12)." },
 ];
+const HALLAZGOS = [
+  ["La colección de Carapanos", "No se conservó íntegra. Un lote importante acabó en Berlín, donde se guarda un centenar de laminillas en muy mal estado, y el resto pasó al Museo Arqueológico Nacional de Atenas, donde Lhôte (2006: 8-10) calculó, tras examinarlo en 1998, que se habían perdido de forma irremediable dos tercios de lo que reproducen los facsímiles de 1878, a causa de la corrosión que sufre el plomo una vez expuesto al aire."],
+  ["El número de laminillas", "Según los cálculos de Vokotopoulou (1987: 82-85), el número total de laminillas halladas supera las 2.500, muchas de ellas pequeños fragmentos, muy lejos de los cerca de 8.000 fragmentos que llegaron a mencionarse."],
+];
+const CONTEXTO = [
+  ["Un contexto perdido", "Carapanos no registró el lugar ni las condiciones en que apareció cada pieza, y la edición de 2013 solo indica el año de la campaña. Para suplir esa carencia, Stavroula Konstantopoulou estudia en su tesis doctoral en curso los cuadernos de excavación de Evangelidis, cuyas notas siguen inéditas."],
+  ["La laminilla de Ζορκίς", "Es la única con información precisa sobre su contexto: la consulta de una mujer sobre la vista de su nieto, hallada en 2015 en los cimientos del propileo de la Ἱερὰ οἰκία, en el estrato de construcción del segundo recinto, del s. IV a.C., que constituye su <i>terminus ante quem</i>."],
+  ["Dos consecuencias", "La cronología del corpus depende casi por entero de la forma de las letras, y gana valor el estudio material de las laminillas: el análisis isotópico de cuatro ejemplares de Berlín mostró que el plomo de tres procedía de las minas del Laurion, y solo el examen directo del plomo permite distinguir las manos de una misma laminilla y el orden en que se grabaron sus textos."],
+];
+const CARACTERISTICAS = [
+  ["Material, forma y medidas", "Hojas finas de plomo de forma más o menos rectangular, que miden entre unos 2 y 16,5 cm de longitud y entre 1 y 7 cm de anchura (Papadopoulou y Vasileiou 2021: 227; Frank 2026: 7); unas pocas son de bronce (Chapinal-Heras 2021: 34). Su elección se ha relacionado con sus asociaciones mágicas, pero los estudios recientes la atribuyen, como ya Parke (1967: 101), a razones prácticas: era barato, fácil de grabar y reutilizable y podía plegarse para ocultar y transportar el texto (Bowden 2026: 60-63; Angliker 2026: 86-87, 92)."],
+  ["Escritura y plegado", "Las letras no suelen superar los 1-1,5 mm de altura, y las consultas ocupan por lo general entre dos y cuatro líneas (Tselikas 2018: 250; Papadopoulou y Vasileiou 2021: 229, 232). Una vez escrita, la laminilla se plegaba o se enrollaba con el texto hacia dentro, y muchas se han encontrado todavía así (Lhôte 2006: 2; Tselikas 2018: 250)."],
+  ["Reutilización y conservación", "La reutilización es la norma: muchas laminillas son palimpsestos, y no es raro que una misma pieza conserve tres o cuatro inscripciones en cada cara, de manos y épocas distintas (Tselikas 2018: 250; Méndez Dosuna 2024, §2). Según el recuento de Bowden (2026: 63-64), lo más frecuente es que conserve dos, la media es de 3,3 y una de ellas llega a trece."],
+  ["Los textos de una laminilla", "El principal es la consulta, a la que pueden acompañar, en la cara exterior de la laminilla plegada, el nombre del consultante, un título que resume el asunto, como Πὲρ προβατείας en I.Dodone Lhôte 80, o una letra aislada que servía, según Robert (1883), de número de orden. Algunas consultas ocupan las dos caras, como la de Esquitas en I.Dodone DVC 194A y 195B (ambas del s. IV a.C.)."],
+  ["Las respuestas", "Son muy escasas. Muchos textos que se habían tomado por respuestas son en realidad consultas o títulos, y Martín González (2021: 223) solo acepta con relativa seguridad la de I.Dodone DVC 108B (segundo cuarto del s. IV a.C.), Ἐπὶ γῆι σχέθε̣ : τελέο̅ς, y como probables otras dos."],
+  ["El formulario", "Las consultas suelen abrirse con una invocación del tipo θεὸς τύχα ἀγαθά, a la que siguen el nombre del consultante, un verbo de consulta y el nombre de los dioses. La pregunta total, con ἦ, πότερον o αἰ/εἰ, plantea si una acción es preferible a otra, y la parcial, con τίνι, busca la divinidad a la que hay que dirigirse (Lhôte 2006: 336-341; Méndez Dosuna 2008: 70)."],
+];
+const DESTINO = [
+  ["Después de la consulta", "Las laminillas aparecieron dispersas por el recinto sagrado, sin un depósito ritual específico, y no hay acuerdo sobre lo que se hacía con ellas. Lhôte (2006: XI, XV, 359-362) propuso que se enterraban al pie del roble sagrado, lo que Méndez Dosuna (2008: 56) considera poco verosímil; Bonnechere (2026: 127-129) rechaza que el santuario las archivara, y Bowden (2026: 66-71) propone que se dejaban a la vista, como testimonio de la visita."],
+  ["Su papel en la consulta", "Sigue abierto: las laminillas que solo conservan un nombre o un título demuestran, según Bonnechere (2026: 133-135), que al menos una parte de las preguntas se formulaba de viva voz, y la laminilla sería entonces una costumbre local, quizá una garantía para no olvidar la pregunta ante el profeta."],
+];
 
+// Parte I, cap. 4.
 const EDICIONES = [
   { event: <i>Dodone et ses ruines</i>, date: "1878", agent: "C. Carapanos, con la ayuda de Foucart",
     desc: "Dio a conocer un procedimiento oracular sin paralelos. Sus transcripciones han quedado anticuadas, pero las láminas de facsímiles del segundo volumen siguen siendo indispensables, porque buena parte de la colección se ha perdido desde entonces (Lhôte 2006: 2-3)." },
-  { event: "Primeras reediciones", date: "1883-1899", agent: "Pomtow; O. Hoffmann",
-    desc: "Pomtow (1883) agrupó por primera vez las consultas por temas, y Hoffmann incluyó los textos en la <i>Sammlung der griechischen Dialekt-Inschriften</i> (<i>SGDI</i> 1557-1598), donde, por exigencia de la obra, los ordenó por dialectos (Lhôte 2006: 3-4, 22)." },
+  { event: "Reseñas y primeras reediciones", date: "1883-1899", agent: "Pomtow; Robert; O. Hoffmann",
+    desc: "Pomtow (1883) agrupó por primera vez las consultas por temas, Robert (1883) interpretó las letras aisladas como números de orden, y Hoffmann incluyó los textos en la <i>Sammlung der griechischen Dialekt-Inschriften</i> (<i>SGDI</i> 1557-1598), donde, por exigencia de la obra, los ordenó por dialectos (Lhôte 2006: 3-4, 22)." },
   { event: "Publicaciones selectivas", date: "s. XX", agent: "Evangelidis, Dakaris, Vokotopoulou, Christidis",
-    desc: "Las laminillas de Evangelidis y de Dakaris solo se conocieron por publicaciones selectivas y muy sumarias, a menudo sin facsímil, en los <i>Praktika</i> de la Sociedad Arqueológica de Atenas y en los <i>Epeirotika Chronika</i> (Lhôte 2006: 4-5; Tselikas 2018: 249). Méndez Dosuna (1985: 19) reclamó con urgencia una edición fiable del corpus." },
+    desc: "Las laminillas de Evangelidis y de Dakaris solo se conocieron por publicaciones selectivas y muy sumarias, a menudo sin facsímil (Lhôte 2006: 4-5; Tselikas 2018: 249); otras se recogieron en los estudios de Parke (1967) y Eidinow (2007). Méndez Dosuna (1985: 19) reclamó con urgencia una edición fiable del corpus." },
   { event: <i>I.Dodone Lhôte</i>, date: "2006", agent: "É. Lhôte",
     desc: "<i>Les lamelles oraculaires de Dodone</i> reúne todas las laminillas publicadas hasta entonces: 167 números, más tres <i>bis</i>, con unos doscientos textos. Es una edición crítica que revisa las lecturas, en muchos casos sobre los originales, ordena el corpus por temas y lo completa con estudios de conjunto (Lhôte 2006: 6-7, 22-25, 327-422; Méndez Dosuna 2008: 54-55)." },
   { event: <i>I.Dodone DVC</i>, date: "2013", agent: "S. Dakaris, I. Vokotopoulou y A.-Ph. Christidis; la completó S. Tselikas",
-    desc: "Sobre todo, las laminillas de las campañas de Evangelidis de 1929-1932 y 1935, con números de inventario hasta el 1380, y unas pocas de las excavaciones de los años cincuenta, como 15A-17B, 19A y 192A (I.Dodone Lhôte 36, 40 y 141, halladas en 1952): unas 1.250 laminillas que contienen 4.216 textos, y cada texto recibe un número y la letra de la cara en que se encuentra (Tselikas 2017: 35; 2018: 249-250). Multiplicó por veinte el material conocido (Parker 2016: 71-72; Frank 2026: 6-7). Carece de la introducción que debían haber escrito los editores y de fotografías (Tselikas 2017: 36; 2018: 249 n. 2), y sus fechas no se justifican y tienden a ser demasiado altas (Méndez Dosuna 2016: 119; Lhôte 2017b: 41; Méndez Dosuna 2024, §3)." },
+    desc: "Sobre todo, las laminillas de las campañas de Evangelidis de 1929-1932 y 1935: unas 1.250 laminillas que contienen 4.216 textos, y cada texto recibe un número y la letra de la cara en que se encuentra (Tselikas 2017: 35; 2018: 249-250). Multiplicó por veinte el material conocido (Parker 2016: 71-72; Frank 2026: 6-7). Carece de la introducción que debían haber escrito los editores y de fotografías (Tselikas 2017: 36; 2018: 249 n. 2), y sus fechas no se justifican y tienden a ser demasiado altas (Méndez Dosuna 2016: 119; Lhôte 2017b: 41; Méndez Dosuna 2024, §3)." },
   { event: "Dodona Online", date: "en curso", agent: "P. Bonnechere y un equipo internacional",
-    desc: "Una reedición crítica de las laminillas, que se divide hoy en una selección comentada de textos, CIOD, y una reedición completa, <i>I.Dodone Online</i> (Méndez Dosuna 2016: 119 n. 4; Frank 2026: 7 n. 13)." },
+    desc: "Una reedición crítica de las laminillas, que se divide hoy en una selección comentada de textos, <i>CIOD</i>, y una reedición completa, I.Dodone Online (Méndez Dosuna 2016: 119 n. 4; Frank 2026: 7 n. 13)." },
 ];
-
-const HALLAZGOS = [
-  ["La colección de Carapanos", "No se conservó íntegra. Un lote importante acabó en Berlín, donde se guarda un centenar de laminillas en muy mal estado, y el resto pasó al Museo Arqueológico Nacional de Atenas, donde Lhôte (2006: 8-10) calculó, tras examinarlo en 1998, que se habían perdido de forma irremediable dos tercios de lo que reproducen los facsímiles de 1878, a causa de la corrosión que sufre el plomo una vez expuesto al aire."],
-  ["El número de laminillas", "Según los cálculos de Vokotopoulou, el número total de laminillas halladas supera las 2.500, muchas de ellas pequeños fragmentos (Tselikas 2017: 35; 2018: 249), muy lejos de los cerca de 8.000 fragmentos que llegaron a mencionarse (Méndez Dosuna 2008: 52)."],
-];
-
-const CARACTERISTICAS = [
-  ["Material, forma y medidas", "Hojas finas de plomo de forma más o menos rectangular, que miden entre unos 2 y 16,5 cm de longitud y entre 1 y 7 cm de anchura; unas pocas son de bronce (Papadopoulou y Vasileiou 2021: 227; Frank 2026: 7; Chapinal-Heras 2021: 34). El plomo era barato, fácil de grabar y reutilizable, y debió de importarse, porque en el Epiro no había minas de plata, de cuya explotación procedía (Papadopoulou y Vasileiou 2021: 229; Chapinal-Heras 2021: 35)."],
-  ["Escritura y plegado", "Las letras no suelen superar los 1-1,5 mm de altura, y las consultas ocupan por lo general entre dos y cuatro líneas (Tselikas 2018: 250; Papadopoulou y Vasileiou 2021: 229, 232). Una vez escrita, la laminilla se plegaba o se enrollaba con el texto hacia dentro, y muchas se han encontrado todavía así (Lhôte 2006: 2; Tselikas 2018: 250)."],
-  ["Reutilización y conservación", "La reutilización es la norma: muchas laminillas son palimpsestos, y no es raro que una misma pieza conserve tres o cuatro inscripciones en cada cara, de manos y épocas distintas (Tselikas 2018: 250; Méndez Dosuna 2024, §2). Según el recuento de Bowden (2025: 63-64), lo más frecuente es que conserve dos, la media es de 3,3 y una de ellas llega a trece. En torno al 10 % de las laminillas se conserva completo (Tselikas 2017: 36), y apenas 1.323 textos lo están lo bastante para permitir un análisis detallado de su contenido (Bonnechere 2017: 74)."],
-  ["Los textos de una laminilla", "El principal es la consulta, a la que pueden acompañar, en la cara exterior de la laminilla plegada, el nombre del consultante, un título que resume el asunto, como el Πὲρ προβατείας de I.Dodone Lhôte 80 (primera mitad del s. IV a.C.), o una letra aislada que servía, según la interpretación de Robert (1883), de número de orden (Lhôte 2006: 350-355; Tselikas 2018: 250). Algunas consultas ocupan las dos caras, como la de Esquitas en I.Dodone DVC 194A y 195B (ambas del s. IV a.C.)."],
-  ["Las respuestas", "Son muy escasas. Muchos textos que se habían tomado por respuestas son en realidad consultas o títulos, y Martín González (2021: 223) solo acepta con relativa seguridad la de I.Dodone DVC 108B (segundo cuarto del s. IV a.C.), Ἐπὶ γῆι σχέθε̣ : τελέο̄ς, y como probables otras dos; las listas de dioses y ofrendas pueden interpretarse tanto como respuestas como consultas."],
-  ["El formulario", "Las consultas suelen abrirse con una invocación del tipo θεὸς τύχα ἀγαθά, a la que siguen el nombre del consultante, un verbo de consulta, como ἐπερωτάω, ἐπικοινάομαι, ἐρωτάω o ἱστορέω, y el nombre de los dioses: ὁ δεῖνα ἐπερωτῆι τὸν Δία τὸν Νάϊον καὶ τὰν Διώναν (Lhôte 2006: 336-349; Tselikas 2018: 250-251; Frank 2026: 10 n. 25)."],
-  ["Las preguntas", "La pregunta total, introducida por ἦ, πότερον o αἰ/εἰ, plantea si una acción es preferible a otra, y la parcial, con τίνι, busca la divinidad a la que hay que dirigirse (Lhôte 2006: 336-341; Méndez Dosuna 2008: 70). Abundan también las consultas reducidas a περί y un genitivo, como el frecuentísimo περὶ γενεᾶς (Parker 2016: 73; Frank 2026: 10-11). Pueden redactarse en primera o en tercera persona, y no es raro que ambas alternen en un mismo texto (Méndez Dosuna 2008: 63; 2024, §3)."],
-];
-
-const AUTORIA = [
-  ["El silencio de las fuentes", "Ninguna fuente antigua describe cómo se redactaban las consultas, y las literarias no mencionan siquiera el uso de laminillas de plomo (Martín González 2021: 205). Quién las grababa ha de deducirse de las propias laminillas, y la respuesta tiene consecuencias directas para el estudio dialectal: si el consultante escribía su pregunta, la lengua del texto es la suya; si la dictaba, el texto puede reflejar también el habla de quien la escribió."],
-  ["Los consultantes", "La mayoría de los estudiosos considera que, por regla general, los consultantes escribían sus propias preguntas. El argumento principal es la variedad de alfabetos y dialectos, que no se explicaría con facilidad si las hubiera redactado el personal del santuario (Méndez Dosuna 2018b: 36; Crespo y Giannakis 2019: 57; Martín González 2021: 205-206; Chapinal-Heras 2021: 117), y a él se suman la escritura, informal y a menudo cursiva, y la frecuencia de las faltas de ortografía y de las irregularidades sintácticas (Martín González 2021: 206)."],
-  ["Escribas y personal del santuario", "Otros autores han subrayado la intervención de escribas o funcionarios: según Méndez Dosuna (2018a: 276), los iletrados dictaban a un letrado local, cuyas formas dóricas aparecen sobre todo en las primeras palabras de los textos, y Crespo y Giannakis (2019: 47-48) cuentan entre las dificultades para identificar el dialecto de una consulta el dictado a escribas locales que pudieron “editar” el del consultante. Esas formas no exigirían, sin embargo, un escriba local, porque pudieron copiarse de un modelo (Méndez Dosuna 2008: 69; 2018b: 36) o aprenderse de oídas (Tselikas 2018: 255)."],
-  ["Los textos anexos", "La intervención del personal sí está documentada en ellos: Lhôte (2006: 114-116, 332, 354-355, 366-367) le atribuye varios títulos, nombres y respuestas grabados en el reverso de las laminillas. Johnston (2021: 111, 113-114) advierte, con todo, que esas atribuciones son verosímiles, pero no seguras, y que el único tipo de texto que con toda probabilidad grababa el personal, la letra que indicaba el orden de la consulta, no se documenta antes del s. IV a.C."],
-  ["Alfabetización y consultantes", "La variedad dialectal de las laminillas y la presencia de consultantes de condición modesta sugieren que la proporción de quienes sabían escribir un texto breve era mayor de lo que se cree (Chapinal-Heras 2021: 170). Las laminillas dan voz, además, a grupos que apenas aparecen en otras fuentes: junto a hombres libres de muy distinta condición consultan mujeres, solas o con sus maridos, esclavos que preguntan por su libertad y extranjeros cuya lengua materna no era el griego (Katsadima 2017; Chapinal-Heras 2021: 170-171; Frank 2026: 1-2)."],
-];
-
 const INVESTIGACION = [
-  ["La elección del plomo", "Se ha relacionado a menudo con sus asociaciones mágicas, por analogía con las <i>defixiones</i>, pero los estudios recientes la atribuyen a razones prácticas: era barato y abundante y, a diferencia de los óstraca, podía plegarse para ocultar y transportar el texto (Bowden 2025: 60-63; Angliker 2025: 86-87, 92)."],
-  ["Después de la consulta", "Las laminillas aparecieron dispersas por el recinto sagrado, sin un depósito ritual específico (Chapinal-Heras 2021: 34, 117-118; Martín González 2021: 206), y no hay acuerdo sobre lo que se hacía con ellas. Lhôte (2006: XI, XV, 359-362) propuso que los consultantes las enterraban al pie del roble sagrado, lo que Méndez Dosuna (2008: 56, 63) considera poco verosímil; Bonnechere (2025: 127-129) rechaza que el santuario las archivara, y Bowden (2025: 66-71) propone que se dejaban a la vista, como testimonio de la visita, y que el personal las retiraba de vez en cuando a un depósito."],
-  ["Su papel en la consulta", "Sigue abierto: las laminillas que solo conservan un nombre o un título demuestran, según Bonnechere (2025: 133-135), que al menos una parte de las preguntas se formulaba de viva voz, y la laminilla sería entonces una costumbre local, quizá una garantía para no olvidar la pregunta ante el profeta. Las letras aisladas que se interpretan desde Robert (1883) como números de orden faltan en la inmensa mayoría de los textos (Bonnechere 2025: 135-136)."],
-  ["Una fuente histórica", "Donde más ha avanzado la investigación desde 2013 es en la lectura de las consultas como fuente histórica. Documentan sobre todo preocupaciones privadas y, en una proporción mínima, cuestiones políticas (Bonnechere 2017; 2025: 128), y han permitido estudiar la economía (Hinsch 2022), la infancia y la familia (Laes 2020), las mujeres (Katsadima 2017; Frank 2026), la agricultura y la relación con el medio natural (Schliephake 2025) o los motivos y la experiencia de quienes peregrinaban al santuario (Chapinal-Heras 2025)."],
+  ["Dos etapas", "Tras la primera visión de conjunto de Parke (1967) siguió un largo silencio, que rompieron el corpus de Lhôte (2006), el libro de Eidinow (2007) y la monografía de Dieterle (2007). La publicación de I.Dodone DVC multiplicó después los estudios, de la historia del santuario de Piccinini (2017) a la monografía de Chapinal-Heras (2021), hoy la obra de referencia, y los volúmenes de Bowden y Eidinow (2026) y de Frank (2026)."],
+  ["Una fuente histórica", "Donde más ha avanzado la investigación desde 2013 es en la lectura de las consultas como fuente histórica, que ha permitido estudiar la economía (Hinsch 2022), la infancia y la familia (Laes 2020), las mujeres (Katsadima 2017; Frank 2026), la agricultura y la relación con el medio natural (Schliephake 2026) o los motivos y la experiencia de quienes peregrinaban al santuario (Chapinal-Heras 2026)."],
 ];
-
-const Fichas = ({ items }) => <Rejilla>{items.map(([t, d]) => <Bloque key={t} t={t}>{renderDesc(d)}</Bloque>)}</Rejilla>;
 
 export default function Introduccion({ switcher }) {
-  const [tab, setTab] = useState("santuario");
+  const [tab, setTab] = useState("introduccion");
   const [sub, setSub] = useState("grupos");
   const nSiglo = (k) => CHRONO_INT.find((d) => d.siglo === k).n;
   const s4 = nSiglo("IV"), s5 = nSiglo("V");
@@ -123,7 +180,7 @@ export default function Introduccion({ switcher }) {
   return (
     <ChapterLayout switcher={switcher} color={COLOR} accent={[C.terra, COLOR, C.gold, C.green]}
       title={<>Las variedades dialectales de las <em style={{ fontWeight: 700, color: COLOR }}>laminillas oraculares</em> de Dodona</>}
-      subtitle="El santuario, el corpus y la metodología"
+      subtitle="Introducción y Parte I · El santuario, el oráculo, las laminillas y sus ediciones, la metodología y el corpus en cifras"
       stats={<>
         <Stat label="Inscripciones" value={miles(TOTAL_INSCRIPCIONES)} sub="I.Dodone DVC e I.Dodone Lhôte" accent={COLOR} />
         <Stat label="Con rasgos dialectales" value={miles(CLAS)} sub={`el ${pct(CLAS, TOTAL_INSCRIPCIONES)} % del corpus`} accent={C.terra} />
@@ -132,146 +189,87 @@ export default function Introduccion({ switcher }) {
       </>}
       tabs={TABS} tab={tab} onTab={setTab}>
 
-      {tab === "santuario" && <>
-        <Sec title="Presentación" sub="Un corpus epigráfico singular para estudiar la variación dialectal del griego antiguo">
-          <Card style={{ padding: "18px 22px" }}>
-            <p style={BIG}>
-              El santuario de Zeus en Dodona, en el Epiro, al noroeste de Grecia, albergaba el oráculo que los griegos tenían por el más
-              antiguo, conocido ya por los poemas homéricos. En él se veneraba a Zeus Naio junto a Dione, y su posición, en el principal cruce
-              de caminos del interior de la región, le atrajo durante siglos consultantes de muchos y variados lugares. Las fuentes literarias
-              atribuyen al oráculo procedimientos muy diversos, del roble sagrado y las palomas a los calderos de bronce o el sorteo, pero
-              ninguna menciona que las preguntas se escribieran sobre plomo. Fueron las excavaciones las que sacaron a la luz esa práctica:
-              desde mediados del s. VI a.C. hasta el s. II a.C., miles de consultas se grabaron en finas hojas de ese metal, las laminillas
-              oraculares, que forman hoy uno de los corpus epigráficos más singulares del mundo griego. Sus textos, que dan testimonio de las
-              preocupaciones cotidianas de quienes consultaban el oráculo, están redactados en dialectos muy diversos, lo que los
-              convierte en una fuente excepcional para la dialectología griega.
-            </p>
-            <p style={{ ...BIG, margin: "12px 0 0" }}>
-              Las primeras laminillas aparecieron en las excavaciones que Carapanos llevó a cabo entre 1875 y 1877, pero el grueso del material
-              procede de las campañas que Evangelidis dirigió para la Sociedad Arqueológica de Atenas entre 1929 y 1959. Durante decenios, de
-              esas laminillas solo se publicó una selección, y cuando Lhôte reunió en 2006 todas las conocidas hasta entonces, su edición
-              crítica (I.Dodone Lhôte) no pasaba de unas doscientas inscripciones. En 2013 vio la luz, por fin, la edición que Dakaris,
-              Vokotopoulou y Christidis habían emprendido en los años setenta y que, tras la muerte de los tres, completó Tselikas: unas 1.250
-              laminillas, casi todas de las campañas de 1929-1932 y 1935, con 4.216 inscripciones. Esa edición (I.Dodone DVC), que multiplicó por veinte
-              el material conocido, ha convertido el santuario en un lugar privilegiado para estudiar la variación dialectal del griego
-              antiguo: en un mismo espacio y en unos mismos siglos conviven el dórico del Noroeste, el de las colonias corintias y el de la
-              Magna Grecia, el tesalio, el beocio, el jónico, el ático y la koiné, junto a textos de dialecto mixto y de hablantes cuya lengua
-              materna no era el griego.
-            </p>
-            <p style={{ ...BIG, margin: "12px 0 0" }}>
-              Este material plantea, sin embargo, dificultades considerables. La mayoría de las consultas son breves, fragmentarias y
-              formulares, no declaran la procedencia de quien pregunta y conservan pocos rasgos que permitan atribuirlas a un dialecto
-              concreto. Quizá por ello, y pese al número de trabajos que se han ocupado de la lengua de las laminillas, nadie ha emprendido
-              hasta ahora el estudio dialectal del corpus completo. Las monografías más recientes sobre el santuario y sobre las consultas
-              remiten todavía, para la distribución dialectal de las laminillas, al análisis que Lhôte (2006: 363-380) hizo de las 167 de su
-              corpus en 2006 (Chapinal-Heras 2021: 183-184; Frank 2026: 9 n. 21). La bibliografía ha examinado dialectos, rasgos y textos
-              concretos y coincide en el predominio del dórico, pero no ha ofrecido una clasificación de todas las inscripciones basada en
-              criterios explícitos, ni una descripción de conjunto de las variedades que documentan, ni una medida de lo que cada una
-              representa. Esta tesis se propone llenar ese vacío con el estudio dialectal de todas las inscripciones de las dos ediciones de
-              referencia, I.Dodone DVC e I.Dodone Lhôte, que reúnen {miles(TOTAL_INSCRIPCIONES)} inscripciones, de las que {miles(CLAS)}{" "}
-              conservan algún rasgo dialectal visible.
-            </p>
-            <p style={{ ...BIG, margin: "12px 0 0" }}>
-              El presente trabajo adopta, de forma deliberada, el método clásico de la dialectología griega, el que Méndez Dosuna (1985: 9-10)
-              formuló en su gramática de los dialectos del Noroeste: recoger y sistematizar los hechos de interés lingüístico de las
-              inscripciones y contrastarlos con la documentación epigráfica de cada región y con las gramáticas de referencia, desde una
-              perspectiva ante todo descriptiva, que no rehúye la explicación histórica cuando los datos la piden. A los ámbitos más habituales
-              del estudio dialectal, la fonética y la morfología, se unen otros que han recibido menos atención, como la sintaxis, el léxico y
-              la onomástica. Las inscripciones se han clasificado con unos mismos criterios, y cada adscripción se califica como segura o
-              dudosa, salvo las que solo se apoyan en un nombre o en el alfabeto, que forman una tercera categoría.
-            </p>
+      {tab === "introduccion" && <>
+        <Sec title="Introducción" sub="Un corpus epigráfico singular para estudiar la variación dialectal del griego antiguo">
+          <Card style={{ padding: "18px 22px", display: "grid", gap: 12 }}>
+            {INTRO_TXT.map((p) => <p key={p.slice(0, 50)} style={BIG}>{renderDesc(p)}</p>)}
           </Card>
         </Sec>
-        <Sec title="Objetivos" sub="Identificar y caracterizar las variedades dialectales de las laminillas y valorar lo que revela su distribución">
-          <Rejilla>
-            {OBJETIVOS.map(([t, d]) => <Bloque key={t} t={t}>{d}</Bloque>)}
-          </Rejilla>
+        <Sec title="La estructura de la tesis" sub="Tres partes; las secciones de los grupos dialectales enlazan con su parte del atlas"
+          note="La numeración de los capítulos y apartados es provisional.">
+          <Estructura />
         </Sec>
-        <Sec title="El santuario de Dodona" sub="Contexto histórico y geográfico (capítulo 1)">
-          <Rejilla>
-            <Bloque t="El Epiro y el valle de Dodona">
-              Una región montañosa cerrada por el Pindo al este, frente a Macedonia y Tesalia, cuyas vías naturales de contacto se abrían hacia
-              el oeste y el sur. Su clima frío y lluvioso dejó huella en la tradición: la <i>Ilíada</i> llama a Dodona δυσχείμερος (Il. 2.750;
-              16.234).
-            </Bloque>
-            <Bloque t="Los pueblos del Epiro">
-              Hasta la transición a la época helenística, la población no se organizó en <i>poleis</i>, salvo en las colonias de la costa, sino
-              en <i>ethne</i>: la tradición distingue a tesprotos, caones y molosos, junto a otros grupos como casopeos, atamanes o parauaios
-              (Chapinal-Heras 2021: 15-21).
-            </Bloque>
-            <Bloque t="El santuario hasta la época clásica">
-              Los antiguos lo tenían por el oráculo más antiguo de los griegos (Hdt. 2.52.2), y lo conocen ya los poemas homéricos. La actividad
-              religiosa solo es segura desde finales del s. VIII a.C.; durante la época arcaica fue un santuario al aire libre, con el roble
-              sagrado rodeado de calderos sobre trípodes (Chapinal-Heras 2021: 24-27).
-            </Bloque>
-            <Bloque t="Época helenística y romana">
-              El reinado de Pirro (297-272 a.C.) marcó su apogeo, con el bouleuterion, el pritaneo, el gran teatro y las Naia, que a comienzos
-              del s. II a.C. alcanzaron la categoría de juegos estefanitas. Los etolios lo saquearon en el 219 a.C., y en el 167 a.C. las tropas
-              de Emilio Paulo arrasaron el Epiro (Plb. 4.67.3; 30.15).
-            </Bloque>
-            <Bloque t="El oráculo y su ámbito">
-              El dios era Zeus Naio, al que acompañaba Dione como σύνναος (Str. 7.7.12). Las fuentes atribuyen al oráculo procedimientos muy
-              diversos (el roble, las palomas, los calderos, el sorteo), y el sorteo es el único que una parte de la bibliografía reconoce en las
-              propias laminillas (Parker 2015: 111-112).
-            </Bloque>
-          </Rejilla>
+      </>}
+
+      {tab === "santuario" && <>
+        <Sec title="El santuario de Dodona" sub="Parte I, cap. 1">
+          <Fichas items={SANTUARIO} />
+        </Sec>
+        <Sec title="El oráculo de Dodona" sub="Parte I, cap. 2">
+          <Fichas items={ORACULO} />
+        </Sec>
+        <Sec title="Los capítulos 1 y 2, apartado por apartado" sub="El texto íntegro: pulsa para desplegar cada uno">
+          <Apartados caps={[1, 2]} />
         </Sec>
       </>}
 
       {tab === "laminillas" && <>
-        <Sec title="Las laminillas oraculares" sub="Excavaciones, ediciones y características (capítulo 2)">
+        <Sec title="Características de las laminillas" sub="Parte I, cap. 3">
           <Stats>
-            <Stat label="Laminillas halladas" value="Más de 2.500" sub="muchas, pequeños fragmentos (Tselikas 2017: 35; 2018: 249)" accent={COLOR} />
+            <Stat label="Laminillas halladas" value="Más de 2.500" sub="muchas, pequeños fragmentos, según los cálculos de Vokotopoulou (1987: 82-85)" accent={COLOR} />
             <Stat label="Textos editados en 2013" value="4.216" sub="en unas 1.250 laminillas (Tselikas 2017: 35; 2018: 249-250)" accent={C.terra} />
-            <Stat label="Inscripciones por laminilla" value="3,3" sub="de media; lo más frecuente son dos y una llega a trece (Bowden 2025: 63-64)" accent={C.gold} />
+            <Stat label="Inscripciones por laminilla" value="3,3" sub="de media; lo más frecuente son dos y una llega a trece (Bowden 2026: 63-64)" accent={C.gold} />
             <Stat label="Laminillas completas" value="10 %" sub="en torno a esa proporción (Tselikas 2017: 36)" accent={C.green} />
           </Stats>
         </Sec>
-        <Sec title="Las excavaciones" sub="De Carapanos a la interrupción de los trabajos en 2006 (§2.1)">
+        <Sec title="Las excavaciones" sub="De Carapanos a la interrupción de los trabajos en 2006 (§3.1)">
           <EventTable rows={EXCAVACIONES} color={COLOR} />
           <div style={{ marginTop: 12 }}><Fichas items={HALLAZGOS} /></div>
         </Sec>
-        <Sec title="Las ediciones" sub="De los facsímiles de 1878 a la reedición en curso (§2.2)"
-          note="Quedan inéditas, además de las laminillas de Berlín, las de la segunda serie de campañas de Evangelidis y las de las excavaciones posteriores, cuyo número se ha exagerado con frecuencia: según los datos de la Eforía de Antigüedades de Ioánina que recoge Frank (2026: 6 n. 11), se cuentan por decenas y no por millares. Bonnechere (2025: 124 n. 5), que cita también a la Eforía, habla, en cambio, de unas 4.000.">
-          <EventTable rows={EDICIONES} color={COLOR} />
+        <Sec title="Un corpus sin contexto arqueológico" sub="Lo que se ha perdido y lo que el estudio material puede recuperar (§3.2)">
+          <Fichas items={CONTEXTO} />
         </Sec>
-        <Sec title="Características de las laminillas" sub="El soporte, los textos y el formulario de las consultas (§2.3.1 y §2.3.2)">
+        <Sec title="Material, forma y textos" sub="El soporte, los textos de una laminilla y el formulario de las consultas (§3.3 y §3.4)">
           <Fichas items={CARACTERISTICAS} />
         </Sec>
-        <Sec title="La autoría y los consultantes" sub="Quién grababa las consultas, según la bibliografía (§2.3.3)"
-          note="La bibliografía reciente tiende a admitir que las dos prácticas coexistieron, aunque discrepa sobre el peso de cada una (Méndez Dosuna 2018a: 276; 2024, §2-3; Bonnechere 2025: 130-131; Flower 2025: 216-217).">
-          <Fichas items={AUTORIA} />
+        <Sec title="El uso de las laminillas y su destino" sub="§3.5">
+          <Fichas items={DESTINO} />
         </Sec>
-        <Sec title="Las laminillas en la investigación" sub="Su uso en el santuario y su valor como fuente (§2.4)">
+        <Sec title="Ediciones y córpora" sub="De los facsímiles de 1878 a la reedición en curso (Parte I, cap. 4)"
+          note="Quedan inéditas, además de las laminillas de Berlín, las de la segunda serie de campañas de Evangelidis y las de las excavaciones posteriores, cuyo número no se conoce: según los datos de la Eforía de Antigüedades de Ioánina que recoge Frank (2026: 6 n. 11), se cuentan por decenas y no por millares, mientras que Bonnechere (2026: 124 n. 5), que cita también a la Eforía, habla de unas 4.000.">
+          <EventTable rows={EDICIONES} color={COLOR} />
+        </Sec>
+        <Sec title="Las laminillas en la investigación histórica" sub="§4.6">
           <Fichas items={INVESTIGACION} />
         </Sec>
-        <Sec title="El capítulo, apartado por apartado" sub="El texto de §2.1 a §2.4: pulsa para desplegar cada uno; el de la cronología (§2.3.4) está en “El corpus en cifras”">
-          <Secciones items={SECCIONES_LAM.map((x) => ({ ...x, name: renderDesc(x.name) }))} color={COLOR} />
+        <Sec title="Los capítulos 3 y 4, apartado por apartado" sub="El texto íntegro: pulsa para desplegar cada uno">
+          <Apartados caps={[3, 4]} />
         </Sec>
       </>}
 
       {tab === "metodo" && <>
-        <Sec title="Metodología y criterios de adscripción" sub="Una inscripción solo se atribuye a un dialecto con una prueba positiva">
+        <Sec title="Metodología y criterios de adscripción" sub="Parte II, 2 · Una inscripción solo se atribuye a un dialecto con una prueba positiva">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
               La adscripción no es un dato que el corpus ofrezca de antemano, sino el resultado de decidir, inscripción por inscripción, qué se
               lee, qué rasgos son visibles, qué valor tienen y qué dialectos dejan abiertos. Un rasgo está atestiguado cuando es visible en el
               texto y no se limita a un antropónimo; lo restituido por el editor no cuenta, y la prueba ha de hallarse en el propio texto, aunque
-              otra cara de la laminilla permita conocer el dialecto de quien la escribió. Todas las lecturas se han revisado sobre las ediciones,
-              los facsímiles y, cuando ha sido posible, las propias laminillas: la autopsia en Ioánina (2024 y 2025) ha eliminado, por ejemplo, la
-              mezcla de <Ref src="DVC" id="2160" /> (segunda mitad del s. IV a.C.).
+              otra cara de la laminilla permita conocer el dialecto de otro de sus textos. Todas las lecturas se han revisado sobre las ediciones,
+              los facsímiles y, cuando ha sido posible, las propias laminillas: el examen directo de los originales en el Museo Arqueológico de
+              Ioánina (Eforía de Antigüedades) ha permitido descartar, por ejemplo, la mezcla de <Ref src="DVC" id="2160" /> (segunda mitad del
+              s. IV a.C.), que resultaba de una lectura equivocada.
             </p>
           </Card>
         </Sec>
-        <Sec title="Criterios por grupo dialectal">
+        <Sec title="Criterios por grupo dialectal" sub="Parte II, 2.5">
           <Rejilla>
             {CRITERIOS.map(([t, k, d]) => <Bloque key={t} t={t} accent={DIALECT_COLORS[k]}>{d}</Bloque>)}
           </Rejilla>
         </Sec>
-        <Sec title="Alfabeto, onomástica y grados de certeza">
+        <Sec title="Alfabeto, grados de certeza y revisión" sub="Parte II, 2.6, 2.8 y 2.9">
           <Rejilla>
             <Bloque t="El alfabeto">
-              Es un indicio de la tradición de escritura de quien graba la laminilla y por sí solo no sirve para la adscripción; apoya, en cambio,
+              Es un indicio de la tradición de escritura del texto y por sí solo no sirve para la adscripción; apoya, en cambio,
               un rasgo visible: con un rasgo no jónico-ático, el alfabeto corintio, ajeno a los dialectos eólicos, lleva la consulta al dórico
               general.
             </Bloque>
@@ -349,10 +347,8 @@ export default function Introduccion({ switcher }) {
             <Bars data={CHRONO_INT.map((d) => ({ ...d, color: SIGLO_COLORS[d.siglo] || SIGLO_COLORS["Sin datar"] }))} indexBy="period" keys={["n"]}
               height={300} rotate={-30} format={miles} />
           </Sec>
-          <Sec title="Las fechas del corpus" sub="De dónde salen y hasta qué punto son fiables (§2.3.4)">
-            <Card style={{ display: "grid", gap: 10 }}>
-              {CRONOLOGIA_TXT.map((p) => <p key={p.slice(0, 40)} style={PROSE}>{renderDesc(p)}</p>)}
-            </Card>
+          <Sec title="El arco del corpus" sub="Parte I, 1.4; la fiabilidad de las fechas se discute en la Parte III, 2.4">
+            <Card><p style={PROSE}>{renderDesc(ARCO_TXT)}</p></Card>
           </Sec>
         </>}
         {sub === "alfabetos" && (

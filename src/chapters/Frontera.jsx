@@ -426,6 +426,10 @@ const GRUPOS_MIN = {
   },
 };
 
+// Las doce inscripciones del capítulo, en el formato de los anexos ([clave, datación, texto, certeza, dialecto]).
+const ANEXO_MIN = INSCRIPCIONES_MIN.map((d) => [d.id, d.date, d.text, d.certeza, d.dialecto]);
+const ORDEN_MIN = ["Macedonio", "Eleo", "Acayo", "Rodio", "Textos no griegos"];
+
 function Minoritarios({ switcher, subnav }) {
   const [tab, setTab] = useState("context");
   const [grupo, setGrupo] = useState("mac");
@@ -445,6 +449,7 @@ function Minoritarios({ switcher, subnav }) {
         { id: "context", l: "Los dialectos minoritarios", i: "📜" },
         { id: "profile", l: "Perfil dialectal", i: "Α" },
         { id: "grupos", l: "Dialectos y consultas", i: "Ω" },
+        { id: "anexo", l: "Las inscripciones", i: "Ψ" },
       ]} tab={tab} onTab={setTab}>
 
       {tab === "context" && <>
@@ -526,6 +531,12 @@ function Minoritarios({ switcher, subnav }) {
           </div>
         </Sec>
       </>}
+
+      {tab === "anexo" && (
+        <Sec title="Las inscripciones de los dialectos minoritarios" sub="Agrupadas por dialecto, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+          <Anexo rows={ANEXO_MIN} color={MIN_INK} tint={MIN} grupo={(r) => r[4]} orden={ORDEN_MIN} />
+        </Sec>
+      )}
     </ChapterLayout>
   );
 }
@@ -653,7 +664,7 @@ function NoJonAt({ switcher, subnav }) {
       </>}
 
       {tab === "anexo" && (
-        <Sec title="Las inscripciones no jónico-áticas" sub="Texto de la edición, datación y certeza; en las dudosas, el motivo">
+        <Sec title="Las inscripciones no jónico-áticas" sub="Agrupadas por siglos, con el texto de la edición, la datación y la certeza (en las dudosas, el motivo); pulsa en cada grupo para desplegarlo">
           <Anexo load={cargarAnexoNJA} color={NJA_INK} tint={NJA} />
         </Sec>
       )}
