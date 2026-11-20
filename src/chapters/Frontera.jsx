@@ -202,7 +202,7 @@ function MezclasAparentes() {
       </div>
       <div style={REJILLA}>
         {[
-          ["Fuera de ellas, eliminó la mezcla", ["2160", "2225A", "2430A", "2432B"]],
+          ["Fuera de ellas, permitió descartar la mezcla", ["2160", "2225A", "2430A", "2432B"]],
           ["Mostró una alternancia de alfabetos", ["135A"]],
         ].map(([t, ids]) => (
           <Card key={t} accent={MEZ}>
@@ -252,7 +252,7 @@ export function Mezcla({ switcher, subnav = null }) {
               alguna característica dialectal, una proporción sin paralelo en la epigrafía oficial que se explica por la naturaleza de las
               laminillas y por un santuario cuya lengua local, el dórico del Noroeste, no era la de la mayoría de quienes lo visitaban. Lhôte
               (2006: 377) dedicó a los casos de mezcla y a la influencia de la koiné dos breves apartados, Méndez Dosuna (2018a: 273-276)
-              advirtió que algunas mezclas son lecturas equivocadas, y Crespo y Giannakis (2019) hicieron el primer estudio sistemático, con
+              advirtió que algunas mezclas no son reales, sino el resultado de una lectura equivocada, y Crespo y Giannakis (2019) hicieron el primer estudio sistemático, con
               unas noventa consultas híbridas que Giannakis (2024a: 39-42, 52-60) amplió a 103 y explicó como el primer estadio de la koiné.
             </p>
           </Card>
@@ -277,9 +277,9 @@ export function Mezcla({ switcher, subnav = null }) {
               {BIBLIO_MEZ.length} mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), {BIBLIO_MEZ.length - DIVERGENCIAS_MEZ.length} lo
               son también aquí y {DIVERGENCIAS_MEZ.length} reciben otra clasificación, mientras que {NO_RECOGIDAS_MEZ.length} de las de la
               tesis no figuran en sus listas.{import.meta.env.MODE !== "publico" && AUTOPSIAS_MEZ.length > 0 && <> La autopsia de{" "}
-              {AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0)} de las mezclas ha corregido facsímiles, ha mostrado posibles
-              cambios de mano y ha eliminado la mezcla en consultas como <Ref src="DVC" id="2160" /> (segunda mitad del
-              s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.).</>}
+              {AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0)} de las mezclas ha permitido corregir facsímiles y ha mostrado
+              posibles cambios de mano, y en consultas que la bibliografía daba por mezclas, como <Ref src="DVC" id="2160" /> (segunda
+              mitad del s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.), ha permitido descartar la mezcla.</>}
             </p>
           </Card>
         </Sec>
@@ -300,9 +300,9 @@ export function Mezcla({ switcher, subnav = null }) {
               <p style={PROSE}>
                 Dos de cada tres mezclas son dudosas o descansan en un nombre, la proporción más alta del corpus después de la de los dialectos
                 minoritarios: una mezcla exige dos rasgos y no uno, y basta con que cualquiera de ellos dependa de una letra insegura, de una
-                restitución o de una forma de doble lectura, como el [ἐπερ]ωτᾶι de <Ref src="DVC" id="3869B" /> (primera mitad del
-                s. IV a.C.) o el Χ̣ιόνη de <Ref src="DVC" id="33B" /> (ss. V-IV a.C.). En las de solo nombre, como la esclava Ἀριστοβούλαν
-                de <Ref src="DVC" id="2383A" /> (ss. V-IV a.C.), la mezcla informa sobre la circulación de los nombres y no sobre la lengua
+                restitución o de una forma de doble lectura, como [ἐπερ]ωτᾶι en <Ref src="DVC" id="3869B" /> (primera mitad del
+                s. IV a.C.) o Χ̣ιόνη en <Ref src="DVC" id="33B" /> (ss. V-IV a.C.). En las de solo nombre, como la esclava Ἀριστοβούλαν
+                en <Ref src="DVC" id="2383A" /> (ss. V-IV a.C.), la mezcla informa sobre la circulación de los nombres y no sobre la lengua
                 de quien escribe.
               </p>
             </Card>
