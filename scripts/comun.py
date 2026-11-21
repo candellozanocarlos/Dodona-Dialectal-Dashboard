@@ -188,7 +188,7 @@ def titulo(t):
     return re.sub(r"\bs\. ([ivx]+) a\.c\.", lambda m: f"s. {m.group(1).upper()} a.C.", t)
 
 
-TOK = re.compile(r"I\.Dodone (DVC|Lhôte)\s*|(?<![\d§:.,/–-])\b(\d{1,4}(?:[AB][abc]?)?)\b(?![\d:/])")
+TOK = re.compile(r"I\.Dodone (DVC|Lhôte)\s*|(?<![\d§:.,/–-])\b(\d{1,4}(?:[AB][abc]?)?)\b(?![\d:/])(?!\.\d)")
 EQ1 = re.compile(r"\(= I\.Dodone (?:DVC|Lhôte)[^()]*(?:\([^()]*\)[^()]*)*\)")
 EQ2 = re.compile(r"= I\.Dodone (?:DVC|Lhôte)\s*\d+\w*")
 
@@ -209,7 +209,7 @@ def citas(texto, ex):
                                                r"Bekker|GG)\s*$", pre):
                     continue
                 if re.search(r"\d{4}[a-f]?(: | y |; )\s*$", pre) or re.search(r"[A-Z][a-zé]+ \($", pre) \
-                        or re.search(r"\b(las|los)\s$", pre):
+                        or re.search(r"\b(las|los)\s$", pre) or re.search(r"Parte [IVX]+,\s*$", pre):
                     continue
                 k = f"{corpus} {m.group(2)}"
                 k = k if k in ex.filas else ex.lh2dvc.get(k)
