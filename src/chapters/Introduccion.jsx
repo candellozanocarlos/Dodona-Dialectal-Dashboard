@@ -1,6 +1,6 @@
 // Introducción de la tesis y Parte I (nueva estructura, 19-20 nov. 2026): la Introducción, el santuario y el oráculo
-// (Parte I, caps. 1-2), las laminillas y sus ediciones (caps. 3-4), la metodología (Parte II, 2) y las cifras del corpus.
-// La autoría de las consultas y la discusión de las fechas pertenecen a la Parte III, 2.3 y 2.4, y no se tratan aquí.
+// (Parte I, caps. 1-2), las laminillas y sus ediciones (caps. 3-4), la metodología (cap. 6) y las cifras del corpus.
+// La autoría de las consultas y la discusión de las fechas pertenecen a los caps. 9.3 y 9.4, y no se tratan aquí.
 import { useState } from "react";
 import { ALFABETO_COLORS, C, DIALECT_COLORS, ORO, PROSE, SIGLO_COLORS, fade } from "../theme.js";
 import { MACROGRUPOS, miles, pct } from "../data/corpus.js";
@@ -44,7 +44,7 @@ const Apartados = ({ caps }) => (
 );
 
 // ── La estructura de la tesis (Introducción, §8 del texto; CONTENIDO_v24) ──
-// Las secciones de la Parte II, 3 enlazan con la parte del atlas que las recoge. Numeración provisional (decisión pendiente).
+// Las secciones del cap. 7 enlazan con la parte del atlas que las recoge. Capítulos numerados de forma continua (1-4, 5-7 y 8-10).
 const ESTRUCTURA = [
   { parte: "Parte I", t: "Las laminillas oraculares de Dodona", caps: [
     ["1", "El santuario de Dodona"], ["2", "El oráculo de Dodona"], ["3", "Características de las laminillas"], ["4", "Ediciones y córpora"]] },
@@ -90,7 +90,7 @@ const Estructura = () => (
   </div>
 );
 
-// §3.2.4 de la introducción (Parte II, 2.5): el rasgo que justifica la adscripción en cada grupo.
+// §3.2.4 de la introducción (cap. 6.5): el rasgo que justifica la adscripción en cada grupo.
 const CRITERIOS = [
   ["El dórico", "dorico", <>Solo se cuenta como dórica la inscripción con un rasgo que excluya los dialectos eólicos, porque la ᾱ, la /t/ ante /i/, κα, αἰ o la apócope son compartidos por el beocio o el tesalio: el futuro dórico, -μες, -ντι o ἕρπω, y además la familia de πάομαι, el artículo τοί, los adverbios en -ει y en -κα, ὀπτίλλος y ζώω. Las consultas en alfabeto corintio con un rasgo no jónico-ático visible se cuentan en el dórico general.</>],
   ["El tesalio y el beocio", "tesalio", <>Se reconocen por una constelación de rasgos propios: en el tesalio, ΕΙ y ΟΥ por las vocales medias largas, -νν-, κε y κίς, los infinitivos temáticos en -μεν y un léxico característico; en el beocio, /ai̯/ &gt; /ɛː/, /e/ &gt; /i/ ante vocal y δ(δ) de *dj. Algunos rasgos sitúan la consulta en una región (κε y κίς, la Pelasgiótide; κα o μά, la Histiótide).</>],
@@ -248,7 +248,7 @@ export default function Introduccion({ switcher }) {
       </>}
 
       {tab === "metodo" && <>
-        <Sec title="Metodología y criterios de adscripción" sub="Parte II, 2 · Una inscripción solo se atribuye a un dialecto con una prueba positiva">
+        <Sec title="Metodología y criterios de adscripción" sub="cap. 6 · Una inscripción solo se atribuye a un dialecto con una prueba positiva">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
               La adscripción no es un dato que el corpus ofrezca de antemano, sino el resultado de decidir, inscripción por inscripción, qué se
@@ -261,12 +261,12 @@ export default function Introduccion({ switcher }) {
             </p>
           </Card>
         </Sec>
-        <Sec title="Criterios por grupo dialectal" sub="Parte II, 2.5">
+        <Sec title="Criterios por grupo dialectal" sub="cap. 6.5">
           <Rejilla>
             {CRITERIOS.map(([t, k, d]) => <Bloque key={t} t={t} accent={DIALECT_COLORS[k]}>{d}</Bloque>)}
           </Rejilla>
         </Sec>
-        <Sec title="Alfabeto, grados de certeza y revisión" sub="Parte II, 2.6, 2.8 y 2.9">
+        <Sec title="Alfabeto, grados de certeza y revisión" sub="caps. 6.6, 6.8 y 6.9">
           <Rejilla>
             <Bloque t="El alfabeto">
               Es un indicio de la tradición de escritura del texto y por sí solo no sirve para la adscripción; apoya, en cambio,
@@ -347,7 +347,7 @@ export default function Introduccion({ switcher }) {
             <Bars data={CHRONO_INT.map((d) => ({ ...d, color: SIGLO_COLORS[d.siglo] || SIGLO_COLORS["Sin datar"] }))} indexBy="period" keys={["n"]}
               height={300} rotate={-30} format={miles} />
           </Sec>
-          <Sec title="El arco del corpus" sub="Parte I, 1.4; la fiabilidad de las fechas se discute en la Parte III, 2.4">
+          <Sec title="El arco del corpus" sub="cap. 1.4; la fiabilidad de las fechas se discute en el cap. 9.4">
             <Card><p style={PROSE}>{renderDesc(ARCO_TXT)}</p></Card>
           </Sec>
         </>}

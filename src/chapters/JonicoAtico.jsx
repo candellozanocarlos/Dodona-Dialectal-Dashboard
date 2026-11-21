@@ -70,7 +70,7 @@ const SUBGRUPOS = {
       <Ref src="DVC" id="206A" /> lo es también, aunque los editores lo atribuyan a la koiné. <Ref src="DVC" id="4162B" />, con -μεν,
       se cuenta en el tesalio como doble adscripción. El único consultante del corpus al que puede atribuirse con fundamento un
       origen eubeo es el Ὀνήριμος de <Ref src="DVC" id="2217A" />, con el rotacismo eretrio en su nombre; la consulta se cuenta como
-      jónica segura porque el artículo τὴν̣ asegura el jónico-ático (Parte II, 3.3.2, §4.7).
+      jónica segura porque el artículo τὴν̣ asegura el jónico-ático (cap. 7.3.2, §4.7).
     </>,
   },
   ati: {

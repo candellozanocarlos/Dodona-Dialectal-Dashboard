@@ -209,7 +209,7 @@ def citas(texto, ex):
                                                r"Bekker|GG)\s*$", pre):
                     continue
                 if re.search(r"\d{4}[a-f]?(: | y |; )\s*$", pre) or re.search(r"[A-Z][a-zé]+ \($", pre) \
-                        or re.search(r"\b(las|los)\s$", pre) or re.search(r"Parte [IVX]+,\s*$", pre):
+                        or re.search(r"\b(las|los)\s$", pre) or re.search(r"Parte [IVX]+,\s*$|\bcaps?\.\s*$", pre):
                     continue
                 k = f"{corpus} {m.group(2)}"
                 k = k if k in ex.filas else ex.lh2dvc.get(k)

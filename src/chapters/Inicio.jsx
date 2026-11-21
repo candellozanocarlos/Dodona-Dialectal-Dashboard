@@ -33,7 +33,7 @@ function useVisto(margen = "0px") {
 const sinMovimiento = () => typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 // ── La laminilla: I.Dodone DVC 4, con el texto de la edición ─────────────
-// Rasgos de la inscripción según el dórico general (Parte II, 3.1.1): la ᾱ, -ντι sin asibilación, αἰ y α + ε > η.
+// Rasgos de la inscripción según el dórico general (cap. 7.1.1): la ᾱ, -ντι sin asibilación, αἰ y α + ε > η.
 const LAMINILLA = "DVC 4";
 const RASGOS = [
   { n: 1, forma: "τύχα", txt: <>ᾱ, frente a la η del jónico-ático</> },
@@ -256,13 +256,13 @@ function Mapa() {
 const PARTES = {
   introduccion: { k: "Introducción y Parte I", d: "El santuario, el oráculo, las laminillas y sus ediciones; la metodología y el corpus en cifras.",
     n: `${miles(TOTAL_INSCRIPCIONES)} inscripciones` },
-  dorico: { k: "Parte II, 3.1", d: <>El dórico general, el noroccidental y la <i>Doris severior</i>, con sus rasgos, sus mapas y sus inscripciones.</>,
+  dorico: { k: "cap. 7.1", d: <>El dórico general, el noroccidental y la <i>Doris severior</i>, con sus rasgos, sus mapas y sus inscripciones.</>,
     n: `${TOTAL_DOR + TOTAL_DOR_NO + TOTAL_SEV} inscripciones` },
-  eolicos: { k: "Parte II, 3.2", d: "El tesalio, por regiones y con su vocalismo, y el beocio.", n: `${TOTAL_TES + TOTAL_BEOC} inscripciones` },
-  "jonico-atico": { k: "Parte II, 3.3", d: "El grupo en su conjunto y, por separado, el jónico, el ático y la koiné.", n: `${macro("Jónico-ático-koiné")} inscripciones` },
-  mezcla: { k: "Parte II, 3.5", d: "Las consultas que combinan rasgos de dos grupos dialectales, su tipología y sus explicaciones.",
+  eolicos: { k: "cap. 7.2", d: "El tesalio, por regiones y con su vocalismo, y el beocio.", n: `${TOTAL_TES + TOTAL_BEOC} inscripciones` },
+  "jonico-atico": { k: "cap. 7.3", d: "El grupo en su conjunto y, por separado, el jónico, el ático y la koiné.", n: `${macro("Jónico-ático-koiné")} inscripciones` },
+  mezcla: { k: "cap. 7.5", d: "Las consultas que combinan rasgos de dos grupos dialectales, su tipología y sus explicaciones.",
     n: `${macro("Mezcla dialectal")} inscripciones` },
-  minoritarios: { k: "Parte II, 3.4 y 3.6", d: "El macedonio, el eleo, el acayo y el rodio, y las inscripciones que solo permiten excluir el jónico-ático.",
+  minoritarios: { k: "caps. 7.4 y 7.6", d: "El macedonio, el eleo, el acayo y el rodio, y las inscripciones que solo permiten excluir el jónico-ático.",
     n: `${macro("Otros") + macro("No jónico-ático (sin precisar)")} inscripciones` },
 };
 
@@ -318,7 +318,7 @@ export default function Inicio({ chapters, onEnter }) {
           <Mapa />
           <p className="ini-nota">
             Los arcos unen Dodona con cada lugar nombrado; no indican de dónde procedían los consultantes, cuestión que la tesis examina
-            en la Parte III, 2.1. Costas: Natural Earth (dominio público).
+            en el cap. 9.1. Costas: Natural Earth (dominio público).
           </p>
         </section>
 

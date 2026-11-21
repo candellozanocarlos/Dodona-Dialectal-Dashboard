@@ -76,7 +76,7 @@ CRONO = [{"period": ROTULO_SIGLO[k], "n": int(serie[k]), "siglo": k} for k in RO
 
 # Introducción y Parte I (nueva estructura de la tesis, 19-20 nov. 2026): el texto de la Introducción, un solo texto sin
 # apartados, y los capítulos 1-4 de la Parte I con sus apartados; el arco del corpus (§1.4, último párrafo) acompaña la
-# cronología. La discusión de las fechas y la autoría van en la Parte III, 2.3 y 2.4, que el dashboard no recoge aún.
+# cronología. La discusión de las fechas y la autoría van en los caps. 9.3 y 9.4, que el dashboard no recoge aún.
 DOCX = ultima("PARTE I. INTRODUCCIÓN", "INTRODUCCIÓN Y PARTE I_v*.docx")
 pars = parrafos(DOCX)
 cuerpo = [t for _, t in pars]

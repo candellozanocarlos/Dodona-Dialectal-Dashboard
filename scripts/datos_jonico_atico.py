@@ -73,7 +73,7 @@ T, E = "topónimo", "etnónimo"
 LUGARES = [
     ("atenas", "Atenas", "Ἀθῆναι", 23.727, 37.984, (-0.10, -0.22), "Ática",
      [("Lhôte 23", "Ἀθηναῖος", E, True), ("Lhôte 52", "Ἀθήνησι", T, True)],
-     "Lugar de origen o de residencia de Diógneto, que se presenta como ateniense, y de Isodemo, que pregunta por su residencia allí (Parte II, 3.3.3, §4.4; Parte II, 3.3.4, §4.2)."),
+     "Lugar de origen o de residencia de Diógneto, que se presenta como ateniense, y de Isodemo, que pregunta por su residencia allí (cap. 7.3.3, §4.4; cap. 7.3.4, §4.2)."),
     ("ambracia", "Ambracia", "Ἀμβρακία", 20.985, 39.160, (0.22, 0.05), "Colonias corintias",
      [("Lhôte 106A", "ἐν Ἀμπρα[κίαι]", T, True), ("DVC 2265B", "Ἀπρα[κίαν]", T, False)],
      "Unos navegantes dudan entre permanecer en Ambracia o partir hacia Μεσσήνην; en la segunda consulta el topónimo está restituido."),
