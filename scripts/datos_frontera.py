@@ -115,6 +115,17 @@ COINCIDEN_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": e} for 
 assert len(COINCIDEN_MEZ) == 61 and all(b["tesis"].startswith("Mezcla") for b in COINCIDEN_MEZ), len(COINCIDEN_MEZ)
 TIPOS = [{"sec": s, "tipo": L(t), "noja": L(a), "ja": L(b), "expl": L(e), "seguras": n1, "dudosas": n2}
          for s, t, a, b, e, n1, n2 in MEZ.TIPOS]
+# Tipo de cada mezcla (§5): la tabla del capítulo en que figura (tablas 7-12, MEZ.T5), para agrupar las inscripciones.
+NOMBRE_TIPO = {f"§{t['sec']}": f"§{t['sec']} · {t['tipo']}" for t in TIPOS}
+TIPO_MEZ = {}
+for nombre, grupos in MEZ.T5.items():
+    for _, filas in grupos:
+        for f in filas:
+            k = f[0].rstrip("*").replace("Lhôte ", "LOD ")
+            assert k not in TIPO_MEZ, k
+            TIPO_MEZ[k] = NOMBRE_TIPO[MEZ.APARTADO_T5[nombre]]
+assert set(TIPO_MEZ) == {a[0] for a in ANEXO_MEZ}, sorted(set(TIPO_MEZ) ^ {a[0] for a in ANEXO_MEZ})
+ORDEN_TIPOS_MEZ = list(NOMBRE_TIPO.values())
 
 
 def indice_tabla(doc, cabecera):
@@ -287,6 +298,9 @@ partes = [
     f"export const ADSCRIPCION_MEZ = {J(ADS_MEZ)};",
     "// Anexo 7.1: [clave, datación, texto, certeza (s, d, n), clasificación del capítulo].",
     f"export const ANEXO_MEZ = {J(ANEXO_MEZ)};",
+    "// Tipo de cada mezcla según el §5 del capítulo (tablas 7-12), para el segundo panel de «Las inscripciones».",
+    f"export const TIPO_MEZ = {J(TIPO_MEZ)};",
+    f"export const ORDEN_TIPOS_MEZ = {J(ORDEN_TIPOS_MEZ)};",
     "// Anexo 7.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con su clasificación en la tesis.",
     f"export const BIBLIO_MEZ = {J(BIBLIO_MEZ)};",
     "// Tabla 14: las 52 de los autores que la tesis clasifica de otro modo (bloque A), agrupadas por el motivo (§4.1-§4.5),",

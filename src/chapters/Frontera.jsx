@@ -8,8 +8,8 @@ import { MOSTRAR_AUTOPSIAS } from "../sitio.js";
 import {
   ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
   CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, DIVERGENCIAS_MEZ, EXPLICACIONES_MEZ,
-  INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ,
-  TOTAL_MIN, TOTAL_NJA,
+  INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, ORDEN_TIPOS_MEZ, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPO_MEZ,
+  TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ, TOTAL_MIN, TOTAL_NJA,
 } from "../data/frontera.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
@@ -354,6 +354,10 @@ export function Mezcla({ switcher, subnav = null }) {
         <Sec title="Las inscripciones con mezcla dialectal"
           sub="Agrupadas por los dialectos que se combinan, como en Crespo y Giannakis (2019) y Giannakis (2024a), con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
           <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => r[4].replace(/ \(fórmula\)$/, "")} />
+        </Sec>
+        <Sec title="Las inscripciones según el tipo de mezcla"
+          sub="Agrupadas por los tipos de §5 del capítulo, según el lugar del texto en que aparece el elemento ajeno o los dialectos que intervienen; pulsa en cada grupo para desplegarlo">
+          <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => TIPO_MEZ[r[0]]} orden={ORDEN_TIPOS_MEZ} />
         </Sec>
       </>}
 
