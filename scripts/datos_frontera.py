@@ -261,11 +261,11 @@ def tramo(docx, inicio, fin):
 
 
 DOC_MIN = ultima(PARTE5 + "DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
-TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. ESCRITURA") + tramo(DOC_MEZ, "4. INSCRIPCIONES QUE NO MUESTRAN", "5. TIPOLOG")
+TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. RECAPITULACI") + tramo(DOC_MEZ, "4. INSCRIPCIONES QUE NO MUESTRAN", "5. TIPOLOG")
 for x in TIPOLOGIA_MEZ:   # sin los rótulos de las tablas-imagen («Tabla 6»)
     x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
-# Desde la v36 la explicación de cada tipo cierra su apartado del §5; el §6 conserva la escritura y la fecha (§6.1) y la recapitulación (§6.2).
-EXPLICACIONES_MEZ = [x for x in tramo(DOC_MEZ, "6. ESCRITURA", "7. ANEXOS") if x["sec"] != "§6.2"]
+# Desde la v36 la explicación de cada tipo cierra su apartado del §5; desde la v105 el §6 es solo la recapitulación (la escritura y la fecha pasaron a las conclusiones).
+EXPLICACIONES_MEZ = tramo(DOC_MEZ, "6. RECAPITULACI", "7. ANEXOS")
 APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "7. ANEXOS")
 RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
 COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
@@ -309,7 +309,7 @@ partes = [
     f"export const NO_RECOGIDAS_MEZ = {J(NO_RECOGIDAS_MEZ)};",
     "// Tablas 1-5 (§4): las inscripciones que no muestran mezcla dialectal, una por inscripción, agrupadas por el motivo que las deshace.",
     f"export const APARENTES_MEZ = {J(APARENTES_MEZ)};",
-    f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (inscripciones que no muestran mezcla dialectal) y §6.1 (escritura y fecha).",
+    f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (inscripciones que no muestran mezcla dialectal) y §6 (recapitulación).",
     f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
     f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",
     "",

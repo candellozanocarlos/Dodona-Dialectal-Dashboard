@@ -385,7 +385,7 @@ export function Mezcla({ switcher, subnav = null }) {
             </Card>
           ))}
         </Sec>
-        <Sec title="La escritura y la fecha de las mezclas" sub="El §6.1 del capítulo; la explicación de cada tipo se lee en Perfil dialectal, Tipos de mezcla (§5)">
+        <Sec title="Recapitulación" sub="El §6 del capítulo; la explicación de cada tipo se lee en Perfil dialectal, Tipos de mezcla (§5)">
           <Secciones items={EXPLICACIONES_MEZ} color={MEZ_INK} />
         </Sec>
       </>}
