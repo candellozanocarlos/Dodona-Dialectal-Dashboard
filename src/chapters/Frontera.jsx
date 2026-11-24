@@ -272,7 +272,7 @@ export function Mezcla({ switcher, subnav = null }) {
             </p>
             <p style={{ ...PROSE, marginTop: 10 }}>
               La koiné solo se reconoce con una prueba positiva (un rasgo propio o una fecha desde finales del s. IV a.C.), de modo que el
-              componente que la bibliografía llama koiné es, en la mayoría de las mezclas, jónico-ático: de las 74 que combinan el dórico con
+              componente que la bibliografía llama koiné es, en la mayoría de las mezclas, jónico-ático: de las 73 que combinan el dórico con
               rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y siete pertenecen al s. V a.C. De las{" "}
               {BIBLIO_MEZ.length} mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), {BIBLIO_MEZ.length - DIVERGENCIAS_MEZ.length} lo
               son también aquí y {DIVERGENCIAS_MEZ.length} reciben otra clasificación, mientras que {NO_RECOGIDAS_MEZ.length} de las de la
