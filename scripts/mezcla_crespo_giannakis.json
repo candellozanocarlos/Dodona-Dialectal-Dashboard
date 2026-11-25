@@ -1,5 +1,5 @@
 {
- "fuente": "MEZCLA_1_Redaccion_v106, anexo §7.3 (tablas 13 y 14), que desde la v107 se consulta solo en el atlas: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con la combinación que atribuyen, las páginas y el motivo de cada divergencia; la clasificación de la tesis se toma de los anexos §7.1 y §7.2 vigentes.",
+ "fuente": "MEZCLA_1_Redaccion_v106, anexo §7.3 (tablas 13 y 14), que desde la v107 se consulta solo en el atlas: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con la combinación que atribuyen, las páginas y el motivo de cada divergencia; la clasificación de la tesis se toma de los anexos §7.1 y §7.2 vigentes. Puesta al día el 25 nov. 2026 con la MEZCLA_1_Redaccion_v111: sale 2939A (sin clasificar), entra 135A (solo nombre) y 121B ya no es noroccidental.",
  "coinciden": [
   [
    "I.Dodone DVC 33B",
@@ -819,8 +819,15 @@
    "I.Dodone DVC 121B",
    "Primera mitad s. IV a.C.",
    "Sin mención",
-   "Mezcla de noroccidental y jónico-ático",
-   "ἰς noroccidental, que por la fecha no puede ser itacismo, junto a τὰν y τὴν."
+   "Mezcla de dórico y jónico-ático",
+   "τὰν y τὴν; ἰς puede ser noroccidental o un itacismo temprano."
+  ],
+  [
+   "I.Dodone DVC 135A",
+   "Segunda mitad s. V a.C.",
+   "Sin mención",
+   "Mezcla de dórico y jónico (solo por un nombre)",
+   "El étnico Μιλή<σι>ος, con la η jónica, en un texto dórico escrito en alfabeto corintio salvo sus dos primeras palabras."
   ],
   [
    "I.Dodone DVC 227B",
@@ -947,13 +954,6 @@
    "Sin mención",
    "Mezcla de dórico y jónico-ático (dudosa)",
    "[θεὸς τ]ύχα junto a ἐ̣πικοινᾶτα̣ι."
-  ],
-  [
-   "I.Dodone DVC 2939A",
-   "s. IV a.C.",
-   "Sin mención",
-   "Mezcla de dórico y jónico-ático (solo por un nombre)",
-   "αἰ junto al antropónimo Ἀ̣με[ι]νοκλῆς."
   ],
   [
    "I.Dodone DVC 2962B",

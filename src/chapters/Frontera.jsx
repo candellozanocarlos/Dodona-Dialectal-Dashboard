@@ -211,7 +211,6 @@ function MezclasAparentes() {
       <div style={REJILLA}>
         {[
           ["Fuera de ellas, permitió descartar la mezcla", ["2160", "2225A", "2430A", "2432B"]],
-          ["Mostró una alternancia de alfabetos", ["135A"]],
         ].map(([t, ids]) => (
           <Card key={t} accent={MEZ}>
             <div style={{ fontFamily: "var(--fh)", fontSize: 13.5, fontWeight: 700, color: MEZ_INK, marginBottom: 6 }}>{t}</div>
@@ -288,7 +287,7 @@ export function Mezcla({ switcher, subnav = null }) {
             <Temas data={THEMES_MEZ} color={MEZ} height={330} />
           </Sec>
 
-          <Sec title="Alfabeto" note="Ninguna mezcla está escrita en alfabeto corintio ni en otro alfabeto epicórico bien identificado: las consultas epicóricas que parecían mezclas eran ejemplos de alternancia de alfabetos.">
+          <Sec title="Alfabeto" note="Todas emplean el alfabeto jónico reformado o uno que no puede identificarse salvo 135A, en alfabeto corintio salvo sus dos primeras palabras, cuya mezcla descansa solo en el étnico; las demás consultas epicóricas que parecían mezclas eran ejemplos de alternancia de alfabetos.">
             <DonutLegend data={ALF_MEZ_PIE} height={220} valueColor={MEZ_INK} />
           </Sec>
         <Sec title="El apartado del capítulo" sub="§3: pulsa para desplegar el texto completo">
@@ -319,10 +318,10 @@ export function Mezcla({ switcher, subnav = null }) {
         <Sec title="Explicaciones de la mezcla e implicaciones para el oráculo">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
-              La tipología permite reunir las 95 mezclas según la explicación que mejor se ajusta a cada una. Más de la mitad, 53, se
+              La tipología permite reunir las 95 mezclas según la explicación que mejor se ajusta a cada una. Más de la mitad, 54, se
               explican por la convivencia del dórico con una norma escrita de prestigio, el jónico-ático, en comunidades bidialectales; 26
               reproducen los elementos más fijos de la consulta, la fórmula de apertura, el nombre de los dioses y algunas palabras del
-              vocabulario del santuario; 14 se deben a un nombre propio, que conserva su forma con independencia de la lengua del texto, y
+              vocabulario del santuario; 13 se deben a un nombre propio, que conserva su forma con independencia de la lengua del texto, y
               las dos restantes no son seguras como mezclas de dialectos. La acomodación al personal del santuario y la intervención de un
               tercero, que la bibliografía propone como explicaciones de conjunto, solo dan cuenta de unos pocos casos.
             </p>
@@ -330,9 +329,9 @@ export function Mezcla({ switcher, subnav = null }) {
         </Sec>
         <Sec title="Tres conclusiones para el conocimiento del oráculo">
           {[
-            ["Casi siempre, con el jónico-ático", <>94 de las 95 mezclas tienen un componente jónico-ático, sea jónico, ático o de koiné: en 89 el otro componente es el dórico, y en cinco, el noroccidental, la <i>Doris severior</i>, el eleo o el tesalio. Que la norma sea el ático o la koiné no cambia el mecanismo, porque es en esencia el mismo dialecto en distintas fases de su evolución. La única excepción, <Ref src="DVC" id="1025A+B" />, puede no ser siquiera una mezcla de dialectos.</>],
+            ["Casi siempre, con el jónico-ático", <>94 de las 95 mezclas tienen un componente jónico-ático, sea jónico, ático o de koiné: en 90 el otro componente es el dórico, y en las cuatro restantes, la <i>Doris severior</i>, el eleo o el tesalio. Que la norma sea el ático o la koiné no cambia el mecanismo, porque es en esencia el mismo dialecto en distintas fases de su evolución. La única excepción, <Ref src="DVC" id="1025A+B" />, puede no ser siquiera una mezcla de dialectos.</>],
             ["La mezcla llegó con los consultantes", <>Refleja el contacto entre un dialecto y la norma jónico-ática que se daba ya en las comunidades de origen, como las colonias de población mixta del Occidente, y en el propio Epiro. Las consultas públicas de los caones (<Ref src="Lhôte" id="11" />, último cuarto del s. IV a.C.) y de los heracleotas (<Ref src="Lhôte" id="6A" />, último cuarto del s. V a.C.) muestran la mezcla en la lengua de una comunidad. Dodona fue menos el lugar en que los dialectos se mezclaron que el lugar en que la mezcla quedó por escrito.</>],
-            ["El santuario aporta lo más fijo de la consulta", <>La fórmula, el nombre de los dioses y algunas palabras de su vocabulario se reproducían sin adaptarlos al dialecto del texto, de modo que informan sobre las convenciones de la consulta antes que sobre la lengua del consultante. Una segunda mano solo se sugiere en <Ref src="DVC" id="2169A" /> y <Ref src="DVC" id="2261A" />.</>],
+            ["El santuario aporta lo más fijo de la consulta", <>La fórmula, el nombre de los dioses y algunas palabras de su vocabulario se reproducían sin adaptarlos al dialecto del texto, de modo que informan sobre las convenciones de la consulta antes que sobre la lengua del consultante. Una segunda mano solo se sugiere en <Ref src="DVC" id="2169A" />.</>],
           ].map(([t, d]) => (
             <Card key={t} accent={MEZ}>
               <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: 700, color: MEZ_INK, marginBottom: 6 }}>{t}</div>
@@ -546,7 +545,7 @@ function NoJonAt({ switcher, subnav }) {
         <Stat label="Inscripciones" value={String(TOTAL_NJA)} sub="ss. VI–II a.C." accent={NJA_INK} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_NJA)} %`} sub={`${TOTAL_NJA} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
         <Stat label="Seguras" value={`${pct(CERTEZA_NJA.seguras, TOTAL_NJA)} %`} sub="excluyen el jónico-ático" accent={C.blue} />
-        <Stat label="Dórico probable" value="344-510" sub="con el dórico demostrado (277)" accent={DIALECT_COLORS.dorico} />
+        <Stat label="Dórico probable" value="343-509" sub="con el dórico demostrado (276)" accent={DIALECT_COLORS.dorico} />
       </>}
       tabs={[
         { id: "context", l: "Por qué hay tantas", i: "📜" },
@@ -641,8 +640,8 @@ function NoJonAt({ switcher, subnav }) {
               <p style={PROSE}>
                 La mayor parte del grupo procede con toda verosimilitud de consultantes dóricos, pero solo una parte puede delimitarse con
                 argumentos lingüísticos: 67 inscripciones excluyen todo el tesalio y el lesbio y apuntan al dórico o al beocio, y otras 166, con
-                κα, solo dejan abierta además la Histiótide. Por eso el dórico probable no admite una cifra única: a las 277 del dórico demostrado
-                pueden sumarse esas 67 y, con más reservas, las 166, de modo que se sitúa entre 344 y 510 inscripciones. Las cuatro en que πέρ
+                κα, solo dejan abierta además la Histiótide. Por eso el dórico probable no admite una cifra única: a las 276 del dórico demostrado
+                pueden sumarse esas 67 y, con más reservas, las 166, de modo que se sitúa entre 343 y 509 inscripciones. Las cuatro en que πέρ
                 aparece junto a κα, como <Ref src="DVC" id="315A" /> (s. V a.C.) o <Ref src="DVC" id="2667A" /> (mediados del s. V a.C.), son
                 compatibles con el dórico, pero también con el tesalio de Histiótide.
               </p>

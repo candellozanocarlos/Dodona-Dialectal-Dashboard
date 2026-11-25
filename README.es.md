@@ -32,7 +32,7 @@ Cada versión se archiva en Zenodo con su propio DOI. Conviene citar la versión
 
 ## Qué contiene
 
-El corpus reúne 4.418 textos: los 4.216 de *I.Dodone DVC* (Dakaris, Vokotopoulou y Christidis 2013) y los 202 de *I.Dodone Lhôte* (Lhôte 2006) que no están en ella. De ellos, 1.461 tienen al menos un rasgo dialectal y reciben una adscripción; el resto son demasiado breves o fragmentarios, o están escritos en formas comunes a todos los dialectos.
+El corpus reúne 4.418 textos: los 4.216 de *I.Dodone DVC* (Dakaris, Vokotopoulou y Christidis 2013) y los 202 de *I.Dodone Lhôte* (Lhôte 2006) que no están en ella. De ellos, 1.460 tienen al menos un rasgo dialectal y reciben una adscripción; el resto son demasiado breves o fragmentarios, o están escritos en formas comunes a todos los dialectos.
 
 | Parte | Contenido |
 |---|---|

@@ -99,7 +99,7 @@ def clave(r):
 # ── Cap. 13: la mezcla dialectal ──────────────────────────────────
 alf_mez = G["mez"]["ALFABETO_GRUPO_v2"].fillna("").astype(str).str.strip()
 otros = G["mez"][alf_mez != ""]
-assert len(otros) == 0, otros["No DVC"].tolist()   # fila 195: 1012A pasa al jónico
+assert otros["No DVC"].astype(str).str.split(" ").str[0].tolist() == ["135A"], otros["No DVC"].tolist()   # fila 212: 135A (corintio) entra como solo nombre; fila 195: 1012A pasa al jónico
 DOC_MEZ = ultima(PARTE5 + "MEZCLA DIALECTAL", "MEZCLA_1_Redaccion_v*.docx")
 # Anexos §7.1 y §7.2: la clasificación de cada inscripción con la terminología del capítulo (la certeza, del Excel). Desde la
 # v107 cada anexo tiene dos grupos con una fila de banda («Mezclas también para Crespo y Giannakis…: 61»).
@@ -231,10 +231,10 @@ BIBLIO_MEZ = COINCIDEN_MEZ + [{k_: d[k_] for k_ in ("ref", "date", "autores", "p
 assert len(BIBLIO_MEZ) == 113 and not any(d["tesis"].startswith("Mezcla de") for d in DIVERGENCIAS_MEZ)
 assert {clave_cap(d["ref"]) for d in DIVERGENCIAS_MEZ} <= {a["dvcs"][0] for a in APARENTES_MEZ}
 
-# Tabla 34 (§4.6, imágenes mez_14b): las 24 mezclas examinadas en autopsia, por su resultado principal.
+# Tabla 34 (§4.6, imágenes mez_14b): las 25 mezclas examinadas en autopsia, por su resultado principal.
 AUTOPSIAS_MEZ = [{"grupo": r, "items": [{"id": "LOD " + s_.split()[1] if s_.startswith("Lhôte") else s_,
                                         "obs": unicodedata.normalize("NFC", o), "anio": a} for s_, o, a in filas]} for r, filas in MEZ.T_AUT]
-assert sum(len(g["items"]) for g in AUTOPSIAS_MEZ) == 24
+assert sum(len(g["items"]) for g in AUTOPSIAS_MEZ) == 25   # 25 nov. 2026: entra 135A
 # Las autopsias no se publican: van a un archivo aparte, fuera del repositorio (.gitignore), que solo usa la versión local.
 (SALIDA.parent / "autopsiasMezcla.js").write_text(
     "// Tabla 34 (§4.6): las mezclas examinadas en autopsia, por resultado. Solo para la versión local del atlas.\n"
@@ -364,10 +364,10 @@ partes = [
     f"export const COMBINACIONES_MEZ = {J(apiladas(G['mez'], 'DIALECTO_SUB', MEZ.COMBINACION, MEZ.ORDEN))};",
     f"export const CHRONO_MEZ = {J(DA.crono(G['mez']))};",
     f"export const THEMES_MEZ = {J(DA.temas(G['mez']))};",
-    "// Alfabeto (ALFABETO_GRUPO_v2): todas reformadas o sin identificar salvo 1012A.",
+    "// Alfabeto (ALFABETO_GRUPO_v2): todas reformadas o sin identificar salvo 135A, en alfabeto corintio salvo sus dos primeras palabras (fila 212).",
     "export const ALF_MEZ_PIE = [",
     f'  {{ id: "milesio", label: "Reformado o no identificado", value: {len(G["mez"]) - 1}, color: C.milesio }},',
-    '  { id: "otros", label: "Sin precisar por los editores (1012A)", value: 1, color: ALFABETO_COLORS.otros },',
+    '  { id: "corintio", label: "Corintio (135A)", value: 1, color: ALFABETO_COLORS.corintio },',
     "];",
     "// Tipos de mezcla (§5, mez_9): seguras y, aparte, dudosas y de solo nombre.",
     f"export const TIPOS_MEZ = {J(TIPOS)};",

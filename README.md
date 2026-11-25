@@ -32,7 +32,7 @@ Each release is archived in Zenodo with its own DOI. Cite the version you consul
 
 ## What the atlas contains
 
-The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopoulou and Christidis 2013) and the 202 of *I.Dodone Lhôte* (Lhôte 2006) that are not in it. Of these, 1,461 carry at least one dialect feature and receive a dialect attribution; the rest are too short, too fragmentary or written in a form common to all dialects.
+The corpus comprises 4,418 texts: the 4,216 of *I.Dodone DVC* (Dakaris, Vokotopoulou and Christidis 2013) and the 202 of *I.Dodone Lhôte* (Lhôte 2006) that are not in it. Of these, 1,460 carry at least one dialect feature and receive a dialect attribution; the rest are too short, too fragmentary or written in a form common to all dialects.
 
 | Part | Content |
 |---|---|
