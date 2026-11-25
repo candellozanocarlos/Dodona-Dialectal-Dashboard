@@ -26,6 +26,7 @@ import { DIALECT_COLORS } from "../theme.js";
 // Fila 204, 16/11/2026: 443A y 3347A (πέρ ante laguna) pasan de NO JON-ÁT a sin clasificar: NO JON-ÁT 843 (763/78/2); global 1.453 (1.110/317/26).
 // Fila 205, 20/11/2026: diez inscripciones con la raíz πᾱσ- de παμπασία visible pasan al dórico general (dudosas): 324B, 716A, 1104A, 1986A,
 // 3119B, 3334B, 3394A y 3791A (sin clasificar) y 1428A y Lhôte 58B (NO JON-ÁT): dórico general 186, NO JON-ÁT 841 (761/78/2); global 1.461 (1.108/327/26).
+// Fila 211, 24/11/2026: 27A (texto no griego, Otros) pasa de segura a dudosa: Otros 0/10/2; global 1.461 (1.109/325/27), sin cambio de los totales.
 export const TOTAL_CORPUS = 1461;
 
 // Inscripciones de cada capítulo.
