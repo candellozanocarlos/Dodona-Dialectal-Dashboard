@@ -7,7 +7,7 @@ Fuentes:
     DIALECTO_CERTEZA, Date, TEMA_MACRO, ALFABETO_GRUPO_v2, Text y la columna Carlos; Resúmenes, fila 186, 3 nov. 2026).
   · PYTHON/SEABORN-ALTAIR/graficos_mezcla.py (COMBINACION, TIPOS, tabla «mez»), graficos_minoritarios.py (DIALECTO,
     tabla «min») y graficos_no_jonico_aticas.py (RASGOS, COMPATIBLES, tabla «nja»): las mismas cifras que las figuras.
-  · MEZCLA_1_Redaccion, MINORITARIOS_1_Redaccion y NO_JON_AT_1_Redaccion (la versión más alta): tablas de los anexos y
+  · MEZCLA_1_Redaccion, OTROS_DIALECTOS_1_Redaccion y NO_JON_AT_1_Redaccion (la versión más alta): tablas de los anexos y
     texto de los apartados que la vista muestra desplegables.
 
 Uso:  py scripts/datos_frontera.py
@@ -330,7 +330,7 @@ def tramo(docx, inicio, fin):
     return apartados(secciones(pars, i0, i1))
 
 
-DOC_MIN = ultima(PARTE5 + "DIALECTOS MINORITARIOS", "MINORITARIOS_1_Redaccion_v*.docx")
+DOC_MIN = ultima(PARTE5 + "OTROS DIALECTOS", "OTROS_DIALECTOS_1_Redaccion_v*.docx")   # 25 nov. 2026: antes MINORITARIOS_* en DIALECTOS MINORITARIOS
 TIPOLOGIA_MEZ = tramo(DOC_MEZ, "5. TIPOLOG", "6. RECAPITULACI") + tramo(DOC_MEZ, "4. INSCRIPCIONES QUE NO MUESTRAN", "5. TIPOLOG")
 for x in TIPOLOGIA_MEZ:   # sin los rótulos de las tablas-imagen («Tabla 6»)
     x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
