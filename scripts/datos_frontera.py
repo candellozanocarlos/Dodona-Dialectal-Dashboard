@@ -101,21 +101,62 @@ alf_mez = G["mez"]["ALFABETO_GRUPO_v2"].fillna("").astype(str).str.strip()
 otros = G["mez"][alf_mez != ""]
 assert len(otros) == 0, otros["No DVC"].tolist()   # fila 195: 1012A pasa al jónico
 DOC_MEZ = ultima(PARTE5 + "MEZCLA DIALECTAL", "MEZCLA_1_Redaccion_v*.docx")
-# Anexo 6.1: la clasificación de cada mezcla con la terminología del capítulo (la certeza, del Excel).
-# Las tablas del texto (§4-§5) van antes de las del anexo: se busca la primera de cabecera «Inscripción | Texto».
-A_MEZ = next(i for i, t in enumerate(docx.Document(DOC_MEZ).tables) if [c.text.strip() for c in t.rows[0].cells][:2] == ["Inscripción", "Texto"])
-CLAS_MEZ = {clave_cap(a): re.sub(r"\s*\((dudosa|solo por un nombre)\)$", "", d) for a, _, _, d in tabla(DOC_MEZ, A_MEZ)}
+# Anexos §7.1 y §7.2: la clasificación de cada inscripción con la terminología del capítulo (la certeza, del Excel). Desde la
+# v107 cada anexo tiene dos grupos con una fila de banda («Mezclas también para Crespo y Giannakis…: 61»).
+# Las tablas del texto (§4-§5) son imágenes: las del anexo son las únicas de Word, con cabecera «id. | Texto».
+A_MEZ = next(i for i, t in enumerate(docx.Document(DOC_MEZ).tables) if [c.text.strip() for c in t.rows[0].cells][:2] == ["id.", "Texto"])
+
+
+def con_bandas(filas):
+    """[(grupo, fila)] de una tabla del anexo: las filas de banda (una sola celda) dan el nombre del grupo, sin el recuento."""
+    out, grupo = [], None
+    for f in filas:
+        if len(set(f)) == 1:
+            grupo = re.sub(r":\s*\d+$", "", f[0])
+        else:
+            out.append((grupo, f))
+    return out
+
+
+T71, T72 = con_bandas(tabla(DOC_MEZ, A_MEZ)), con_bandas(tabla(DOC_MEZ, A_MEZ + 1))
+CLAS_TESIS = {clave_cap(f[0]): f[3] for _, f in T71 + T72}   # con la certeza: «Dórico y jónico-ático (dudosa)»
+CLAS_MEZ = {clave_cap(f[0]): re.sub(r"\s*\((dudosa|solo por un nombre)\)$", "", f[3]) for _, f in T71}
+GRUPO_CYG_MEZ = {clave_cap(f[0]): g for g, f in T71}
+ORDEN_CYG_MEZ = list(dict.fromkeys(g for g, _ in T71))
 ANEXO_MEZ = []
 for _, r in G["mez"].iterrows():
     k = clave(r)
     ANEXO_MEZ.append([k, DA.fecha(r["Date"]), r["Text"] if pd.notna(r["Text"]) else "", CERT[r["DIALECTO_CERTEZA"]], CLAS_MEZ[k]])
-assert len(CLAS_MEZ) == len(ANEXO_MEZ) == MEZ.N["total"]
-# Anexo 7.3, tabla 13: las 61 inscripciones que son mezclas para Crespo y Giannakis (2019), Giannakis (2024a) y la tesis.
-COINCIDEN_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": e} for a, b, c, d, e in tabla(DOC_MEZ, A_MEZ + 2)]
+assert len(CLAS_MEZ) == len(ANEXO_MEZ) == MEZ.N["total"] and len(ORDEN_CYG_MEZ) == 2
+# §7.2: las demás inscripciones citadas, con el texto y la fecha del anexo; [clave, datación, texto, certeza, etiqueta]
+# (certeza «x» en las que han quedado sin clasificar).
+OTRAS_MEZ, GRUPO_OTRAS_MEZ = [], {}
+for g, (ref, texto, fecha_, clas) in T72:
+    cert = "d" if clas.endswith("(dudosa)") else "n" if clas.endswith("(solo por un nombre)") else "x" if clas == "Sin clasificar" else "s"
+    k = clave_cap(ref)
+    OTRAS_MEZ.append([k, fecha_, texto, cert, "" if cert == "x" else re.sub(r"\s*\((dudosa|solo por un nombre)\)$", "", clas)])
+    GRUPO_OTRAS_MEZ[k] = g
+ORDEN_OTRAS_MEZ = list(dict.fromkeys(GRUPO_OTRAS_MEZ.values()))
+# Las listas de Crespo y Giannakis (2019) y Giannakis (2024a), que hasta la v106 eran el anexo §7.3 (tablas 13 y 14) y desde
+# la v107 solo se publican en el atlas: scripts/mezcla_crespo_giannakis.json. La clasificación de la tesis, de los anexos vigentes.
+CYG = json.loads((Path(__file__).resolve().parent / "mezcla_crespo_giannakis.json").read_text(encoding="utf-8"))
+nfc = lambda filas: [[unicodedata.normalize("NFC", TRABAJO.sub("", c).strip().translate(PUA)) for c in f] for f in filas]
+
+
+def tesis_de(ref, antes):
+    """La clasificación vigente («Mezcla de …» en las mezclas), si la inscripción está en los anexos; si no, la de la tabla."""
+    t = CLAS_TESIS.get(clave_cap(ref))
+    if t is None:
+        return antes
+    return t if clave_cap(ref) not in CLAS_MEZ else "Mezcla de " + (t if t.startswith("Doris") else t[0].lower() + t[1:])
+
+
+# Las 61 inscripciones que son mezclas para Crespo y Giannakis (2019), Giannakis (2024a) y la tesis.
+COINCIDEN_MEZ = [{"ref": a, "date": b, "autores": c, "pags": d, "tesis": tesis_de(a, e)} for a, b, c, d, e in nfc(CYG["coinciden"])]
 assert len(COINCIDEN_MEZ) == 61 and all(b["tesis"].startswith("Mezcla") for b in COINCIDEN_MEZ), len(COINCIDEN_MEZ)
 TIPOS = [{"sec": s, "tipo": L(t), "noja": L(a), "ja": L(b), "expl": L(e), "seguras": n1, "dudosas": n2}
          for s, t, a, b, e, n1, n2 in MEZ.TIPOS]
-# Tipo de cada mezcla (§5): la tabla del capítulo en que figura (tablas 7-12, MEZ.T5), para agrupar las inscripciones.
+# Tipo de cada mezcla (§5): la tabla del capítulo en que figura (tablas 35-40, MEZ.T5), para agrupar las inscripciones.
 NOMBRE_TIPO = {f"§{t['sec']}": f"§{t['sec']} · {t['tipo']}" for t in TIPOS}
 TIPO_MEZ = {}
 for nombre, grupos in MEZ.T5.items():
@@ -166,9 +207,9 @@ for nombre, grupos in MEZ.T4.items():
                                   "motivo": unicodedata.normalize("NFC", formas), "tesis": con_certeza(MEZ.clasificacion(df, sigla))})
 assert len(APARENTES_MEZ) == 52 + 3, len(APARENTES_MEZ)   # las 52 de la bibliografía y tres que solo comentan los editores
 
-# Tabla 14 (§7.3): las divergencias con Crespo y Giannakis. Bloque A, las 52 mezclas de los autores que la tesis
+# La antigua tabla 14 (§7.3): las divergencias con Crespo y Giannakis. Bloque A, las 52 mezclas de los autores que la tesis
 # clasifica de otro modo, bajo una fila de banda por motivo (§4.1-§4.5: 12, 7, 5, 10 y 18); bloque B, las 34 que no recogen.
-DIV = tabla(DOC_MEZ, indice_tabla(DOC_MEZ, ["Inscripción", "Cronología", "Crespo y Giannakis", "Esta tesis", "Motivo"]))
+DIV = [f * 5 if len(f) == 1 else f for f in nfc(CYG["divergencias"])]   # las filas de banda tienen una sola celda
 iB = next(i for i, f in enumerate(DIV) if f[0].startswith("B."))
 assert DIV[0][0].startswith("A.")
 DIVERGENCIAS_MEZ, grupo = [], None
@@ -178,25 +219,25 @@ for ins, fecha_, cyg, tes, mot in DIV[1:iB]:
         continue
     pm = re.fullmatch(r"(.*?) \((20\d\d.*)\)", cyg)
     DIVERGENCIAS_MEZ.append({"grupo": grupo, "ref": ins, "date": fecha_, "autores": pm.group(1) if pm else cyg,
-                             "pags": pm.group(2) if pm else "", "tesis": tes, "motivo": mot})
+                             "pags": pm.group(2) if pm else "", "tesis": tesis_de(ins, tes), "motivo": mot})
 _n = {}
 for d in DIVERGENCIAS_MEZ:
     _n[d["grupo"]] = _n.get(d["grupo"], 0) + 1
 assert list(_n.values()) == [12, 7, 5, 10, 18], _n
-NO_RECOGIDAS_MEZ = [{"ref": a, "date": b, "autores": c, "tesis": d, "motivo": e} for a, b, c, d, e in DIV[iB + 1:]]
+NO_RECOGIDAS_MEZ = [{"ref": a, "date": b, "autores": c, "tesis": tesis_de(a, d), "motivo": e} for a, b, c, d, e in DIV[iB + 1:]]
 assert len(NO_RECOGIDAS_MEZ) == 34 and len(DIVERGENCIAS_MEZ) == 52
 # Las 113 de la bibliografía: las 61 coincidencias y las 52 divergencias.
 BIBLIO_MEZ = COINCIDEN_MEZ + [{k_: d[k_] for k_ in ("ref", "date", "autores", "pags", "tesis")} for d in DIVERGENCIAS_MEZ]
 assert len(BIBLIO_MEZ) == 113 and not any(d["tesis"].startswith("Mezcla de") for d in DIVERGENCIAS_MEZ)
 assert {clave_cap(d["ref"]) for d in DIVERGENCIAS_MEZ} <= {a["dvcs"][0] for a in APARENTES_MEZ}
 
-# Tabla 6 (§4.6, figuras mez_14b): las 24 mezclas examinadas en autopsia, por su resultado principal.
+# Tabla 34 (§4.6, imágenes mez_14b): las 24 mezclas examinadas en autopsia, por su resultado principal.
 AUTOPSIAS_MEZ = [{"grupo": r, "items": [{"id": "LOD " + s_.split()[1] if s_.startswith("Lhôte") else s_,
                                         "obs": unicodedata.normalize("NFC", o), "anio": a} for s_, o, a in filas]} for r, filas in MEZ.T_AUT]
 assert sum(len(g["items"]) for g in AUTOPSIAS_MEZ) == 24
 # Las autopsias no se publican: van a un archivo aparte, fuera del repositorio (.gitignore), que solo usa la versión local.
 (SALIDA.parent / "autopsiasMezcla.js").write_text(
-    "// Tabla 6 (§4.6): las mezclas examinadas en autopsia, por resultado. Solo para la versión local del atlas.\n"
+    "// Tabla 34 (§4.6): las mezclas examinadas en autopsia, por resultado. Solo para la versión local del atlas.\n"
     f"export const AUTOPSIAS_MEZ = {J(AUTOPSIAS_MEZ)};\n", encoding="utf-8")
 
 # ── Cap. 14: los dialectos minoritarios ───────────────────────────
@@ -252,6 +293,35 @@ assert len(dud) == NJA.N["Dudoso"] + NJA.N["Solo nombre/alfabeto"] and all(a[4] 
 assert len(RASGOS_ANEXO) == len(anexo) and all(a[5] for a in anexo), [a[0] for a in anexo if not a[5]]
 ANEXO.write_text(json.dumps(anexo, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
+# De la tabla de rasgos a la de dialectos compatibles: en qué fila de la segunda caen las inscripciones con ᾱ.
+# La primera cuenta la frecuencia de cada rasgo; la segunda reparte el grupo, una fila por inscripción, según la
+# intersección de los ámbitos de sus rasgos visibles (columna de rasgos del anexo, sin los de letra insegura).
+# Dialectos: D dórico, B beocio, T tesalio, H tesalio de Histiótide, L lesbio, A arcadio-chipriota.
+TODOS = frozenset("DBTHLA")
+AMBITO = {"ᾱ": TODOS, "περ' elidido": TODOS, "κα": set("DBH"), "πέρ": set("DTH"), "α + ε > η": set("DB"),
+          "τουτ-": set("DB"), "αἰ": set("DBTHL"), "digamma": set("DBTHA"), "ἱαρός": set("DBTH"),
+          "apócope o ποτί": set("DBTH"), "-μεν": set("DBTH"), "ἴκατι": set("DBTH"),
+          "digamma inicial": set("DBTHA"), "πέρ, escrito ΠΡΕ por metátesis": set("DTH")}   # 2755A y 2132A
+FILA = ["DBTHLA", "DBH", "DTH", "DB", "DBTHL", "DBTHA", "DBTH", "DH"]   # mismo orden que NJA.COMPATIBLES
+por_fila, solo_alfa, alfa_per, solo_per = [0] * len(FILA), 0, 0, 0
+for a in anexo:
+    rs = {re.sub(r"\s*\(.*", "", x).strip() for x in re.split(r";\s*", a[5]) if "letra insegura" not in x} & set(AMBITO)
+    if rs == {"περ' elidido"}:
+        solo_per += 1
+    if "ᾱ" not in rs:
+        continue
+    amb = set(TODOS)
+    for x in rs:
+        amb &= AMBITO[x]
+    por_fila[FILA.index("".join(x for x in "DBTHLA" if x in amb))] += 1
+    solo_alfa += rs == {"ᾱ"}
+    alfa_per += rs == {"ᾱ", "περ' elidido"}
+ALFA_COMPAT = {"total": sum(por_fila), "sola": solo_alfa, "conPer": alfa_per, "soloPer": solo_per,
+               "filas": [{"dialectos": COMPAT[i]["dialectos"], "rasgos": COMPAT[i]["rasgos"], "n": n}
+                         for i, n in enumerate(por_fila) if n]}
+assert ALFA_COMPAT["total"] == next(r["n"] for r in RASGOS if r["rasgo"].startswith("ᾱ")), ALFA_COMPAT
+assert solo_alfa + alfa_per + solo_per == COMPAT[0]["n"] == por_fila[0] + solo_per, ALFA_COMPAT
+
 # ── Texto de los capítulos: apartados que la vista muestra desplegables ──
 def tramo(docx, inicio, fin):
     pars = parrafos(docx, tablas=False)
@@ -266,6 +336,12 @@ for x in TIPOLOGIA_MEZ:   # sin los rótulos de las tablas-imagen («Tabla 6»)
     x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
 # Desde la v36 la explicación de cada tipo cierra su apartado del §5; desde la v105 el §6 es solo la recapitulación (la escritura y la fecha pasaron a las conclusiones).
 EXPLICACIONES_MEZ = tramo(DOC_MEZ, "6. RECAPITULACI", "7. ANEXOS")
+# §1-§2 (introducción y concepto de mezcla) y §3 (la mezcla en números), para las pestañas que siguen los apartados del capítulo.
+CONCEPTO_MEZ = tramo(DOC_MEZ, "1. INTRODUCCI", "3. LA MEZCLA")
+NUMEROS_MEZ = tramo(DOC_MEZ, "3. LA MEZCLA", "4. INSCRIPCIONES QUE NO MUESTRAN")
+for x in CONCEPTO_MEZ + NUMEROS_MEZ:
+    x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
+assert [x["sec"] for x in CONCEPTO_MEZ] == ["§1", "§2.1", "§2.2", "§2.3"] and len(NUMEROS_MEZ) == 1, [x["sec"] for x in CONCEPTO_MEZ]
 APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "7. ANEXOS")
 RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
 COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
@@ -298,18 +374,28 @@ partes = [
     f"export const ADSCRIPCION_MEZ = {J(ADS_MEZ)};",
     "// Anexo 7.1: [clave, datación, texto, certeza (s, d, n), clasificación del capítulo].",
     f"export const ANEXO_MEZ = {J(ANEXO_MEZ)};",
-    "// Tipo de cada mezcla según el §5 del capítulo (tablas 7-12), para el segundo panel de «Las inscripciones».",
+    "// Tipo de cada mezcla según el §5 del capítulo (tablas 35-40), para el segundo panel de «Las inscripciones».",
     f"export const TIPO_MEZ = {J(TIPO_MEZ)};",
     f"export const ORDEN_TIPOS_MEZ = {J(ORDEN_TIPOS_MEZ)};",
-    "// Anexo 7.3: las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), con su clasificación en la tesis.",
+    "// Grupo de cada mezcla en el anexo §7.1: también mezcla para Crespo y Giannakis (2019) y Giannakis (2024a), o fuera de sus listas.",
+    f"export const GRUPO_CYG_MEZ = {J(GRUPO_CYG_MEZ)};",
+    f"export const ORDEN_CYG_MEZ = {J(ORDEN_CYG_MEZ)};",
+    "// Anexo §7.2: las demás inscripciones citadas, [clave, datación, texto, certeza (s, d, n; x, sin clasificar), clasificación], y su grupo.",
+    f"export const OTRAS_MEZ = {J(OTRAS_MEZ)};",
+    f"export const GRUPO_OTRAS_MEZ = {J(GRUPO_OTRAS_MEZ)};",
+    f"export const ORDEN_OTRAS_MEZ = {J(ORDEN_OTRAS_MEZ)};",
+    "// Las listas de Crespo y Giannakis (2019) y Giannakis (2024a) (scripts/mezcla_crespo_giannakis.json; hasta la v106, anexo §7.3),",
+    "// con la clasificación vigente de la tesis.",
     f"export const BIBLIO_MEZ = {J(BIBLIO_MEZ)};",
-    "// Tabla 14: las 52 de los autores que la tesis clasifica de otro modo (bloque A), agrupadas por el motivo (§4.1-§4.5),",
-    "// y las 34 mezclas de la tesis que no recogen (bloque B).",
+    "// Las 52 de los autores que la tesis clasifica de otro modo, agrupadas por el motivo (§4.1-§4.5), y las 34 mezclas de la tesis que no recogen.",
     f"export const DIVERGENCIAS_MEZ = {J(DIVERGENCIAS_MEZ)};",
     f"export const NO_RECOGIDAS_MEZ = {J(NO_RECOGIDAS_MEZ)};",
     "// Tablas 1-5 (§4): las inscripciones que no muestran mezcla dialectal, una por inscripción, agrupadas por el motivo que las deshace.",
     f"export const APARENTES_MEZ = {J(APARENTES_MEZ)};",
-    f"// Texto de {DOC_MEZ.stem}: §5 (tipología y explicación de cada tipo), §4 (inscripciones que no muestran mezcla dialectal) y §6 (recapitulación).",
+    f"// Texto de {DOC_MEZ.stem}: §1-§2 (concepto), §3 (números), §5 (tipología y explicación de cada tipo), §4 (inscripciones que no",
+    "// muestran mezcla dialectal) y §6 (recapitulación).",
+    f"export const CONCEPTO_MEZ = {J(CONCEPTO_MEZ)};",
+    f"export const NUMEROS_MEZ = {J(NUMEROS_MEZ)};",
     f"export const TIPOLOGIA_MEZ = {J(TIPOLOGIA_MEZ)};",
     f"export const EXPLICACIONES_MEZ = {J(EXPLICACIONES_MEZ)};",
     "",
@@ -335,6 +421,8 @@ partes = [
     "// Rasgos visibles (nja_9; sección de Buck 1955) y dialectos compatibles (nja_10): número de inscripciones.",
     f"export const RASGOS_NJA = {J(RASGOS)};",
     f"export const COMPATIBLES_NJA = {J(COMPAT)};",
+    "// Las inscripciones con ᾱ según su fila en la tabla de dialectos compatibles (columna de rasgos del anexo).",
+    f"export const ALFA_COMPAT_NJA = {J(ALFA_COMPAT)};",
     f"export const ADSCRIPCION_NJA = {J(ADS_NJA)};",
     f"// Texto de {DOC_NJA.stem}: §2, §4 y §5.",
     f"export const POR_QUE_NJA = {J(POR_QUE_NJA)};",
@@ -352,6 +440,11 @@ citadas = {"DVC 81B", "DVC 2888B", "DVC 315A", "DVC 987B", "DVC 2667A", "DVC 217
             "DVC 1012A", "DVC 2160", "DVC 2225A", "DVC 480B", "DVC 3977A", "DVC 2217A", "DVC 172A", "DVC 1993A", "DVC 2496B"}
 for t in ("mez", "min", "nja"):
     citadas.update(DA.claves_indice(DA.filas_js(t) if t != "nja" else ADS_NJA))
-citadas.update(DA.claves_indice([{"dvcs": [a[0] for a in ANEXO_MEZ] + [clave_cap(b["ref"]) for b in BIBLIO_MEZ]}]))
+citadas.update(DA.claves_indice([{"dvcs": [a[0] for a in ANEXO_MEZ + OTRAS_MEZ] + [clave_cap(b["ref"]) for b in BIBLIO_MEZ]}]))
+# Las citadas en el texto de la mezcla que muestra la vista (§1-§6), para que sus referencias se enlacen.
+from comun import Excel, citas  # noqa: E402
+EX = Excel()
+for xs in (CONCEPTO_MEZ, NUMEROS_MEZ, TIPOLOGIA_MEZ, EXPLICACIONES_MEZ):
+    citadas.update(citas([p for x in xs for p in x["paras"]], EX))
 citadas.update(("Lhôte " + d["id"][4:]) if d["id"].startswith("LOD ") else "DVC " + d["id"] for d in INSC_MIN)
 DA.actualizar_indice(df, citadas)

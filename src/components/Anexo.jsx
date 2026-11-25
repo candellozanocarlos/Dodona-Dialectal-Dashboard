@@ -5,9 +5,10 @@ import { C, PROSE, colorSiglo, fade } from "../theme.js";
 import { fmtDvc, renderDesc, renderGreekText } from "../lib/text.jsx";
 import { Card } from "./ui.jsx";
 
-const CERT_TXT = { s: ["segura", C.blue], d: ["dudosa", "#a0761c"], n: ["solo nombre o alfabeto", C.muted] };
+// x: sin clasificar (las “otras inscripciones citadas” de la mezcla, anexo §7.2).
+const CERT_TXT = { s: ["segura", C.blue], d: ["dudosa", "#a0761c"], n: ["solo nombre o alfabeto", C.muted], x: ["sin clasificar", C.dim] };
 
-// d = { id, date, text, certeza: "s" | "d" | "n", etq?, rasgos? }
+// d = { id, date, text, certeza: "s" | "d" | "n" | "x", etq?, rasgos? }
 export const InscripcionCard = ({ d, color }) => (
   <Card style={{ padding: "12px 16px" }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
@@ -45,7 +46,7 @@ const REJILLA = { display: "grid", gridTemplateColumns: "repeat(auto-fill, minma
 
 // Barra de certeza de un grupo: seguras, dudosas y de solo nombre.
 const BarraCerteza = ({ filas }) => {
-  const n = { s: 0, d: 0, n: 0 };
+  const n = { s: 0, d: 0, n: 0, x: 0 };
   filas.forEach((r) => { n[r[3]] += 1; });
   return (
     <span style={{ display: "flex", width: 120, height: 8, borderRadius: 4, overflow: "hidden", background: "rgba(120,90,40,0.08)", flexShrink: 0 }}

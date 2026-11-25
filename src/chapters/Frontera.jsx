@@ -6,9 +6,10 @@ import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo } from "../theme
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
 import { MOSTRAR_AUTOPSIAS } from "../sitio.js";
 import {
-  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
-  CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, DIALECTOS_MIN, DIVERGENCIAS_MEZ, EXPLICACIONES_MEZ,
-  INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, ORDEN_TIPOS_MEZ, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPO_MEZ,
+  ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALFA_COMPAT_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
+  CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, CONCEPTO_MEZ, DIALECTOS_MIN, DIVERGENCIAS_MEZ,
+  EXPLICACIONES_MEZ, GRUPO_CYG_MEZ, GRUPO_OTRAS_MEZ, INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, NUMEROS_MEZ, ORDEN_CYG_MEZ, ORDEN_OTRAS_MEZ, ORDEN_TIPOS_MEZ, OTRAS_MEZ,
+  POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPO_MEZ,
   TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ, TOTAL_MIN, TOTAL_NJA,
 } from "../data/frontera.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
@@ -92,20 +93,27 @@ const Grupo = ({ titulo, n, unidad = "inscripciones", children }) => (
   </Card>
 );
 
-// Contexto: la comparación con Crespo y Giannakis (2019) y Giannakis (2024a), tablas 13 y 14 del capítulo.
-function ComparacionBiblio() {
-  const coinciden = BIBLIO_MEZ.filter((b) => b.tesis.startsWith("Mezcla"));
-  const motivos = [...new Set(DIVERGENCIAS_MEZ.map((d) => d.grupo))];
-  return <>
+// La comparación con Crespo y Giannakis (2019) y Giannakis (2024a): el resumen (§4 del capítulo) y las listas completas,
+// que hasta la v106 eran el anexo §7.3 (tablas 13 y 14) y desde la v107 solo se publican aquí.
+const coincidenBiblio = () => BIBLIO_MEZ.filter((b) => b.tesis.startsWith("Mezcla"));
+function ResumenBiblio() {
+  return (
     <Sec title="Las mezclas de Crespo y Giannakis (2019) y Giannakis (2024a)"
       sub="Las inscripciones que presentan como mezclas, incluidas las que solo mencionan en nota, frente a la clasificación de la tesis">
       <Stats>
         <Stat label="En sus listas" value={String(BIBLIO_MEZ.length)} sub="mezclas según los autores" accent={C.muted} />
-        <Stat label="Coinciden" value={String(coinciden.length)} sub="también son mezclas en la tesis" accent={MEZ_INK} />
+        <Stat label="Coinciden" value={String(coincidenBiblio().length)} sub="también son mezclas en la tesis" accent={MEZ_INK} />
         <Stat label="Otra clasificación" value={String(DIVERGENCIAS_MEZ.length)} sub="la tesis no ve mezcla" accent={C.terra} />
         <Stat label="No recogidas" value={String(NO_RECOGIDAS_MEZ.length)} sub="mezclas de la tesis fuera de sus listas" accent={C.blue} />
       </Stats>
     </Sec>
+  );
+}
+function ComparacionBiblio() {
+  const coinciden = coincidenBiblio();
+  const motivos = [...new Set(DIVERGENCIAS_MEZ.map((d) => d.grupo))];
+  return <>
+    <ResumenBiblio />
     <Sec title="Las mezclas en que coinciden" sub={`${coinciden.length} inscripciones que la tesis también cuenta como mezclas, con la combinación que les atribuyen los autores y la de la tesis`}
       note="El componente que los autores llaman koiné se denomina jónico-ático en la tesis salvo que la koiné pueda demostrarse.">
       <Table color={MEZ_INK} sticky maxHeight={520} fontSize={12} rowHeader={0}
@@ -137,7 +145,7 @@ function ComparacionBiblio() {
   </>;
 }
 
-// Perfil: las inscripciones que no muestran mezcla dialectal (§4 y tablas 1-6 del capítulo).
+// Perfil: las inscripciones que no muestran mezcla dialectal (§4 y tablas 29-34 del capítulo).
 const familia = (t) => /^(jónico|ático|koiné)/i.test(t) ? "Jónico-ático y koiné" : /^no jónico/i.test(t) ? "No jónico-ática"
   : /^dórico general|^dórico$/i.test(t) ? "Dórico general" : t[0].toUpperCase() + t.slice(1);
 function MezclasAparentes() {
@@ -182,7 +190,7 @@ function MezclasAparentes() {
       })}
     </Sec>
     {import.meta.env.MODE !== "publico" && AUTOPSIAS_MEZ.length > 0 && <Sec title="Lo que mostró la autopsia"
-      sub={`Las ${nAut} mezclas del capítulo examinadas en Ioánina, por el resultado principal de la autopsia (tabla 6 del capítulo)`}>
+      sub={`Las ${nAut} mezclas del capítulo examinadas en Ioánina, por el resultado principal de la autopsia (tabla 34 del capítulo)`}>
       <Bars horizontal data={AUTOPSIAS_MEZ.map((g) => ({ name: g.grupo, value: g.items.length, color: MEZ }))}
         height={60 + 38 * AUTOPSIAS_MEZ.length} left={330} unit="inscripciones" />
       <div style={{ marginTop: 14 }}>
@@ -224,7 +232,7 @@ function MezclasAparentes() {
 
 export function Mezcla({ switcher, subnav = null }) {
   const [tab, setTab] = useState("context");
-  const [sub, setSub] = useState("cifras");
+  const [anexo, setAnexo] = useState("mezclas");
   const cs = CHRONO_MEZ.filter((d) => d.period.includes("s. IV") && !d.period.includes("–")).reduce((a, d) => a + d.n, 0);
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={MEZ_INK} accent={[C.terra, MEZ, C.blue, C.green]}
@@ -238,75 +246,26 @@ export function Mezcla({ switcher, subnav = null }) {
       </>}
       tabs={[
         { id: "context", l: "Concepto y criterio", i: "📜" },
-        { id: "profile", l: "Perfil dialectal", i: "Μ" },
-        { id: "interp", l: "Explicaciones", i: "Ω" },
+        { id: "numeros", l: "La mezcla en números", i: "Σ" },
+        { id: "sinmezcla", l: "Sin mezcla dialectal", i: "Δ" },
+        { id: "tipos", l: "Tipología y explicación", i: "Μ" },
         { id: "anexo", l: "Las inscripciones", i: "Ψ" },
       ]} tab={tab} onTab={setTab}>
 
+      {/* Una pestaña por apartado del capítulo: §1-§2, §3, §4, §5 con la recapitulación (§6) y los anexos (§7). */}
       {tab === "context" && <>
-        <Sec title="La mezcla dialectal en las laminillas" sub="Textos privados y breves de consultantes llegados de lugares muy distintos">
-          <Card style={{ padding: "18px 22px" }}>
-            <p style={BIG}>
-              El corpus contiene {TOTAL_MEZ} inscripciones que reúnen rasgos de dos dialectos que no pueden convivir en uno solo, o un nombre
-              propio con la forma de un dialecto distinto del que emplea el resto del texto: el {pct(TOTAL_MEZ)} % de las inscripciones con
-              alguna característica dialectal, una proporción sin paralelo en la epigrafía oficial que se explica por la naturaleza de las
-              laminillas y por un santuario cuya lengua local, el dórico del Noroeste, no era la de la mayoría de quienes lo visitaban. Lhôte
-              (2006: 377) dedicó a los casos de mezcla y a la influencia de la koiné dos breves apartados, Méndez Dosuna (2018a: 273-276)
-              advirtió que algunas mezclas no son reales, sino el resultado de una lectura equivocada, y Crespo y Giannakis (2019) hicieron el primer estudio sistemático, con
-              unas noventa consultas híbridas que Giannakis (2024a: 39-42, 52-60) amplió a 103 y explicó como el primer estadio de la koiné.
-            </p>
-          </Card>
+        <Sec title="Introducción" sub="§1 del capítulo">
+          <Secciones items={CONCEPTO_MEZ.filter((x) => x.sec === "§1")} color={MEZ_INK} abierto />
         </Sec>
-        <Sec title="El criterio de la tesis" sub="Rasgos visibles de dos grupos que no pueden convivir en un único dialecto">
-          <Card>
-            <p style={PROSE}>
-              Hay mezcla cuando una misma inscripción presenta rasgos visibles de dos grupos incompatibles, como el dórico {g("κα")} junto
-              al jónico-ático {g("εἰ")}, o la fórmula {g("τύχα ἀγαθά")} junto a {g("τύχη")}, {g("ἔσται")} o {g("ἐπερωτᾶι")}; la definición
-              coincide con la de Méndez Dosuna (2018a: 273-276) y no presupone ninguna explicación. Quedan fuera cinco situaciones que solo en
-              apariencia son mezclas: la vacilación gráfica dentro de un dialecto (la alternancia de ΕΙ y ΟΥ con Η y Ω en las consultas
-              tesalias), la pregunta y la respuesta escritas en caras o por manos distintas, la alternancia de alfabetos, la combinación de
-              variedades de un mismo grupo, como el jónico y la koiné, y los rasgos que comparten los dos dialectos supuestos, como las
-              contracciones que el dórico noroccidental tiene en común con la koiné (Méndez Dosuna 2018b: 49). Se cuentan, en cambio, como
-              dudosas las consultas cuyo único elemento no jónico-ático es la fórmula o el nombre de Dione, y como de solo nombre las que
-              descansan en un antropónimo.
-            </p>
-            <p style={{ ...PROSE, marginTop: 10 }}>
-              La koiné solo se reconoce con una prueba positiva (un rasgo propio o una fecha desde finales del s. IV a.C.), de modo que el
-              componente que la bibliografía llama koiné es, en la mayoría de las mezclas, jónico-ático: de las 73 que combinan el dórico con
-              rasgos jónico-áticos sin precisar, solo 18 se fechan desde finales del s. IV a.C., y siete pertenecen al s. V a.C. De las{" "}
-              {BIBLIO_MEZ.length} mezclas de Crespo y Giannakis (2019) y Giannakis (2024a), {BIBLIO_MEZ.length - DIVERGENCIAS_MEZ.length} lo
-              son también aquí y {DIVERGENCIAS_MEZ.length} reciben otra clasificación, mientras que {NO_RECOGIDAS_MEZ.length} de las de la
-              tesis no figuran en sus listas.{import.meta.env.MODE !== "publico" && AUTOPSIAS_MEZ.length > 0 && <> La autopsia de{" "}
-              {AUTOPSIAS_MEZ.reduce((s, g) => s + g.items.length, 0)} de las mezclas ha permitido corregir facsímiles y ha mostrado
-              posibles cambios de mano, y en consultas que la bibliografía daba por mezclas, como <Ref src="DVC" id="2160" /> (segunda
-              mitad del s. IV a.C.) y <Ref src="DVC" id="2225A" /> (primera mitad del s. IV a.C.), ha permitido descartar la mezcla.</>}
-            </p>
-          </Card>
+        <Sec title="El concepto de mezcla dialectal" sub="§2 del capítulo: el marco teórico, la bibliografía y el criterio de la tesis; pulsa para desplegar cada apartado">
+          <Secciones items={CONCEPTO_MEZ.filter((x) => x.sec !== "§1")} color={MEZ_INK} />
         </Sec>
       </>}
 
-      {tab === "context" && <ComparacionBiblio />}
-
-      {tab === "profile" && <>
-        <SubNav color={MEZ_INK} value={sub} onChange={setSub} items={[
-          ["cifras", "La mezcla dialectal en números", "adscripción, combinaciones, cronología, temática y alfabeto"],
-          ["tipos", "Tipos de mezcla", `${TIPOS_MEZ.length} tipos según el lugar del elemento ajeno`],
-          ["aparentes", "Sin mezcla dialectal", `${APARENTES_MEZ.reduce((s, a) => s + a.dvcs.length, 0)} inscripciones presentadas como mezclas que no la muestran`],
-        ]} />
-        {sub === "cifras" && <>
-          <Sec title="La mezcla dialectal en el corpus de Dodona">
-            <Cifras total={TOTAL_MEZ} cert={CERTEZA_MEZ} color={MEZ_INK} />
-            <Card>
-              <p style={PROSE}>
-                Dos de cada tres mezclas son dudosas o descansan en un nombre, la proporción más alta del corpus después de la de los otros
-                dialectos: una mezcla exige dos rasgos y no uno, y basta con que cualquiera de ellos dependa de una letra insegura, de una
-                restitución o de una forma de doble lectura, como [ἐπερ]ωτᾶι en <Ref src="DVC" id="3869B" /> (primera mitad del
-                s. IV a.C.) o Χ̣ιόνη en <Ref src="DVC" id="33B" /> (ss. V-IV a.C.). En las de solo nombre, como la esclava Ἀριστοβούλαν
-                en <Ref src="DVC" id="2383A" /> (ss. V-IV a.C.), la mezcla informa sobre la circulación de los nombres y no sobre la lengua
-                de quien escribe.
-              </p>
-            </Card>
-          </Sec>
+      {tab === "numeros" && <>
+        <Sec title="La mezcla dialectal en el corpus de Dodona">
+          <Cifras total={TOTAL_MEZ} cert={CERTEZA_MEZ} color={MEZ_INK} />
+        </Sec>
 
           <Sec title="Adscripción de las consultas" sub="Bases de la adscripción, grado de certeza y consultas que la bibliografía cuenta como mezclas">
             <AdscripcionTable data={ADSCRIPCION_MEZ} color={MEZ_INK} />
@@ -321,7 +280,7 @@ export function Mezcla({ switcher, subnav = null }) {
             <Bars horizontal data={MACROGRUPOS} highlight="Mezcla dialectal" height={300} left={200} />
           </Sec>
 
-          <Sec title="Distribución cronológica" sub={`El s. IV a.C. reúne ${cs} de las ${TOTAL_MEZ} mezclas; las anteriores a finales de ese siglo no pueden contener koiné`}>
+          <Sec title="Distribución cronológica" sub={`El s. IV a.C. reúne ${cs} de las ${TOTAL_MEZ} mezclas`}>
             <Bars data={crono(CHRONO_MEZ)} indexBy="period" keys={["n"]} height={300} rotate={-35} />
           </Sec>
 
@@ -332,8 +291,17 @@ export function Mezcla({ switcher, subnav = null }) {
           <Sec title="Alfabeto" note="Ninguna mezcla está escrita en alfabeto corintio ni en otro alfabeto epicórico bien identificado: las consultas epicóricas que parecían mezclas eran ejemplos de alternancia de alfabetos.">
             <DonutLegend data={ALF_MEZ_PIE} height={220} valueColor={MEZ_INK} />
           </Sec>
-        </>}
-        {sub === "tipos" && <>
+        <Sec title="El apartado del capítulo" sub="§3: pulsa para desplegar el texto completo">
+          <Secciones items={NUMEROS_MEZ} color={MEZ_INK} />
+        </Sec>
+      </>}
+
+      {tab === "sinmezcla" && <>
+        <ResumenBiblio />
+        <MezclasAparentes />
+      </>}
+
+      {tab === "tipos" && <>
           <Sec title="Tipos de mezcla dialectal en el corpus" sub="Dónde se encuentra el elemento ajeno al dialecto del texto"
             note={`Cada fila es un tipo de mezcla según el lugar del texto en que se encuentra el elemento ajeno, con el apartado del capítulo. En la última columna, el total de consultas y, entre paréntesis, las seguras y las dudosas o que descansan en un nombre propio. Cada consulta se cuenta en un solo tipo, el de su elemento más característico; la suma da las ${TOTAL_MEZ} del capítulo.`}>
             <TablaRasgos color={MEZ} cabeceras={["Elemento\nno jónico-ático", "Elemento\njónico-ático", "Explicaciones\nposibles (§5)"]}
@@ -346,38 +314,25 @@ export function Mezcla({ switcher, subnav = null }) {
           <Sec title="Las mezclas, tipo a tipo" sub="Los apartados de §5 del capítulo, con sus inscripciones y la explicación de cada tipo: pulsa para desplegar cada uno">
             <Secciones items={TIPOLOGIA_MEZ.filter((x) => !x.sec.startsWith("§4"))} color={MEZ_INK} />
           </Sec>
-        </>}
-        {sub === "aparentes" && <MezclasAparentes />}
-      </>}
 
-      {tab === "anexo" && <>
-        <Sec title="Las inscripciones con mezcla dialectal"
-          sub="Agrupadas por los dialectos que se combinan, como en Crespo y Giannakis (2019) y Giannakis (2024a), con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
-          <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => r[4].replace(/ \(fórmula\)$/, "")} />
-        </Sec>
-        <Sec title="Las inscripciones según el tipo de mezcla"
-          sub="Agrupadas por los tipos de §5 del capítulo, según el lugar del texto en que aparece el elemento ajeno o los dialectos que intervienen; pulsa en cada grupo para desplegarlo">
-          <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => TIPO_MEZ[r[0]]} orden={ORDEN_TIPOS_MEZ} />
-        </Sec>
-      </>}
-
-      {tab === "interp" && <>
+        {/* Recapitulación (§6), al final de la tipología. */}
         <Sec title="Explicaciones de la mezcla e implicaciones para el oráculo">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
-              La mezcla no se distribuye al azar. Una de cada cinco se limita a la fórmula de apertura o al nombre de la diosa, la parte más
-              pública y fija de la consulta, que pudo copiarse, aprenderse de oídas o redactarla el personal del santuario; casi la mitad presenta
-              formas jónico-áticas en consultas dóricas, reflejo de una norma de prestigio en la escritura de los propios hablantes de dórico, y
-              el resto se reparte entre palabras aisladas, formas híbridas, nombres propios y unas pocas mezclas con el noroccidental, la{" "}
-              <i>Doris severior</i>, el tesalio y el beocio.
+              La tipología permite reunir las 95 mezclas según la explicación que mejor se ajusta a cada una. Más de la mitad, 53, se
+              explican por la convivencia del dórico con una norma escrita de prestigio, el jónico-ático, en comunidades bidialectales; 26
+              reproducen los elementos más fijos de la consulta, la fórmula de apertura, el nombre de los dioses y algunas palabras del
+              vocabulario del santuario; 14 se deben a un nombre propio, que conserva su forma con independencia de la lengua del texto, y
+              las dos restantes no son seguras como mezclas de dialectos. La acomodación al personal del santuario y la intervención de un
+              tercero, que la bibliografía propone como explicaciones de conjunto, solo dan cuenta de unos pocos casos.
             </p>
           </Card>
         </Sec>
         <Sec title="Tres conclusiones para el conocimiento del oráculo">
           {[
-            ["La koiné llegó tarde a Dodona", <>Las mezclas anteriores a finales del s. IV a.C., que son la mayoría, combinan el dórico con el ático o el jónico; la koineización solo se observa en las consultas helenísticas, en las que el dórico se repliega a las fórmulas y a los dioses. Entre las más antiguas figuran <Ref src="Lhôte" id="133A" /> (mediados del s. V a.C.), una consulta beocia con ταῦτα, y <Ref src="DVC" id="729A" /> y <Ref src="DVC" id="1410" /> (finales del s. V a.C.).</>],
-            ["El personal del santuario no explica la mayoría", <>Su intervención es verosímil en algunos casos, pero la mayor parte de las mezclas es obra de consultantes que escribían su propia lengua con las formas de prestigio de su entorno.</>],
-            ["La mezcla llegó con los consultantes", <>Muchos procedían de zonas en que la convivencia de dialectos era cotidiana, como las colonias de población mixta del Occidente o el propio Epiro. Las consultas públicas de los caones (<Ref src="Lhôte" id="11" />, último cuarto del s. IV a.C.) y de los heracleotas (<Ref src="Lhôte" id="6A" />, último cuarto del s. V a.C.) muestran la mezcla en la lengua de una comunidad. Dodona fue menos el lugar en que los dialectos se mezclaron que el lugar en que la mezcla quedó por escrito.</>],
+            ["Casi siempre, con el jónico-ático", <>94 de las 95 mezclas tienen un componente jónico-ático, sea jónico, ático o de koiné: en 89 el otro componente es el dórico, y en cinco, el noroccidental, la <i>Doris severior</i>, el eleo o el tesalio. Que la norma sea el ático o la koiné no cambia el mecanismo, porque es en esencia el mismo dialecto en distintas fases de su evolución. La única excepción, <Ref src="DVC" id="1025A+B" />, puede no ser siquiera una mezcla de dialectos.</>],
+            ["La mezcla llegó con los consultantes", <>Refleja el contacto entre un dialecto y la norma jónico-ática que se daba ya en las comunidades de origen, como las colonias de población mixta del Occidente, y en el propio Epiro. Las consultas públicas de los caones (<Ref src="Lhôte" id="11" />, último cuarto del s. IV a.C.) y de los heracleotas (<Ref src="Lhôte" id="6A" />, último cuarto del s. V a.C.) muestran la mezcla en la lengua de una comunidad. Dodona fue menos el lugar en que los dialectos se mezclaron que el lugar en que la mezcla quedó por escrito.</>],
+            ["El santuario aporta lo más fijo de la consulta", <>La fórmula, el nombre de los dioses y algunas palabras de su vocabulario se reproducían sin adaptarlos al dialecto del texto, de modo que informan sobre las convenciones de la consulta antes que sobre la lengua del consultante. Una segunda mano solo se sugiere en <Ref src="DVC" id="2169A" /> y <Ref src="DVC" id="2261A" />.</>],
           ].map(([t, d]) => (
             <Card key={t} accent={MEZ}>
               <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: 700, color: MEZ_INK, marginBottom: 6 }}>{t}</div>
@@ -385,9 +340,38 @@ export function Mezcla({ switcher, subnav = null }) {
             </Card>
           ))}
         </Sec>
-        <Sec title="Recapitulación" sub="El §6 del capítulo; la explicación de cada tipo se lee en Perfil dialectal, Tipos de mezcla (§5)">
-          <Secciones items={EXPLICACIONES_MEZ} color={MEZ_INK} />
+        <Sec title="Recapitulación" sub="El §6 del capítulo">
+          <Secciones items={EXPLICACIONES_MEZ} color={MEZ_INK} abierto />
         </Sec>
+      </>}
+
+      {tab === "anexo" && <>
+        <SubNav color={MEZ_INK} value={anexo} onChange={setAnexo} items={[
+          ["mezclas", "Las inscripciones con mezcla dialectal", `§7.1: ${ANEXO_MEZ.length} inscripciones`],
+          ["otras", "Otras inscripciones citadas", `§7.2: ${OTRAS_MEZ.length} inscripciones`],
+          ["biblio", "Las listas de Crespo y Giannakis", `${BIBLIO_MEZ.length} mezclas de la bibliografía frente a la clasificación de la tesis`],
+        ]} />
+        {anexo === "mezclas" && <>
+          <Sec title="Las inscripciones con mezcla dialectal"
+            sub="Como en el anexo §7.1 del capítulo, las que también son mezclas para Crespo y Giannakis (2019) y Giannakis (2024a) y las que no figuran en sus listas, con el texto de la edición, la datación y la certeza; pulsa en cada grupo para desplegarlo">
+            <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => GRUPO_CYG_MEZ[r[0]]} orden={ORDEN_CYG_MEZ} />
+          </Sec>
+          <Sec title="Las inscripciones según los dialectos que se combinan"
+            sub="Agrupadas como en Crespo y Giannakis (2019) y Giannakis (2024a); pulsa en cada grupo para desplegarlo">
+            <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => r[4].replace(/ \(fórmula\)$/, "")} />
+          </Sec>
+          <Sec title="Las inscripciones según el tipo de mezcla"
+            sub="Agrupadas por los tipos de §5 del capítulo, según el lugar del texto en que aparece el elemento ajeno o los dialectos que intervienen; pulsa en cada grupo para desplegarlo">
+            <Anexo rows={ANEXO_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => TIPO_MEZ[r[0]]} orden={ORDEN_TIPOS_MEZ} />
+          </Sec>
+        </>}
+        {anexo === "otras" && (
+          <Sec title="Otras inscripciones citadas en el capítulo"
+            sub="Como en el anexo §7.2, las que Crespo y Giannakis (2019) y Giannakis (2024a) tienen por mezclas y la tesis clasifica de otro modo (§4) y las demás, con su clasificación en la tesis; pulsa en cada grupo para desplegarlo">
+            <Anexo rows={OTRAS_MEZ} color={MEZ_INK} tint={MEZ} grupo={(r) => GRUPO_OTRAS_MEZ[r[0]]} orden={ORDEN_OTRAS_MEZ} />
+          </Sec>
+        )}
+        {anexo === "biblio" && <ComparacionBiblio />}
       </>}
     </ChapterLayout>
   );
@@ -421,9 +405,9 @@ const GRUPOS_MIN = {
     t: "Otros testimonios", sub: "rodio, textos no griegos y otras variedades", dialectos: ["Rodio", "Textos no griegos"], apartados: "§5", texto: <>
       El rodio de <Ref src="Lhôte" id="89Aa" /> (s. IV a.C.), la consulta del comerciante que Lhôte (2006: 186-188) atribuyó a una
       colonia siciliana, depende del infinitivo ἔμειν, que Méndez Dosuna (2007b: 143) explica como una errata; el χρῆυνται de{" "}
-      <Ref src="DVC" id="172A" />, cuyo único paralelo procede de Telos, se cuenta entre las no jónico-áticas. La única adscripción
-      segura del capítulo es la de <Ref src="DVC" id="27A" /> (principios del s. V a.C.), y lo es en sentido negativo: la secuencia no
-      puede leerse como griego. El ΑΠΟΡΕΙΤΑΝ de <Ref src="DVC" id="3977A" />, que los editores corrigen en un genitivo de los epirotas,
+      <Ref src="DVC" id="172A" />, cuyo único paralelo procede de Telos, se cuenta entre las no jónico-áticas. Que la secuencia de
+      <Ref src="DVC" id="27A" /> (principios del s. V a.C.) no sea griega es lo más probable, pero, como no se conoce la lengua en que
+      está escrita, la adscripción se cuenta como dudosa. El ΑΠΟΡΕΙΤΑΝ de <Ref src="DVC" id="3977A" />, que los editores corrigen en un genitivo de los epirotas,
       queda sin clasificar. El corintio, el jónico oriental y el eubeo, que la distribución de la tesis prevé aquí, se estudian en el
       dórico general, en el jónico y en la mezcla, como la consulta del eretrio Ὀνήριμος (<Ref src="DVC" id="2217A" />).
     </>,
@@ -496,8 +480,9 @@ function Minoritarios({ switcher, subnav }) {
           <Cifras total={TOTAL_MIN} cert={CERTEZA_MIN} color={MIN_INK} nombre="solo nombre o alfabeto" />
           <Card>
             <p style={PROSE}>
-              En todas la adscripción descansa en un solo rasgo, en un antropónimo o en el alfabeto. La única segura,{" "}
-              <Ref src="DVC" id="27A" />, lo es en sentido negativo; de las nueve dudosas, cinco unen el alfabeto aqueo a un rasgo no
+              En todas la adscripción descansa en un solo rasgo, en un antropónimo o en el alfabeto. Ninguna es segura: la que más se acerca,{" "}
+              <Ref src="DVC" id="27A" />, lo es solo en sentido negativo (que la secuencia no sea griega es lo más probable, pero no se conoce la lengua
+              en que está escrita) y se cuenta como dudosa; de las otras nueve dudosas, cinco unen el alfabeto aqueo a un rasgo no
               jónico-ático visible, dos descansan en una forma aislada de interpretación discutida y dos en indicios que solo apuntan a una región
               si se acepta una lectura concreta.
             </p>
@@ -633,7 +618,7 @@ function NoJonAt({ switcher, subnav }) {
         </>}
         {sub === "rasgos" && (
           <Sec title="Rasgos no jónico-áticos visibles en el grupo" sub={`Ámbito dialectal de cada rasgo y su documentación en las ${TOTAL_NJA} inscripciones`}
-            note="Sección de Buck (1955) en la primera columna; el ámbito de περ' y de τουτ- se discute en el capítulo. En los ejemplos, el número remite a I.Dodone DVC salvo indicación. Una inscripción puede figurar en varias filas.">
+            note="Sección de Buck (1955) en la primera columna; el ámbito de περ' y de τουτ- se discute en el capítulo. En los ejemplos, el número remite a I.Dodone DVC salvo indicación. Una inscripción puede figurar en varias filas, a diferencia de la tabla de dialectos compatibles (subpestaña siguiente), en la que cada inscripción figura en una sola.">
             <Table color={NJA_INK} rowHeader={1} head={["§", "Rasgo", "Ámbito dialectal", "Ejemplos", "Inscripciones"]}
               rows={RASGOS_NJA.map((r) => [
                 <span style={{ color: C.muted }}>{r.sec}</span>, <span style={{ fontFamily: "var(--fh)" }}>{renderGreekText(r.rasgo)}</span>,
@@ -645,7 +630,7 @@ function NoJonAt({ switcher, subnav }) {
         )}
         {sub === "compatibles" && <>
           <Sec title="Dialectos compatibles con los rasgos de cada inscripción" sub="Cruce de la distribución dialectal (Buck 1955) de todos los rasgos visibles de cada consulta"
-            note="Se consideran los dialectos con presencia segura en el corpus o en su entorno: el dórico en sentido amplio, el beocio, el tesalio (la Histiótide aparte, por κα), el lesbio y el arcadio-chipriota. Cada inscripción figura en una sola fila.">
+            note={`Se consideran los dialectos con presencia segura en el corpus o en su entorno: el dórico en sentido amplio, el beocio, el tesalio (la Histiótide aparte, por κα), el lesbio y el arcadio-chipriota. Cada inscripción figura en una sola fila, la que resulta de cruzar los ámbitos de todos sus rasgos. Por eso, de las ${ALFA_COMPAT_NJA.total} inscripciones con ᾱ de la subpestaña anterior, solo ${ALFA_COMPAT_NJA.filas[0].n} quedan en la primera fila (${ALFA_COMPAT_NJA.sola} en que la ᾱ es el único rasgo y ${ALFA_COMPAT_NJA.conPer} en que la acompaña περί elidido, a las que se suman ${ALFA_COMPAT_NJA.soloPer} con solo περί elidido). Las ${ALFA_COMPAT_NJA.total - ALFA_COMPAT_NJA.filas[0].n} restantes tienen además otro rasgo más restrictivo, como κα o πέρ, y figuran en la fila de ese rasgo.`}>
             <Bars horizontal data={COMPATIBLES_NJA.map((d) => ({ name: d.dialectos, value: d.n, color: NJA }))} height={440} left={280} />
           </Sec>
           <Sec title="Rasgos que determinan cada grupo">

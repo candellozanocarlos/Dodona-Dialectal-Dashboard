@@ -115,7 +115,7 @@ _e = ["ε" + CI, "ε" + PS + CI, "ε" + DA + CI, "ε" + M_, "ε" + M_ + AC, "ε"
 PUA = {0xE1B0 + i: v for i, v in enumerate(_e)} | {0xE548: "i\u032F", 0xE727: "u\u032F"}
 # Marcas de trabajo de los capítulos y figuras, que no se publican.
 TRABAJO = re.compile(r"\s*\[(?:VERIFICAR|CITA PENDIENTE|PENDIENTE)[^\]]*\]")
-PIE_FIGURA = re.compile(r"^(?:Figura|Tabla) \d+[.:]")
+PIE_FIGURA = re.compile(r"^(?:Figura|Tabla) \d+(?:[.:]|\s*$)")   # con título («Figura 29. …») o solo el número («Tabla 31»)
 
 
 def ptext(p, cursiva=False):

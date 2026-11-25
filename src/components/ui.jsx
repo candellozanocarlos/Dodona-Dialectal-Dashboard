@@ -155,10 +155,10 @@ export const GreekBlock = ({ title, children, size = 15 }) => (
 );
 
 // Apartados de un capítulo con su texto, desplegables: items = [{ sec, name, paras }].
-export const Secciones = ({ items, color = C.gold }) => (
+export const Secciones = ({ items, color = C.gold, abierto = false }) => (
   <div style={{ display: "grid", gap: 8 }}>
     {items.map((x) => (
-      <details key={x.sec} className="seccion" style={{ background: "rgba(255,252,245,0.6)", border: `1px solid ${C.border}`,
+      <details key={x.sec} open={abierto} className="seccion" style={{ background: "rgba(255,252,245,0.6)", border: `1px solid ${C.border}`,
         borderLeft: `3px solid ${color}`, borderRadius: "0 10px 10px 0", padding: "10px 16px" }}>
         <summary style={{ cursor: "pointer", fontFamily: "var(--fh)", fontSize: 14.5, color: C.heading }}>
           <span style={{ color, fontWeight: 700, marginRight: 8 }}>{x.sec}</span>{renderGreekText(x.name)}
