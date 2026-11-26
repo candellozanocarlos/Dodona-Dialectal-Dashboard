@@ -406,7 +406,7 @@ partes = [
     f"export const CHRONO_MIN = {J(DA.crono(G['min']))};",
     f"export const THEMES_MIN = {J(DA.temas(G['min']))};",
     f"export const ADSCRIPCION_MIN = {J(DA.filas_js('min'))};",
-    "// Las doce inscripciones (anexo 7.1), con el texto del Excel; certeza: s, d, n.",
+    "// Las trece inscripciones (anexo 7.1), con el texto del Excel; certeza: s, d, n.",
     f"export const INSCRIPCIONES_MIN = {J(INSC_MIN)};",
     f"// Texto de {DOC_MIN.stem}: §3-§6.",
     f"export const APARTADOS_MIN = {J(APARTADOS_MIN)};",

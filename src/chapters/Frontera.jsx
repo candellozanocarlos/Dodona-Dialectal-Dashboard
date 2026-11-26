@@ -393,8 +393,8 @@ const GRUPOS_MIN = {
     t: "Dialectos del Peloponeso", sub: "eleo, acayo, laconio", dialectos: ["Acayo", "Eleo"], apartados: "§4", texto: <>
       El acayo no se distingue en textos breves de los demás dialectos dóricos, y el único criterio es el alfabeto de las colonias de la
       Magna Grecia, con iota de tres trazos, san y delta redondeada: cinco consultas lo unen a un rasgo no jónico-ático visible, como{" "}
-      <Ref src="DVC" id="968A" /> (finales del s. VI a.C.), una de las más antiguas del corpus, y <Ref src="DVC" id="109A" /> se cuenta
-      solo por el alfabeto. Ninguna consulta conserva un rasgo eleo inequívoco: de las seis que los editores asignan al alfabeto de la
+      <Ref src="DVC" id="968A" /> (finales del s. VI a.C.), una de las más antiguas del corpus, y <Ref src="DVC" id="109A" /> y{" "}
+      <Ref src="DVC" id="2823B" /> se cuentan solo por el alfabeto. Ninguna consulta conserva un rasgo eleo inequívoco: de las seis que los editores asignan al alfabeto de la
       Élide, cinco son no jónico-áticas y <Ref src="DVC" id="1993A" />, con rasgos contrarios al eleo, se cuenta en el dórico general;
       quedan dos eleas dudosas, la ζ por δ de [Ἱ]πόζαμο&lt;ς&gt; en <Ref src="DVC" id="4145B" />, quizá de la frontera entre Acaya y la
       Élide, y μαστείι en <Ref src="Lhôte" id="29" />, que admite una explicación dórica. Las propuestas laconias no se sostienen.
@@ -413,7 +413,7 @@ const GRUPOS_MIN = {
   },
 };
 
-// Las doce inscripciones del capítulo, en el formato de los anexos ([clave, datación, texto, certeza, dialecto]).
+// Las trece inscripciones del capítulo, en el formato de los anexos ([clave, datación, texto, certeza, dialecto]).
 const ANEXO_MIN = INSCRIPCIONES_MIN.map((d) => [d.id, d.date, d.text, d.certeza, d.dialecto]);
 const ORDEN_MIN = ["Macedonio", "Eleo", "Acayo", "Rodio", "Textos no griegos"];
 
@@ -443,8 +443,8 @@ function Minoritarios({ switcher, subnav }) {
         <Sec title="Consultantes de regiones alejadas del santuario" sub="Variedades representadas por uno o dos textos">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
-              Doce inscripciones no pertenecen al jónico-ático, ni al dórico de las colonias corintias y del Noroeste, ni al tesalio o al
-              beocio: se reparten entre el acayo, con seis, el eleo y el macedonio, con dos cada uno, y el rodio, con una, y se cuenta con ellas
+              Trece inscripciones no pertenecen al jónico-ático, ni al dórico de las colonias corintias y del Noroeste, ni al tesalio o al
+              beocio: se reparten entre el acayo, con siete, el eleo y el macedonio, con dos cada uno, y el rodio, con una, y se cuenta con ellas
               una inscripción que no parece escrita en griego. Lhôte (2006) reconoció una consulta rodia, otra en alfabeto aqueo de la Magna
               Grecia y un texto que relacionó con el norpiceno, y dibujó un área de influencia del oráculo de la que quedaban fuera el
               Peloponeso y Macedonia; Méndez Dosuna (2018a: 266, 272) observa que la nueva edición apenas ha alterado ese mapa, aunque ha aportado
