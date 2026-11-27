@@ -453,25 +453,6 @@ function Minoritarios({ switcher, subnav }) {
             </p>
           </Card>
         </Sec>
-        <Sec title="Lo que mide el número de inscripciones">
-          <Card>
-            <p style={PROSE}>
-              La cifra mide la visibilidad de estos dialectos más que su presencia, y debe entenderse, como en la <i>Doris severior</i>, como un
-              límite inferior. Hasta finales del s. V a.C. los alfabetos epicóricos permiten reconocer a los consultantes, y por eso las consultas
-              aqueas y las atribuidas a la Élide se concentran en los ss. VI y V a.C.; con el alfabeto jónico esa vía desaparece, y como estos
-              dialectos comparten con el dórico del entorno la mayoría de los rasgos de las consultas ({g("ᾱ")}, {g("κα")}, {g("αἰ")}, las
-              contracciones de la fórmula), en el s. IV a.C. solo los antropónimos y alguna forma aislada delatan a sus hablantes.
-            </p>
-            <p style={{ ...PROSE, marginTop: 10 }}>
-              La relación entre el número de inscripciones y la importancia histórica de cada región es inversa en más de un caso: Macedonia, la
-              Élide o Esparta, con vínculos políticos o religiosos más estrechos con el santuario, son las que menos huella dialectal dejan,
-              mientras que los aqueos de la Magna Grecia, ausentes de las fuentes literarias sobre Dodona, son los más fáciles de reconocer
-              gracias a su alfabeto. Los testimonios dibujan sobre todo la red marítima del Occidente, la misma de las consultas en{" "}
-              <i>Doris severior</i>, y buena parte de estos consultantes debe de esconderse entre las inscripciones no jónico-áticas.
-            </p>
-          </Card>
-          <div style={{ marginTop: 12 }}><Secciones items={APARTADOS_MIN.filter((x) => x.sec === "§6")} color={MIN_INK} /></div>
-        </Sec>
       </>}
 
       {tab === "profile" && <>

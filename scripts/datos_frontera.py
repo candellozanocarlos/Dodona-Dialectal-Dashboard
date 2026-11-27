@@ -342,7 +342,7 @@ NUMEROS_MEZ = tramo(DOC_MEZ, "3. LA MEZCLA", "4. INSCRIPCIONES QUE NO MUESTRAN")
 for x in CONCEPTO_MEZ + NUMEROS_MEZ:
     x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
 assert [x["sec"] for x in CONCEPTO_MEZ] == ["§1", "§2.1", "§2.2", "§2.3"] and len(NUMEROS_MEZ) == 1, [x["sec"] for x in CONCEPTO_MEZ]
-APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "7. ANEXOS")
+APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "6. ANEXOS")   # desde la v57 el antiguo §6 está en las conclusiones (cap. 9.1)
 RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
 COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
 POR_QUE_NJA = tramo(DOC_NJA, "2. POR QU", "3. LAS INSCRIPCIONES")
@@ -408,7 +408,7 @@ partes = [
     f"export const ADSCRIPCION_MIN = {J(DA.filas_js('min'))};",
     "// Las trece inscripciones (anexo 7.1), con el texto del Excel; certeza: s, d, n.",
     f"export const INSCRIPCIONES_MIN = {J(INSC_MIN)};",
-    f"// Texto de {DOC_MIN.stem}: §3-§6.",
+    f"// Texto de {DOC_MIN.stem}: §3-§5.",
     f"export const APARTADOS_MIN = {J(APARTADOS_MIN)};",
     "",
     "// ── Cap. 15: las inscripciones no jónico-áticas (DIALECTO_MACRO = NO JON-ÁT); el anexo (§6: clave, datación, texto,",
