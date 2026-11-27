@@ -30,7 +30,9 @@ import { DIALECT_COLORS } from "../theme.js";
 // Fila 212, 25/11/2026 (revisión de la mezcla v110): 135A pasa del dórico general a la mezcla (solo nombre), 2939A sale de la mezcla
 // (sin clasificar) y Lhôte 141A pasa a dudosa: dórico general 185, mezcla 95 (36/48/11); global 1.460 (1.108/326/26).
 // Fila 213, 25/11/2026: 2823B pasa de sin clasificar a acaya de solo alfabeto, como 109A: Otros 13 (0/10/3); global 1.461 (1.108/326/27).
-export const TOTAL_CORPUS = 1461;
+// Fila 214, 27/11/2026 (revisión de OTROS_DIALECTOS v57): Lhôte 148 pasa de sin clasificar a acaya de solo alfabeto y 172A, de NO JON-ÁT
+// dudosa a segura: Otros 14 (0/10/4), NO JON-ÁT 841 (762/77/2); global 1.462 (1.109/325/28).
+export const TOTAL_CORPUS = 1462;
 
 // Inscripciones de cada capítulo.
 export const TOTAL_TES = 80; // 75 hasta el 23/10; entran como dudosas 1158B (23/10) y 1352A, 3034B y 995A (24/10, fila 164); 4162B, doble con el jónico (28/10, fila 176)
@@ -45,7 +47,7 @@ export const TOTAL_SEV = 16;
 export const TOTAL_DOR = 185;
 export const TOTAL_DOR_NO = 75;
 
-// Macrogrupos dialectales del corpus (suman TOTAL_CORPUS), de mayor a menor; DIALECTO_MACRO del Excel (25/11/2026, fila 213).
+// Macrogrupos dialectales del corpus (suman TOTAL_CORPUS), de mayor a menor; DIALECTO_MACRO del Excel (27/11/2026, fila 214).
 // Como en los gráficos de la tesis, el macrogrupo Dórico (261) se divide según DIALECTO_SUB en dórico general
 // (Doris mitior 183 + Dórico Magna Grecia 2 = 185) y noroccidental (Dórico NO, 75).
 // Fuente única de los gráficos “… en contexto” de todos los capítulos; cada macrogrupo lleva su color de DIALECT_COLORS.
@@ -58,7 +60,7 @@ export const MACROGRUPOS = [
   { name: "Tesalio", value: TOTAL_TES, color: DIALECT_COLORS.tesalio },
   { name: "Beocio", value: TOTAL_BEOC, color: DIALECT_COLORS.beocio },
   { name: "Doris severior", value: TOTAL_SEV, color: DIALECT_COLORS.severior },
-  { name: "Otros", value: 13, color: DIALECT_COLORS.otros },
+  { name: "Otros", value: 14, color: DIALECT_COLORS.otros },
 ].sort((a, b) => b.value - a.value);
 
 // Porcentaje del corpus dialectal con coma decimal: pct(75) → "5,0".

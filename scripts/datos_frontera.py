@@ -18,6 +18,7 @@ import re
 import sys
 import tempfile
 import unicodedata
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 import docx
@@ -62,6 +63,9 @@ import datos_adscripcion as DA  # noqa: E402
 from comun import PUA, TRABAJO, apartados, es_titulo, indices, parrafos, secciones  # noqa: E402
 
 DA.capitulos = lambda: A.CAPITULOS   # filas_js() lee las tablas de los tres capítulos, que no están en el AST
+# graficos_minoritarios parte la tabla 26 en dos imágenes (min_20 y min_20b, 27 nov. 2026); aquí se muestra entera
+if "min_b" in A.CAPITULOS:
+    A.CAPITULOS["min"] = dict(A.CAPITULOS["min"], filas=A.CAPITULOS["min"]["filas"] + A.CAPITULOS.pop("min_b")["filas"])
 J = lambda x: json.dumps(x, ensure_ascii=False)
 L = lambda s: " ".join(str(s).split())   # sin los saltos de línea de las tablas-imagen
 CERT = {"Seguro": "s", "Dudoso": "d", "Solo nombre/alfabeto": "n"}
@@ -322,6 +326,15 @@ ALFA_COMPAT = {"total": sum(por_fila), "sola": solo_alfa, "conPer": alfa_per, "s
 assert ALFA_COMPAT["total"] == next(r["n"] for r in RASGOS if r["rasgo"].startswith("ᾱ")), ALFA_COMPAT
 assert solo_alfa + alfa_per + solo_per == COMPAT[0]["n"] == por_fila[0] + solo_per, ALFA_COMPAT
 
+# Palabras legibles por inscripción en cada grupo (cap. 7.6, §2, figura nja_1_palabras): las mismas cifras que la figura.
+CLAVE_PAL = {"NO JON-ÁT": "noJonAt", "Dórico general": "dorico", "Dórico noroccidental": "doricoNO",
+             "Doris severior": "severior", "Tesalio": "tesalio", "Beocio": "beocio", "Jónico-Ático-Koiné": "jonicoAtico",
+             "Mezcla dialectal": "mezcla", "Otros": "otros", "Sin clasificar": "sin"}
+PALABRAS = [{"name": f"{NJA.NOMBRES_PAL.get(r.g, r.g)} ({r.n:,})".replace(",", "."), "clave": CLAVE_PAL[r.g], "n": int(r.n),
+             "value": float(Decimal(str(r.media)).quantize(Decimal("0.1"), ROUND_HALF_UP)), "mediana": int(r.mediana)}
+            for r in NJA.tabla_palabras(df).itertuples()]
+assert sum(p["n"] for p in PALABRAS) == len(df) and next(p for p in PALABRAS if p["clave"] == "noJonAt")["n"] == len(G["nja"])
+
 # ── Texto de los capítulos: apartados que la vista muestra desplegables ──
 def tramo(docx, inicio, fin):
     pars = parrafos(docx, tablas=False)
@@ -343,11 +356,11 @@ for x in CONCEPTO_MEZ + NUMEROS_MEZ:
     x["paras"] = [p for p in x["paras"] if not re.fullmatch(r"Tabla \d+", p)]
 assert [x["sec"] for x in CONCEPTO_MEZ] == ["§1", "§2.1", "§2.2", "§2.3"] and len(NUMEROS_MEZ) == 1, [x["sec"] for x in CONCEPTO_MEZ]
 APARTADOS_MIN = tramo(DOC_MIN, "3. EL MACEDONIO", "6. ANEXOS")   # desde la v57 el antiguo §6 está en las conclusiones (cap. 9.1)
-RASGOS_TXT_NJA = tramo(DOC_NJA, "4. LOS RASGOS", "5. LOS DIALECTOS")
-COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "5. LOS DIALECTOS", "6. ANEXO")
-POR_QUE_NJA = tramo(DOC_NJA, "2. POR QU", "3. LAS INSCRIPCIONES")
-for x in POR_QUE_NJA:   # la tabla del §4 del capítulo, que aquí es la de la subpestaña de los rasgos
-    x["paras"] = [p.replace("la tabla de rasgos", "la tabla del §4") for p in x["paras"]]
+RASGOS_TXT_NJA = tramo(DOC_NJA, "3. LOS RASGOS", "4. LOS DIALECTOS")
+COMPATIBLES_TXT_NJA = tramo(DOC_NJA, "4. LOS DIALECTOS", "5. ANEXO")
+POR_QUE_NJA = tramo(DOC_NJA, "1. INTRODUCCI", "2. LAS INSCRIPCIONES")   # desde la v38 el antiguo §2 está en el §1
+for x in POR_QUE_NJA:   # la tabla del §3 del capítulo, que aquí es la de la subpestaña de los rasgos
+    x["paras"] = [p.replace("la tabla de rasgos", "la tabla del §3") for p in x["paras"]]
 
 partes = [
     "// Generado por scripts/datos_frontera.py: no editar a mano.",
@@ -423,8 +436,11 @@ partes = [
     f"export const COMPATIBLES_NJA = {J(COMPAT)};",
     "// Las inscripciones con ᾱ según su fila en la tabla de dialectos compatibles (columna de rasgos del anexo).",
     f"export const ALFA_COMPAT_NJA = {J(ALFA_COMPAT)};",
+    "// Palabras legibles por inscripción en cada grupo (figura nja_1_palabras; criterio de palabras_legibles.py, sobre",
+    "// la columna Text de todo el Excel): media redondeada a un decimal, mediana y número de inscripciones.",
+    f"export const PALABRAS_NJA = {J(PALABRAS)};",
     f"export const ADSCRIPCION_NJA = {J(ADS_NJA)};",
-    f"// Texto de {DOC_NJA.stem}: §2, §4 y §5.",
+    f"// Texto de {DOC_NJA.stem}: §1, §3 y §4.",
     f"export const POR_QUE_NJA = {J(POR_QUE_NJA)};",
     f"export const RASGOS_TXT_NJA = {J(RASGOS_TXT_NJA)};",
     f"export const COMPATIBLES_TXT_NJA = {J(COMPATIBLES_TXT_NJA)};",

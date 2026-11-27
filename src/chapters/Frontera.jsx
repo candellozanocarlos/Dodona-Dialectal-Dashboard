@@ -2,18 +2,18 @@
 // inscripciones no jónico-áticas (export default, con un selector común como el del dórico). Los datos salen de
 // data/frontera.js (scripts/datos_frontera.py).
 import { useState } from "react";
-import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo } from "../theme.js";
+import { C, DIALECT_COLORS, DIALECT_INK, ORO, PROSE, colorSiglo, fade } from "../theme.js";
 import { MACROGRUPOS, TOTAL_CORPUS, miles, pct } from "../data/corpus.js";
 import { MOSTRAR_AUTOPSIAS } from "../sitio.js";
 import {
   ADSCRIPCION_MEZ, ADSCRIPCION_MIN, ADSCRIPCION_NJA, ALFA_COMPAT_NJA, ALF_MEZ_PIE, ALF_NJA_PIE, ANEXO_MEZ, APARENTES_MEZ, APARTADOS_MIN, BIBLIO_MEZ, CERTEZA_MEZ, CERTEZA_MIN,
   CERTEZA_NJA, CHRONO_MEZ, CHRONO_MIN, CHRONO_NJA, COMBINACIONES_MEZ, COMPATIBLES_NJA, COMPATIBLES_TXT_NJA, CONCEPTO_MEZ, DIALECTOS_MIN, DIVERGENCIAS_MEZ,
   EXPLICACIONES_MEZ, GRUPO_CYG_MEZ, GRUPO_OTRAS_MEZ, INSCRIPCIONES_MIN, NO_RECOGIDAS_MEZ, NUMEROS_MEZ, ORDEN_CYG_MEZ, ORDEN_OTRAS_MEZ, ORDEN_TIPOS_MEZ, OTRAS_MEZ,
-  POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPO_MEZ,
+  PALABRAS_NJA, POR_QUE_NJA, RASGOS_NJA, RASGOS_TXT_NJA, THEMES_MEZ, THEMES_MIN, THEMES_NJA, TIPO_MEZ,
   TIPOLOGIA_MEZ, TIPOS_MEZ, TOTAL_MEZ, TOTAL_MIN, TOTAL_NJA,
 } from "../data/frontera.js";
 import { renderDesc, renderGreekText } from "../lib/text.jsx";
-import { Bars, DonutLegend, Temas } from "../components/charts.jsx";
+import { Bars, ChartTip, DonutLegend, Temas } from "../components/charts.jsx";
 
 // Las autopsias no se publican: su resultado en la mezcla solo se carga en la versión local (MOSTRAR_AUTOPSIAS en
 // sitio.js), si existen sus datos.
@@ -383,39 +383,41 @@ const GRUPOS_MIN = {
       Dos consultas de la primera mitad del s. IV a.C., y en las dos el indicio decisivo es el nombre. En{" "}
       <Ref src="DVC" id="2493A" /> (principios del s. IV a.C.), Méndez Dosuna (2007g: 283-284) propuso el origen macedonio por exclusión
       y por los futuros ἔσσονται y ζώσοντι, que él mismo admitió después como posibles futuros dóricos encubiertos (2018a: 292); la
-      adscripción descansa sobre todo en Κεβάλιος, con la β por φ que los antiguos atribuían a los macedonios. En{" "}
+      adscripción descansa en Κεβάλιος, con la β por φ que los antiguos atribuían a los macedonios, unido a los rasgos que excluyen
+      el jónico-ático. En{" "}
       <Ref src="DVC" id="94" /> (primer cuarto del s. IV a.C.) solo hay un nombre, Ἄλβειος, forma macedonia de Ἀλφειός. El hipocorístico
-      Κέββας de <Ref src="DVC" id="480B" /> admite un origen macedonio o ilirio y queda sin clasificar. Los macedonios de la segunda mitad
-      del s. IV a.C. escribirían en koiné, y sus consultas no pueden distinguirse.
+      Κέββας de <Ref src="DVC" id="480B" /> admite un origen macedonio o ilirio y queda sin clasificar. Las consultas de los macedonios
+      de la segunda mitad del s. IV a.C. estarían escritas en koiné, y no pueden distinguirse.
     </>,
   },
   pel: {
     t: "Dialectos del Peloponeso", sub: "eleo, acayo, laconio", dialectos: ["Acayo", "Eleo"], apartados: "§4", texto: <>
       El acayo no se distingue en textos breves de los demás dialectos dóricos, y el único criterio es el alfabeto de las colonias de la
       Magna Grecia, con iota de tres trazos, san y delta redondeada: cinco consultas lo unen a un rasgo no jónico-ático visible, como{" "}
-      <Ref src="DVC" id="968A" /> (finales del s. VI a.C.), una de las más antiguas del corpus, y <Ref src="DVC" id="109A" /> y{" "}
-      <Ref src="DVC" id="2823B" /> se cuentan solo por el alfabeto. Ninguna consulta conserva un rasgo eleo inequívoco: de las seis que los editores asignan al alfabeto de la
+      <Ref src="DVC" id="968A" /> (finales del s. VI a.C.), una de las más antiguas del corpus, y <Ref src="DVC" id="109A" />,{" "}
+      <Ref src="DVC" id="2823B" /> y <Ref src="Lhôte" id="148" /> se cuentan solo por el alfabeto. Ninguna consulta conserva un rasgo eleo inequívoco: de las seis que los editores asignan al alfabeto de la
       Élide, cinco son no jónico-áticas y <Ref src="DVC" id="1993A" />, con rasgos contrarios al eleo, se cuenta en el dórico general;
       quedan dos eleas dudosas, la ζ por δ de [Ἱ]πόζαμο&lt;ς&gt; en <Ref src="DVC" id="4145B" />, quizá de la frontera entre Acaya y la
       Élide, y μαστείι en <Ref src="Lhôte" id="29" />, que admite una explicación dórica. Las propuestas laconias no se sostienen.
     </>,
   },
   otr: {
-    t: "Otros testimonios", sub: "rodio, textos no griegos y otras variedades", dialectos: ["Rodio", "Textos no griegos"], apartados: "§5", texto: <>
+    t: "Otros testimonios", sub: "rodio, secuencias no griegas y otras variedades", dialectos: ["Rodio", "Texto no griego"], apartados: "§5", texto: <>
       El rodio de <Ref src="Lhôte" id="89Aa" /> (s. IV a.C.), la consulta del comerciante que Lhôte (2006: 186-188) atribuyó a una
-      colonia siciliana, depende del infinitivo ἔμειν, que Méndez Dosuna (2007b: 143) explica como una errata; el χρῆυνται de{" "}
-      <Ref src="DVC" id="172A" />, cuyo único paralelo procede de Telos, se cuenta entre las no jónico-áticas. Que la secuencia de
-      <Ref src="DVC" id="27A" /> (principios del s. V a.C.) no sea griega es lo más probable, pero, como no se conoce la lengua en que
-      está escrita, la adscripción se cuenta como dudosa. El ΑΠΟΡΕΙΤΑΝ de <Ref src="DVC" id="3977A" />, que los editores corrigen en un genitivo de los epirotas,
-      queda sin clasificar. El corintio, el jónico oriental y el eubeo, que la distribución de la tesis prevé aquí, se estudian en el
+      colonia siciliana, depende del infinitivo ἔμειν, que Méndez Dosuna (2007b: 143) explica como una errata, aunque, tal como está
+      escrito, conserva la desinencia -μειν. La grafía χρῆυνται, en{" "}
+      <Ref src="DVC" id="172A" />, es de explicación discutida, y la consulta se cuenta entre las no jónico-áticas, como segura. Que la secuencia de{" "}
+      <Ref src="DVC" id="27A" /> (principios del s. V a.C.) no sea griega es una posibilidad sugerente, pero, como no se conoce la lengua en que
+      está escrita, la adscripción se cuenta como dudosa. La secuencia ΑΠΟΡΕΙΤΑΝ de <Ref src="DVC" id="3977A" />, una metátesis de ΑΠΕΙΡΟΤΑΝ,
+      queda sin clasificar porque su lectura exige corregir la palabra. El corintio, el jónico oriental y el eubeo, que la distribución de la tesis prevé aquí, se estudian en el
       dórico general, en el jónico y en la mezcla, como la consulta del eretrio Ὀνήριμος (<Ref src="DVC" id="2217A" />).
     </>,
   },
 };
 
-// Las trece inscripciones del capítulo, en el formato de los anexos ([clave, datación, texto, certeza, dialecto]).
+// Las catorce inscripciones del capítulo, en el formato de los anexos ([clave, datación, texto, certeza, dialecto]).
 const ANEXO_MIN = INSCRIPCIONES_MIN.map((d) => [d.id, d.date, d.text, d.certeza, d.dialecto]);
-const ORDEN_MIN = ["Macedonio", "Eleo", "Acayo", "Rodio", "Textos no griegos"];
+const ORDEN_MIN = ["Macedonio", "Eleo", "Acayo", "Rodio", "Texto no griego"];
 
 function Minoritarios({ switcher, subnav }) {
   const [tab, setTab] = useState("context");
@@ -425,7 +427,7 @@ function Minoritarios({ switcher, subnav }) {
   return (
     <ChapterLayout switcher={switcher} subnav={subnav} color={MIN_INK} accent={[C.terra, MIN, C.blue, C.green]}
       title={<><em style={{ fontWeight: 700, color: MIN_INK }}>Otros dialectos</em> en las laminillas oraculares de Dodona</>}
-      subtitle="Macedonio, eleo, acayo, rodio y textos no griegos · El alcance del oráculo más allá del Epiro"
+      subtitle="Macedonio, eleo, acayo, rodio y secuencias no griegas · El alcance del oráculo más allá del Epiro"
       stats={<>
         <Stat label="Inscripciones" value={String(TOTAL_MIN)} sub="ss. VI–IV a.C." accent={MIN_INK} />
         <Stat label="Corpus dialectal" value={`${pct(TOTAL_MIN)} %`} sub={`${TOTAL_MIN} de ${miles(TOTAL_CORPUS)}`} accent={C.terra} />
@@ -443,8 +445,8 @@ function Minoritarios({ switcher, subnav }) {
         <Sec title="Consultantes de regiones alejadas del santuario" sub="Variedades representadas por uno o dos textos">
           <Card style={{ padding: "18px 22px" }}>
             <p style={BIG}>
-              Trece inscripciones no pertenecen al jónico-ático, ni al dórico de las colonias corintias y del Noroeste, ni al tesalio o al
-              beocio: se reparten entre el acayo, con siete, el eleo y el macedonio, con dos cada uno, y el rodio, con una, y se cuenta con ellas
+              Catorce inscripciones no pertenecen al jónico-ático, ni al dórico de las colonias corintias y del Noroeste, ni al tesalio o al
+              beocio: se reparten entre el acayo, con ocho, el eleo y el macedonio, con dos cada uno, y el rodio, con una, y se cuenta con ellas
               una inscripción que no parece escrita en griego. Lhôte (2006) reconoció una consulta rodia, otra en alfabeto aqueo de la Magna
               Grecia y un texto que relacionó con el norpiceno, y dibujó un área de influencia del oráculo de la que quedaban fuera el
               Peloponeso y Macedonia; Méndez Dosuna (2018a: 266, 272) observa que la nueva edición apenas ha alterado ese mapa, aunque ha aportado
@@ -461,10 +463,10 @@ function Minoritarios({ switcher, subnav }) {
           <Card>
             <p style={PROSE}>
               En todas la adscripción descansa en un solo rasgo, en un antropónimo o en el alfabeto. Ninguna es segura: la que más se acerca,{" "}
-              <Ref src="DVC" id="27A" />, lo es solo en sentido negativo (que la secuencia no sea griega es lo más probable, pero no se conoce la lengua
-              en que está escrita) y se cuenta como dudosa; de las otras nueve dudosas, cinco unen el alfabeto aqueo a un rasgo no
-              jónico-ático visible, dos descansan en una forma aislada de interpretación discutida y dos en indicios que solo apuntan a una región
-              si se acepta una lectura concreta.
+              <Ref src="DVC" id="27A" />, lo es solo en sentido negativo (que la secuencia no sea griega es una posibilidad sugerente, pero no se conoce la lengua
+              en que está escrita) y se cuenta como dudosa; de las otras nueve dudosas, seis unen un indicio de procedencia, el alfabeto aqueo
+              o el antropónimo con la β macedonia de <Ref src="DVC" id="2493A" />, a un rasgo no jónico-ático visible, y tres descansan en una
+              forma aislada de interpretación discutida.
             </p>
           </Card>
         </Sec>
@@ -541,17 +543,20 @@ function NoJonAt({ switcher, subnav }) {
               Con {TOTAL_NJA} inscripciones, el {pct(TOTAL_NJA)} % de las que presentan características dialectales, las no jónico-áticas
               reúnen las consultas que documentan al menos un rasgo ajeno al jónico-ático y a la koiné, pero ninguno que permita atribuirlas a un
               dialecto concreto. La bibliografía atribuye al dórico la mayor parte de las laminillas (Crespo y Giannakis 2019: 48; Giannakis
-              2024a: 43; Méndez Dosuna 2024, §4), pero reconoce que en muchas la identificación del dialecto resulta muy difícil o imposible, y
-              ya Lhôte (2006: 363-379) reservó un grupo propio para el dórico de procedencia indeterminada. La categoría no contradice que el
-              dórico predomine en el corpus: separa lo que puede demostrarse de lo que solo resulta probable.
+              2024a: 43; Méndez Dosuna 2018b: 34; 2024, §4.1), pero se trata de un dórico en sentido amplio. Méndez Dosuna (2018b: 36-37) lo
+              reconoce por catorce rasgos, como la ᾱ de τύχα, αἰ o κα, de los que, salvo el futuro dórico, ninguno es exclusivo del griego
+              occidental, y Crespo y Giannakis (2019: 49) cuentan como dóricas también las consultas breves cuya variedad no puede
+              determinarse. Esta tesis solo atribuye al dórico las consultas con un rasgo que excluya el eolio, de modo que muchas de las que la
+              bibliografía tiene por dóricas se cuentan aquí entre las no jónico-áticas. La categoría no contradice que el dórico predomine en
+              el corpus: separa lo que puede demostrarse de lo que solo resulta probable.
             </p>
           </Card>
         </Sec>
         <Sec title="Por qué hay tantas inscripciones no jónico-áticas">
           {[
-            ["El método", <>El criterio de los rasgos que excluyen el eolio trasladó a este grupo 242 consultas que la clasificación de partida atribuía al dórico, y la revisión de las inscripciones sin clasificar añadió más de cuatrocientas: 582 de las {TOTAL_NJA} carecían de clasificación al comienzo del trabajo. El criterio de la apócope πέρ retiró, en cambio, treinta y una consultas en que πέρ precede a una laguna.</>],
-            ["El estado de los textos", <>Con una media de 3,6 palabras legibles por inscripción y una mediana de dos, quedan por debajo del jónico-ático y la koiné (4,6), del tesalio (4,7) y del dórico general (5,1), y muy lejos de la mezcla (7,5). Una invocación como Ζεῦ Νᾶε καὶ Διώνα (<Ref src="DVC" id="81B" />, mediados del s. IV a.C.) o una pregunta reducida a κα [- - -] (<Ref src="DVC" id="2888B" />, segunda mitad del s. V a.C.) excluyen el jónico-ático, pero no ofrecen ningún otro dato.</>],
-            ["La naturaleza de los rasgos", <>Los más frecuentes son conservaciones que el jónico-ático perdió y que comparten los demás dialectos: 634 inscripciones (el 75,4 %) presentan un único tipo de rasgo, y las fórmulas aportan buena parte de ellos, pues en 122 (el 14,5 %) τύχα, ἀγαθά o Διώνα son los únicos rasgos visibles.</>],
+            ["El criterio de adscripción", <>Además de un rasgo que excluya el resto de dialectos, esta tesis exige que sea visible y de lectura segura, de modo que las consultas cuyo único rasgo depende de letras restituidas, como πέρ ante una laguna que puede ocultar περί, quedan sin clasificar.</>],
+            ["El estado de los textos", <>Con una media de 3,6 palabras legibles por inscripción y una mediana de dos, solo superan a las inscripciones sin clasificar (0,8) y quedan por debajo de todos los grupos dialectales, desde el beocio (4,4) y el dórico general (5,1) hasta la mezcla (7,6), el dórico noroccidental (8,5) y la <i>Doris severior</i> (11,9). Una invocación como Ζεῦ Νᾶε καὶ Διώνα (<Ref src="DVC" id="81B" />, mediados del s. IV a.C.) o una pregunta reducida a κα [- - -] (<Ref src="DVC" id="2888B" />, segunda mitad del s. V a.C.) excluyen el jónico-ático, pero no ofrecen ningún otro dato.</>],
+            ["La naturaleza de los rasgos", <>Los más frecuentes son conservaciones que el jónico-ático perdió y que comparten los demás dialectos, las mismas que la bibliografía toma como indicios del dórico: 685 inscripciones (el 81,5 %) presentan al menos uno de los rasgos que enumera Méndez Dosuna (2018b: 36-37). En 634 (el 75,4 %) hay un único tipo de rasgo, y las fórmulas aportan buena parte de ellos, pues en 122 (el 14,5 %) τύχα, ἀγαθά o Διώνα son los únicos rasgos visibles.</>],
           ].map(([t, d]) => (
             <Card key={t} accent={NJA}>
               <div style={{ fontFamily: "var(--fh)", fontSize: 14.5, fontWeight: 700, color: NJA_INK, marginBottom: 6 }}>{t}</div>
@@ -559,6 +564,15 @@ function NoJonAt({ switcher, subnav }) {
             </Card>
           ))}
           <div style={{ marginTop: 12 }}><Secciones items={POR_QUE_NJA} color={NJA_INK} /></div>
+        </Sec>
+        <Sec title="Palabras legibles por inscripción en cada grupo dialectal"
+          sub={`Media por inscripción; la mediana, al pasar el cursor (n = ${miles(PALABRAS_NJA.reduce((a, d) => a + d.n, 0))} inscripciones)`}
+          note="Se cuentan las palabras de dos o más letras que se leen completas, sin letras restituidas ni inseguras; las secuencias sin descifrar no se cuentan como palabras.">
+          <Bars horizontal height={420} left={210} unit="palabras de media" highlight={PALABRAS_NJA.find((d) => d.clave === "noJonAt").name}
+            format={(v) => String(v).replace(".", ",")}
+            data={PALABRAS_NJA.map((d) => ({ ...d, color: d.clave === "noJonAt" ? NJA_INK : fade(DIALECT_COLORS[d.clave] || "#c9c1b0", 0.45) }))}
+            tooltip={(bar) => <ChartTip label={bar.indexValue} value={String(bar.value).replace(".", ",")} color={bar.data.clave === "noJonAt" ? NJA_INK : C.muted}
+              unit="palabras de media" extra={`Mediana: ${bar.data.mediana}`} />} />
         </Sec>
       </>}
 
@@ -610,7 +624,7 @@ function NoJonAt({ switcher, subnav }) {
         )}
         {sub === "compatibles" && <>
           <Sec title="Dialectos compatibles con los rasgos de cada inscripción" sub="Cruce de la distribución dialectal (Buck 1955) de todos los rasgos visibles de cada consulta"
-            note={`Se consideran los dialectos con presencia segura en el corpus o en su entorno: el dórico en sentido amplio, el beocio, el tesalio (la Histiótide aparte, por κα), el lesbio y el arcadio-chipriota. Cada inscripción figura en una sola fila, la que resulta de cruzar los ámbitos de todos sus rasgos. Por eso, de las ${ALFA_COMPAT_NJA.total} inscripciones con ᾱ de la subpestaña anterior, solo ${ALFA_COMPAT_NJA.filas[0].n} quedan en la primera fila (${ALFA_COMPAT_NJA.sola} en que la ᾱ es el único rasgo y ${ALFA_COMPAT_NJA.conPer} en que la acompaña περί elidido, a las que se suman ${ALFA_COMPAT_NJA.soloPer} con solo περί elidido). Las ${ALFA_COMPAT_NJA.total - ALFA_COMPAT_NJA.filas[0].n} restantes tienen además otro rasgo más restrictivo, como κα o πέρ, y figuran en la fila de ese rasgo.`}>
+            note={`Se consideran los dialectos con presencia segura en el corpus o en su entorno: el dórico en todas sus variedades, el beocio, el tesalio (la Histiótide aparte, por κα), el lesbio y el arcadio-chipriota. Cada inscripción figura en una sola fila, la que resulta de cruzar los ámbitos de todos sus rasgos. Por eso, de las ${ALFA_COMPAT_NJA.total} inscripciones con ᾱ de la subpestaña anterior, solo ${ALFA_COMPAT_NJA.filas[0].n} quedan en la primera fila (${ALFA_COMPAT_NJA.sola} en que la ᾱ es el único rasgo y ${ALFA_COMPAT_NJA.conPer} en que la acompaña περί elidido, a las que se suman ${ALFA_COMPAT_NJA.soloPer} con solo περί elidido). Las ${ALFA_COMPAT_NJA.total - ALFA_COMPAT_NJA.filas[0].n} restantes tienen además otro rasgo más restrictivo, como κα o πέρ, y figuran en la fila de ese rasgo.`}>
             <Bars horizontal data={COMPATIBLES_NJA.map((d) => ({ name: d.dialectos, value: d.n, color: NJA }))} height={440} left={280} />
           </Sec>
           <Sec title="Rasgos que determinan cada grupo">
